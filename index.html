@@ -1158,24 +1158,36 @@
             }
         }
 
-        /* Cards explode into view with dramatic entrance */
+        /* Cards explode into view with dramatic entrance - one by one */
         #hallModal .hall-card {
             opacity: 0;
             transform: scale(0);
         }
 
         #hallModal.active .hall-card {
-            animation: cardExplosion 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            animation: cardExplosion 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
         #hallModal.active .hall-card:nth-child(1) {
-            animation-delay: 1.2s;
+            animation-delay: 2s;
         }
         #hallModal.active .hall-card:nth-child(2) {
-            animation-delay: 1.4s;
+            animation-delay: 2.5s;
         }
         #hallModal.active .hall-card:nth-child(3) {
-            animation-delay: 1.6s;
+            animation-delay: 3s;
+        }
+        #hallModal.active .hall-card:nth-child(4) {
+            animation-delay: 3.5s;
+        }
+        #hallModal.active .hall-card:nth-child(5) {
+            animation-delay: 4s;
+        }
+        #hallModal.active .hall-card:nth-child(6) {
+            animation-delay: 4.5s;
+        }
+        #hallModal.active .hall-card:nth-child(7) {
+            animation-delay: 5s;
         }
 
         @keyframes cardExplosion {
@@ -1567,6 +1579,72 @@
                 opacity: 1;
             }
             95% {
+                opacity: 1;
+            }
+            100% {
+                top: 100%;
+                opacity: 0;
+            }
+        }
+
+        /* Hall of Fame Scanner - Slower and more dramatic */
+        .hall-scanner {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg,
+                transparent 0%,
+                rgba(218, 165, 32, 0.3) 20%,
+                rgba(218, 165, 32, 0.9) 50%,
+                rgba(218, 165, 32, 0.3) 80%,
+                transparent 100%);
+            box-shadow:
+                0 0 30px rgba(218, 165, 32, 0.9),
+                0 0 60px rgba(218, 165, 32, 0.5),
+                0 2px 80px rgba(218, 165, 32, 0.7);
+            animation: hallScan 25s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 15;
+        }
+
+        .hall-scanner::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(180deg,
+                rgba(218, 165, 32, 0.2) 0%,
+                rgba(218, 165, 32, 0.08) 50%,
+                transparent 100%);
+            filter: blur(25px);
+            transform: translateY(-50px);
+        }
+
+        .hall-scanner::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(180deg,
+                transparent 0%,
+                rgba(218, 165, 32, 0.08) 50%,
+                rgba(218, 165, 32, 0.2) 100%);
+            filter: blur(25px);
+            transform: translateY(3px);
+        }
+
+        @keyframes hallScan {
+            0% {
+                top: 0;
+                opacity: 0;
+            }
+            3% {
+                opacity: 1;
+            }
+            97% {
                 opacity: 1;
             }
             100% {
@@ -2591,6 +2669,9 @@
                 <div class="frame-accent" style="width: 85%; height: 85%; top: 7.5%; left: 7.5%; animation-delay: 2s;"></div>
             </div>
 
+            <!-- Hall of Fame Scanner -->
+            <div class="hall-scanner"></div>
+
             <button class="close-btn" onclick="closeModal('hallModal')" aria-label="Close">×</button>
             <button class="back-btn" onclick="closeModal('hallModal')" aria-label="Back">
                 <span>← Back</span>
@@ -2605,7 +2686,7 @@
                     <div class="corner-accent"></div>
                     <div class="hall-rank">4</div>
                     <div class="hall-avatar">
-                        <img src="affiliate-profile-pics/Neolawyer_NLinker777.jpg" alt="Neolawyer" onerror="this.parentElement.innerHTML='NL'">
+                        <img src="affiliate-profile-pics/DJ_nlinker777.jpg" alt="Neolawyer" onerror="this.parentElement.innerHTML='NL'">
                     </div>
                     <h3 class="hall-name">Neolawyer</h3>
                     <p class="hall-handle">@NLinker777</p>
@@ -2618,7 +2699,7 @@
                     <div class="corner-accent"></div>
                     <div class="hall-rank">5</div>
                     <div class="hall-avatar">
-                        <img src="affiliate-profile-pics/spennypretzel_SpennyCrypto.jpg" alt="spennypretzel" onerror="this.parentElement.innerHTML='SP'">
+                        <img src="affiliate-profile-pics/Spenny_spennycrypto.jpg" alt="spennypretzel" onerror="this.parentElement.innerHTML='SP'">
                     </div>
                     <h3 class="hall-name">spennypretzel</h3>
                     <p class="hall-handle">@SpennyCrypto</p>
@@ -2631,7 +2712,7 @@
                     <div class="corner-accent"></div>
                     <div class="hall-rank">6</div>
                     <div class="hall-avatar">
-                        <img src="affiliate-profile-pics/slavicbased_slavicbased.jpg" alt="slavicbased" onerror="this.parentElement.innerHTML='SB'">
+                        <img src="affiliate-profile-pics/Slavicbased_basedsnipez.jpg" alt="slavicbased" onerror="this.parentElement.innerHTML='SB'">
                     </div>
                     <h3 class="hall-name">slavicbased</h3>
                     <p class="hall-handle">@slavicbased</p>
@@ -2644,7 +2725,7 @@
                     <div class="corner-accent"></div>
                     <div class="hall-rank">7</div>
                     <div class="hall-avatar">
-                        <img src="affiliate-profile-pics/arrieindewarrie_arindewar.jpg" alt="arrieindewarrie" onerror="this.parentElement.innerHTML='AR'">
+                        <img src="affiliate-profile-pics/Arindewar_arindewar.jpg" alt="arrieindewarrie" onerror="this.parentElement.innerHTML='AR'">
                     </div>
                     <h3 class="hall-name">arrieindewarrie</h3>
                     <p class="hall-handle">@arindewar</p>
@@ -2657,7 +2738,7 @@
                     <div class="corner-accent"></div>
                     <div class="hall-rank">8</div>
                     <div class="hall-avatar">
-                        <img src="affiliate-profile-pics/I_Love_Dogs21_I_Love_Dogs21.jpg" alt="I_Love_Dogs21" onerror="this.parentElement.innerHTML='IL'">
+                        IL
                     </div>
                     <h3 class="hall-name">I_Love_Dogs21</h3>
                     <p class="hall-handle">@I_Love_Dogs21</p>
@@ -2670,7 +2751,7 @@
                     <div class="corner-accent"></div>
                     <div class="hall-rank">9</div>
                     <div class="hall-avatar">
-                        <img src="affiliate-profile-pics/Vanxyrus_Vanxyrus.jpg" alt="Vanxyrus" onerror="this.parentElement.innerHTML='VX'">
+                        <img src="affiliate-profile-pics/Mj_vanxyrus.jpg" alt="Vanxyrus" onerror="this.parentElement.innerHTML='VX'">
                     </div>
                     <h3 class="hall-name">Vanxyrus</h3>
                     <p class="hall-handle">@Vanxyrus</p>
@@ -2683,7 +2764,7 @@
                     <div class="corner-accent"></div>
                     <div class="hall-rank">10</div>
                     <div class="hall-avatar">
-                        <img src="affiliate-profile-pics/chironthetrader_chironthetrader.jpg" alt="chironthetrader" onerror="this.parentElement.innerHTML='CT'">
+                        <img src="affiliate-profile-pics/Chiron_chironchain.jpg" alt="chironthetrader" onerror="this.parentElement.innerHTML='CT'">
                     </div>
                     <h3 class="hall-name">Zeus</h3>
                     <p class="hall-handle">@vlagudfsfjr</p>
@@ -2833,7 +2914,7 @@
                         <td>
                             <div class="table-name-cell">
                                 <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/Neolawyer_NLinker777.jpg" alt="Neolawyer" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='N'">
+                                    <img src="affiliate-profile-pics/DJ_nlinker777.jpg" alt="Neolawyer" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='N'">
                                 </div>
                                 <div>
                                     <div class="table-name">Neolawyer</div>
@@ -2851,7 +2932,7 @@
                         <td>
                             <div class="table-name-cell">
                                 <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/spennypretzel_SpennyCrypto.jpg" alt="spennypretzel" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='S'">
+                                    <img src="affiliate-profile-pics/Spenny_spennycrypto.jpg" alt="spennypretzel" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='S'">
                                 </div>
                                 <div>
                                     <div class="table-name">spennypretzel</div>
@@ -2869,7 +2950,7 @@
                         <td>
                             <div class="table-name-cell">
                                 <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/slavicbased_slavicbased.jpg" alt="slavicbased" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='S'">
+                                    <img src="affiliate-profile-pics/Slavicbased_basedsnipez.jpg" alt="slavicbased" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='S'">
                                 </div>
                                 <div>
                                     <div class="table-name">slavicbased</div>
@@ -2887,7 +2968,7 @@
                         <td>
                             <div class="table-name-cell">
                                 <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/arrieindewarrie_arindewar.jpg" alt="arrieindewarrie" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='A'">
+                                    <img src="affiliate-profile-pics/Arindewar_arindewar.jpg" alt="arrieindewarrie" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='A'">
                                 </div>
                                 <div>
                                     <div class="table-name">arrieindewarrie</div>
@@ -2923,7 +3004,7 @@
                         <td>
                             <div class="table-name-cell">
                                 <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/Vanxyrus_Vanxyrus.jpg" alt="Vanxyrus" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='V'">
+                                    <img src="affiliate-profile-pics/Mj_vanxyrus.jpg" alt="Vanxyrus" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='V'">
                                 </div>
                                 <div>
                                     <div class="table-name">Vanxyrus</div>
@@ -2941,7 +3022,7 @@
                         <td>
                             <div class="table-name-cell">
                                 <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/chironthetrader_chironthetrader.jpg" alt="chironthetrader" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='C'">
+                                    <img src="affiliate-profile-pics/Chiron_chironchain.jpg" alt="chironthetrader" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='C'">
                                 </div>
                                 <div>
                                     <div class="table-name">chironthetrader</div>
@@ -3339,23 +3420,41 @@
             osc.stop(audioCtx.currentTime + 0.1);
         }
 
-        // Power Up (achievement)
+        // Gentle Achievement Chime (softer, more pleasant)
         function playPowerUp() {
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
+            // First tone - soft and warm
+            const osc1 = audioCtx.createOscillator();
+            const gain1 = audioCtx.createGain();
 
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
+            osc1.connect(gain1);
+            gain1.connect(audioCtx.destination);
 
-            osc.type = 'square';
-            osc.frequency.setValueAtTime(300, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(900, audioCtx.currentTime + 0.4);
+            osc1.type = 'sine';
+            osc1.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
 
-            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+            gain1.gain.setValueAtTime(0, audioCtx.currentTime);
+            gain1.gain.linearRampToValueAtTime(0.06, audioCtx.currentTime + 0.02);
+            gain1.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.6);
 
-            osc.start(audioCtx.currentTime);
-            osc.stop(audioCtx.currentTime + 0.4);
+            osc1.start(audioCtx.currentTime);
+            osc1.stop(audioCtx.currentTime + 0.6);
+
+            // Second tone - harmonic
+            const osc2 = audioCtx.createOscillator();
+            const gain2 = audioCtx.createGain();
+
+            osc2.connect(gain2);
+            gain2.connect(audioCtx.destination);
+
+            osc2.type = 'sine';
+            osc2.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1); // E5
+
+            gain2.gain.setValueAtTime(0, audioCtx.currentTime + 0.1);
+            gain2.gain.linearRampToValueAtTime(0.05, audioCtx.currentTime + 0.12);
+            gain2.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.7);
+
+            osc2.start(audioCtx.currentTime + 0.1);
+            osc2.stop(audioCtx.currentTime + 0.7);
         }
 
         // Mute functionality
