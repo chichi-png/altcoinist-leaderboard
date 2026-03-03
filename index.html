@@ -1062,6 +1062,34 @@
             transform: scale(1.12) rotate(90deg);
         }
 
+        /* Back Button */
+        .back-btn {
+            position: absolute;
+            top: var(--space-6);
+            left: var(--space-6);
+            padding: var(--space-3) var(--space-6);
+            border-radius: var(--radius-lg);
+            background: var(--gray-900);
+            border: 2px solid var(--cyan-bright);
+            color: var(--cyan-bright);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all var(--transition-base);
+            box-shadow: 0 0 30px var(--glow-cyan), var(--shadow-lg);
+            z-index: 10;
+        }
+
+        .back-btn:hover {
+            background: var(--cyan-bright);
+            color: var(--black);
+            box-shadow: 0 0 50px var(--glow-cyan), var(--shadow-xl);
+            transform: translateX(-4px);
+        }
+
         /* Modal Titles */
         .modal-title {
             font-size: clamp(2.5rem, 6vw, 4.5rem);
@@ -1792,7 +1820,7 @@
         <div class="particle" style="width: 60px; height: 60px; top: 78%; right: 18%; --x: -35px; --y: 45px; animation-duration: 8s;"></div>
 
         <h1 class="landing-title">Top Performers</h1>
-        <p class="landing-subtitle">Congratulations to our elite affiliates 🚀</p>
+        <!-- Subtitle removed per user request -->
 
         <!-- Top 3 Podium -->
         <div class="podium">
@@ -1904,10 +1932,10 @@
 
         <div class="action-buttons">
             <button class="btn" onclick="openHallOfFame()">
-                <span>🏆 Hall of Fame (4-10)</span>
+                <span>Hall of Fame</span>
             </button>
             <button class="btn" onclick="openFullLeaderboard()">
-                <span>📊 Full Leaderboard</span>
+                <span>Full Leaderboard</span>
             </button>
         </div>
     </section>
@@ -1934,9 +1962,11 @@
             </div>
 
             <button class="close-btn" onclick="closeModal('hallModal')" aria-label="Close">×</button>
+            <button class="back-btn" onclick="closeModal('hallModal')" aria-label="Back">
+                <span>← Back</span>
+            </button>
 
             <h2 class="modal-title">Hall of Fame</h2>
-            <p class="modal-subtitle">Ranks 4-10 • Click for details 🔥</p>
 
             <div class="hall-grid">
                 <!-- Rank 4 -->
@@ -2081,6 +2111,9 @@
             </div>
 
             <button class="close-btn" onclick="closeModal('leaderboardModal')" aria-label="Close">×</button>
+            <button class="back-btn" onclick="closeModal('leaderboardModal')" aria-label="Back">
+                <span>← Back</span>
+            </button>
 
             <h2 class="modal-title">Full Leaderboard</h2>
             <p class="modal-subtitle">All affiliates ranked by performance 📈</p>
