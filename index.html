@@ -664,10 +664,13 @@
             font-weight: 800;
             letter-spacing: -0.03em;
             margin-bottom: var(--space-2);
-            color: white;
+            color: var(--cyan-bright);
             text-align: center;
             position: relative;
             transition: all var(--transition-base);
+            text-shadow:
+                0 0 12px var(--glow-cyan),
+                0 0 24px rgba(0, 243, 255, 0.4);
         }
 
         .podium-card:hover .affiliate-name {
@@ -1250,6 +1253,72 @@
             }
         }
 
+        /* Slow Body Scanner (Full Leaderboard) */
+        .body-scanner {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg,
+                transparent 0%,
+                rgba(0, 243, 255, 0.3) 20%,
+                rgba(0, 243, 255, 0.8) 50%,
+                rgba(0, 243, 255, 0.3) 80%,
+                transparent 100%);
+            box-shadow:
+                0 0 20px rgba(0, 243, 255, 0.8),
+                0 0 40px rgba(0, 243, 255, 0.4),
+                0 2px 60px rgba(0, 243, 255, 0.6);
+            animation: scanSlow 12s linear infinite;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .body-scanner::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: linear-gradient(180deg,
+                rgba(0, 243, 255, 0.15) 0%,
+                rgba(0, 243, 255, 0.05) 50%,
+                transparent 100%);
+            filter: blur(20px);
+            transform: translateY(-40px);
+        }
+
+        .body-scanner::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: linear-gradient(180deg,
+                transparent 0%,
+                rgba(0, 243, 255, 0.05) 50%,
+                rgba(0, 243, 255, 0.15) 100%);
+            filter: blur(20px);
+            transform: translateY(4px);
+        }
+
+        @keyframes scanSlow {
+            0% {
+                top: 0;
+                opacity: 0;
+            }
+            5% {
+                opacity: 1;
+            }
+            95% {
+                opacity: 1;
+            }
+            100% {
+                top: 100%;
+                opacity: 0;
+            }
+        }
+
         /* Close Button */
         .close-btn {
             position: absolute;
@@ -1297,7 +1366,8 @@
             font-weight: 600;
             transition: all var(--transition-base);
             box-shadow: 0 0 30px var(--glow-cyan), var(--shadow-lg);
-            z-index: 10;
+            z-index: 100;
+            text-shadow: 0 0 10px var(--glow-cyan);
         }
 
         .back-btn:hover {
@@ -1313,19 +1383,26 @@
             font-weight: 900;
             letter-spacing: -0.04em;
             margin-bottom: var(--space-4);
-            background: linear-gradient(135deg, var(--cyan-bright) 0%, var(--teal-bright) 50%, var(--green-primary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--cyan-bright);
             text-align: center;
+            text-shadow:
+                0 0 20px var(--glow-cyan),
+                0 0 40px var(--glow-cyan),
+                0 0 60px rgba(0, 243, 255, 0.5),
+                0 0 80px rgba(0, 243, 255, 0.3);
+            filter: drop-shadow(0 0 30px var(--cyan-bright));
         }
 
         .modal-subtitle {
             font-size: 1.25rem;
-            color: var(--teal);
+            color: var(--cyan-bright);
             text-align: center;
             margin-bottom: var(--space-16);
             font-weight: 500;
+            text-shadow:
+                0 0 15px var(--glow-cyan),
+                0 0 30px rgba(0, 243, 255, 0.6),
+                0 0 45px rgba(0, 243, 255, 0.4);
         }
 
         /* Hall of Fame Grid */
@@ -1636,14 +1713,19 @@
             text-align: center;
             margin-bottom: var(--space-2);
             letter-spacing: -0.03em;
+            color: var(--cyan-bright);
+            text-shadow:
+                0 0 15px var(--glow-cyan),
+                0 0 30px rgba(0, 243, 255, 0.5);
         }
 
         .popup-handle {
             font-size: 1.1rem;
-            color: var(--cyan);
+            color: var(--cyan-bright);
             text-align: center;
             margin-bottom: var(--space-10);
             font-weight: 500;
+            text-shadow: 0 0 10px var(--glow-cyan);
         }
 
         .popup-stats {
@@ -1789,12 +1871,15 @@
         .table-name {
             font-weight: 700;
             font-size: 1.05rem;
+            color: var(--cyan-bright);
+            text-shadow: 0 0 8px var(--glow-cyan);
         }
 
         .table-handle {
             font-size: 0.9rem;
-            color: var(--teal);
+            color: var(--cyan);
             font-weight: 500;
+            text-shadow: 0 0 5px rgba(0, 243, 255, 0.4);
         }
 
         .table-stat {
@@ -2366,6 +2451,9 @@
                 <div class="trophy-orb" style="bottom: 30%; left: 25%; animation-delay: 4s;"></div>
             </div>
 
+            <!-- Slow Body Scanner -->
+            <div class="body-scanner"></div>
+
             <button class="close-btn" onclick="closeModal('leaderboardModal')" aria-label="Close">×</button>
             <button class="back-btn" onclick="closeModal('leaderboardModal')" aria-label="Back">
                 <span>← Back</span>
@@ -2609,25 +2697,25 @@
         const audioCtx = new AudioContext();
         let isMuted = false;
 
-        // Sound Generator Functions
-        function playSound(soundName) {
+        // Sound Generator Functions with Variations
+        function playSound(soundName, variant = 0) {
             if (isMuted) return;
 
             switch(soundName) {
                 case 'button-click':
-                    playDigitalBeep();
+                    playDigitalBeep(variant);
                     break;
                 case 'modal-open':
-                    playWhooshUp();
+                    playWhooshUp(variant);
                     break;
                 case 'modal-close':
                     playWhooshDown();
                     break;
                 case 'card-click':
-                    playLaserZap();
+                    playLaserZap(variant);
                     break;
                 case 'hover':
-                    playSubtleBlip();
+                    playSubtleBlip(Math.random());
                     break;
                 case 'popup-open':
                     playElectronicUp();
@@ -2641,15 +2729,17 @@
             }
         }
 
-        // Digital Beep (button clicks)
-        function playDigitalBeep() {
+        // Digital Beep with pitch variation
+        function playDigitalBeep(variant = 0) {
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
 
             osc.connect(gain);
             gain.connect(audioCtx.destination);
 
-            osc.frequency.value = 800;
+            // Vary pitch based on variant
+            const pitches = [700, 800, 900, 1000, 850];
+            osc.frequency.value = pitches[variant % pitches.length];
             osc.type = 'square';
             gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
             gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
@@ -2658,8 +2748,8 @@
             osc.stop(audioCtx.currentTime + 0.1);
         }
 
-        // Whoosh Up (modal open)
-        function playWhooshUp() {
+        // Whoosh Up with variation (modal open)
+        function playWhooshUp(variant = 0) {
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
             const filter = audioCtx.createBiquadFilter();
@@ -2669,8 +2759,11 @@
             gain.connect(audioCtx.destination);
 
             osc.type = 'sawtooth';
-            osc.frequency.setValueAtTime(200, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(800, audioCtx.currentTime + 0.3);
+            // Different starting frequencies for variety
+            const startFreqs = [200, 250, 180, 220];
+            const endFreqs = [800, 900, 750, 850];
+            osc.frequency.setValueAtTime(startFreqs[variant % startFreqs.length], audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(endFreqs[variant % endFreqs.length], audioCtx.currentTime + 0.3);
 
             filter.type = 'lowpass';
             filter.frequency.value = 2000;
@@ -2701,8 +2794,8 @@
             osc.stop(audioCtx.currentTime + 0.2);
         }
 
-        // Laser Zap (card clicks)
-        function playLaserZap() {
+        // Laser Zap with rank variation (card clicks)
+        function playLaserZap(rank = 1) {
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
 
@@ -2710,7 +2803,9 @@
             gain.connect(audioCtx.destination);
 
             osc.type = 'sawtooth';
-            osc.frequency.setValueAtTime(1200, audioCtx.currentTime);
+            // Higher ranks get higher pitches
+            const startFreq = 1200 + (rank * 50);
+            osc.frequency.setValueAtTime(startFreq, audioCtx.currentTime);
             osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.15);
 
             gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
@@ -2720,15 +2815,16 @@
             osc.stop(audioCtx.currentTime + 0.15);
         }
 
-        // Subtle Blip (hover)
-        function playSubtleBlip() {
+        // Subtle Blip with random variation (hover)
+        function playSubtleBlip(randomFactor = 0.5) {
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
 
             osc.connect(gain);
             gain.connect(audioCtx.destination);
 
-            osc.frequency.value = 600;
+            // Random pitch variation
+            osc.frequency.value = 500 + (randomFactor * 300);
             osc.type = 'sine';
             gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
             gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
@@ -2809,7 +2905,7 @@
             const modal = document.getElementById('hallModal');
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
-            playSound('modal-open');
+            playSound('modal-open', 1); // Variant 1 for Hall of Fame
             playSound('achievement');
         }
 
@@ -2817,7 +2913,7 @@
             const modal = document.getElementById('leaderboardModal');
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
-            playSound('modal-open');
+            playSound('modal-open', 2); // Variant 2 for Full Leaderboard
         }
 
         function closeModal(modalId) {
@@ -2862,8 +2958,8 @@
                 setTimeout(() => particle.remove(), 700);
             }
 
-            // Play sounds
-            playSound('card-click');
+            // Play sounds with rank variation
+            playSound('card-click', rank);
             playSound('particle-burst');
 
             // Show detail popup after animation starts
