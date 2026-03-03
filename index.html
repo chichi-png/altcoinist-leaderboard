@@ -484,32 +484,32 @@
             z-index: 10;
         }
 
-        /* Podium reveal sequence: 2nd → 1st → 3rd (like real awards ceremony) */
+        /* Podium reveal sequence: 2nd → 1st → 3rd (like real awards ceremony) - SLOWER */
         .podium-card:nth-child(1) {
-            animation-delay: 1.2s;  /* Rank 1 - The champion appears second */
+            animation-delay: 1.8s;  /* Rank 1 - The champion appears second (slower) */
             order: 2;
         }
 
         .podium-card:nth-child(1)::after {
-            animation-delay: 2.4s;  /* Scan after card appears */
+            animation-delay: 3.8s;  /* Scan after card appears */
         }
 
         .podium-card:nth-child(2) {
-            animation-delay: 0.5s;  /* Rank 2 - Runner-up appears first */
+            animation-delay: 0.6s;  /* Rank 2 - Runner-up appears first */
             order: 1;
         }
 
         .podium-card:nth-child(2)::after {
-            animation-delay: 1.7s;
+            animation-delay: 2.6s;
         }
 
         .podium-card:nth-child(3) {
-            animation-delay: 1.9s;  /* Rank 3 - Third place appears last */
+            animation-delay: 3s;  /* Rank 3 - Third place appears last (slower) */
             order: 3;
         }
 
         .podium-card:nth-child(3)::after {
-            animation-delay: 3.1s;
+            animation-delay: 5.6s;
         }
 
         /* Dramatic rising entrance with particles */
@@ -566,15 +566,15 @@
         }
 
         .podium-card:nth-child(1) {
-            animation-delay: 1.2s, 2.7s;
+            animation-delay: 1.8s, 3.6s;
         }
 
         .podium-card:nth-child(2) {
-            animation-delay: 0.5s, 2s;
+            animation-delay: 0.6s, 2.4s;
         }
 
         .podium-card:nth-child(3) {
-            animation-delay: 1.9s, 3.4s;
+            animation-delay: 3s, 5.4s;
         }
 
         @keyframes subtleGlitch {
@@ -904,6 +904,24 @@
             border-radius: var(--radius-lg);
             transition: all var(--transition-base);
             box-shadow: var(--shadow-inner);
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        /* Sequential stat reveal animation */
+        .score-row.reveal {
+            animation: statReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes statReveal {
+            0% {
+                opacity: 0;
+                transform: translateX(-20px) scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
         }
 
         .score-row:hover {
@@ -3785,31 +3803,51 @@
             requestAnimationFrame(update);
         }
 
-        // Trigger count-up when podium cards appear
+        // Trigger sequential stat reveal when podium cards appear
         const statsObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const card = entry.target;
-                    const delay = parseFloat(getComputedStyle(card).animationDelay) * 1000;
+                    const cardDelay = parseFloat(getComputedStyle(card).animationDelay) * 1000;
 
                     setTimeout(() => {
                         // Get rank from card class
                         const rank = card.classList.contains('rank-1') ? 1 :
                                     (card.classList.contains('rank-2') ? 2 : 3);
 
-                        // Animate all stat numbers in this card
-                        const statValues = card.querySelectorAll('.score-value');
-                        statValues.forEach((stat, index) => {
-                            const targetValue = parseInt(stat.textContent.replace(/,/g, ''));
-                            if (!isNaN(targetValue)) {
-                                // Different duration for each stat for staggered effect
-                                animateValue(stat, 0, targetValue, 1000 + (index * 200));
-                            }
+                        // Get all score rows in this card
+                        const scoreRows = card.querySelectorAll('.score-row');
+
+                        // Reveal each stat row one by one
+                        scoreRows.forEach((row, index) => {
+                            setTimeout(() => {
+                                // Add reveal class to trigger fade-in animation
+                                row.classList.add('reveal');
+
+                                // Start count-up animation for this stat
+                                const statValue = row.querySelector('.score-value');
+                                if (statValue) {
+                                    const targetValue = parseInt(statValue.textContent.replace(/,/g, ''));
+                                    if (!isNaN(targetValue)) {
+                                        // Slower count-up: 1.5 seconds per stat
+                                        setTimeout(() => {
+                                            animateValue(statValue, 0, targetValue, 1500);
+                                        }, 300); // Start counting 300ms after row appears
+                                    }
+                                }
+
+                                // Play soft blip sound for each stat reveal
+                                playSubtleBlip(0.3);
+
+                            }, index * 700); // 700ms delay between each stat (slower)
                         });
 
-                        // Play rank-specific victory fanfare
-                        playVictoryFanfare(rank);
-                    }, delay + 800); // Start counting after card fully appears
+                        // Play rank-specific victory fanfare after all stats revealed
+                        setTimeout(() => {
+                            playVictoryFanfare(rank);
+                        }, scoreRows.length * 700 + 500);
+
+                    }, cardDelay + 1000); // Start stats reveal 1s after card appears
 
                     statsObserver.unobserve(card);
                 }
