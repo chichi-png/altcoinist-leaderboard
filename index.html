@@ -293,6 +293,70 @@
             letter-spacing: 0.02em;
         }
 
+        /* Matrix-Style Falling Code (Landing Page Only) */
+        .landing .matrix-column {
+            position: absolute;
+            top: -100%;
+            width: 2px;
+            height: 100vh;
+            opacity: 0.6;
+            animation: matrixFall linear infinite;
+            pointer-events: none;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: var(--cyan-bright);
+            text-shadow: 0 0 8px var(--glow-cyan);
+            white-space: nowrap;
+            overflow: hidden;
+            writing-mode: vertical-lr;
+        }
+
+        @keyframes matrixFall {
+            0% {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.4;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        /* Neon Streaks (Landing Page) */
+        .landing .neon-streak {
+            position: absolute;
+            width: 2px;
+            height: 150px;
+            background: linear-gradient(180deg, transparent, var(--cyan-bright), transparent);
+            opacity: 0;
+            animation: streakFall linear infinite;
+            box-shadow: 0 0 10px var(--glow-cyan);
+            pointer-events: none;
+        }
+
+        @keyframes streakFall {
+            0% {
+                top: -150px;
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 0.6;
+            }
+            100% {
+                top: 100vh;
+                opacity: 0;
+            }
+        }
+
         /* Top 3 Podium */
         .podium {
             display: grid;
@@ -1797,6 +1861,25 @@
 
     <!-- Landing Page -->
     <section class="landing">
+        <!-- Matrix Falling Code -->
+        <div class="matrix-column" style="left: 5%; animation-duration: 8s; animation-delay: 0s;">01010111010</div>
+        <div class="matrix-column" style="left: 15%; animation-duration: 10s; animation-delay: 2s;">REFERRAL▸◂</div>
+        <div class="matrix-column" style="left: 25%; animation-duration: 9s; animation-delay: 4s;">$MEME▸◂◂</div>
+        <div class="matrix-column" style="left: 35%; animation-duration: 11s; animation-delay: 1s;">TRADER▸001</div>
+        <div class="matrix-column" style="left: 45%; animation-duration: 8.5s; animation-delay: 3s;">01BEST▸▸▸</div>
+        <div class="matrix-column" style="left: 55%; animation-duration: 10.5s; animation-delay: 0.5s;">CRYPTO▸◂01</div>
+        <div class="matrix-column" style="left: 65%; animation-duration: 9.5s; animation-delay: 2.5s;">▸HUB◂01010</div>
+        <div class="matrix-column" style="left: 75%; animation-duration: 11.5s; animation-delay: 1.5s;">ALTCOIN▸◂</div>
+        <div class="matrix-column" style="left: 85%; animation-duration: 8.8s; animation-delay: 3.5s;">010ELITE▸</div>
+        <div class="matrix-column" style="left: 95%; animation-duration: 10.2s; animation-delay: 0.8s;">◂▸TOKEN01</div>
+
+        <!-- Neon Streaks -->
+        <div class="neon-streak" style="left: 10%; animation-duration: 3s; animation-delay: 0s;"></div>
+        <div class="neon-streak" style="left: 30%; animation-duration: 4s; animation-delay: 1s;"></div>
+        <div class="neon-streak" style="left: 50%; animation-duration: 3.5s; animation-delay: 2s;"></div>
+        <div class="neon-streak" style="left: 70%; animation-duration: 4.5s; animation-delay: 0.5s;"></div>
+        <div class="neon-streak" style="left: 90%; animation-duration: 3.8s; animation-delay: 1.5s;"></div>
+
         <!-- Spotlights -->
         <div class="spotlight spotlight-1"></div>
         <div class="spotlight spotlight-2"></div>
