@@ -1017,84 +1017,124 @@
             overflow: hidden;
             pointer-events: none;
             z-index: 0;
-            opacity: 0.8;
+            background: radial-gradient(ellipse at center, rgba(15, 15, 15, 0.7) 0%, rgba(10, 10, 10, 0.95) 100%);
         }
 
-        /* Hexagon Grid Pattern */
-        .hex-grid {
+        /* Gallery Walls with 3D Perspective */
+        .gallery-wall {
             position: absolute;
-            inset: 0;
-            background-image:
-                linear-gradient(30deg, transparent 38%, rgba(0, 243, 255, 0.06) 38%, rgba(0, 243, 255, 0.06) 62%, transparent 62%),
-                linear-gradient(90deg, transparent 38%, rgba(0, 255, 204, 0.06) 38%, rgba(0, 255, 204, 0.06) 62%, transparent 62%),
-                linear-gradient(150deg, transparent 38%, rgba(56, 255, 147, 0.06) 38%, rgba(56, 255, 147, 0.06) 62%, transparent 62%);
-            background-size: 90px 156px;
-            animation: hexShift 25s linear infinite;
+            height: 100%;
+            width: 400px;
+            background: linear-gradient(90deg,
+                rgba(30, 30, 35, 0.8) 0%,
+                rgba(20, 20, 25, 0.9) 50%,
+                rgba(15, 15, 20, 0.95) 100%);
+            border: 1px solid rgba(0, 243, 255, 0.1);
+            box-shadow:
+                inset 0 0 100px rgba(0, 0, 0, 0.8),
+                inset 0 0 50px rgba(0, 243, 255, 0.05);
         }
 
-        @keyframes hexShift {
-            from { background-position: 0 0, 0 0, 0 0; }
-            to { background-position: 90px 156px, 0 156px, 90px 0; }
+        .gallery-wall.left {
+            left: -100px;
+            transform: perspective(1200px) rotateY(30deg);
+            transform-origin: right center;
         }
 
-        /* Scanning Lines */
-        .scan-lines {
+        .gallery-wall.right {
+            right: -100px;
+            transform: perspective(1200px) rotateY(-30deg);
+            transform-origin: left center;
+        }
+
+        /* Gallery Floor - Wooden/Elegant Pattern */
+        .gallery-floor {
             position: absolute;
-            inset: 0;
-            background: linear-gradient(
-                to bottom,
-                transparent 48%,
-                rgba(0, 243, 255, 0.04) 48%,
-                rgba(0, 243, 255, 0.04) 52%,
-                transparent 52%
-            );
-            background-size: 100% 6px;
-            animation: scanMove 10s linear infinite;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%) perspective(800px) rotateX(70deg);
+            width: 80%;
+            height: 600px;
+            background:
+                repeating-linear-gradient(90deg,
+                    rgba(40, 35, 30, 0.3) 0px,
+                    rgba(45, 40, 35, 0.35) 5px,
+                    rgba(40, 35, 30, 0.3) 10px
+                ),
+                linear-gradient(180deg,
+                    transparent 0%,
+                    rgba(0, 243, 255, 0.05) 50%,
+                    transparent 100%);
+            border: 2px solid rgba(0, 243, 255, 0.15);
+            box-shadow: 0 50px 150px rgba(0, 0, 0, 0.9);
+            pointer-events: none;
         }
 
-        @keyframes scanMove {
-            from { background-position: 0 0; }
-            to { background-position: 0 100%; }
-        }
-
-        /* Data Stream Effect */
-        .data-stream {
+        /* Gallery Spotlights from Ceiling */
+        .gallery-spotlight {
             position: absolute;
-            width: 3px;
-            height: 120px;
-            background: linear-gradient(to bottom, transparent, var(--cyan-bright), transparent);
-            opacity: 0.7;
-            animation: streamFall linear infinite;
-            border-radius: 2px;
+            top: -50px;
+            width: 250px;
+            height: 800px;
+            background: linear-gradient(180deg,
+                rgba(0, 243, 255, 0.2) 0%,
+                rgba(0, 243, 255, 0.08) 30%,
+                rgba(0, 243, 255, 0.02) 60%,
+                transparent 100%);
+            filter: blur(50px);
+            transform-origin: top center;
+            animation: spotlightSway 10s ease-in-out infinite;
+            pointer-events: none;
         }
 
-        @keyframes streamFall {
-            from {
-                transform: translateY(-120px);
-                opacity: 0;
+        @keyframes spotlightSway {
+            0%, 100% {
+                transform: translateX(-15px);
+                opacity: 0.6;
             }
             50% {
-                opacity: 0.9;
-            }
-            to {
-                transform: translateY(calc(100vh + 120px));
-                opacity: 0;
+                transform: translateX(15px);
+                opacity: 0.8;
             }
         }
 
-        /* Circuit Lines */
-        .circuit-line {
+        /* Ambient Light Particles (subtle) */
+        .light-particle {
             position: absolute;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--teal-bright), transparent);
-            opacity: 0.4;
-            animation: circuitPulse 4s ease-in-out infinite;
-            border-radius: 1px;
+            width: 4px;
+            height: 4px;
+            background: var(--cyan-bright);
+            border-radius: 50%;
+            opacity: 0;
+            animation: particleFloat 8s ease-in-out infinite;
+            box-shadow: 0 0 10px var(--glow-cyan);
         }
 
-        @keyframes circuitPulse {
+        @keyframes particleFloat {
+            0%, 100% {
+                opacity: 0;
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                opacity: 0.6;
+                transform: translateY(-100px) scale(1.5);
+            }
+        }
+
+        /* Picture Frame Accent Lines */
+        .frame-accent {
+            position: absolute;
+            border: 2px solid rgba(218, 165, 32, 0.2);
+            box-shadow:
+                inset 0 0 30px rgba(218, 165, 32, 0.1),
+                0 0 20px rgba(218, 165, 32, 0.15);
+            pointer-events: none;
+            animation: frameGlow 6s ease-in-out infinite;
+        }
+
+        @keyframes frameGlow {
             0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.7; }
+            50% { opacity: 0.6; }
         }
 
         /* Close Button */
@@ -2028,20 +2068,29 @@
         <div class="modal-content" onclick="event.stopPropagation()">
             <!-- Cyber Background -->
             <div class="hall-background">
-                <div class="hex-grid"></div>
-                <div class="scan-lines"></div>
-                <!-- Data Streams -->
-                <div class="data-stream" style="left: 8%; animation-duration: 3.5s; animation-delay: 0s;"></div>
-                <div class="data-stream" style="left: 22%; animation-duration: 4.5s; animation-delay: 1.2s;"></div>
-                <div class="data-stream" style="left: 42%; animation-duration: 4s; animation-delay: 0.6s;"></div>
-                <div class="data-stream" style="left: 58%; animation-duration: 5s; animation-delay: 1.8s;"></div>
-                <div class="data-stream" style="left: 76%; animation-duration: 4.2s; animation-delay: 0.9s;"></div>
-                <div class="data-stream" style="left: 92%; animation-duration: 4.8s; animation-delay: 2.4s;"></div>
-                <!-- Circuit Lines -->
-                <div class="circuit-line" style="width: 45%; top: 18%; left: 8%; animation-delay: 0s;"></div>
-                <div class="circuit-line" style="width: 35%; top: 38%; right: 12%; animation-delay: 1.2s;"></div>
-                <div class="circuit-line" style="width: 55%; top: 58%; left: 18%; animation-delay: 0.6s;"></div>
-                <div class="circuit-line" style="width: 40%; top: 78%; right: 8%; animation-delay: 1.8s;"></div>
+                <!-- Gallery Walls -->
+                <div class="gallery-wall left"></div>
+                <div class="gallery-wall right"></div>
+
+                <!-- Gallery Floor -->
+                <div class="gallery-floor"></div>
+
+                <!-- Gallery Spotlights -->
+                <div class="gallery-spotlight" style="left: 15%; animation-delay: 0s;"></div>
+                <div class="gallery-spotlight" style="left: 35%; animation-delay: 3s;"></div>
+                <div class="gallery-spotlight" style="left: 50%; animation-delay: 1.5s;"></div>
+                <div class="gallery-spotlight" style="left: 65%; animation-delay: 4.5s;"></div>
+                <div class="gallery-spotlight" style="left: 85%; animation-delay: 2s;"></div>
+
+                <!-- Light Particles -->
+                <div class="light-particle" style="left: 20%; top: 30%; animation-delay: 0s;"></div>
+                <div class="light-particle" style="left: 40%; top: 50%; animation-delay: 2s;"></div>
+                <div class="light-particle" style="left: 60%; top: 40%; animation-delay: 4s;"></div>
+                <div class="light-particle" style="left: 80%; top: 60%; animation-delay: 6s;"></div>
+
+                <!-- Frame Accents -->
+                <div class="frame-accent" style="width: 90%; height: 90%; top: 5%; left: 5%; animation-delay: 0s;"></div>
+                <div class="frame-accent" style="width: 85%; height: 85%; top: 7.5%; left: 7.5%; animation-delay: 2s;"></div>
             </div>
 
             <button class="close-btn" onclick="closeModal('hallModal')" aria-label="Close">×</button>
