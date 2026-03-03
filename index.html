@@ -1,0 +1,2459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Affiliate Leaderboard - Altcoinist</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Design Tokens - Enhanced Cyber Theme */
+        :root {
+            --green-primary: #38ff93;
+            --green-secondary: #6fffb3;
+            --green-tertiary: #aeffd3;
+            --cyan-bright: #00f3ff;
+            --cyan: #00d9ff;
+            --cyan-dark: #00bfff;
+            --teal-bright: #00ffcc;
+            --teal: #00e5cc;
+            --teal-dark: #00ccb3;
+            --blue-electric: #0099ff;
+            --blue-bright: #00aaff;
+            --blue-light: #33bbff;
+            --black: #0a0a0a;
+            --gray-950: #0f0f0f;
+            --gray-900: #1a1a1a;
+            --gray-850: #1f1f1f;
+            --gray-800: #262626;
+            --gray-700: #333333;
+            --gray-600: #404040;
+
+            /* Enhanced Glows */
+            --glow-green: rgba(56, 255, 147, 0.5);
+            --glow-cyan: rgba(0, 243, 255, 0.6);
+            --glow-teal: rgba(0, 255, 204, 0.5);
+            --glow-blue: rgba(0, 153, 255, 0.5);
+
+            /* Shadows */
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.6);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+            --shadow-lg: 0 10px 24px rgba(0, 0, 0, 0.6);
+            --shadow-xl: 0 20px 48px rgba(0, 0, 0, 0.7);
+            --shadow-inner: inset 0 2px 8px rgba(0, 0, 0, 0.4);
+
+            /* Spacing */
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.25rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-10: 2.5rem;
+            --space-12: 3rem;
+            --space-16: 4rem;
+            --space-20: 5rem;
+            --space-24: 6rem;
+
+            /* Border Radius */
+            --radius-sm: 0.5rem;
+            --radius-md: 0.75rem;
+            --radius-lg: 1rem;
+            --radius-xl: 1.5rem;
+            --radius-2xl: 2rem;
+            --radius-full: 9999px;
+
+            /* Transitions */
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-smooth: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 600ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Reset & Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--black);
+            color: white;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            position: relative;
+            scroll-behavior: smooth;
+        }
+
+        /* Global Cyber Background */
+        .cyber-bg {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Enhanced Grid */
+        .bg-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(to right, rgba(0, 243, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 243, 255, 0.04) 1px, transparent 1px);
+            background-size: 40px 40px;
+            animation: gridPulse 10s ease-in-out infinite;
+        }
+
+        @keyframes gridPulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Diagonal Lines */
+        .diagonal-lines {
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 80px,
+                rgba(0, 243, 255, 0.02) 80px,
+                rgba(0, 243, 255, 0.02) 81px
+            );
+        }
+
+        /* Ambient Glows */
+        .ambient-glow {
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            border-radius: 50%;
+            filter: blur(100px);
+            animation: ambientFloat 20s ease-in-out infinite;
+        }
+
+        .ambient-glow.glow-1 {
+            top: -300px;
+            left: -300px;
+            background: radial-gradient(circle, var(--glow-cyan) 0%, transparent 70%);
+            animation-delay: 0s;
+        }
+
+        .ambient-glow.glow-2 {
+            bottom: -300px;
+            right: -300px;
+            background: radial-gradient(circle, var(--glow-green) 0%, transparent 70%);
+            animation-delay: 7s;
+        }
+
+        .ambient-glow.glow-3 {
+            top: 40%;
+            right: -200px;
+            background: radial-gradient(circle, var(--glow-teal) 0%, transparent 70%);
+            width: 600px;
+            height: 600px;
+            animation-delay: 14s;
+        }
+
+        @keyframes ambientFloat {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.3;
+            }
+            33% {
+                transform: translate(100px, -80px) scale(1.15);
+                opacity: 0.5;
+            }
+            66% {
+                transform: translate(-80px, 100px) scale(0.95);
+                opacity: 0.4;
+            }
+        }
+
+        /* Mute Button */
+        .mute-btn {
+            position: fixed;
+            top: var(--space-6);
+            right: var(--space-6);
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-xl);
+            background: var(--gray-900);
+            border: 2px solid var(--gray-700);
+            color: var(--cyan-bright);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: all var(--transition-base);
+            box-shadow: var(--shadow-lg), var(--shadow-inner);
+            font-size: 1.5rem;
+        }
+
+        .mute-btn:hover {
+            background: var(--gray-800);
+            border-color: var(--cyan-bright);
+            box-shadow: 0 0 40px var(--glow-cyan), var(--shadow-xl);
+            transform: scale(1.08);
+        }
+
+        .mute-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Landing Page */
+        .landing {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-8) var(--space-6);
+            position: relative;
+            z-index: 1;
+        }
+
+        .landing-title {
+            font-size: clamp(2.5rem, 7vw, 6rem);
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            margin-bottom: var(--space-4);
+            background: linear-gradient(135deg, var(--cyan-bright) 0%, var(--teal-bright) 50%, var(--green-primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+            animation: titleEntrance 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+
+        .landing-title::before {
+            content: 'Top Performers';
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            background: linear-gradient(135deg, var(--cyan-bright) 0%, var(--teal-bright) 50%, var(--green-primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0.4;
+            animation: glitchEffect 8s infinite;
+            clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+        }
+
+        @keyframes glitchEffect {
+            0%, 90%, 100% {
+                transform: translate(0);
+                opacity: 0;
+            }
+            92% {
+                transform: translate(-3px, 2px);
+                opacity: 0.6;
+                clip-path: polygon(0 0, 100% 0, 100% 35%, 0 40%);
+            }
+            94% {
+                transform: translate(2px, -2px);
+                opacity: 0.5;
+                clip-path: polygon(0 60%, 100% 55%, 100% 100%, 0 100%);
+            }
+            96% {
+                transform: translate(-2px, 1px);
+                opacity: 0.4;
+            }
+        }
+
+        @keyframes titleEntrance {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+                filter: blur(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0);
+            }
+        }
+
+        .landing-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            color: var(--teal);
+            font-weight: 500;
+            margin-bottom: var(--space-16);
+            text-align: center;
+            animation: titleEntrance 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+            letter-spacing: 0.02em;
+        }
+
+        /* Top 3 Podium */
+        .podium {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-10);
+            max-width: 1300px;
+            width: 100%;
+            margin-bottom: var(--space-16);
+            position: relative;
+            z-index: 2;
+        }
+
+        .podium-card {
+            background: linear-gradient(135deg, var(--gray-950) 0%, var(--gray-900) 100%);
+            border: 2px solid var(--gray-700);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-10) var(--space-8);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            transition: all var(--transition-smooth);
+            animation: cardEntrance 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+            box-shadow: var(--shadow-xl), var(--shadow-inner);
+            will-change: transform, box-shadow;
+        }
+
+        .podium-card:active {
+            transform: scale(0.98);
+        }
+
+        .podium-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, transparent 100%);
+            pointer-events: none;
+        }
+
+        /* Removed scanline from ::after to avoid conflict with corner accents */
+
+        .podium-card:nth-child(1) {
+            animation-delay: 0.3s;
+            order: 2;
+        }
+
+        .podium-card:nth-child(2) {
+            animation-delay: 0.4s;
+            order: 1;
+        }
+
+        .podium-card:nth-child(3) {
+            animation-delay: 0.5s;
+            order: 3;
+        }
+
+        @keyframes cardEntrance {
+            from {
+                opacity: 0;
+                transform: translateY(60px) scale(0.92);
+                filter: blur(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        /* Rank 1 - Cyan Champion */
+        .podium-card.rank-1 {
+            border-color: var(--cyan-bright);
+            box-shadow: 0 0 60px var(--glow-cyan), var(--shadow-xl);
+            transform: scale(1.08);
+        }
+
+        .podium-card.rank-1:hover {
+            transform: translateY(-12px) scale(1.1);
+            box-shadow: 0 0 80px var(--glow-cyan), var(--shadow-xl);
+        }
+
+        .podium-card.rank-1 .card-glow {
+            background: linear-gradient(135deg, var(--cyan-bright), var(--teal-bright));
+            opacity: 0.35;
+            animation: glowPulse 3s ease-in-out infinite;
+        }
+
+        /* Rank 2 - Teal */
+        .podium-card.rank-2 {
+            border-color: var(--teal-bright);
+            box-shadow: 0 0 50px var(--glow-teal), var(--shadow-lg);
+        }
+
+        .podium-card.rank-2:hover {
+            transform: translateY(-12px) scale(1.03);
+            border-color: var(--teal-bright);
+            box-shadow: 0 0 60px var(--glow-teal), var(--shadow-xl);
+        }
+
+        .podium-card.rank-2 .card-glow {
+            background: linear-gradient(135deg, var(--teal-bright), var(--green-primary));
+            opacity: 0.3;
+        }
+
+        /* Rank 3 - Electric Blue */
+        .podium-card.rank-3 {
+            border-color: var(--blue-bright);
+            box-shadow: 0 0 50px var(--glow-blue), var(--shadow-lg);
+        }
+
+        .podium-card.rank-3:hover {
+            transform: translateY(-12px) scale(1.03);
+            border-color: var(--blue-bright);
+            box-shadow: 0 0 60px var(--glow-blue), var(--shadow-xl);
+        }
+
+        .podium-card.rank-3 .card-glow {
+            background: linear-gradient(135deg, var(--blue-bright), var(--cyan));
+            opacity: 0.3;
+        }
+
+        /* Card Glow Effect */
+        .card-glow {
+            position: absolute;
+            inset: -3px;
+            opacity: 0;
+            border-radius: var(--radius-2xl);
+            filter: blur(24px);
+            transition: opacity var(--transition-smooth);
+            z-index: -1;
+        }
+
+        .podium-card:hover .card-glow {
+            opacity: 0.4;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { opacity: 0.35; }
+            50% { opacity: 0.55; }
+        }
+
+        /* Rank Badge - Geometric */
+        .rank-badge {
+            position: absolute;
+            top: var(--space-6);
+            left: var(--space-6);
+            width: 64px;
+            height: 64px;
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 900;
+            box-shadow: var(--shadow-md);
+            z-index: 3;
+            clip-path: polygon(0% 25%, 25% 0%, 75% 0%, 100% 25%, 100% 75%, 75% 100%, 25% 100%, 0% 75%);
+            letter-spacing: -0.02em;
+        }
+
+        .podium-card.rank-1 .rank-badge {
+            background: linear-gradient(135deg, var(--cyan-bright), var(--teal-bright));
+            color: var(--black);
+            animation: badgeFloat 3.5s ease-in-out infinite;
+            box-shadow: 0 0 40px var(--glow-cyan), var(--shadow-md);
+        }
+
+        .podium-card.rank-2 .rank-badge {
+            background: linear-gradient(135deg, var(--teal-bright), var(--green-primary));
+            color: var(--black);
+            box-shadow: 0 0 35px var(--glow-teal), var(--shadow-md);
+        }
+
+        .podium-card.rank-3 .rank-badge {
+            background: linear-gradient(135deg, var(--blue-bright), var(--cyan));
+            color: white;
+            box-shadow: 0 0 35px var(--glow-blue), var(--shadow-md);
+        }
+
+        @keyframes badgeFloat {
+            0%, 100% {
+                transform: translateY(0) scale(1) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-10px) scale(1.08) rotate(2deg);
+            }
+        }
+
+        /* Avatar Container */
+        .avatar-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin-bottom: var(--space-8);
+            animation: avatarFloat 5s ease-in-out infinite;
+        }
+
+        @keyframes avatarFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-16px); }
+        }
+
+        /* Rotating Ring - Enhanced */
+        .rotating-ring {
+            position: absolute;
+            inset: -24px;
+            border-radius: 50%;
+            animation: ringRotate 5s linear infinite;
+            opacity: 0.85;
+        }
+
+        .podium-card.rank-1 .rotating-ring {
+            background: conic-gradient(
+                from 0deg,
+                transparent 0deg,
+                var(--cyan-bright) 80deg,
+                transparent 160deg,
+                var(--teal-bright) 240deg,
+                transparent 320deg
+            );
+        }
+
+        .podium-card.rank-2 .rotating-ring {
+            background: conic-gradient(
+                from 0deg,
+                transparent 0deg,
+                var(--teal-bright) 80deg,
+                transparent 160deg,
+                var(--green-primary) 240deg,
+                transparent 320deg
+            );
+        }
+
+        .podium-card.rank-3 .rotating-ring {
+            background: conic-gradient(
+                from 0deg,
+                transparent 0deg,
+                var(--blue-bright) 80deg,
+                transparent 160deg,
+                var(--cyan) 240deg,
+                transparent 320deg
+            );
+        }
+
+        @keyframes ringRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .ring-mask {
+            position: absolute;
+            inset: 5px;
+            background: var(--gray-900);
+            border-radius: 50%;
+        }
+
+        /* Hexagonal Avatar */
+        .avatar-main {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            clip-path: polygon(
+                30% 0%, 70% 0%,
+                100% 30%, 100% 70%,
+                70% 100%, 30% 100%,
+                0% 70%, 0% 30%
+            );
+            background: linear-gradient(135deg, var(--gray-850) 0%, var(--gray-800) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            font-weight: 800;
+            overflow: hidden;
+            transition: transform var(--transition-smooth);
+            box-shadow: var(--shadow-inner);
+        }
+
+        .podium-card.rank-1 .avatar-main {
+            color: var(--cyan-bright);
+        }
+
+        .podium-card.rank-2 .avatar-main {
+            color: var(--teal-bright);
+        }
+
+        .podium-card.rank-3 .avatar-main {
+            color: var(--blue-bright);
+        }
+
+        .avatar-container:hover .avatar-main {
+            transform: scale(1.12) rotate(5deg);
+        }
+
+        .avatar-main img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Affiliate Info */
+        .affiliate-name {
+            font-size: 1.75rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: var(--space-2);
+            color: white;
+            text-align: center;
+            position: relative;
+            transition: all var(--transition-base);
+        }
+
+        .podium-card:hover .affiliate-name {
+            text-shadow:
+                2px 0 var(--cyan-bright),
+                -2px 0 var(--teal-bright);
+            animation: nameGlitch 0.3s ease;
+        }
+
+        @keyframes nameGlitch {
+            0%, 100% {
+                transform: translate(0);
+            }
+            25% {
+                transform: translate(-2px, 0);
+            }
+            50% {
+                transform: translate(2px, 0);
+            }
+            75% {
+                transform: translate(-1px, 0);
+            }
+        }
+
+        .affiliate-handle {
+            font-size: 1rem;
+            margin-bottom: var(--space-8);
+            font-weight: 500;
+        }
+
+        .podium-card.rank-1 .affiliate-handle {
+            color: var(--cyan);
+        }
+
+        .podium-card.rank-2 .affiliate-handle {
+            color: var(--teal);
+        }
+
+        .podium-card.rank-3 .affiliate-handle {
+            color: var(--blue-bright);
+        }
+
+        /* Stats Display - Enhanced */
+        .scores {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+        }
+
+        .score-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-4) var(--space-5);
+            background: linear-gradient(135deg, var(--gray-900) 0%, var(--gray-850) 100%);
+            border: 1px solid var(--gray-700);
+            border-radius: var(--radius-lg);
+            transition: all var(--transition-base);
+            box-shadow: var(--shadow-inner);
+        }
+
+        .score-row:hover {
+            background: linear-gradient(135deg, var(--gray-850) 0%, var(--gray-800) 100%);
+            transform: translateX(6px);
+            border-color: var(--gray-600);
+        }
+
+        .score-label {
+            font-size: 0.95rem;
+            color: var(--green-tertiary);
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+
+        .score-value {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: white;
+            letter-spacing: -0.02em;
+            transition: all var(--transition-fast);
+        }
+
+        .podium-card:hover .score-value {
+            color: var(--cyan-bright);
+            text-shadow: 0 0 10px var(--glow-cyan);
+        }
+
+        .score-row.total {
+            background: linear-gradient(135deg, var(--green-primary) 0%, var(--teal-bright) 100%);
+            margin-top: var(--space-2);
+            border: 2px solid var(--green-secondary);
+            box-shadow: 0 0 30px var(--glow-green), var(--shadow-md);
+        }
+
+        .score-row.total .score-label {
+            color: var(--black);
+            font-weight: 700;
+        }
+
+        .score-row.total .score-value {
+            color: var(--black);
+            font-size: 1.75rem;
+        }
+
+        /* Buttons - Enhanced */
+        .action-buttons {
+            display: flex;
+            gap: var(--space-6);
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: buttonEntrance 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both;
+        }
+
+        .btn {
+            padding: var(--space-5) var(--space-10);
+            background: linear-gradient(135deg, var(--green-primary) 0%, var(--teal-bright) 100%);
+            border: none;
+            border-radius: var(--radius-full);
+            color: var(--black);
+            font-size: 1.25rem;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 0 40px var(--glow-green), var(--shadow-lg);
+            transition: all var(--transition-base);
+            position: relative;
+            overflow: hidden;
+            letter-spacing: -0.01em;
+        }
+
+        @keyframes buttonEntrance {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+                filter: blur(6px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0);
+            }
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--cyan-bright) 0%, var(--teal-bright) 100%);
+            opacity: 0;
+            transition: opacity var(--transition-base);
+        }
+
+        .btn:hover::before {
+            opacity: 1;
+        }
+
+        .btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 0 60px var(--glow-green), var(--shadow-xl);
+        }
+
+        .btn:active {
+            transform: translateY(-1px) scale(0.96);
+        }
+
+        .btn {
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        .btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Spotlight Effect */
+        .spotlight {
+            position: absolute;
+            width: 350px;
+            height: 800px;
+            background: linear-gradient(to bottom,
+                rgba(0, 243, 255, 0.25) 0%,
+                rgba(0, 243, 255, 0.15) 20%,
+                rgba(0, 243, 255, 0.08) 40%,
+                rgba(0, 243, 255, 0.03) 60%,
+                transparent 100%);
+            filter: blur(50px);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .spotlight.spotlight-1 {
+            top: -150px;
+            left: 8%;
+            animation: spotlightSway 10s ease-in-out infinite;
+        }
+
+        .spotlight.spotlight-2 {
+            top: -150px;
+            left: 45%;
+            animation: spotlightSway 12s ease-in-out infinite 3s;
+        }
+
+        .spotlight.spotlight-3 {
+            top: -150px;
+            right: 8%;
+            animation: spotlightSway 11s ease-in-out infinite 1.5s;
+        }
+
+        @keyframes spotlightSway {
+            0%, 100% {
+                transform: translateX(0) rotate(0deg);
+                opacity: 0.5;
+            }
+            25% {
+                transform: translateX(40px) rotate(3deg);
+                opacity: 0.7;
+            }
+            50% {
+                transform: translateX(0) rotate(0deg);
+                opacity: 0.6;
+            }
+            75% {
+                transform: translateX(-40px) rotate(-3deg);
+                opacity: 0.7;
+            }
+        }
+
+        /* Confetti */
+        .confetti {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: var(--green-primary);
+            top: -30px;
+            pointer-events: none;
+            z-index: 0;
+            animation: confettiFall linear infinite;
+            border-radius: 2px;
+        }
+
+        .confetti:nth-child(odd) {
+            background: var(--cyan-bright);
+        }
+
+        .confetti:nth-child(3n) {
+            background: var(--teal-bright);
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-30px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(calc(100vh + 30px)) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Floating Particles */
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--cyan-bright) 0%, transparent 70%);
+            pointer-events: none;
+            filter: blur(3px);
+            animation: particleFloat ease-in-out infinite;
+        }
+
+        @keyframes particleFloat {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.4;
+            }
+            50% {
+                transform: translate(var(--x), var(--y)) scale(1.3);
+                opacity: 0.7;
+            }
+        }
+
+        /* Modal Base */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.96);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: var(--space-8);
+            overflow-y: auto;
+        }
+
+        @supports not (backdrop-filter: blur(24px)) {
+            .modal {
+                background: rgba(0, 0, 0, 0.98);
+            }
+        }
+
+        .modal::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(to right, rgba(0, 243, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 243, 255, 0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        .modal.active {
+            display: flex;
+            animation: modalFadeIn var(--transition-smooth);
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            max-width: 1500px;
+            width: 100%;
+            position: relative;
+            animation: modalSlideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes modalSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px) scale(0.94);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Cyber Background for Modals */
+        .hall-background {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.8;
+        }
+
+        /* Hexagon Grid Pattern */
+        .hex-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(30deg, transparent 38%, rgba(0, 243, 255, 0.06) 38%, rgba(0, 243, 255, 0.06) 62%, transparent 62%),
+                linear-gradient(90deg, transparent 38%, rgba(0, 255, 204, 0.06) 38%, rgba(0, 255, 204, 0.06) 62%, transparent 62%),
+                linear-gradient(150deg, transparent 38%, rgba(56, 255, 147, 0.06) 38%, rgba(56, 255, 147, 0.06) 62%, transparent 62%);
+            background-size: 90px 156px;
+            animation: hexShift 25s linear infinite;
+        }
+
+        @keyframes hexShift {
+            from { background-position: 0 0, 0 0, 0 0; }
+            to { background-position: 90px 156px, 0 156px, 90px 0; }
+        }
+
+        /* Scanning Lines */
+        .scan-lines {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                transparent 48%,
+                rgba(0, 243, 255, 0.04) 48%,
+                rgba(0, 243, 255, 0.04) 52%,
+                transparent 52%
+            );
+            background-size: 100% 6px;
+            animation: scanMove 10s linear infinite;
+        }
+
+        @keyframes scanMove {
+            from { background-position: 0 0; }
+            to { background-position: 0 100%; }
+        }
+
+        /* Data Stream Effect */
+        .data-stream {
+            position: absolute;
+            width: 3px;
+            height: 120px;
+            background: linear-gradient(to bottom, transparent, var(--cyan-bright), transparent);
+            opacity: 0.7;
+            animation: streamFall linear infinite;
+            border-radius: 2px;
+        }
+
+        @keyframes streamFall {
+            from {
+                transform: translateY(-120px);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.9;
+            }
+            to {
+                transform: translateY(calc(100vh + 120px));
+                opacity: 0;
+            }
+        }
+
+        /* Circuit Lines */
+        .circuit-line {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--teal-bright), transparent);
+            opacity: 0.4;
+            animation: circuitPulse 4s ease-in-out infinite;
+            border-radius: 1px;
+        }
+
+        @keyframes circuitPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Close Button */
+        .close-btn {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-xl);
+            background: var(--gray-900);
+            border: 2px solid var(--gray-700);
+            color: var(--cyan-bright);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            transition: all var(--transition-base);
+            box-shadow: var(--shadow-lg), var(--shadow-inner);
+            z-index: 10;
+            font-weight: 300;
+        }
+
+        .close-btn:hover {
+            background: var(--gray-800);
+            border-color: var(--cyan-bright);
+            box-shadow: 0 0 40px var(--glow-cyan), var(--shadow-xl);
+            transform: scale(1.12) rotate(90deg);
+        }
+
+        /* Modal Titles */
+        .modal-title {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            margin-bottom: var(--space-4);
+            background: linear-gradient(135deg, var(--cyan-bright) 0%, var(--teal-bright) 50%, var(--green-primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+        }
+
+        .modal-subtitle {
+            font-size: 1.25rem;
+            color: var(--teal);
+            text-align: center;
+            margin-bottom: var(--space-16);
+            font-weight: 500;
+        }
+
+        /* Hall of Fame Grid */
+        .hall-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-8);
+            position: relative;
+            z-index: 2;
+        }
+
+        .hall-card {
+            background: linear-gradient(135deg, var(--gray-950) 0%, var(--gray-900) 100%);
+            border: 2px solid var(--gray-700);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-8);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow: visible;
+            cursor: pointer;
+            transition: all var(--transition-smooth);
+            animation: hallCardEntrance 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+            box-shadow: var(--shadow-lg), var(--shadow-inner);
+            will-change: transform, box-shadow;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .hall-card:active {
+            transform: scale(0.96);
+        }
+
+        .hall-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, transparent 100%);
+            pointer-events: none;
+            border-radius: var(--radius-2xl);
+        }
+
+        .hall-card:nth-child(1) { animation-delay: 0.1s; }
+        .hall-card:nth-child(2) { animation-delay: 0.18s; }
+        .hall-card:nth-child(3) { animation-delay: 0.26s; }
+        .hall-card:nth-child(4) { animation-delay: 0.34s; }
+        .hall-card:nth-child(5) { animation-delay: 0.42s; }
+        .hall-card:nth-child(6) { animation-delay: 0.5s; }
+        .hall-card:nth-child(7) { animation-delay: 0.58s; }
+
+        @keyframes hallCardEntrance {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(0.94);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .hall-card:hover {
+            transform: translateY(-12px) scale(1.04);
+            border-color: var(--cyan-bright);
+            box-shadow: 0 0 50px var(--glow-cyan), var(--shadow-xl);
+        }
+
+        /* Click Ripple Effect */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--cyan-bright) 0%, transparent 70%);
+            transform: scale(0);
+            animation: rippleEffect 0.7s ease-out;
+            pointer-events: none;
+        }
+
+        @keyframes rippleEffect {
+            to {
+                transform: scale(5);
+                opacity: 0;
+            }
+        }
+
+        /* Click Burst Particles */
+        .burst-particle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: var(--cyan-bright);
+            border-radius: 50%;
+            pointer-events: none;
+            box-shadow: 0 0 10px var(--glow-cyan);
+            animation: burstOut 0.7s ease-out forwards;
+        }
+
+        @keyframes burstOut {
+            to {
+                transform: translate(var(--tx), var(--ty)) scale(0);
+                opacity: 0;
+            }
+        }
+
+        .hall-card .card-glow {
+            inset: -3px;
+            background: linear-gradient(135deg, var(--cyan-bright), var(--teal-bright));
+        }
+
+        .hall-card:hover .card-glow {
+            opacity: 0.45;
+        }
+
+        /* Hall Card Rank */
+        .hall-rank {
+            position: absolute;
+            top: var(--space-4);
+            left: var(--space-4);
+            width: 42px;
+            height: 42px;
+            border-radius: var(--radius-lg);
+            background: var(--gray-850);
+            border: 2px solid var(--cyan-bright);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--cyan-bright);
+            box-shadow: 0 0 25px var(--glow-cyan);
+            clip-path: polygon(0% 25%, 25% 0%, 75% 0%, 100% 25%, 100% 75%, 75% 100%, 25% 100%, 0% 75%);
+        }
+
+        /* Hall Card Avatar */
+        .hall-avatar {
+            width: 140px;
+            height: 140px;
+            clip-path: polygon(
+                30% 0%, 70% 0%,
+                100% 30%, 100% 70%,
+                70% 100%, 30% 100%,
+                0% 70%, 0% 30%
+            );
+            background: linear-gradient(135deg, var(--gray-850) 0%, var(--gray-800) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--cyan-bright);
+            margin-bottom: var(--space-6);
+            overflow: hidden;
+            transition: transform var(--transition-smooth);
+            animation: avatarBob 4s ease-in-out infinite;
+            box-shadow: var(--shadow-inner);
+        }
+
+        @keyframes avatarBob {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(4deg); }
+        }
+
+        .hall-card:hover .hall-avatar {
+            transform: scale(1.18) rotate(-6deg);
+            animation: none;
+        }
+
+        .hall-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hall-name {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: var(--space-2);
+            text-align: center;
+            letter-spacing: -0.02em;
+        }
+
+        .hall-handle {
+            font-size: 1rem;
+            color: var(--cyan);
+            margin-bottom: var(--space-5);
+            font-weight: 500;
+        }
+
+        .hall-total {
+            font-size: 1.75rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--cyan-bright), var(--teal-bright));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.03em;
+        }
+
+        /* Click Popup Overlay */
+        .popup-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            padding: var(--space-4);
+        }
+
+        @supports not (backdrop-filter: blur(20px)) {
+            .popup-overlay {
+                background: rgba(0, 0, 0, 0.96);
+            }
+        }
+
+        .popup-overlay.active {
+            display: flex;
+            animation: popupFadeIn 0.35s ease;
+        }
+
+        @keyframes popupFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Detailed Popup */
+        .detail-popup {
+            background: var(--black);
+            border: 3px solid var(--cyan-bright);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-10);
+            max-width: 450px;
+            width: 100%;
+            position: relative;
+            box-shadow: 0 0 100px var(--glow-cyan), var(--shadow-xl);
+            animation: popupSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes popupSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(0.88);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .popup-close {
+            position: absolute;
+            top: var(--space-5);
+            right: var(--space-5);
+            width: 42px;
+            height: 42px;
+            border-radius: var(--radius-lg);
+            background: var(--gray-900);
+            border: 2px solid var(--gray-700);
+            color: var(--cyan-bright);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all var(--transition-base);
+            font-weight: 300;
+        }
+
+        .popup-close:hover {
+            background: var(--gray-800);
+            border-color: var(--cyan-bright);
+            transform: scale(1.15) rotate(90deg);
+            box-shadow: 0 0 25px var(--glow-cyan);
+        }
+
+        .popup-avatar {
+            width: 170px;
+            height: 170px;
+            clip-path: polygon(
+                30% 0%, 70% 0%,
+                100% 30%, 100% 70%,
+                70% 100%, 30% 100%,
+                0% 70%, 0% 30%
+            );
+            background: linear-gradient(135deg, var(--gray-850) 0%, var(--gray-800) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--cyan-bright);
+            margin: 0 auto var(--space-8);
+            overflow: hidden;
+            box-shadow: 0 0 50px var(--glow-cyan);
+        }
+
+        .popup-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .popup-name {
+            font-size: 2rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: var(--space-2);
+            letter-spacing: -0.03em;
+        }
+
+        .popup-handle {
+            font-size: 1.1rem;
+            color: var(--cyan);
+            text-align: center;
+            margin-bottom: var(--space-10);
+            font-weight: 500;
+        }
+
+        .popup-stats {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+        }
+
+        .popup-stat {
+            display: flex;
+            justify-content: space-between;
+            padding: var(--space-5);
+            background: var(--gray-900);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--gray-700);
+            box-shadow: var(--shadow-inner);
+        }
+
+        .popup-stat-label {
+            font-size: 1rem;
+            color: var(--green-tertiary);
+            font-weight: 600;
+        }
+
+        .popup-stat-value {
+            font-size: 1.3rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .popup-stat.total {
+            background: linear-gradient(135deg, var(--cyan-bright) 0%, var(--teal-bright) 100%);
+            border-color: var(--cyan-bright);
+            border-width: 2px;
+            box-shadow: 0 0 35px var(--glow-cyan), var(--shadow-md);
+        }
+
+        .popup-stat.total .popup-stat-label {
+            color: var(--black);
+            font-weight: 700;
+        }
+
+        .popup-stat.total .popup-stat-value {
+            color: var(--black);
+            font-size: 1.75rem;
+        }
+
+        /* Full Leaderboard Table */
+        .leaderboard-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 var(--space-4);
+        }
+
+        .leaderboard-table thead {
+            position: sticky;
+            top: 0;
+            background: var(--black);
+            z-index: 10;
+        }
+
+        .leaderboard-table th {
+            padding: var(--space-5);
+            text-align: left;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--cyan-bright);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            border-bottom: 3px solid var(--gray-700);
+        }
+
+        .leaderboard-table th:first-child {
+            text-align: center;
+            width: 90px;
+        }
+
+        .leaderboard-table tbody tr {
+            background: linear-gradient(135deg, var(--gray-950) 0%, var(--gray-900) 100%);
+            border: 2px solid var(--gray-700);
+            transition: all var(--transition-base);
+            cursor: pointer;
+        }
+
+        .leaderboard-table tbody tr:hover {
+            background: linear-gradient(135deg, var(--gray-900) 0%, var(--gray-850) 100%);
+            border-color: var(--cyan-bright);
+            box-shadow: 0 0 40px var(--glow-cyan), inset 0 0 20px rgba(0, 243, 255, 0.1);
+            transform: translateX(10px);
+            animation: rowGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes rowGlow {
+            0%, 100% {
+                box-shadow: 0 0 40px var(--glow-cyan), inset 0 0 20px rgba(0, 243, 255, 0.1);
+            }
+            50% {
+                box-shadow: 0 0 60px var(--glow-cyan), inset 0 0 30px rgba(0, 243, 255, 0.2);
+            }
+        }
+
+        .leaderboard-table td {
+            padding: var(--space-5);
+            border-top: 2px solid var(--gray-700);
+            border-bottom: 2px solid var(--gray-700);
+        }
+
+        .leaderboard-table td:first-child {
+            border-left: 2px solid var(--gray-700);
+            border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+            text-align: center;
+            font-weight: 800;
+            color: var(--cyan-bright);
+            font-size: 1.1rem;
+        }
+
+        .leaderboard-table td:last-child {
+            border-right: 2px solid var(--gray-700);
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+        }
+
+        .table-avatar {
+            width: 52px;
+            height: 52px;
+            border-radius: var(--radius-full);
+            background: linear-gradient(135deg, var(--gray-850) 0%, var(--gray-800) 100%);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: var(--cyan-bright);
+            margin-right: var(--space-4);
+            vertical-align: middle;
+            font-size: 1.1rem;
+        }
+
+        .table-name-cell {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+        }
+
+        .table-name {
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+
+        .table-handle {
+            font-size: 0.9rem;
+            color: var(--teal);
+            font-weight: 500;
+        }
+
+        .table-stat {
+            font-weight: 700;
+            text-align: right;
+            font-size: 1.05rem;
+        }
+
+        /* Corner Accents for Futuristic Feel */
+        .corner-accent {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 40px;
+            height: 40px;
+            border-top: 3px solid var(--cyan-bright);
+            border-right: 3px solid var(--cyan-bright);
+            border-radius: 0 var(--radius-2xl) 0 0;
+            opacity: 0;
+            transition: opacity var(--transition-base);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .podium-card.rank-1 .corner-accent {
+            border-color: var(--cyan-bright);
+        }
+
+        .podium-card.rank-2 .corner-accent {
+            border-color: var(--teal-bright);
+        }
+
+        .podium-card.rank-3 .corner-accent {
+            border-color: var(--blue-bright);
+        }
+
+        .podium-card:hover .corner-accent,
+        .hall-card:hover .corner-accent {
+            opacity: 1;
+            animation: cornerPulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes cornerPulse {
+            0%, 100% {
+                opacity: 0.6;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+        }
+
+        /* Mobile Responsive Design */
+        @media (max-width: 1024px) {
+            .podium {
+                grid-template-columns: 1fr;
+                gap: var(--space-8);
+                max-width: 600px;
+            }
+
+            .podium-card:nth-child(1),
+            .podium-card:nth-child(2),
+            .podium-card:nth-child(3) {
+                order: initial;
+            }
+
+            .podium-card.rank-1 {
+                transform: scale(1);
+            }
+
+            .podium-card.rank-1:hover {
+                transform: translateY(-8px) scale(1.02);
+            }
+
+            .hall-grid {
+                grid-template-columns: 1fr;
+                gap: var(--space-6);
+            }
+
+            .leaderboard-table {
+                font-size: 0.9rem;
+            }
+
+            .leaderboard-table th,
+            .leaderboard-table td {
+                padding: var(--space-4);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .landing {
+                padding: var(--space-6) var(--space-4);
+            }
+
+            .landing-title {
+                margin-bottom: var(--space-3);
+            }
+
+            .landing-subtitle {
+                margin-bottom: var(--space-12);
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                width: 100%;
+                gap: var(--space-4);
+            }
+
+            .btn {
+                width: 100%;
+                padding: var(--space-4) var(--space-6);
+                font-size: 1.1rem;
+            }
+
+            .podium-card {
+                padding: var(--space-8) var(--space-6);
+            }
+
+            .avatar-container {
+                width: 160px;
+                height: 160px;
+            }
+
+            .avatar-main {
+                width: 160px;
+                height: 160px;
+                font-size: 3rem;
+            }
+
+            .rank-badge {
+                width: 52px;
+                height: 52px;
+                font-size: 1.5rem;
+            }
+
+            .affiliate-name {
+                font-size: 1.5rem;
+            }
+
+            .modal {
+                padding: var(--space-4);
+            }
+
+            .modal-title {
+                margin-bottom: var(--space-3);
+            }
+
+            .modal-subtitle {
+                margin-bottom: var(--space-10);
+            }
+
+            .detail-popup {
+                padding: var(--space-8);
+            }
+
+            .popup-avatar {
+                width: 140px;
+                height: 140px;
+                font-size: 3rem;
+            }
+
+            .mute-btn {
+                width: 48px;
+                height: 48px;
+                top: var(--space-4);
+                right: var(--space-4);
+            }
+
+            /* Hide less critical columns on mobile */
+            .leaderboard-table th:nth-child(4),
+            .leaderboard-table td:nth-child(4),
+            .leaderboard-table th:nth-child(5),
+            .leaderboard-table td:nth-child(5) {
+                display: none;
+            }
+
+            .table-avatar {
+                width: 44px;
+                height: 44px;
+                font-size: 1rem;
+                margin-right: var(--space-3);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hall-avatar {
+                width: 120px;
+                height: 120px;
+                font-size: 2rem;
+            }
+
+            .hall-name {
+                font-size: 1.2rem;
+            }
+
+            .hall-total {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Global Cyber Background -->
+    <div class="cyber-bg">
+        <div class="bg-grid"></div>
+        <div class="diagonal-lines"></div>
+        <div class="ambient-glow glow-1"></div>
+        <div class="ambient-glow glow-2"></div>
+        <div class="ambient-glow glow-3"></div>
+    </div>
+
+    <!-- Mute Button -->
+    <button class="mute-btn" onclick="toggleMute()" aria-label="Toggle sound">
+        <span id="muteIcon">🔊</span>
+    </button>
+
+    <!-- Landing Page -->
+    <section class="landing">
+        <!-- Spotlights -->
+        <div class="spotlight spotlight-1"></div>
+        <div class="spotlight spotlight-2"></div>
+        <div class="spotlight spotlight-3"></div>
+
+        <!-- Confetti -->
+        <div class="confetti" style="left: 12%; animation-duration: 9s; animation-delay: 0s;"></div>
+        <div class="confetti" style="left: 22%; animation-duration: 11s; animation-delay: 1.2s;"></div>
+        <div class="confetti" style="left: 34%; animation-duration: 10s; animation-delay: 2.4s;"></div>
+        <div class="confetti" style="left: 48%; animation-duration: 12s; animation-delay: 0.6s;"></div>
+        <div class="confetti" style="left: 62%; animation-duration: 9.5s; animation-delay: 1.8s;"></div>
+        <div class="confetti" style="left: 74%; animation-duration: 11.5s; animation-delay: 3s;"></div>
+        <div class="confetti" style="left: 86%; animation-duration: 10.5s; animation-delay: 0.9s;"></div>
+
+        <!-- Floating Particles -->
+        <div class="particle" style="width: 90px; height: 90px; top: 18%; left: 8%; --x: 35px; --y: -45px; animation-duration: 9s;"></div>
+        <div class="particle" style="width: 70px; height: 70px; top: 38%; left: 87%; --x: -30px; --y: 40px; animation-duration: 11s;"></div>
+        <div class="particle" style="width: 110px; height: 110px; top: 58%; left: 12%; --x: 45px; --y: -35px; animation-duration: 13s;"></div>
+        <div class="particle" style="width: 80px; height: 80px; top: 28%; right: 8%; --x: -40px; --y: 50px; animation-duration: 10s;"></div>
+        <div class="particle" style="width: 100px; height: 100px; top: 68%; left: 48%; --x: 25px; --y: -55px; animation-duration: 12s;"></div>
+        <div class="particle" style="width: 60px; height: 60px; top: 78%; right: 18%; --x: -35px; --y: 45px; animation-duration: 8s;"></div>
+
+        <h1 class="landing-title">Top Performers</h1>
+        <p class="landing-subtitle">Congratulations to our elite affiliates 🚀</p>
+
+        <!-- Top 3 Podium -->
+        <div class="podium">
+            <!-- Rank 1 - Cyan -->
+            <div class="podium-card rank-1">
+                <div class="card-glow"></div>
+                <div class="corner-accent"></div>
+                <div class="rank-badge">1</div>
+                <div class="avatar-container">
+                    <div class="rotating-ring">
+                        <div class="ring-mask"></div>
+                    </div>
+                    <div class="avatar-main">
+                        <img src="affiliate-profile-pics/3Dmax_3dmax_virtuals.jpg" alt="3Dmax" onerror="this.parentElement.innerHTML='3D'">
+                    </div>
+                </div>
+                <h2 class="affiliate-name">3Dmax</h2>
+                <p class="affiliate-handle">@3dmax_virtuals</p>
+                <div class="scores">
+                    <div class="score-row">
+                        <span class="score-label">Tweets</span>
+                        <span class="score-value">856</span>
+                    </div>
+                    <div class="score-row">
+                        <span class="score-label">Referrals</span>
+                        <span class="score-value">1,243</span>
+                    </div>
+                    <div class="score-row">
+                        <span class="score-label">Traders</span>
+                        <span class="score-value">124</span>
+                    </div>
+                    <div class="score-row total">
+                        <span class="score-label">Total</span>
+                        <span class="score-value">2,099</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rank 2 - Teal -->
+            <div class="podium-card rank-2">
+                <div class="card-glow"></div>
+                <div class="corner-accent"></div>
+                <div class="rank-badge">2</div>
+                <div class="avatar-container">
+                    <div class="rotating-ring">
+                        <div class="ring-mask"></div>
+                    </div>
+                    <div class="avatar-main">
+                        <img src="affiliate-profile-pics/Alf_alfy11116.jpg" alt="Alf" onerror="this.parentElement.innerHTML='AF'">
+                    </div>
+                </div>
+                <h2 class="affiliate-name">Alf</h2>
+                <p class="affiliate-handle">@alfy11116</p>
+                <div class="scores">
+                    <div class="score-row">
+                        <span class="score-label">Tweets</span>
+                        <span class="score-value">734</span>
+                    </div>
+                    <div class="score-row">
+                        <span class="score-label">Referrals</span>
+                        <span class="score-value">1,089</span>
+                    </div>
+                    <div class="score-row">
+                        <span class="score-label">Traders</span>
+                        <span class="score-value">98</span>
+                    </div>
+                    <div class="score-row total">
+                        <span class="score-label">Total</span>
+                        <span class="score-value">1,823</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rank 3 - Electric Blue -->
+            <div class="podium-card rank-3">
+                <div class="card-glow"></div>
+                <div class="corner-accent"></div>
+                <div class="rank-badge">3</div>
+                <div class="avatar-container">
+                    <div class="rotating-ring">
+                        <div class="ring-mask"></div>
+                    </div>
+                    <div class="avatar-main">
+                        <img src="affiliate-profile-pics/cryptic_t_cryptic_tits.png" alt="Cryptic_t" onerror="this.parentElement.innerHTML='CT'">
+                    </div>
+                </div>
+                <h2 class="affiliate-name">Cryptic_t</h2>
+                <p class="affiliate-handle">@cryptic_tits</p>
+                <div class="scores">
+                    <div class="score-row">
+                        <span class="score-label">Tweets</span>
+                        <span class="score-value">692</span>
+                    </div>
+                    <div class="score-row">
+                        <span class="score-label">Referrals</span>
+                        <span class="score-value">967</span>
+                    </div>
+                    <div class="score-row">
+                        <span class="score-label">Traders</span>
+                        <span class="score-value">87</span>
+                    </div>
+                    <div class="score-row total">
+                        <span class="score-label">Total</span>
+                        <span class="score-value">1,659</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <button class="btn" onclick="openHallOfFame()">
+                <span>🏆 Hall of Fame (4-10)</span>
+            </button>
+            <button class="btn" onclick="openFullLeaderboard()">
+                <span>📊 Full Leaderboard</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Hall of Fame Modal -->
+    <div class="modal" id="hallModal" onclick="closeModalOnBackdrop(event, 'hallModal')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <!-- Cyber Background -->
+            <div class="hall-background">
+                <div class="hex-grid"></div>
+                <div class="scan-lines"></div>
+                <!-- Data Streams -->
+                <div class="data-stream" style="left: 8%; animation-duration: 3.5s; animation-delay: 0s;"></div>
+                <div class="data-stream" style="left: 22%; animation-duration: 4.5s; animation-delay: 1.2s;"></div>
+                <div class="data-stream" style="left: 42%; animation-duration: 4s; animation-delay: 0.6s;"></div>
+                <div class="data-stream" style="left: 58%; animation-duration: 5s; animation-delay: 1.8s;"></div>
+                <div class="data-stream" style="left: 76%; animation-duration: 4.2s; animation-delay: 0.9s;"></div>
+                <div class="data-stream" style="left: 92%; animation-duration: 4.8s; animation-delay: 2.4s;"></div>
+                <!-- Circuit Lines -->
+                <div class="circuit-line" style="width: 45%; top: 18%; left: 8%; animation-delay: 0s;"></div>
+                <div class="circuit-line" style="width: 35%; top: 38%; right: 12%; animation-delay: 1.2s;"></div>
+                <div class="circuit-line" style="width: 55%; top: 58%; left: 18%; animation-delay: 0.6s;"></div>
+                <div class="circuit-line" style="width: 40%; top: 78%; right: 8%; animation-delay: 1.8s;"></div>
+            </div>
+
+            <button class="close-btn" onclick="closeModal('hallModal')" aria-label="Close">×</button>
+
+            <h2 class="modal-title">Hall of Fame</h2>
+            <p class="modal-subtitle">Ranks 4-10 • Click for details 🔥</p>
+
+            <div class="hall-grid">
+                <!-- Rank 4 -->
+                <div class="hall-card" onclick="clickCard(this, 4, 'Anderson', '@0x7_anderson', 'AN', 623, 864, 76, 1487)">
+                    <div class="card-glow"></div>
+                    <div class="corner-accent"></div>
+                    <div class="hall-rank">4</div>
+                    <div class="hall-avatar">
+                        <img src="affiliate-profile-pics/Anderson_0x7_anderson.jpg" alt="Anderson" onerror="this.parentElement.innerHTML='AN'">
+                    </div>
+                    <h3 class="hall-name">Anderson</h3>
+                    <p class="hall-handle">@0x7_anderson</p>
+                    <p class="hall-total">1,487</p>
+                </div>
+
+                <!-- Rank 5 -->
+                <div class="hall-card" onclick="clickCard(this, 5, 'Borny', '@unborninfinite', 'BO', 578, 778, 69, 1356)">
+                    <div class="card-glow"></div>
+                    <div class="corner-accent"></div>
+                    <div class="hall-rank">5</div>
+                    <div class="hall-avatar">
+                        <img src="affiliate-profile-pics/Borny_unborninfinite.jpg" alt="Borny" onerror="this.parentElement.innerHTML='BO'">
+                    </div>
+                    <h3 class="hall-name">Borny</h3>
+                    <p class="hall-handle">@unborninfinite</p>
+                    <p class="hall-total">1,356</p>
+                </div>
+
+                <!-- Rank 6 -->
+                <div class="hall-card" onclick="clickCard(this, 6, 'LC', '@mrlcguy', 'LC', 534, 755, 64, 1289)">
+                    <div class="card-glow"></div>
+                    <div class="corner-accent"></div>
+                    <div class="hall-rank">6</div>
+                    <div class="hall-avatar">
+                        <img src="affiliate-profile-pics/LC_mrlcguy.jpg" alt="LC" onerror="this.parentElement.innerHTML='LC'">
+                    </div>
+                    <h3 class="hall-name">LC</h3>
+                    <p class="hall-handle">@mrlcguy</p>
+                    <p class="hall-total">1,289</p>
+                </div>
+
+                <!-- Rank 7 -->
+                <div class="hall-card" onclick="clickCard(this, 7, 'Math', '@mathburn666', 'MA', 489, 656, 58, 1145)">
+                    <div class="card-glow"></div>
+                    <div class="corner-accent"></div>
+                    <div class="hall-rank">7</div>
+                    <div class="hall-avatar">
+                        <img src="affiliate-profile-pics/Math_mathburn666.jpg" alt="Math" onerror="this.parentElement.innerHTML='MA'">
+                    </div>
+                    <h3 class="hall-name">Math</h3>
+                    <p class="hall-handle">@mathburn666</p>
+                    <p class="hall-total">1,145</p>
+                </div>
+
+                <!-- Rank 8 -->
+                <div class="hall-card" onclick="clickCard(this, 8, 'Premium Mind', '@deepseektetra', 'PM', 456, 622, 53, 1078)">
+                    <div class="card-glow"></div>
+                    <div class="corner-accent"></div>
+                    <div class="hall-rank">8</div>
+                    <div class="hall-avatar">
+                        <img src="affiliate-profile-pics/Premium_Mind_deepseektetra.jpg" alt="Premium Mind" onerror="this.parentElement.innerHTML='PM'">
+                    </div>
+                    <h3 class="hall-name">Premium Mind</h3>
+                    <p class="hall-handle">@deepseektetra</p>
+                    <p class="hall-total">1,078</p>
+                </div>
+
+                <!-- Rank 9 -->
+                <div class="hall-card" onclick="clickCard(this, 9, 'Spenny', '@spennycrypto', 'SP', 423, 564, 48, 987)">
+                    <div class="card-glow"></div>
+                    <div class="corner-accent"></div>
+                    <div class="hall-rank">9</div>
+                    <div class="hall-avatar">
+                        <img src="affiliate-profile-pics/Spenny_spennycrypto.jpg" alt="Spenny" onerror="this.parentElement.innerHTML='SP'">
+                    </div>
+                    <h3 class="hall-name">Spenny</h3>
+                    <p class="hall-handle">@spennycrypto</p>
+                    <p class="hall-total">987</p>
+                </div>
+
+                <!-- Rank 10 -->
+                <div class="hall-card" onclick="clickCard(this, 10, 'Zeus', '@vlagudfsfjr', 'ZE', 389, 534, 42, 923)">
+                    <div class="card-glow"></div>
+                    <div class="corner-accent"></div>
+                    <div class="hall-rank">10</div>
+                    <div class="hall-avatar">
+                        <img src="affiliate-profile-pics/Zeus_vlagudfsfjr.jpg" alt="Zeus" onerror="this.parentElement.innerHTML='ZE'">
+                    </div>
+                    <h3 class="hall-name">Zeus</h3>
+                    <p class="hall-handle">@vlagudfsfjr</p>
+                    <p class="hall-total">923</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detail Popup Overlay -->
+    <div class="popup-overlay" id="detailPopup" onclick="closeDetail()">
+        <div class="detail-popup" onclick="event.stopPropagation()">
+            <button class="popup-close" onclick="closeDetail()">×</button>
+            <div class="popup-avatar" id="popupAvatar">AK</div>
+            <h3 class="popup-name" id="popupName">Akkad</h3>
+            <p class="popup-handle" id="popupHandle">@Akkadai_</p>
+            <div class="popup-stats">
+                <div class="popup-stat">
+                    <span class="popup-stat-label">Tweets</span>
+                    <span class="popup-stat-value" id="popupTweets">623</span>
+                </div>
+                <div class="popup-stat">
+                    <span class="popup-stat-label">Referrals</span>
+                    <span class="popup-stat-value" id="popupReferrals">864</span>
+                </div>
+                <div class="popup-stat">
+                    <span class="popup-stat-label">Traders</span>
+                    <span class="popup-stat-value" id="popupTraders">76</span>
+                </div>
+                <div class="popup-stat total">
+                    <span class="popup-stat-label">Total</span>
+                    <span class="popup-stat-value" id="popupTotal">1,487</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Full Leaderboard Modal -->
+    <div class="modal" id="leaderboardModal" onclick="closeModalOnBackdrop(event, 'leaderboardModal')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <!-- Cyber Background -->
+            <div class="hall-background">
+                <div class="hex-grid"></div>
+                <div class="scan-lines"></div>
+                <!-- Data Streams -->
+                <div class="data-stream" style="left: 10%; animation-duration: 4s; animation-delay: 0.3s;"></div>
+                <div class="data-stream" style="left: 30%; animation-duration: 4.8s; animation-delay: 1.5s;"></div>
+                <div class="data-stream" style="left: 50%; animation-duration: 4.2s; animation-delay: 0.8s;"></div>
+                <div class="data-stream" style="left: 70%; animation-duration: 4.6s; animation-delay: 2s;"></div>
+                <div class="data-stream" style="left: 90%; animation-duration: 4.4s; animation-delay: 1s;"></div>
+                <!-- Circuit Lines -->
+                <div class="circuit-line" style="width: 50%; top: 25%; left: 10%; animation-delay: 0.5s;"></div>
+                <div class="circuit-line" style="width: 40%; top: 50%; right: 15%; animation-delay: 1.5s;"></div>
+                <div class="circuit-line" style="width: 60%; top: 75%; left: 15%; animation-delay: 1s;"></div>
+            </div>
+
+            <button class="close-btn" onclick="closeModal('leaderboardModal')" aria-label="Close">×</button>
+
+            <h2 class="modal-title">Full Leaderboard</h2>
+            <p class="modal-subtitle">All affiliates ranked by performance 📈</p>
+
+            <table class="leaderboard-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Affiliate</th>
+                        <th>Tweets</th>
+                        <th>Referrals</th>
+                        <th>Traders</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr onclick="showDetail(1, '3Dmax', '@3dmax_virtuals', '3D', 856, 1243, 124, 2099)">
+                        <td>1</td>
+                        <td>
+                            <div class="table-name-cell">
+                                <div class="table-avatar">
+                                    <img src="affiliate-profile-pics/3Dmax_3dmax_virtuals.jpg" alt="3Dmax" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='3D'">
+                                </div>
+                                <div>
+                                    <div class="table-name">3Dmax</div>
+                                    <div class="table-handle">@3dmax_virtuals</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="table-stat">856</td>
+                        <td class="table-stat">1,243</td>
+                        <td class="table-stat">124</td>
+                        <td class="table-stat">2,099</td>
+                    </tr>
+                    <tr onclick="showDetail(2, 'Alf', '@alfy11116', 'AF', 734, 1089, 98, 1823)">
+                        <td>2</td>
+                        <td>
+                            <div class="table-name-cell">
+                                <div class="table-avatar">
+                                    <img src="affiliate-profile-pics/Alf_alfy11116.jpg" alt="Alf" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='AF'">
+                                </div>
+                                <div>
+                                    <div class="table-name">Alf</div>
+                                    <div class="table-handle">@alfy11116</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="table-stat">734</td>
+                        <td class="table-stat">1,089</td>
+                        <td class="table-stat">98</td>
+                        <td class="table-stat">1,823</td>
+                    </tr>
+                    <tr onclick="showDetail(3, 'Cryptic_t', '@cryptic_tits', 'CT', 692, 967, 87, 1659)">
+                        <td>3</td>
+                        <td>
+                            <div class="table-name-cell">
+                                <div class="table-avatar">
+                                    <img src="affiliate-profile-pics/cryptic_t_cryptic_tits.png" alt="Cryptic_t" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='CT'">
+                                </div>
+                                <div>
+                                    <div class="table-name">Cryptic_t</div>
+                                    <div class="table-handle">@cryptic_tits</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="table-stat">692</td>
+                        <td class="table-stat">967</td>
+                        <td class="table-stat">87</td>
+                        <td class="table-stat">1,659</td>
+                    </tr>
+                    <tr onclick="showDetail(4, 'Anderson', '@0x7_anderson', 'AN', 623, 864, 76, 1487)">
+                        <td>4</td>
+                        <td>
+                            <div class="table-name-cell">
+                                <div class="table-avatar">
+                                    <img src="affiliate-profile-pics/Anderson_0x7_anderson.jpg" alt="Anderson" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='AN'">
+                                </div>
+                                <div>
+                                    <div class="table-name">Anderson</div>
+                                    <div class="table-handle">@0x7_anderson</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="table-stat">623</td>
+                        <td class="table-stat">864</td>
+                        <td class="table-stat">76</td>
+                        <td class="table-stat">1,487</td>
+                    </tr>
+                    <tr onclick="showDetail(5, 'Borny', '@unborninfinite', 'BO', 578, 778, 69, 1356)">
+                        <td>5</td>
+                        <td>
+                            <div class="table-name-cell">
+                                <div class="table-avatar">
+                                    <img src="affiliate-profile-pics/Borny_unborninfinite.jpg" alt="Borny" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='BO'">
+                                </div>
+                                <div>
+                                    <div class="table-name">Borny</div>
+                                    <div class="table-handle">@unborninfinite</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="table-stat">578</td>
+                        <td class="table-stat">778</td>
+                        <td class="table-stat">69</td>
+                        <td class="table-stat">1,356</td>
+                    </tr>
+                    <tr onclick="showDetail(6, 'LC', '@mrlcguy', 'LC', 534, 755, 64, 1289)">
+                        <td>6</td>
+                        <td>
+                            <div class="table-name-cell">
+                                <div class="table-avatar">
+                                    <img src="affiliate-profile-pics/LC_mrlcguy.jpg" alt="LC" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='LC'">
+                                </div>
+                                <div>
+                                    <div class="table-name">LC</div>
+                                    <div class="table-handle">@mrlcguy</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="table-stat">534</td>
+                        <td class="table-stat">755</td>
+                        <td class="table-stat">64</td>
+                        <td class="table-stat">1,289</td>
+                    </tr>
+                    <tr onclick="showDetail(7, 'Math', '@mathburn666', 'MA', 489, 656, 58, 1145)">
+                        <td>7</td>
+                        <td>
+                            <div class="table-name-cell">
+                                <div class="table-avatar">
+                                    <img src="affiliate-profile-pics/Math_mathburn666.jpg" alt="Math" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='MA'">
+                                </div>
+                                <div>
+                                    <div class="table-name">Math</div>
+                                    <div class="table-handle">@mathburn666</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="table-stat">489</td>
+                        <td class="table-stat">656</td>
+                        <td class="table-stat">58</td>
+                        <td class="table-stat">1,145</td>
+                    </tr>
+                    <tr onclick="showDetail(8, 'Premium Mind', '@deepseektetra', 'PM', 456, 622, 53, 1078)">
+                        <td>8</td>
+                        <td>
+                            <div class="table-name-cell">
+                                <div class="table-avatar">
+                                    <img src="affiliate-profile-pics/Premium_Mind_deepseektetra.jpg" alt="Premium Mind" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='PM'">
+                                </div>
+                                <div>
+                                    <div class="table-name">Premium Mind</div>
+                                    <div class="table-handle">@deepseektetra</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="table-stat">456</td>
+                        <td class="table-stat">622</td>
+                        <td class="table-stat">53</td>
+                        <td class="table-stat">1,078</td>
+                    </tr>
+                    <tr onclick="showDetail(9, 'Spenny', '@spennycrypto', 'SP', 423, 564, 48, 987)">
+                        <td>9</td>
+                        <td>
+                            <div class="table-name-cell">
+                                <div class="table-avatar">
+                                    <img src="affiliate-profile-pics/Spenny_spennycrypto.jpg" alt="Spenny" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='SP'">
+                                </div>
+                                <div>
+                                    <div class="table-name">Spenny</div>
+                                    <div class="table-handle">@spennycrypto</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="table-stat">423</td>
+                        <td class="table-stat">564</td>
+                        <td class="table-stat">48</td>
+                        <td class="table-stat">987</td>
+                    </tr>
+                    <tr onclick="showDetail(10, 'Zeus', '@vlagudfsfjr', 'ZE', 389, 534, 42, 923)">
+                        <td>10</td>
+                        <td>
+                            <div class="table-name-cell">
+                                <div class="table-avatar">
+                                    <img src="affiliate-profile-pics/Zeus_vlagudfsfjr.jpg" alt="Zeus" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='ZE'">
+                                </div>
+                                <div>
+                                    <div class="table-name">Zeus</div>
+                                    <div class="table-handle">@vlagudfsfjr</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="table-stat">389</td>
+                        <td class="table-stat">534</td>
+                        <td class="table-stat">42</td>
+                        <td class="table-stat">923</td>
+                    </tr>
+                    <tr onclick="showDetail(11, 'AlphaHunter', '@alpha_hunter', 'AH', 356, 489, 38, 845)">
+                        <td>11</td>
+                        <td>
+                            <div class="table-name-cell">
+                                <div class="table-avatar">AH</div>
+                                <div>
+                                    <div class="table-name">AlphaHunter</div>
+                                    <div class="table-handle">@alpha_hunter</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="table-stat">356</td>
+                        <td class="table-stat">489</td>
+                        <td class="table-stat">38</td>
+                        <td class="table-stat">845</td>
+                    </tr>
+                    <tr onclick="showDetail(12, 'DiamondHands', '@diamond_hands_', 'DH', 334, 456, 35, 790)">
+                        <td>12</td>
+                        <td>
+                            <div class="table-name-cell">
+                                <div class="table-avatar">DH</div>
+                                <div>
+                                    <div class="table-name">DiamondHands</div>
+                                    <div class="table-handle">@diamond_hands_</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="table-stat">334</td>
+                        <td class="table-stat">456</td>
+                        <td class="table-stat">35</td>
+                        <td class="table-stat">790</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Sound effect logging
+        function playSound(soundName) {
+            console.log(`🔊 Sound: ${soundName}`);
+        }
+
+        // Mute functionality
+        let isMuted = false;
+
+        function toggleMute() {
+            isMuted = !isMuted;
+            document.getElementById('muteIcon').textContent = isMuted ? '🔇' : '🔊';
+            console.log(isMuted ? '🔇 Audio muted' : '🔊 Audio unmuted');
+            playSound(isMuted ? 'mute' : 'unmute');
+        }
+
+        // Modal controls
+        function openHallOfFame() {
+            const modal = document.getElementById('hallModal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            playSound('modal-open');
+            playSound('achievement');
+        }
+
+        function openFullLeaderboard() {
+            const modal = document.getElementById('leaderboardModal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            playSound('modal-open');
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            playSound('modal-close');
+        }
+
+        function closeModalOnBackdrop(event, modalId) {
+            if (event.target === event.currentTarget) {
+                closeModal(modalId);
+            }
+        }
+
+        // Click card with animations
+        function clickCard(card, rank, name, handle, avatar, tweets, referrals, traders, total) {
+            const rect = card.getBoundingClientRect();
+
+            // Create ripple effect
+            const ripple = document.createElement('div');
+            ripple.className = 'ripple';
+            ripple.style.width = ripple.style.height = '120px';
+            ripple.style.left = `${rect.width / 2 - 60}px`;
+            ripple.style.top = `${rect.height / 2 - 60}px`;
+            card.appendChild(ripple);
+
+            setTimeout(() => ripple.remove(), 700);
+
+            // Create burst particles
+            for (let i = 0; i < 16; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'burst-particle';
+                const angle = (i / 16) * Math.PI * 2;
+                const distance = 60 + Math.random() * 40;
+                particle.style.setProperty('--tx', `${Math.cos(angle) * distance}px`);
+                particle.style.setProperty('--ty', `${Math.sin(angle) * distance}px`);
+                particle.style.left = `${rect.width / 2}px`;
+                particle.style.top = `${rect.height / 2}px`;
+                card.appendChild(particle);
+
+                setTimeout(() => particle.remove(), 700);
+            }
+
+            // Play sounds
+            playSound('card-click');
+            playSound('particle-burst');
+
+            // Show detail popup after animation starts
+            setTimeout(() => {
+                showDetail(rank, name, handle, avatar, tweets, referrals, traders, total);
+            }, 180);
+        }
+
+        // Detail popup controls
+        function showDetail(rank, name, handle, avatar, tweets, referrals, traders, total) {
+            document.getElementById('popupAvatar').textContent = avatar;
+            document.getElementById('popupName').textContent = name;
+            document.getElementById('popupHandle').textContent = handle;
+            document.getElementById('popupTweets').textContent = tweets.toLocaleString();
+            document.getElementById('popupReferrals').textContent = referrals.toLocaleString();
+            document.getElementById('popupTraders').textContent = traders.toLocaleString();
+            document.getElementById('popupTotal').textContent = total.toLocaleString();
+
+            const popup = document.getElementById('detailPopup');
+            popup.classList.add('active');
+            playSound('popup-open');
+        }
+
+        function closeDetail() {
+            const popup = document.getElementById('detailPopup');
+            popup.classList.remove('active');
+            playSound('popup-close');
+        }
+
+        // ESC key to close modals and popups
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal('hallModal');
+                closeModal('leaderboardModal');
+                closeDetail();
+            }
+        });
+
+        // Add hover sounds
+        document.querySelectorAll('.podium-card, .btn, .close-btn, .mute-btn, .leaderboard-table tbody tr').forEach(el => {
+            el.addEventListener('mouseenter', () => playSound('hover'));
+        });
+
+        // Play achievement sound when top 3 section appears
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    playSound('achievement');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const podium = document.querySelector('.podium');
+        if (podium) {
+            observer.observe(podium);
+        }
+
+        console.log('🎮 Affiliate Leaderboard - Ultimate Edition');
+        console.log('🎨 Enhanced cyber aesthetic with improved UI/UX');
+        console.log('📱 Mobile-optimized responsive design');
+        console.log('✨ Click Hall of Fame cards for ripple + burst effects');
+        console.log('🌐 Full cyber background with hexagons, scan lines & data streams');
+        console.log('💎 Top 3: Cyan (1st), Teal (2nd), Electric Blue (3rd)');
+    </script>
+</body>
+</html>
