@@ -3387,61 +3387,62 @@
             noise.stop(audioCtx.currentTime + 0.25);
         }
 
-        // Automatic Door Slide (card clicks) - futuristic pneumatic door
+        // Soft Data Panel Activation (card clicks) - gentle electronic confirmation
         function playLaserZap(rank = 1) {
-            // Door slide mechanism - low frequency sweep
-            const osc1 = audioCtx.createOscillator();
-            const gain1 = audioCtx.createGain();
+            // Very soft, high-pitched electronic click - like a touchscreen tap
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
             const filter = audioCtx.createBiquadFilter();
 
-            osc1.connect(filter);
-            filter.connect(gain1);
-            gain1.connect(audioCtx.destination);
+            osc.connect(filter);
+            filter.connect(gain);
+            gain.connect(audioCtx.destination);
 
-            osc1.type = 'sine';
+            osc.type = 'sine';
+
+            // High frequency for soft click (like a digital interface)
+            osc.frequency.setValueAtTime(2400, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(1800, audioCtx.currentTime + 0.04);
+
+            // Gentle lowpass filter
             filter.type = 'lowpass';
-            filter.frequency.setValueAtTime(800, audioCtx.currentTime);
-            filter.frequency.linearRampToValueAtTime(200, audioCtx.currentTime + 0.18);
+            filter.frequency.value = 3000;
+            filter.Q.value = 0.5;
 
-            // Smooth mechanical hum
-            osc1.frequency.setValueAtTime(140, audioCtx.currentTime);
-            osc1.frequency.linearRampToValueAtTime(120, audioCtx.currentTime + 0.18);
+            // Very quiet and quick
+            gain.gain.setValueAtTime(0, audioCtx.currentTime);
+            gain.gain.linearRampToValueAtTime(0.03, audioCtx.currentTime + 0.005);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.04);
 
-            gain1.gain.setValueAtTime(0, audioCtx.currentTime);
-            gain1.gain.linearRampToValueAtTime(0.08, audioCtx.currentTime + 0.02);
-            gain1.gain.linearRampToValueAtTime(0.06, audioCtx.currentTime + 0.15);
-            gain1.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 0.18);
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.04);
+        }
 
-            osc1.start(audioCtx.currentTime);
-            osc1.stop(audioCtx.currentTime + 0.18);
+        // Hall of Fame Card Reveal Sound - mechanical scanner lock-on
+        function playCardReveal() {
+            // Soft scanner beep - like a data terminal acknowledgment
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            const filter = audioCtx.createBiquadFilter();
 
-            // Air release "hiss" - short burst
-            const noise = audioCtx.createBufferSource();
-            const noiseGain = audioCtx.createGain();
-            const noiseFilter = audioCtx.createBiquadFilter();
+            osc.connect(filter);
+            filter.connect(gain);
+            gain.connect(audioCtx.destination);
 
-            const bufferSize = audioCtx.sampleRate * 0.08;
-            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-            const output = buffer.getChannelData(0);
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(880, audioCtx.currentTime); // A5 note
 
-            for (let i = 0; i < bufferSize; i++) {
-                output[i] = Math.random() * 2 - 1;
-            }
+            filter.type = 'lowpass';
+            filter.frequency.value = 1500;
+            filter.Q.value = 1;
 
-            noise.buffer = buffer;
-            noise.connect(noiseFilter);
-            noiseFilter.connect(noiseGain);
-            noiseGain.connect(audioCtx.destination);
+            // Quick soft pulse
+            gain.gain.setValueAtTime(0, audioCtx.currentTime);
+            gain.gain.linearRampToValueAtTime(0.04, audioCtx.currentTime + 0.01);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
 
-            noiseFilter.type = 'highpass';
-            noiseFilter.frequency.setValueAtTime(3000, audioCtx.currentTime + 0.15);
-
-            noiseGain.gain.setValueAtTime(0, audioCtx.currentTime + 0.15);
-            noiseGain.gain.linearRampToValueAtTime(0.03, audioCtx.currentTime + 0.16);
-            noiseGain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.22);
-
-            noise.start(audioCtx.currentTime + 0.15);
-            noise.stop(audioCtx.currentTime + 0.22);
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.15);
         }
 
         // Subtle Blip with random variation (hover)
@@ -3554,6 +3555,12 @@
             document.body.style.overflow = 'hidden';
             playSound('modal-open', 1); // Variant 1 for Hall of Fame
             playSound('achievement');
+
+            // Play card reveal sounds as each card appears (matching animation delays)
+            const cardRevealTimes = [2000, 2500, 3000, 3500, 4000, 4500, 5000]; // milliseconds
+            cardRevealTimes.forEach(delay => {
+                setTimeout(() => playCardReveal(), delay);
+            });
         }
 
         function openFullLeaderboard() {
