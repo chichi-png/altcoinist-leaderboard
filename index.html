@@ -1137,6 +1137,119 @@
             50% { opacity: 0.6; }
         }
 
+        /* Trophy Room Background (Full Leaderboard) */
+        .trophy-background {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+            background:
+                radial-gradient(ellipse at top, rgba(255, 215, 0, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at center, rgba(10, 10, 10, 0.9) 0%, rgba(5, 5, 5, 0.98) 100%);
+        }
+
+        /* Stadium Lights */
+        .stadium-light {
+            position: absolute;
+            width: 300px;
+            height: 600px;
+            background: linear-gradient(180deg,
+                rgba(255, 215, 0, 0.15) 0%,
+                rgba(255, 215, 0, 0.08) 20%,
+                rgba(0, 243, 255, 0.04) 40%,
+                transparent 70%);
+            filter: blur(60px);
+            animation: stadiumPulse 5s ease-in-out infinite;
+            transform-origin: top center;
+        }
+
+        @keyframes stadiumPulse {
+            0%, 100% {
+                opacity: 0.8;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+        }
+
+        /* Victory Banners */
+        .victory-banner {
+            position: absolute;
+            width: 120px;
+            height: 500px;
+            background: linear-gradient(180deg,
+                transparent 0%,
+                rgba(0, 243, 255, 0.25) 10%,
+                rgba(0, 243, 255, 0.15) 40%,
+                rgba(0, 243, 255, 0.08) 70%,
+                transparent 100%);
+            clip-path: polygon(10% 0%, 90% 0%, 85% 100%, 15% 100%);
+            animation: bannerSway 8s ease-in-out infinite;
+            border-left: 1px solid rgba(0, 243, 255, 0.3);
+            border-right: 1px solid rgba(0, 243, 255, 0.3);
+        }
+
+        @keyframes bannerSway {
+            0%, 100% {
+                transform: translateX(0) rotateZ(0deg);
+            }
+            50% {
+                transform: translateX(10px) rotateZ(2deg);
+            }
+        }
+
+        /* Golden Corner Accents */
+        .golden-corner {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border: 3px solid rgba(255, 215, 0, 0.3);
+            box-shadow:
+                0 0 30px rgba(255, 215, 0, 0.2),
+                inset 0 0 30px rgba(255, 215, 0, 0.1);
+            animation: goldenPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes goldenPulse {
+            0%, 100% {
+                opacity: 0.5;
+                box-shadow:
+                    0 0 30px rgba(255, 215, 0, 0.2),
+                    inset 0 0 30px rgba(255, 215, 0, 0.1);
+            }
+            50% {
+                opacity: 0.8;
+                box-shadow:
+                    0 0 50px rgba(255, 215, 0, 0.4),
+                    inset 0 0 50px rgba(255, 215, 0, 0.2);
+            }
+        }
+
+        /* Trophy Glow Orbs */
+        .trophy-orb {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.4) 0%, transparent 70%);
+            filter: blur(40px);
+            animation: orbFloat 6s ease-in-out infinite;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translateY(-30px) scale(1.2);
+                opacity: 0.9;
+            }
+        }
+
         /* Close Button */
         .close-btn {
             position: absolute;
@@ -2226,20 +2339,31 @@
     <!-- Full Leaderboard Modal -->
     <div class="modal" id="leaderboardModal" onclick="closeModalOnBackdrop(event, 'leaderboardModal')">
         <div class="modal-content" onclick="event.stopPropagation()">
-            <!-- Cyber Background -->
-            <div class="hall-background">
-                <div class="hex-grid"></div>
-                <div class="scan-lines"></div>
-                <!-- Data Streams -->
-                <div class="data-stream" style="left: 10%; animation-duration: 4s; animation-delay: 0.3s;"></div>
-                <div class="data-stream" style="left: 30%; animation-duration: 4.8s; animation-delay: 1.5s;"></div>
-                <div class="data-stream" style="left: 50%; animation-duration: 4.2s; animation-delay: 0.8s;"></div>
-                <div class="data-stream" style="left: 70%; animation-duration: 4.6s; animation-delay: 2s;"></div>
-                <div class="data-stream" style="left: 90%; animation-duration: 4.4s; animation-delay: 1s;"></div>
-                <!-- Circuit Lines -->
-                <div class="circuit-line" style="width: 50%; top: 25%; left: 10%; animation-delay: 0.5s;"></div>
-                <div class="circuit-line" style="width: 40%; top: 50%; right: 15%; animation-delay: 1.5s;"></div>
-                <div class="circuit-line" style="width: 60%; top: 75%; left: 15%; animation-delay: 1s;"></div>
+            <!-- Trophy Room Background -->
+            <div class="trophy-background">
+                <!-- Stadium Lights -->
+                <div class="stadium-light" style="top: -200px; left: 10%; animation-delay: 0s;"></div>
+                <div class="stadium-light" style="top: -200px; left: 30%; animation-delay: 1.5s;"></div>
+                <div class="stadium-light" style="top: -200px; left: 50%; animation-delay: 0.8s;"></div>
+                <div class="stadium-light" style="top: -200px; left: 70%; animation-delay: 2.2s;"></div>
+                <div class="stadium-light" style="top: -200px; right: 10%; animation-delay: 1s;"></div>
+
+                <!-- Victory Banners -->
+                <div class="victory-banner" style="top: 0; left: 5%; animation-delay: 0s;"></div>
+                <div class="victory-banner" style="top: 0; left: 20%; animation-delay: 2s;"></div>
+                <div class="victory-banner" style="top: 0; right: 20%; animation-delay: 4s;"></div>
+                <div class="victory-banner" style="top: 0; right: 5%; animation-delay: 6s;"></div>
+
+                <!-- Golden Corners -->
+                <div class="golden-corner" style="top: 0; left: 0; border-right: none; border-bottom: none; animation-delay: 0s;"></div>
+                <div class="golden-corner" style="top: 0; right: 0; border-left: none; border-bottom: none; animation-delay: 1s;"></div>
+                <div class="golden-corner" style="bottom: 0; left: 0; border-right: none; border-top: none; animation-delay: 2s;"></div>
+                <div class="golden-corner" style="bottom: 0; right: 0; border-left: none; border-top: none; animation-delay: 3s;"></div>
+
+                <!-- Trophy Glow Orbs -->
+                <div class="trophy-orb" style="top: 20%; left: 15%; animation-delay: 0s;"></div>
+                <div class="trophy-orb" style="top: 40%; right: 20%; animation-delay: 2s;"></div>
+                <div class="trophy-orb" style="bottom: 30%; left: 25%; animation-delay: 4s;"></div>
             </div>
 
             <button class="close-btn" onclick="closeModal('leaderboardModal')" aria-label="Close">×</button>
