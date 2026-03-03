@@ -72,6 +72,75 @@
             --transition-slow: 600ms cubic-bezier(0.4, 0, 0.2, 1);
         }
 
+        /* ========================================
+           PERFORMANCE OPTIMIZATIONS
+           ======================================== */
+
+        /* Force GPU acceleration for animated elements */
+        .podium-card,
+        .hall-card,
+        .stat-card,
+        .neon-streak,
+        .particle,
+        .gallery-spotlight,
+        .modal-content,
+        .detail-popup,
+        .hall-scanner,
+        .body-scanner {
+            will-change: transform, opacity;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
+
+        /* Contain paint and layout for isolated sections */
+        .landing,
+        .podium,
+        .hall-background,
+        .trophy-background {
+            contain: layout paint;
+        }
+
+        /* Optimize box-shadow animations by using opacity instead */
+        @media (prefers-reduced-motion: no-preference) {
+            /* Animations are enabled */
+        }
+
+        /* Disable expensive animations for users who prefer reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Optimize table rendering */
+        .leaderboard-table {
+            contain: layout style;
+        }
+
+        /* Reduce complexity of blur effects */
+        .modal::before,
+        .hall-background::before {
+            will-change: opacity;
+        }
+
+        /* Pause background animations when modals are open for better performance */
+        body:has(.modal.active) .landing .neon-streak,
+        body:has(.modal.active) .cyber-grid,
+        body:has(.modal.active) .podium .particle {
+            animation-play-state: paused;
+        }
+
+        /* Optimize scrolling performance */
+        .modal-content,
+        .leaderboard-table {
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
         /* Reset & Base */
         * {
             margin: 0;
@@ -3463,42 +3532,58 @@
             osc.stop(audioCtx.currentTime + 0.05);
         }
 
-        // Electronic Up (popup open)
+        // Data Panel Slide Open (popup open) - soft panel extension
         function playElectronicUp() {
+            // Gentle sine wave confirmation - no frequency sweep
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
+            const filter = audioCtx.createBiquadFilter();
 
-            osc.connect(gain);
+            osc.connect(filter);
+            filter.connect(gain);
             gain.connect(audioCtx.destination);
 
-            osc.type = 'triangle';
-            osc.frequency.setValueAtTime(400, audioCtx.currentTime);
-            osc.frequency.linearRampToValueAtTime(600, audioCtx.currentTime + 0.1);
+            osc.type = 'sine';
+            osc.frequency.value = 1200; // Single steady tone
 
-            gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+            filter.type = 'lowpass';
+            filter.frequency.value = 2000;
+            filter.Q.value = 0.5;
+
+            // Very soft and quick
+            gain.gain.setValueAtTime(0, audioCtx.currentTime);
+            gain.gain.linearRampToValueAtTime(0.035, audioCtx.currentTime + 0.01);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.06);
 
             osc.start(audioCtx.currentTime);
-            osc.stop(audioCtx.currentTime + 0.1);
+            osc.stop(audioCtx.currentTime + 0.06);
         }
 
-        // Electronic Down (popup close)
+        // Data Panel Slide Close (popup close) - soft panel retraction
         function playElectronicDown() {
+            // Gentle sine wave confirmation - slightly lower tone
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
+            const filter = audioCtx.createBiquadFilter();
 
-            osc.connect(gain);
+            osc.connect(filter);
+            filter.connect(gain);
             gain.connect(audioCtx.destination);
 
-            osc.type = 'triangle';
-            osc.frequency.setValueAtTime(600, audioCtx.currentTime);
-            osc.frequency.linearRampToValueAtTime(400, audioCtx.currentTime + 0.1);
+            osc.type = 'sine';
+            osc.frequency.value = 900; // Single steady tone, lower than open
 
-            gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+            filter.type = 'lowpass';
+            filter.frequency.value = 1800;
+            filter.Q.value = 0.5;
+
+            // Very soft and quick
+            gain.gain.setValueAtTime(0, audioCtx.currentTime);
+            gain.gain.linearRampToValueAtTime(0.03, audioCtx.currentTime + 0.01);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.06);
 
             osc.start(audioCtx.currentTime);
-            osc.stop(audioCtx.currentTime + 0.1);
+            osc.stop(audioCtx.currentTime + 0.06);
         }
 
         // Gentle Achievement Chime (softer, more pleasant)
