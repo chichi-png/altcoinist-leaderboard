@@ -3343,25 +3343,61 @@
             osc.stop(audioCtx.currentTime + 0.2);
         }
 
-        // Laser Zap with rank variation (card clicks)
+        // Automatic Door Slide (card clicks) - futuristic pneumatic door
         function playLaserZap(rank = 1) {
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
+            // Door slide mechanism - low frequency sweep
+            const osc1 = audioCtx.createOscillator();
+            const gain1 = audioCtx.createGain();
+            const filter = audioCtx.createBiquadFilter();
 
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
+            osc1.connect(filter);
+            filter.connect(gain1);
+            gain1.connect(audioCtx.destination);
 
-            osc.type = 'sawtooth';
-            // Higher ranks get higher pitches
-            const startFreq = 1200 + (rank * 50);
-            osc.frequency.setValueAtTime(startFreq, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.15);
+            osc1.type = 'sine';
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(800, audioCtx.currentTime);
+            filter.frequency.linearRampToValueAtTime(200, audioCtx.currentTime + 0.18);
 
-            gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+            // Smooth mechanical hum
+            osc1.frequency.setValueAtTime(140, audioCtx.currentTime);
+            osc1.frequency.linearRampToValueAtTime(120, audioCtx.currentTime + 0.18);
 
-            osc.start(audioCtx.currentTime);
-            osc.stop(audioCtx.currentTime + 0.15);
+            gain1.gain.setValueAtTime(0, audioCtx.currentTime);
+            gain1.gain.linearRampToValueAtTime(0.08, audioCtx.currentTime + 0.02);
+            gain1.gain.linearRampToValueAtTime(0.06, audioCtx.currentTime + 0.15);
+            gain1.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 0.18);
+
+            osc1.start(audioCtx.currentTime);
+            osc1.stop(audioCtx.currentTime + 0.18);
+
+            // Air release "hiss" - short burst
+            const noise = audioCtx.createBufferSource();
+            const noiseGain = audioCtx.createGain();
+            const noiseFilter = audioCtx.createBiquadFilter();
+
+            const bufferSize = audioCtx.sampleRate * 0.08;
+            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const output = buffer.getChannelData(0);
+
+            for (let i = 0; i < bufferSize; i++) {
+                output[i] = Math.random() * 2 - 1;
+            }
+
+            noise.buffer = buffer;
+            noise.connect(noiseFilter);
+            noiseFilter.connect(noiseGain);
+            noiseGain.connect(audioCtx.destination);
+
+            noiseFilter.type = 'highpass';
+            noiseFilter.frequency.setValueAtTime(3000, audioCtx.currentTime + 0.15);
+
+            noiseGain.gain.setValueAtTime(0, audioCtx.currentTime + 0.15);
+            noiseGain.gain.linearRampToValueAtTime(0.03, audioCtx.currentTime + 0.16);
+            noiseGain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.22);
+
+            noise.start(audioCtx.currentTime + 0.15);
+            noise.stop(audioCtx.currentTime + 0.22);
         }
 
         // Subtle Blip with random variation (hover)
