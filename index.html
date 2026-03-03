@@ -444,10 +444,12 @@
             align-items: center;
             position: relative;
             overflow: hidden;
-            transition: all var(--transition-smooth);
-            animation: cardEntrance 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+            transition: transform 0.3s ease-out, box-shadow var(--transition-smooth);
+            animation: dramaticRise 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
             box-shadow: var(--shadow-xl), var(--shadow-inner);
             will-change: transform, box-shadow;
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
 
         .podium-card:active {
@@ -462,33 +464,139 @@
             pointer-events: none;
         }
 
-        /* Removed scanline from ::after to avoid conflict with corner accents */
+        /* Holographic scan line effect */
+        .podium-card::after {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg,
+                transparent 0%,
+                rgba(0, 243, 255, 0.3) 20%,
+                rgba(0, 243, 255, 0.9) 50%,
+                rgba(0, 243, 255, 0.3) 80%,
+                transparent 100%);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.8);
+            animation: holoScan 2s ease-out forwards;
+            pointer-events: none;
+            z-index: 10;
+        }
 
+        /* Podium reveal sequence: 2nd → 1st → 3rd (like real awards ceremony) */
         .podium-card:nth-child(1) {
-            animation-delay: 0.3s;
+            animation-delay: 1.2s;  /* Rank 1 - The champion appears second */
             order: 2;
         }
 
+        .podium-card:nth-child(1)::after {
+            animation-delay: 2.4s;  /* Scan after card appears */
+        }
+
         .podium-card:nth-child(2) {
-            animation-delay: 0.4s;
+            animation-delay: 0.5s;  /* Rank 2 - Runner-up appears first */
             order: 1;
         }
 
+        .podium-card:nth-child(2)::after {
+            animation-delay: 1.7s;
+        }
+
         .podium-card:nth-child(3) {
-            animation-delay: 0.5s;
+            animation-delay: 1.9s;  /* Rank 3 - Third place appears last */
             order: 3;
         }
 
-        @keyframes cardEntrance {
-            from {
+        .podium-card:nth-child(3)::after {
+            animation-delay: 3.1s;
+        }
+
+        /* Dramatic rising entrance with particles */
+        @keyframes dramaticRise {
+            0% {
                 opacity: 0;
-                transform: translateY(60px) scale(0.92);
-                filter: blur(8px);
+                transform: translateY(200px) scale(0.8) rotateX(20deg);
+                filter: blur(10px) brightness(0.4);
             }
-            to {
+            60% {
                 opacity: 1;
-                transform: translateY(0) scale(1);
-                filter: blur(0);
+                transform: translateY(-10px) scale(1.02) rotateX(0deg);
+                filter: blur(0) brightness(1.2);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1) rotateX(0deg);
+                filter: blur(0) brightness(1);
+            }
+        }
+
+        /* Holographic scan animation */
+        @keyframes holoScan {
+            0% {
+                top: -10%;
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            45% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.3;
+                box-shadow: 0 0 40px rgba(0, 243, 255, 1);
+            }
+            55% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                top: 110%;
+                opacity: 0;
+            }
+        }
+
+        /* Glitch effect during scan */
+        .podium-card {
+            animation: dramaticRise 1.2s cubic-bezier(0.16, 1, 0.3, 1) both,
+                       subtleGlitch 0.3s ease-in-out;
+        }
+
+        .podium-card:nth-child(1) {
+            animation-delay: 1.2s, 2.7s;
+        }
+
+        .podium-card:nth-child(2) {
+            animation-delay: 0.5s, 2s;
+        }
+
+        .podium-card:nth-child(3) {
+            animation-delay: 1.9s, 3.4s;
+        }
+
+        @keyframes subtleGlitch {
+            0%, 100% {
+                transform: translateX(0);
+                filter: brightness(1);
+            }
+            20% {
+                transform: translateX(-2px);
+                filter: brightness(1.2) hue-rotate(5deg);
+            }
+            40% {
+                transform: translateX(2px);
+                filter: brightness(0.8) hue-rotate(-5deg);
+            }
+            60% {
+                transform: translateX(-1px);
+                filter: brightness(1.3);
+            }
+            80% {
+                transform: translateX(1px);
+                filter: brightness(0.9);
             }
         }
 
@@ -500,7 +608,7 @@
         }
 
         .podium-card.rank-1:hover {
-            transform: translateY(-12px) scale(1.1);
+            /* 3D tilt applied via JavaScript, keep scale */
             box-shadow: 0 0 80px var(--glow-cyan), var(--shadow-xl);
         }
 
@@ -517,7 +625,7 @@
         }
 
         .podium-card.rank-2:hover {
-            transform: translateY(-12px) scale(1.03);
+            /* 3D tilt applied via JavaScript */
             border-color: var(--teal-bright);
             box-shadow: 0 0 60px var(--glow-teal), var(--shadow-xl);
         }
@@ -534,7 +642,7 @@
         }
 
         .podium-card.rank-3:hover {
-            transform: translateY(-12px) scale(1.03);
+            /* 3D tilt applied via JavaScript */
             border-color: var(--blue-bright);
             box-shadow: 0 0 60px var(--glow-blue), var(--shadow-xl);
         }
@@ -3348,6 +3456,57 @@
             osc2.stop(audioCtx.currentTime + 0.7);
         }
 
+        // Victory Fanfare for Podium Reveals (rank-specific)
+        function playVictoryFanfare(rank) {
+            // Base frequency depends on rank (higher for better ranks)
+            const baseFreq = rank === 1 ? 523.25 : (rank === 2 ? 440 : 392); // C5, A4, G4
+            const duration = rank === 1 ? 0.8 : 0.6;
+            const volume = rank === 1 ? 0.08 : 0.06;
+
+            // Main fanfare tone
+            const osc1 = audioCtx.createOscillator();
+            const gain1 = audioCtx.createGain();
+            const filter1 = audioCtx.createBiquadFilter();
+
+            osc1.connect(filter1);
+            filter1.connect(gain1);
+            gain1.connect(audioCtx.destination);
+
+            osc1.type = 'triangle';
+            osc1.frequency.setValueAtTime(baseFreq, audioCtx.currentTime);
+            osc1.frequency.linearRampToValueAtTime(baseFreq * 1.5, audioCtx.currentTime + 0.15);
+
+            filter1.type = 'lowpass';
+            filter1.frequency.setValueAtTime(3000, audioCtx.currentTime);
+            filter1.Q.value = 1;
+
+            gain1.gain.setValueAtTime(0, audioCtx.currentTime);
+            gain1.gain.linearRampToValueAtTime(volume, audioCtx.currentTime + 0.05);
+            gain1.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+
+            osc1.start(audioCtx.currentTime);
+            osc1.stop(audioCtx.currentTime + duration);
+
+            // Harmonic overlay for rank 1 (extra special)
+            if (rank === 1) {
+                const osc2 = audioCtx.createOscillator();
+                const gain2 = audioCtx.createGain();
+
+                osc2.connect(gain2);
+                gain2.connect(audioCtx.destination);
+
+                osc2.type = 'sine';
+                osc2.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.2); // E5
+
+                gain2.gain.setValueAtTime(0, audioCtx.currentTime + 0.2);
+                gain2.gain.linearRampToValueAtTime(0.06, audioCtx.currentTime + 0.25);
+                gain2.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 1);
+
+                osc2.start(audioCtx.currentTime + 0.2);
+                osc2.stop(audioCtx.currentTime + 1);
+            }
+        }
+
         // Mute functionality
         function toggleMute() {
             isMuted = !isMuted;
@@ -3577,6 +3736,89 @@
         if (podium) {
             observer.observe(podium);
         }
+
+        // ===== 3D TILT EFFECT ON PODIUM CARDS =====
+        const podiumCards = document.querySelectorAll('.podium-card');
+
+        podiumCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = ((y - centerY) / centerY) * -10; // Max 10deg tilt
+                const rotateY = ((x - centerX) / centerX) * 10;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${card.classList.contains('rank-1') ? '1.08' : '1'})`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale(${card.classList.contains('rank-1') ? '1.08' : '1'})`;
+            });
+        });
+
+        // ===== ANIMATED STATS COUNT-UP =====
+        function animateValue(element, start, end, duration, suffix = '') {
+            const range = end - start;
+            const startTime = performance.now();
+
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+
+                // Easing function for smooth deceleration
+                const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+                const current = Math.floor(start + range * easeOutQuart);
+
+                element.textContent = current.toLocaleString() + suffix;
+
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                } else {
+                    element.textContent = end.toLocaleString() + suffix;
+                }
+            }
+
+            requestAnimationFrame(update);
+        }
+
+        // Trigger count-up when podium cards appear
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const card = entry.target;
+                    const delay = parseFloat(getComputedStyle(card).animationDelay) * 1000;
+
+                    setTimeout(() => {
+                        // Get rank from card class
+                        const rank = card.classList.contains('rank-1') ? 1 :
+                                    (card.classList.contains('rank-2') ? 2 : 3);
+
+                        // Animate all stat numbers in this card
+                        const statValues = card.querySelectorAll('.score-value');
+                        statValues.forEach((stat, index) => {
+                            const targetValue = parseInt(stat.textContent.replace(/,/g, ''));
+                            if (!isNaN(targetValue)) {
+                                // Different duration for each stat for staggered effect
+                                animateValue(stat, 0, targetValue, 1000 + (index * 200));
+                            }
+                        });
+
+                        // Play rank-specific victory fanfare
+                        playVictoryFanfare(rank);
+                    }, delay + 800); // Start counting after card fully appears
+
+                    statsObserver.unobserve(card);
+                }
+            });
+        }, { threshold: 0.8 });
+
+        podiumCards.forEach(card => {
+            statsObserver.observe(card);
+        });
 
         console.log('🎮 Affiliate Leaderboard - Ultimate Edition');
         console.log('🎨 Enhanced cyber aesthetic with improved UI/UX');
