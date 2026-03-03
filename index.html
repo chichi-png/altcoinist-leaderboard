@@ -293,70 +293,6 @@
             letter-spacing: 0.02em;
         }
 
-        /* Matrix-Style Falling Code (Landing Page Only) */
-        .landing .matrix-column {
-            position: absolute;
-            top: -100%;
-            width: 2px;
-            height: 100vh;
-            opacity: 0.6;
-            animation: matrixFall linear infinite;
-            pointer-events: none;
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
-            color: var(--cyan-bright);
-            text-shadow: 0 0 8px var(--glow-cyan);
-            white-space: nowrap;
-            overflow: hidden;
-            writing-mode: vertical-lr;
-        }
-
-        @keyframes matrixFall {
-            0% {
-                transform: translateY(-100%);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.8;
-            }
-            90% {
-                opacity: 0.4;
-            }
-            100% {
-                transform: translateY(100vh);
-                opacity: 0;
-            }
-        }
-
-        /* Neon Streaks (Landing Page) */
-        .landing .neon-streak {
-            position: absolute;
-            width: 2px;
-            height: 150px;
-            background: linear-gradient(180deg, transparent, var(--cyan-bright), transparent);
-            opacity: 0;
-            animation: streakFall linear infinite;
-            box-shadow: 0 0 10px var(--glow-cyan);
-            pointer-events: none;
-        }
-
-        @keyframes streakFall {
-            0% {
-                top: -150px;
-                opacity: 0;
-            }
-            20% {
-                opacity: 1;
-            }
-            80% {
-                opacity: 0.6;
-            }
-            100% {
-                top: 100vh;
-                opacity: 0;
-            }
-        }
-
         /* Top 3 Podium */
         .podium {
             display: grid;
@@ -664,13 +600,10 @@
             font-weight: 800;
             letter-spacing: -0.03em;
             margin-bottom: var(--space-2);
-            color: var(--cyan-bright);
+            color: white;
             text-align: center;
             position: relative;
             transition: all var(--transition-base);
-            text-shadow:
-                0 0 12px var(--glow-cyan),
-                0 0 24px rgba(0, 243, 255, 0.4);
         }
 
         .podium-card:hover .affiliate-name {
@@ -1013,238 +946,6 @@
             }
         }
 
-        /* DRAMATIC Hall of Fame Entrance with WOW Factor */
-
-        /* Add tunnel overlay for dramatic entrance */
-        #hallModal::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background: radial-gradient(ellipse at center,
-                transparent 0%,
-                rgba(0, 0, 0, 0.9) 60%,
-                rgba(0, 0, 0, 1) 100%);
-            pointer-events: none;
-            z-index: 1;
-            opacity: 0;
-        }
-
-        #hallModal.active::before {
-            animation: tunnelReveal 2s ease-out forwards;
-        }
-
-        @keyframes tunnelReveal {
-            0% {
-                opacity: 1;
-                transform: scale(0.3);
-            }
-            50% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-                transform: scale(3);
-            }
-        }
-
-        /* Modal content zooms from far away */
-        #hallModal .modal-content {
-            transform-style: preserve-3d;
-            perspective: 2000px;
-        }
-
-        #hallModal.active .modal-content {
-            animation: dramaticZoomIn 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        @keyframes dramaticZoomIn {
-            0% {
-                opacity: 0;
-                transform: scale(0.1) translateY(200px);
-                filter: blur(30px) brightness(0.3);
-            }
-            40% {
-                opacity: 0.5;
-                filter: blur(15px) brightness(0.6);
-            }
-            70% {
-                opacity: 0.9;
-                filter: blur(2px) brightness(0.9);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-                filter: blur(0) brightness(1);
-            }
-        }
-
-        /* Gallery walls burst open dramatically */
-        #hallModal .gallery-wall {
-            opacity: 0;
-            transition: none;
-        }
-
-        #hallModal.active .gallery-wall.left {
-            animation: wallBurstLeft 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            animation-delay: 0.6s;
-        }
-
-        #hallModal.active .gallery-wall.right {
-            animation: wallBurstRight 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            animation-delay: 0.6s;
-        }
-
-        @keyframes wallBurstLeft {
-            0% {
-                opacity: 0;
-                transform: perspective(1500px) rotateY(90deg) translateX(-500px);
-            }
-            60% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 1;
-                transform: perspective(1500px) rotateY(35deg) translateX(0);
-            }
-        }
-
-        @keyframes wallBurstRight {
-            0% {
-                opacity: 0;
-                transform: perspective(1500px) rotateY(-90deg) translateX(500px);
-            }
-            60% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 1;
-                transform: perspective(1500px) rotateY(-35deg) translateX(0);
-            }
-        }
-
-        /* Light sweep across the hall */
-        #hallModal.active .hall-background::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 200%;
-            height: 100%;
-            background: linear-gradient(90deg,
-                transparent 0%,
-                rgba(218, 165, 32, 0.3) 48%,
-                rgba(255, 255, 255, 0.4) 50%,
-                rgba(218, 165, 32, 0.3) 52%,
-                transparent 100%);
-            animation: lightSweep 2s ease-out forwards;
-            animation-delay: 0.8s;
-            pointer-events: none;
-        }
-
-        @keyframes lightSweep {
-            0% {
-                left: -100%;
-                opacity: 0;
-            }
-            20% {
-                opacity: 1;
-            }
-            80% {
-                opacity: 1;
-            }
-            100% {
-                left: 100%;
-                opacity: 0;
-            }
-        }
-
-        /* Cards explode into view with dramatic entrance */
-        #hallModal .hall-card {
-            opacity: 0;
-            transform: scale(0);
-        }
-
-        #hallModal.active .hall-card {
-            animation: cardExplosion 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-
-        #hallModal.active .hall-card:nth-child(1) {
-            animation-delay: 1.2s;
-        }
-        #hallModal.active .hall-card:nth-child(2) {
-            animation-delay: 1.4s;
-        }
-        #hallModal.active .hall-card:nth-child(3) {
-            animation-delay: 1.6s;
-        }
-
-        @keyframes cardExplosion {
-            0% {
-                opacity: 0;
-                transform: scale(0) rotateY(180deg);
-                filter: blur(20px) brightness(3);
-            }
-            50% {
-                filter: blur(5px) brightness(1.5);
-            }
-            70% {
-                transform: scale(1.1) rotateY(0deg);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1) rotateY(0deg);
-                filter: blur(0) brightness(1);
-            }
-        }
-
-        /* Spotlights sweep dramatically */
-        #hallModal.active .gallery-spotlight {
-            animation: spotlightDramatic 3s ease-out forwards, spotlightSway 10s ease-in-out 3s infinite;
-        }
-
-        @keyframes spotlightDramatic {
-            0% {
-                opacity: 0;
-                transform: translateY(-200px) scale(0.5);
-            }
-            50% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0.7;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        /* Title glows dramatically */
-        #hallModal.active .modal-title {
-            animation: titleGlowReveal 2s ease-out forwards;
-            animation-delay: 1s;
-        }
-
-        @keyframes titleGlowReveal {
-            0% {
-                opacity: 0;
-                transform: scale(0.5);
-                text-shadow: 0 0 0 transparent;
-            }
-            50% {
-                text-shadow:
-                    0 0 40px var(--glow-cyan),
-                    0 0 80px var(--glow-cyan),
-                    0 0 120px rgba(0, 243, 255, 0.8);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1);
-                text-shadow:
-                    0 0 20px var(--glow-cyan),
-                    0 0 40px var(--glow-cyan),
-                    0 0 60px rgba(0, 243, 255, 0.5),
-                    0 0 80px rgba(0, 243, 255, 0.3);
-            }
-        }
-
         /* Cyber Background for Modals */
         .hall-background {
             position: absolute;
@@ -1252,338 +953,95 @@
             overflow: hidden;
             pointer-events: none;
             z-index: 0;
-            background: radial-gradient(ellipse at center, rgba(15, 15, 15, 0.7) 0%, rgba(10, 10, 10, 0.95) 100%);
+            opacity: 0.8;
         }
 
-        /* Gallery Walls with 3D Perspective */
-        .gallery-wall {
-            position: absolute;
-            height: 100%;
-            width: 500px;
-            background:
-                linear-gradient(90deg,
-                    rgba(30, 30, 35, 0.9) 0%,
-                    rgba(20, 20, 25, 0.95) 50%,
-                    rgba(15, 15, 20, 1) 100%),
-                repeating-linear-gradient(0deg,
-                    rgba(0, 243, 255, 0.02) 0px,
-                    transparent 2px,
-                    transparent 50px,
-                    rgba(0, 243, 255, 0.02) 52px);
-            border: 2px solid rgba(0, 243, 255, 0.15);
-            box-shadow:
-                inset 0 0 150px rgba(0, 0, 0, 0.9),
-                inset 0 0 80px rgba(0, 243, 255, 0.08),
-                0 0 50px rgba(0, 0, 0, 0.8);
-        }
-
-        .gallery-wall.left {
-            left: -150px;
-            transform: perspective(1500px) rotateY(35deg);
-            transform-origin: right center;
-        }
-
-        .gallery-wall.right {
-            right: -150px;
-            transform: perspective(1500px) rotateY(-35deg);
-            transform-origin: left center;
-        }
-
-        /* Hallway depth panels behind the walls */
-        .gallery-wall::before {
-            content: '';
-            position: absolute;
-            inset: 10% 0;
-            background: linear-gradient(180deg,
-                transparent 0%,
-                rgba(0, 243, 255, 0.03) 50%,
-                transparent 100%);
-            opacity: 0;
-            animation: wallIlluminate 3s ease-out forwards;
-        }
-
-        @keyframes wallIlluminate {
-            to { opacity: 1; }
-        }
-
-        /* Gallery Floor - Wooden/Elegant Pattern */
-        .gallery-floor {
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%) perspective(800px) rotateX(70deg);
-            width: 80%;
-            height: 600px;
-            background:
-                repeating-linear-gradient(90deg,
-                    rgba(40, 35, 30, 0.3) 0px,
-                    rgba(45, 40, 35, 0.35) 5px,
-                    rgba(40, 35, 30, 0.3) 10px
-                ),
-                linear-gradient(180deg,
-                    transparent 0%,
-                    rgba(0, 243, 255, 0.05) 50%,
-                    transparent 100%);
-            border: 2px solid rgba(0, 243, 255, 0.15);
-            box-shadow: 0 50px 150px rgba(0, 0, 0, 0.9);
-            pointer-events: none;
-        }
-
-        /* Gallery Spotlights from Ceiling */
-        .gallery-spotlight {
-            position: absolute;
-            top: -50px;
-            width: 250px;
-            height: 800px;
-            background: linear-gradient(180deg,
-                rgba(0, 243, 255, 0.2) 0%,
-                rgba(0, 243, 255, 0.08) 30%,
-                rgba(0, 243, 255, 0.02) 60%,
-                transparent 100%);
-            filter: blur(50px);
-            transform-origin: top center;
-            animation: spotlightSway 10s ease-in-out infinite;
-            pointer-events: none;
-        }
-
-        @keyframes spotlightSway {
-            0%, 100% {
-                transform: translateX(-15px);
-                opacity: 0.6;
-            }
-            50% {
-                transform: translateX(15px);
-                opacity: 0.8;
-            }
-        }
-
-        /* Ambient Light Particles (subtle) */
-        .light-particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: var(--cyan-bright);
-            border-radius: 50%;
-            opacity: 0;
-            animation: particleFloat 8s ease-in-out infinite;
-            box-shadow: 0 0 10px var(--glow-cyan);
-        }
-
-        @keyframes particleFloat {
-            0%, 100% {
-                opacity: 0;
-                transform: translateY(0) scale(1);
-            }
-            50% {
-                opacity: 0.6;
-                transform: translateY(-100px) scale(1.5);
-            }
-        }
-
-        /* Picture Frame Accent Lines */
-        .frame-accent {
-            position: absolute;
-            border: 2px solid rgba(218, 165, 32, 0.2);
-            box-shadow:
-                inset 0 0 30px rgba(218, 165, 32, 0.1),
-                0 0 20px rgba(218, 165, 32, 0.15);
-            pointer-events: none;
-            animation: frameGlow 6s ease-in-out infinite;
-        }
-
-        @keyframes frameGlow {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.6; }
-        }
-
-        /* Trophy Room Background (Full Leaderboard) */
-        .trophy-background {
+        /* Hexagon Grid Pattern */
+        .hex-grid {
             position: absolute;
             inset: 0;
-            overflow: hidden;
-            pointer-events: none;
-            z-index: 0;
-            background:
-                radial-gradient(ellipse at top, rgba(255, 215, 0, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at center, rgba(10, 10, 10, 0.9) 0%, rgba(5, 5, 5, 0.98) 100%);
+            background-image:
+                linear-gradient(30deg, transparent 38%, rgba(0, 243, 255, 0.06) 38%, rgba(0, 243, 255, 0.06) 62%, transparent 62%),
+                linear-gradient(90deg, transparent 38%, rgba(0, 255, 204, 0.06) 38%, rgba(0, 255, 204, 0.06) 62%, transparent 62%),
+                linear-gradient(150deg, transparent 38%, rgba(56, 255, 147, 0.06) 38%, rgba(56, 255, 147, 0.06) 62%, transparent 62%);
+            background-size: 90px 156px;
+            animation: hexShift 25s linear infinite;
         }
 
-        /* Stadium Lights */
-        .stadium-light {
+        @keyframes hexShift {
+            from { background-position: 0 0, 0 0, 0 0; }
+            to { background-position: 90px 156px, 0 156px, 90px 0; }
+        }
+
+        /* Scanning Lines */
+        .scan-lines {
             position: absolute;
-            width: 300px;
-            height: 600px;
-            background: linear-gradient(180deg,
-                rgba(255, 215, 0, 0.15) 0%,
-                rgba(255, 215, 0, 0.08) 20%,
-                rgba(0, 243, 255, 0.04) 40%,
-                transparent 70%);
-            filter: blur(60px);
-            animation: stadiumPulse 5s ease-in-out infinite;
-            transform-origin: top center;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                transparent 48%,
+                rgba(0, 243, 255, 0.04) 48%,
+                rgba(0, 243, 255, 0.04) 52%,
+                transparent 52%
+            );
+            background-size: 100% 6px;
+            animation: scanMove 10s linear infinite;
         }
 
-        @keyframes stadiumPulse {
-            0%, 100% {
-                opacity: 0.8;
-                transform: scale(1);
+        @keyframes scanMove {
+            from { background-position: 0 0; }
+            to { background-position: 0 100%; }
+        }
+
+        /* Data Stream Effect */
+        .data-stream {
+            position: absolute;
+            width: 3px;
+            height: 120px;
+            background: linear-gradient(to bottom, transparent, var(--cyan-bright), transparent);
+            opacity: 0.7;
+            animation: streamFall linear infinite;
+            border-radius: 2px;
+        }
+
+        @keyframes streamFall {
+            from {
+                transform: translateY(-120px);
+                opacity: 0;
             }
             50% {
-                opacity: 1;
-                transform: scale(1.1);
-            }
-        }
-
-        /* Victory Banners */
-        .victory-banner {
-            position: absolute;
-            width: 120px;
-            height: 500px;
-            background: linear-gradient(180deg,
-                transparent 0%,
-                rgba(0, 243, 255, 0.25) 10%,
-                rgba(0, 243, 255, 0.15) 40%,
-                rgba(0, 243, 255, 0.08) 70%,
-                transparent 100%);
-            clip-path: polygon(10% 0%, 90% 0%, 85% 100%, 15% 100%);
-            animation: bannerSway 8s ease-in-out infinite;
-            border-left: 1px solid rgba(0, 243, 255, 0.3);
-            border-right: 1px solid rgba(0, 243, 255, 0.3);
-        }
-
-        @keyframes bannerSway {
-            0%, 100% {
-                transform: translateX(0) rotateZ(0deg);
-            }
-            50% {
-                transform: translateX(10px) rotateZ(2deg);
-            }
-        }
-
-        /* Golden Corner Accents */
-        .golden-corner {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            border: 3px solid rgba(255, 215, 0, 0.3);
-            box-shadow:
-                0 0 30px rgba(255, 215, 0, 0.2),
-                inset 0 0 30px rgba(255, 215, 0, 0.1);
-            animation: goldenPulse 4s ease-in-out infinite;
-        }
-
-        @keyframes goldenPulse {
-            0%, 100% {
-                opacity: 0.5;
-                box-shadow:
-                    0 0 30px rgba(255, 215, 0, 0.2),
-                    inset 0 0 30px rgba(255, 215, 0, 0.1);
-            }
-            50% {
-                opacity: 0.8;
-                box-shadow:
-                    0 0 50px rgba(255, 215, 0, 0.4),
-                    inset 0 0 50px rgba(255, 215, 0, 0.2);
-            }
-        }
-
-        /* Trophy Glow Orbs */
-        .trophy-orb {
-            position: absolute;
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 215, 0, 0.4) 0%, transparent 70%);
-            filter: blur(40px);
-            animation: orbFloat 6s ease-in-out infinite;
-        }
-
-        @keyframes orbFloat {
-            0%, 100% {
-                transform: translateY(0) scale(1);
-                opacity: 0.6;
-            }
-            50% {
-                transform: translateY(-30px) scale(1.2);
                 opacity: 0.9;
             }
-        }
-
-        /* Slow Body Scanner (Full Leaderboard) */
-        .body-scanner {
-            position: absolute;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg,
-                transparent 0%,
-                rgba(0, 243, 255, 0.3) 20%,
-                rgba(0, 243, 255, 0.8) 50%,
-                rgba(0, 243, 255, 0.3) 80%,
-                transparent 100%);
-            box-shadow:
-                0 0 20px rgba(0, 243, 255, 0.8),
-                0 0 40px rgba(0, 243, 255, 0.4),
-                0 2px 60px rgba(0, 243, 255, 0.6);
-            animation: scanSlow 12s linear infinite;
-            pointer-events: none;
-            z-index: 10;
-        }
-
-        .body-scanner::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            right: 0;
-            height: 80px;
-            background: linear-gradient(180deg,
-                rgba(0, 243, 255, 0.15) 0%,
-                rgba(0, 243, 255, 0.05) 50%,
-                transparent 100%);
-            filter: blur(20px);
-            transform: translateY(-40px);
-        }
-
-        .body-scanner::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            right: 0;
-            height: 80px;
-            background: linear-gradient(180deg,
-                transparent 0%,
-                rgba(0, 243, 255, 0.05) 50%,
-                rgba(0, 243, 255, 0.15) 100%);
-            filter: blur(20px);
-            transform: translateY(4px);
-        }
-
-        @keyframes scanSlow {
-            0% {
-                top: 0;
+            to {
+                transform: translateY(calc(100vh + 120px));
                 opacity: 0;
             }
-            5% {
-                opacity: 1;
-            }
-            95% {
-                opacity: 1;
-            }
-            100% {
-                top: 100%;
-                opacity: 0;
-            }
+        }
+
+        /* Circuit Lines */
+        .circuit-line {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--teal-bright), transparent);
+            opacity: 0.4;
+            animation: circuitPulse 4s ease-in-out infinite;
+            border-radius: 1px;
+        }
+
+        @keyframes circuitPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.7; }
         }
 
         /* Close Button */
         .close-btn {
-            position: fixed;
-            top: 24px;
-            right: 24px;
+            position: absolute;
+            top: 0;
+            right: 0;
             width: 56px;
             height: 56px;
             border-radius: var(--radius-xl);
-            background: rgba(10, 10, 10, 0.95);
+            background: var(--gray-900);
             border: 2px solid var(--gray-700);
             color: var(--cyan-bright);
             cursor: pointer;
@@ -1593,9 +1051,8 @@
             font-size: 1.75rem;
             transition: all var(--transition-base);
             box-shadow: var(--shadow-lg), var(--shadow-inner);
-            z-index: 10001;
+            z-index: 10;
             font-weight: 300;
-            backdrop-filter: blur(10px);
         }
 
         .close-btn:hover {
@@ -1605,62 +1062,25 @@
             transform: scale(1.12) rotate(90deg);
         }
 
-        /* Back Button */
-        .back-btn {
-            position: fixed;
-            top: 32px;
-            left: 32px;
-            padding: var(--space-3) var(--space-6);
-            border-radius: var(--radius-lg);
-            background: rgba(10, 10, 10, 0.95);
-            border: 2px solid var(--cyan-bright);
-            color: var(--cyan-bright);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: var(--space-2);
-            font-size: 1.1rem;
-            font-weight: 700;
-            transition: all var(--transition-base);
-            box-shadow: 0 0 30px var(--glow-cyan), var(--shadow-lg);
-            z-index: 10001;
-            text-shadow: 0 0 10px var(--glow-cyan);
-            backdrop-filter: blur(10px);
-        }
-
-        .back-btn:hover {
-            background: var(--cyan-bright);
-            color: var(--black);
-            box-shadow: 0 0 50px var(--glow-cyan), var(--shadow-xl);
-            transform: translateX(-4px);
-        }
-
         /* Modal Titles */
         .modal-title {
             font-size: clamp(2.5rem, 6vw, 4.5rem);
             font-weight: 900;
             letter-spacing: -0.04em;
             margin-bottom: var(--space-4);
-            color: var(--cyan-bright);
+            background: linear-gradient(135deg, var(--cyan-bright) 0%, var(--teal-bright) 50%, var(--green-primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             text-align: center;
-            text-shadow:
-                0 0 20px var(--glow-cyan),
-                0 0 40px var(--glow-cyan),
-                0 0 60px rgba(0, 243, 255, 0.5),
-                0 0 80px rgba(0, 243, 255, 0.3);
-            filter: drop-shadow(0 0 30px var(--cyan-bright));
         }
 
         .modal-subtitle {
             font-size: 1.25rem;
-            color: var(--cyan-bright);
+            color: var(--teal);
             text-align: center;
             margin-bottom: var(--space-16);
             font-weight: 500;
-            text-shadow:
-                0 0 15px var(--glow-cyan),
-                0 0 30px rgba(0, 243, 255, 0.6),
-                0 0 45px rgba(0, 243, 255, 0.4);
         }
 
         /* Hall of Fame Grid */
@@ -1673,18 +1093,10 @@
         }
 
         .hall-card {
-            background:
-                linear-gradient(135deg,
-                    rgba(30, 25, 20, 0.9) 0%,
-                    rgba(20, 20, 25, 0.95) 50%,
-                    rgba(10, 10, 15, 1) 100%);
-            border: 3px solid;
-            border-image: linear-gradient(135deg,
-                rgba(218, 165, 32, 0.4) 0%,
-                rgba(0, 243, 255, 0.4) 50%,
-                rgba(218, 165, 32, 0.4) 100%) 1;
+            background: linear-gradient(135deg, var(--gray-950) 0%, var(--gray-900) 100%);
+            border: 2px solid var(--gray-700);
             border-radius: var(--radius-2xl);
-            padding: var(--space-10);
+            padding: var(--space-8);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -1693,36 +1105,9 @@
             cursor: pointer;
             transition: all var(--transition-smooth);
             animation: hallCardEntrance 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
-            box-shadow:
-                0 20px 60px rgba(0, 0, 0, 0.6),
-                0 0 40px rgba(218, 165, 32, 0.15),
-                inset 0 0 60px rgba(0, 0, 0, 0.5),
-                inset 0 1px 2px rgba(255, 255, 255, 0.1);
+            box-shadow: var(--shadow-lg), var(--shadow-inner);
             will-change: transform, box-shadow;
             -webkit-tap-highlight-color: transparent;
-        }
-
-        /* Golden spotlight on each card */
-        .hall-card::before {
-            content: '';
-            position: absolute;
-            top: -100px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 200px;
-            height: 300px;
-            background: linear-gradient(180deg,
-                rgba(218, 165, 32, 0.2) 0%,
-                rgba(218, 165, 32, 0.08) 40%,
-                transparent 100%);
-            filter: blur(40px);
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.8s ease;
-        }
-
-        .hall-card:hover::before {
-            opacity: 1;
         }
 
         .hall-card:active {
@@ -1758,16 +1143,9 @@
         }
 
         .hall-card:hover {
-            transform: translateY(-16px) scale(1.06);
-            border-image: linear-gradient(135deg,
-                rgba(218, 165, 32, 0.8) 0%,
-                rgba(0, 243, 255, 0.8) 50%,
-                rgba(218, 165, 32, 0.8) 100%) 1;
-            box-shadow:
-                0 30px 80px rgba(0, 0, 0, 0.8),
-                0 0 60px rgba(218, 165, 32, 0.4),
-                0 0 40px rgba(0, 243, 255, 0.3),
-                inset 0 0 80px rgba(218, 165, 32, 0.1);
+            transform: translateY(-12px) scale(1.04);
+            border-color: var(--cyan-bright);
+            box-shadow: 0 0 50px var(--glow-cyan), var(--shadow-xl);
         }
 
         /* Click Ripple Effect */
@@ -2013,19 +1391,14 @@
             text-align: center;
             margin-bottom: var(--space-2);
             letter-spacing: -0.03em;
-            color: var(--cyan-bright);
-            text-shadow:
-                0 0 15px var(--glow-cyan),
-                0 0 30px rgba(0, 243, 255, 0.5);
         }
 
         .popup-handle {
             font-size: 1.1rem;
-            color: var(--cyan-bright);
+            color: var(--cyan);
             text-align: center;
             margin-bottom: var(--space-10);
             font-weight: 500;
-            text-shadow: 0 0 10px var(--glow-cyan);
         }
 
         .popup-stats {
@@ -2171,15 +1544,12 @@
         .table-name {
             font-weight: 700;
             font-size: 1.05rem;
-            color: var(--cyan-bright);
-            text-shadow: 0 0 8px var(--glow-cyan);
         }
 
         .table-handle {
             font-size: 0.9rem;
-            color: var(--cyan);
+            color: var(--teal);
             font-weight: 500;
-            text-shadow: 0 0 5px rgba(0, 243, 255, 0.4);
         }
 
         .table-stat {
@@ -2394,30 +1764,11 @@
 
     <!-- Mute Button -->
     <button class="mute-btn" onclick="toggleMute()" aria-label="Toggle sound">
-        <span id="muteIcon">⚡</span>
+        <span id="muteIcon">🔊</span>
     </button>
 
     <!-- Landing Page -->
     <section class="landing">
-        <!-- Matrix Falling Code -->
-        <div class="matrix-column" style="left: 5%; animation-duration: 8s; animation-delay: 0s;">01010111010</div>
-        <div class="matrix-column" style="left: 15%; animation-duration: 10s; animation-delay: 2s;">REFERRAL▸◂</div>
-        <div class="matrix-column" style="left: 25%; animation-duration: 9s; animation-delay: 4s;">$MEME▸◂◂</div>
-        <div class="matrix-column" style="left: 35%; animation-duration: 11s; animation-delay: 1s;">TRADER▸001</div>
-        <div class="matrix-column" style="left: 45%; animation-duration: 8.5s; animation-delay: 3s;">01BEST▸▸▸</div>
-        <div class="matrix-column" style="left: 55%; animation-duration: 10.5s; animation-delay: 0.5s;">CRYPTO▸◂01</div>
-        <div class="matrix-column" style="left: 65%; animation-duration: 9.5s; animation-delay: 2.5s;">▸HUB◂01010</div>
-        <div class="matrix-column" style="left: 75%; animation-duration: 11.5s; animation-delay: 1.5s;">ALTCOIN▸◂</div>
-        <div class="matrix-column" style="left: 85%; animation-duration: 8.8s; animation-delay: 3.5s;">010ELITE▸</div>
-        <div class="matrix-column" style="left: 95%; animation-duration: 10.2s; animation-delay: 0.8s;">◂▸TOKEN01</div>
-
-        <!-- Neon Streaks -->
-        <div class="neon-streak" style="left: 10%; animation-duration: 3s; animation-delay: 0s;"></div>
-        <div class="neon-streak" style="left: 30%; animation-duration: 4s; animation-delay: 1s;"></div>
-        <div class="neon-streak" style="left: 50%; animation-duration: 3.5s; animation-delay: 2s;"></div>
-        <div class="neon-streak" style="left: 70%; animation-duration: 4.5s; animation-delay: 0.5s;"></div>
-        <div class="neon-streak" style="left: 90%; animation-duration: 3.8s; animation-delay: 1.5s;"></div>
-
         <!-- Spotlights -->
         <div class="spotlight spotlight-1"></div>
         <div class="spotlight spotlight-2"></div>
@@ -2441,7 +1792,7 @@
         <div class="particle" style="width: 60px; height: 60px; top: 78%; right: 18%; --x: -35px; --y: 45px; animation-duration: 8s;"></div>
 
         <h1 class="landing-title">Top Performers</h1>
-        <!-- Subtitle removed per user request -->
+        <p class="landing-subtitle">Congratulations to our elite affiliates 🚀</p>
 
         <!-- Top 3 Podium -->
         <div class="podium">
@@ -2458,24 +1809,24 @@
                         <img src="affiliate-profile-pics/3Dmax_3dmax_virtuals.jpg" alt="3Dmax" onerror="this.parentElement.innerHTML='3D'">
                     </div>
                 </div>
-                <h2 class="affiliate-name">3Dmax</h2>
-                <p class="affiliate-handle">@3dmax_virtuals</p>
+                <h2 class="affiliate-name">rbthreek</h2>
+                <p class="affiliate-handle">@rbthreek</p>
                 <div class="scores">
                     <div class="score-row">
                         <span class="score-label">Tweets</span>
-                        <span class="score-value">856</span>
+                        <span class="score-value">10</span>
                     </div>
                     <div class="score-row">
                         <span class="score-label">Referrals</span>
-                        <span class="score-value">1,243</span>
+                        <span class="score-value">195</span>
                     </div>
                     <div class="score-row">
                         <span class="score-label">Traders</span>
-                        <span class="score-value">124</span>
+                        <span class="score-value">98</span>
                     </div>
                     <div class="score-row total">
                         <span class="score-label">Total</span>
-                        <span class="score-value">2,099</span>
+                        <span class="score-value">303</span>
                     </div>
                 </div>
             </div>
@@ -2493,24 +1844,24 @@
                         <img src="affiliate-profile-pics/Alf_alfy11116.jpg" alt="Alf" onerror="this.parentElement.innerHTML='AF'">
                     </div>
                 </div>
-                <h2 class="affiliate-name">Alf</h2>
-                <p class="affiliate-handle">@alfy11116</p>
+                <h2 class="affiliate-name">N30_CRYPTO</h2>
+                <p class="affiliate-handle">@N30_cryptoo</p>
                 <div class="scores">
                     <div class="score-row">
                         <span class="score-label">Tweets</span>
-                        <span class="score-value">734</span>
+                        <span class="score-value">74</span>
                     </div>
                     <div class="score-row">
                         <span class="score-label">Referrals</span>
-                        <span class="score-value">1,089</span>
+                        <span class="score-value">21</span>
                     </div>
                     <div class="score-row">
                         <span class="score-label">Traders</span>
-                        <span class="score-value">98</span>
+                        <span class="score-value">6</span>
                     </div>
                     <div class="score-row total">
                         <span class="score-label">Total</span>
-                        <span class="score-value">1,823</span>
+                        <span class="score-value">101</span>
                     </div>
                 </div>
             </div>
@@ -2528,24 +1879,24 @@
                         <img src="affiliate-profile-pics/cryptic_t_cryptic_tits.png" alt="Cryptic_t" onerror="this.parentElement.innerHTML='CT'">
                     </div>
                 </div>
-                <h2 class="affiliate-name">Cryptic_t</h2>
-                <p class="affiliate-handle">@cryptic_tits</p>
+                <h2 class="affiliate-name">thebasedfrog</h2>
+                <p class="affiliate-handle">@thebasedfrogx</p>
                 <div class="scores">
                     <div class="score-row">
                         <span class="score-label">Tweets</span>
-                        <span class="score-value">692</span>
+                        <span class="score-value">44</span>
                     </div>
                     <div class="score-row">
                         <span class="score-label">Referrals</span>
-                        <span class="score-value">967</span>
+                        <span class="score-value">11</span>
                     </div>
                     <div class="score-row">
                         <span class="score-label">Traders</span>
-                        <span class="score-value">87</span>
+                        <span class="score-value">2</span>
                     </div>
                     <div class="score-row total">
                         <span class="score-label">Total</span>
-                        <span class="score-value">1,659</span>
+                        <span class="score-value">57</span>
                     </div>
                 </div>
             </div>
@@ -2553,10 +1904,10 @@
 
         <div class="action-buttons">
             <button class="btn" onclick="openHallOfFame()">
-                <span>Hall of Fame</span>
+                <span>🏆 Hall of Fame (4-10)</span>
             </button>
             <button class="btn" onclick="openFullLeaderboard()">
-                <span>Full Leaderboard</span>
+                <span>📊 Full Leaderboard</span>
             </button>
         </div>
     </section>
@@ -2566,128 +1917,117 @@
         <div class="modal-content" onclick="event.stopPropagation()">
             <!-- Cyber Background -->
             <div class="hall-background">
-                <!-- Gallery Walls -->
-                <div class="gallery-wall left"></div>
-                <div class="gallery-wall right"></div>
-
-                <!-- Gallery Floor -->
-                <div class="gallery-floor"></div>
-
-                <!-- Gallery Spotlights -->
-                <div class="gallery-spotlight" style="left: 15%; animation-delay: 0s;"></div>
-                <div class="gallery-spotlight" style="left: 35%; animation-delay: 3s;"></div>
-                <div class="gallery-spotlight" style="left: 50%; animation-delay: 1.5s;"></div>
-                <div class="gallery-spotlight" style="left: 65%; animation-delay: 4.5s;"></div>
-                <div class="gallery-spotlight" style="left: 85%; animation-delay: 2s;"></div>
-
-                <!-- Light Particles -->
-                <div class="light-particle" style="left: 20%; top: 30%; animation-delay: 0s;"></div>
-                <div class="light-particle" style="left: 40%; top: 50%; animation-delay: 2s;"></div>
-                <div class="light-particle" style="left: 60%; top: 40%; animation-delay: 4s;"></div>
-                <div class="light-particle" style="left: 80%; top: 60%; animation-delay: 6s;"></div>
-
-                <!-- Frame Accents -->
-                <div class="frame-accent" style="width: 90%; height: 90%; top: 5%; left: 5%; animation-delay: 0s;"></div>
-                <div class="frame-accent" style="width: 85%; height: 85%; top: 7.5%; left: 7.5%; animation-delay: 2s;"></div>
+                <div class="hex-grid"></div>
+                <div class="scan-lines"></div>
+                <!-- Data Streams -->
+                <div class="data-stream" style="left: 8%; animation-duration: 3.5s; animation-delay: 0s;"></div>
+                <div class="data-stream" style="left: 22%; animation-duration: 4.5s; animation-delay: 1.2s;"></div>
+                <div class="data-stream" style="left: 42%; animation-duration: 4s; animation-delay: 0.6s;"></div>
+                <div class="data-stream" style="left: 58%; animation-duration: 5s; animation-delay: 1.8s;"></div>
+                <div class="data-stream" style="left: 76%; animation-duration: 4.2s; animation-delay: 0.9s;"></div>
+                <div class="data-stream" style="left: 92%; animation-duration: 4.8s; animation-delay: 2.4s;"></div>
+                <!-- Circuit Lines -->
+                <div class="circuit-line" style="width: 45%; top: 18%; left: 8%; animation-delay: 0s;"></div>
+                <div class="circuit-line" style="width: 35%; top: 38%; right: 12%; animation-delay: 1.2s;"></div>
+                <div class="circuit-line" style="width: 55%; top: 58%; left: 18%; animation-delay: 0.6s;"></div>
+                <div class="circuit-line" style="width: 40%; top: 78%; right: 8%; animation-delay: 1.8s;"></div>
             </div>
 
             <button class="close-btn" onclick="closeModal('hallModal')" aria-label="Close">×</button>
-            <button class="back-btn" onclick="closeModal('hallModal')" aria-label="Back">
-                <span>← Back</span>
-            </button>
 
             <h2 class="modal-title">Hall of Fame</h2>
+            <p class="modal-subtitle">Ranks 4-10 • Click for details 🔥</p>
 
             <div class="hall-grid">
                 <!-- Rank 4 -->
-                <div class="hall-card" onclick="clickCard(this, 4, 'Anderson', '@0x7_anderson', 'AN', 623, 864, 76, 1487)">
+                <div class="hall-card" onclick="clickCard(this, 4, 'Neolawyer', '@NLinker777', 'NL', 37, 5, 1, 43)">
                     <div class="card-glow"></div>
                     <div class="corner-accent"></div>
                     <div class="hall-rank">4</div>
                     <div class="hall-avatar">
-                        <img src="affiliate-profile-pics/Anderson_0x7_anderson.jpg" alt="Anderson" onerror="this.parentElement.innerHTML='AN'">
+                        <img src="affiliate-profile-pics/Neolawyer_NLinker777.jpg" alt="Neolawyer" onerror="this.parentElement.innerHTML='NL'">
                     </div>
-                    <h3 class="hall-name">Anderson</h3>
-                    <p class="hall-handle">@0x7_anderson</p>
-                    <p class="hall-total">1,487</p>
+                    <h3 class="hall-name">Neolawyer</h3>
+                    <p class="hall-handle">@NLinker777</p>
+                    <p class="hall-total">43</p>
                 </div>
 
                 <!-- Rank 5 -->
-                <div class="hall-card" onclick="clickCard(this, 5, 'Borny', '@unborninfinite', 'BO', 578, 778, 69, 1356)">
+                <div class="hall-card" onclick="clickCard(this, 5, 'spennypretzel', '@SpennyCrypto', 'SP', 19, 9, 5, 33)">
                     <div class="card-glow"></div>
                     <div class="corner-accent"></div>
                     <div class="hall-rank">5</div>
                     <div class="hall-avatar">
-                        <img src="affiliate-profile-pics/Borny_unborninfinite.jpg" alt="Borny" onerror="this.parentElement.innerHTML='BO'">
+                        <img src="affiliate-profile-pics/spennypretzel_SpennyCrypto.jpg" alt="spennypretzel" onerror="this.parentElement.innerHTML='SP'">
                     </div>
-                    <h3 class="hall-name">Borny</h3>
-                    <p class="hall-handle">@unborninfinite</p>
-                    <p class="hall-total">1,356</p>
+                    <h3 class="hall-name">spennypretzel</h3>
+                    <p class="hall-handle">@SpennyCrypto</p>
+                    <p class="hall-total">33</p>
                 </div>
 
                 <!-- Rank 6 -->
-                <div class="hall-card" onclick="clickCard(this, 6, 'LC', '@mrlcguy', 'LC', 534, 755, 64, 1289)">
+                <div class="hall-card" onclick="clickCard(this, 6, 'slavicbased', '@slavicbased', 'SB', 0, 26, 3, 29)">
                     <div class="card-glow"></div>
                     <div class="corner-accent"></div>
                     <div class="hall-rank">6</div>
                     <div class="hall-avatar">
-                        <img src="affiliate-profile-pics/LC_mrlcguy.jpg" alt="LC" onerror="this.parentElement.innerHTML='LC'">
+                        <img src="affiliate-profile-pics/slavicbased_slavicbased.jpg" alt="slavicbased" onerror="this.parentElement.innerHTML='SB'">
                     </div>
-                    <h3 class="hall-name">LC</h3>
-                    <p class="hall-handle">@mrlcguy</p>
-                    <p class="hall-total">1,289</p>
+                    <h3 class="hall-name">slavicbased</h3>
+                    <p class="hall-handle">@slavicbased</p>
+                    <p class="hall-total">29</p>
                 </div>
 
                 <!-- Rank 7 -->
-                <div class="hall-card" onclick="clickCard(this, 7, 'Math', '@mathburn666', 'MA', 489, 656, 58, 1145)">
+                <div class="hall-card" onclick="clickCard(this, 7, 'arrieindewarrie', '@arindewar', 'AR', 17, 4, 1, 22)">
                     <div class="card-glow"></div>
                     <div class="corner-accent"></div>
                     <div class="hall-rank">7</div>
                     <div class="hall-avatar">
-                        <img src="affiliate-profile-pics/Math_mathburn666.jpg" alt="Math" onerror="this.parentElement.innerHTML='MA'">
+                        <img src="affiliate-profile-pics/arrieindewarrie_arindewar.jpg" alt="arrieindewarrie" onerror="this.parentElement.innerHTML='AR'">
                     </div>
-                    <h3 class="hall-name">Math</h3>
-                    <p class="hall-handle">@mathburn666</p>
-                    <p class="hall-total">1,145</p>
+                    <h3 class="hall-name">arrieindewarrie</h3>
+                    <p class="hall-handle">@arindewar</p>
+                    <p class="hall-total">22</p>
                 </div>
 
                 <!-- Rank 8 -->
-                <div class="hall-card" onclick="clickCard(this, 8, 'Premium Mind', '@deepseektetra', 'PM', 456, 622, 53, 1078)">
+                <div class="hall-card" onclick="clickCard(this, 8, 'I_Love_Dogs21', '@I_Love_Dogs21', 'IL', 0, 19, 1, 20)">
                     <div class="card-glow"></div>
                     <div class="corner-accent"></div>
                     <div class="hall-rank">8</div>
                     <div class="hall-avatar">
-                        <img src="affiliate-profile-pics/Premium_Mind_deepseektetra.jpg" alt="Premium Mind" onerror="this.parentElement.innerHTML='PM'">
+                        <img src="affiliate-profile-pics/I_Love_Dogs21_I_Love_Dogs21.jpg" alt="I_Love_Dogs21" onerror="this.parentElement.innerHTML='IL'">
                     </div>
-                    <h3 class="hall-name">Premium Mind</h3>
-                    <p class="hall-handle">@deepseektetra</p>
-                    <p class="hall-total">1,078</p>
+                    <h3 class="hall-name">I_Love_Dogs21</h3>
+                    <p class="hall-handle">@I_Love_Dogs21</p>
+                    <p class="hall-total">20</p>
                 </div>
 
                 <!-- Rank 9 -->
-                <div class="hall-card" onclick="clickCard(this, 9, 'Spenny', '@spennycrypto', 'SP', 423, 564, 48, 987)">
+                <div class="hall-card" onclick="clickCard(this, 9, 'Vanxyrus', '@Vanxyrus', 'VX', 13, 4, 2, 19)">
                     <div class="card-glow"></div>
                     <div class="corner-accent"></div>
                     <div class="hall-rank">9</div>
                     <div class="hall-avatar">
-                        <img src="affiliate-profile-pics/Spenny_spennycrypto.jpg" alt="Spenny" onerror="this.parentElement.innerHTML='SP'">
+                        <img src="affiliate-profile-pics/Vanxyrus_Vanxyrus.jpg" alt="Vanxyrus" onerror="this.parentElement.innerHTML='VX'">
                     </div>
-                    <h3 class="hall-name">Spenny</h3>
-                    <p class="hall-handle">@spennycrypto</p>
-                    <p class="hall-total">987</p>
+                    <h3 class="hall-name">Vanxyrus</h3>
+                    <p class="hall-handle">@Vanxyrus</p>
+                    <p class="hall-total">19</p>
                 </div>
 
                 <!-- Rank 10 -->
-                <div class="hall-card" onclick="clickCard(this, 10, 'Zeus', '@vlagudfsfjr', 'ZE', 389, 534, 42, 923)">
+                <div class="hall-card" onclick="clickCard(this, 10, 'chironthetrader', '@chironthetrader', 'CT', 0, 9, 6, 15)">
                     <div class="card-glow"></div>
                     <div class="corner-accent"></div>
                     <div class="hall-rank">10</div>
                     <div class="hall-avatar">
-                        <img src="affiliate-profile-pics/Zeus_vlagudfsfjr.jpg" alt="Zeus" onerror="this.parentElement.innerHTML='ZE'">
+                        <img src="affiliate-profile-pics/chironthetrader_chironthetrader.jpg" alt="chironthetrader" onerror="this.parentElement.innerHTML='CT'">
                     </div>
-                    <h3 class="hall-name">Zeus</h3>
-                    <p class="hall-handle">@vlagudfsfjr</p>
-                    <p class="hall-total">923</p>
+                    <h3 class="hall-name">chironthetrader</h3>
+                    <p class="hall-handle">@chironthetrader</p>
+                    <p class="hall-total">15</p>
                 </div>
             </div>
         </div>
@@ -2724,40 +2064,23 @@
     <!-- Full Leaderboard Modal -->
     <div class="modal" id="leaderboardModal" onclick="closeModalOnBackdrop(event, 'leaderboardModal')">
         <div class="modal-content" onclick="event.stopPropagation()">
-            <!-- Trophy Room Background -->
-            <div class="trophy-background">
-                <!-- Stadium Lights -->
-                <div class="stadium-light" style="top: -200px; left: 10%; animation-delay: 0s;"></div>
-                <div class="stadium-light" style="top: -200px; left: 30%; animation-delay: 1.5s;"></div>
-                <div class="stadium-light" style="top: -200px; left: 50%; animation-delay: 0.8s;"></div>
-                <div class="stadium-light" style="top: -200px; left: 70%; animation-delay: 2.2s;"></div>
-                <div class="stadium-light" style="top: -200px; right: 10%; animation-delay: 1s;"></div>
-
-                <!-- Victory Banners -->
-                <div class="victory-banner" style="top: 0; left: 5%; animation-delay: 0s;"></div>
-                <div class="victory-banner" style="top: 0; left: 20%; animation-delay: 2s;"></div>
-                <div class="victory-banner" style="top: 0; right: 20%; animation-delay: 4s;"></div>
-                <div class="victory-banner" style="top: 0; right: 5%; animation-delay: 6s;"></div>
-
-                <!-- Golden Corners -->
-                <div class="golden-corner" style="top: 0; left: 0; border-right: none; border-bottom: none; animation-delay: 0s;"></div>
-                <div class="golden-corner" style="top: 0; right: 0; border-left: none; border-bottom: none; animation-delay: 1s;"></div>
-                <div class="golden-corner" style="bottom: 0; left: 0; border-right: none; border-top: none; animation-delay: 2s;"></div>
-                <div class="golden-corner" style="bottom: 0; right: 0; border-left: none; border-top: none; animation-delay: 3s;"></div>
-
-                <!-- Trophy Glow Orbs -->
-                <div class="trophy-orb" style="top: 20%; left: 15%; animation-delay: 0s;"></div>
-                <div class="trophy-orb" style="top: 40%; right: 20%; animation-delay: 2s;"></div>
-                <div class="trophy-orb" style="bottom: 30%; left: 25%; animation-delay: 4s;"></div>
+            <!-- Cyber Background -->
+            <div class="hall-background">
+                <div class="hex-grid"></div>
+                <div class="scan-lines"></div>
+                <!-- Data Streams -->
+                <div class="data-stream" style="left: 10%; animation-duration: 4s; animation-delay: 0.3s;"></div>
+                <div class="data-stream" style="left: 30%; animation-duration: 4.8s; animation-delay: 1.5s;"></div>
+                <div class="data-stream" style="left: 50%; animation-duration: 4.2s; animation-delay: 0.8s;"></div>
+                <div class="data-stream" style="left: 70%; animation-duration: 4.6s; animation-delay: 2s;"></div>
+                <div class="data-stream" style="left: 90%; animation-duration: 4.4s; animation-delay: 1s;"></div>
+                <!-- Circuit Lines -->
+                <div class="circuit-line" style="width: 50%; top: 25%; left: 10%; animation-delay: 0.5s;"></div>
+                <div class="circuit-line" style="width: 40%; top: 50%; right: 15%; animation-delay: 1.5s;"></div>
+                <div class="circuit-line" style="width: 60%; top: 75%; left: 15%; animation-delay: 1s;"></div>
             </div>
 
-            <!-- Slow Body Scanner -->
-            <div class="body-scanner"></div>
-
             <button class="close-btn" onclick="closeModal('leaderboardModal')" aria-label="Close">×</button>
-            <button class="back-btn" onclick="closeModal('leaderboardModal')" aria-label="Back">
-                <span>← Back</span>
-            </button>
 
             <h2 class="modal-title">Full Leaderboard</h2>
             <p class="modal-subtitle">All affiliates ranked by performance 📈</p>
@@ -2774,217 +2097,383 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr onclick="showDetail(1, '3Dmax', '@3dmax_virtuals', '3D', 856, 1243, 124, 2099)">
+                    <tr onclick="showDetail(1, 'rbthreek', '@rbthreek', 'R', 10, 195, 98, 303)">
                         <td>1</td>
                         <td>
                             <div class="table-name-cell">
                                 <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/3Dmax_3dmax_virtuals.jpg" alt="3Dmax" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='3D'">
+                                    <img src="affiliate-profile-pics/rbthreek_rbthreek.jpg" alt="rbthreek" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='R'">
                                 </div>
                                 <div>
-                                    <div class="table-name">3Dmax</div>
-                                    <div class="table-handle">@3dmax_virtuals</div>
+                                    <div class="table-name">rbthreek</div>
+                                    <div class="table-handle">@rbthreek</div>
                                 </div>
                             </div>
                         </td>
-                        <td class="table-stat">856</td>
-                        <td class="table-stat">1,243</td>
-                        <td class="table-stat">124</td>
-                        <td class="table-stat">2,099</td>
+                        <td class="table-stat">10</td>
+                        <td class="table-stat">195</td>
+                        <td class="table-stat">98</td>
+                        <td class="table-stat">303</td>
                     </tr>
-                    <tr onclick="showDetail(2, 'Alf', '@alfy11116', 'AF', 734, 1089, 98, 1823)">
+                    <tr onclick="showDetail(2, 'N30_CRYPTO', '@N30_cryptoo', 'NC', 74, 21, 6, 101)">
                         <td>2</td>
                         <td>
                             <div class="table-name-cell">
                                 <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/Alf_alfy11116.jpg" alt="Alf" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='AF'">
+                                    <img src="affiliate-profile-pics/N30_CRYPTO_N30_cryptoo.jpg" alt="N30_CRYPTO" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='NC'">
                                 </div>
                                 <div>
-                                    <div class="table-name">Alf</div>
-                                    <div class="table-handle">@alfy11116</div>
+                                    <div class="table-name">N30_CRYPTO</div>
+                                    <div class="table-handle">@N30_cryptoo</div>
                                 </div>
                             </div>
                         </td>
-                        <td class="table-stat">734</td>
-                        <td class="table-stat">1,089</td>
-                        <td class="table-stat">98</td>
-                        <td class="table-stat">1,823</td>
+                        <td class="table-stat">74</td>
+                        <td class="table-stat">21</td>
+                        <td class="table-stat">6</td>
+                        <td class="table-stat">101</td>
                     </tr>
-                    <tr onclick="showDetail(3, 'Cryptic_t', '@cryptic_tits', 'CT', 692, 967, 87, 1659)">
+                    <tr onclick="showDetail(3, 'thebasedfrog', '@thebasedfrogx', 'T', 44, 11, 2, 57)">
                         <td>3</td>
                         <td>
                             <div class="table-name-cell">
                                 <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/cryptic_t_cryptic_tits.png" alt="Cryptic_t" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='CT'">
+                                    <img src="affiliate-profile-pics/thebasedfrog_thebasedfrogx.jpg" alt="thebasedfrog" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='T'">
                                 </div>
                                 <div>
-                                    <div class="table-name">Cryptic_t</div>
-                                    <div class="table-handle">@cryptic_tits</div>
+                                    <div class="table-name">thebasedfrog</div>
+                                    <div class="table-handle">@thebasedfrogx</div>
                                 </div>
                             </div>
                         </td>
-                        <td class="table-stat">692</td>
-                        <td class="table-stat">967</td>
-                        <td class="table-stat">87</td>
-                        <td class="table-stat">1,659</td>
+                        <td class="table-stat">44</td>
+                        <td class="table-stat">11</td>
+                        <td class="table-stat">2</td>
+                        <td class="table-stat">57</td>
                     </tr>
-                    <tr onclick="showDetail(4, 'Anderson', '@0x7_anderson', 'AN', 623, 864, 76, 1487)">
+                    <tr onclick="showDetail(4, 'Neolawyer', '@NLinker777', 'N', 37, 5, 1, 43)">
                         <td>4</td>
                         <td>
                             <div class="table-name-cell">
                                 <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/Anderson_0x7_anderson.jpg" alt="Anderson" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='AN'">
+                                    <img src="affiliate-profile-pics/Neolawyer_NLinker777.jpg" alt="Neolawyer" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='N'">
                                 </div>
                                 <div>
-                                    <div class="table-name">Anderson</div>
-                                    <div class="table-handle">@0x7_anderson</div>
+                                    <div class="table-name">Neolawyer</div>
+                                    <div class="table-handle">@NLinker777</div>
                                 </div>
                             </div>
                         </td>
-                        <td class="table-stat">623</td>
-                        <td class="table-stat">864</td>
-                        <td class="table-stat">76</td>
-                        <td class="table-stat">1,487</td>
+                        <td class="table-stat">37</td>
+                        <td class="table-stat">5</td>
+                        <td class="table-stat">1</td>
+                        <td class="table-stat">43</td>
                     </tr>
-                    <tr onclick="showDetail(5, 'Borny', '@unborninfinite', 'BO', 578, 778, 69, 1356)">
+                    <tr onclick="showDetail(5, 'spennypretzel', '@SpennyCrypto', 'S', 19, 9, 5, 33)">
                         <td>5</td>
                         <td>
                             <div class="table-name-cell">
                                 <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/Borny_unborninfinite.jpg" alt="Borny" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='BO'">
+                                    <img src="affiliate-profile-pics/spennypretzel_SpennyCrypto.jpg" alt="spennypretzel" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='S'">
                                 </div>
                                 <div>
-                                    <div class="table-name">Borny</div>
-                                    <div class="table-handle">@unborninfinite</div>
+                                    <div class="table-name">spennypretzel</div>
+                                    <div class="table-handle">@SpennyCrypto</div>
                                 </div>
                             </div>
                         </td>
-                        <td class="table-stat">578</td>
-                        <td class="table-stat">778</td>
-                        <td class="table-stat">69</td>
-                        <td class="table-stat">1,356</td>
+                        <td class="table-stat">19</td>
+                        <td class="table-stat">9</td>
+                        <td class="table-stat">5</td>
+                        <td class="table-stat">33</td>
                     </tr>
-                    <tr onclick="showDetail(6, 'LC', '@mrlcguy', 'LC', 534, 755, 64, 1289)">
+                    <tr onclick="showDetail(6, 'slavicbased', '@slavicbased', 'S', 0, 26, 3, 29)">
                         <td>6</td>
                         <td>
                             <div class="table-name-cell">
                                 <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/LC_mrlcguy.jpg" alt="LC" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='LC'">
+                                    <img src="affiliate-profile-pics/slavicbased_slavicbased.jpg" alt="slavicbased" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='S'">
                                 </div>
                                 <div>
-                                    <div class="table-name">LC</div>
-                                    <div class="table-handle">@mrlcguy</div>
+                                    <div class="table-name">slavicbased</div>
+                                    <div class="table-handle">@slavicbased</div>
                                 </div>
                             </div>
                         </td>
-                        <td class="table-stat">534</td>
-                        <td class="table-stat">755</td>
-                        <td class="table-stat">64</td>
-                        <td class="table-stat">1,289</td>
+                        <td class="table-stat">0</td>
+                        <td class="table-stat">26</td>
+                        <td class="table-stat">3</td>
+                        <td class="table-stat">29</td>
                     </tr>
-                    <tr onclick="showDetail(7, 'Math', '@mathburn666', 'MA', 489, 656, 58, 1145)">
+                    <tr onclick="showDetail(7, 'arrieindewarrie', '@arindewar', 'A', 17, 4, 1, 22)">
                         <td>7</td>
                         <td>
                             <div class="table-name-cell">
                                 <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/Math_mathburn666.jpg" alt="Math" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='MA'">
+                                    <img src="affiliate-profile-pics/arrieindewarrie_arindewar.jpg" alt="arrieindewarrie" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='A'">
                                 </div>
                                 <div>
-                                    <div class="table-name">Math</div>
-                                    <div class="table-handle">@mathburn666</div>
+                                    <div class="table-name">arrieindewarrie</div>
+                                    <div class="table-handle">@arindewar</div>
                                 </div>
                             </div>
                         </td>
-                        <td class="table-stat">489</td>
-                        <td class="table-stat">656</td>
-                        <td class="table-stat">58</td>
-                        <td class="table-stat">1,145</td>
+                        <td class="table-stat">17</td>
+                        <td class="table-stat">4</td>
+                        <td class="table-stat">1</td>
+                        <td class="table-stat">22</td>
                     </tr>
-                    <tr onclick="showDetail(8, 'Premium Mind', '@deepseektetra', 'PM', 456, 622, 53, 1078)">
+                    <tr onclick="showDetail(8, 'I_Love_Dogs21', '@I_Love_Dogs21', 'IL', 0, 19, 1, 20)">
                         <td>8</td>
                         <td>
                             <div class="table-name-cell">
                                 <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/Premium_Mind_deepseektetra.jpg" alt="Premium Mind" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='PM'">
+                                    <img src="affiliate-profile-pics/I_Love_Dogs21_I_Love_Dogs21.jpg" alt="I_Love_Dogs21" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='IL'">
                                 </div>
                                 <div>
-                                    <div class="table-name">Premium Mind</div>
-                                    <div class="table-handle">@deepseektetra</div>
+                                    <div class="table-name">I_Love_Dogs21</div>
+                                    <div class="table-handle">@I_Love_Dogs21</div>
                                 </div>
                             </div>
                         </td>
-                        <td class="table-stat">456</td>
-                        <td class="table-stat">622</td>
-                        <td class="table-stat">53</td>
-                        <td class="table-stat">1,078</td>
+                        <td class="table-stat">0</td>
+                        <td class="table-stat">19</td>
+                        <td class="table-stat">1</td>
+                        <td class="table-stat">20</td>
                     </tr>
-                    <tr onclick="showDetail(9, 'Spenny', '@spennycrypto', 'SP', 423, 564, 48, 987)">
+                    <tr onclick="showDetail(9, 'Vanxyrus', '@Vanxyrus', 'V', 13, 4, 2, 19)">
                         <td>9</td>
                         <td>
                             <div class="table-name-cell">
                                 <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/Spenny_spennycrypto.jpg" alt="Spenny" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='SP'">
+                                    <img src="affiliate-profile-pics/Vanxyrus_Vanxyrus.jpg" alt="Vanxyrus" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='V'">
                                 </div>
                                 <div>
-                                    <div class="table-name">Spenny</div>
-                                    <div class="table-handle">@spennycrypto</div>
+                                    <div class="table-name">Vanxyrus</div>
+                                    <div class="table-handle">@Vanxyrus</div>
                                 </div>
                             </div>
                         </td>
-                        <td class="table-stat">423</td>
-                        <td class="table-stat">564</td>
-                        <td class="table-stat">48</td>
-                        <td class="table-stat">987</td>
+                        <td class="table-stat">13</td>
+                        <td class="table-stat">4</td>
+                        <td class="table-stat">2</td>
+                        <td class="table-stat">19</td>
                     </tr>
-                    <tr onclick="showDetail(10, 'Zeus', '@vlagudfsfjr', 'ZE', 389, 534, 42, 923)">
+                    <tr onclick="showDetail(10, 'chironthetrader', '@chironthetrader', 'C', 0, 9, 6, 15)">
                         <td>10</td>
                         <td>
                             <div class="table-name-cell">
                                 <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/Zeus_vlagudfsfjr.jpg" alt="Zeus" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='ZE'">
+                                    <img src="affiliate-profile-pics/chironthetrader_chironthetrader.jpg" alt="chironthetrader" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='C'">
                                 </div>
                                 <div>
-                                    <div class="table-name">Zeus</div>
-                                    <div class="table-handle">@vlagudfsfjr</div>
+                                    <div class="table-name">chironthetrader</div>
+                                    <div class="table-handle">@chironthetrader</div>
                                 </div>
                             </div>
                         </td>
-                        <td class="table-stat">389</td>
-                        <td class="table-stat">534</td>
-                        <td class="table-stat">42</td>
-                        <td class="table-stat">923</td>
+                        <td class="table-stat">0</td>
+                        <td class="table-stat">9</td>
+                        <td class="table-stat">6</td>
+                        <td class="table-stat">15</td>
                     </tr>
-                    <tr onclick="showDetail(11, 'AlphaHunter', '@alpha_hunter', 'AH', 356, 489, 38, 845)">
+                    <tr onclick="showDetail(11, 'Debankindad', '@DebankinDad', 'D', 13, 0, 0, 13)">
                         <td>11</td>
                         <td>
                             <div class="table-name-cell">
-                                <div class="table-avatar">AH</div>
+                                <div class="table-avatar">
+                                    <img src="affiliate-profile-pics/Debankindad_DebankinDad.jpg" alt="Debankindad" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='D'">
+                                </div>
                                 <div>
-                                    <div class="table-name">AlphaHunter</div>
-                                    <div class="table-handle">@alpha_hunter</div>
+                                    <div class="table-name">Debankindad</div>
+                                    <div class="table-handle">@DebankinDad</div>
                                 </div>
                             </div>
                         </td>
-                        <td class="table-stat">356</td>
-                        <td class="table-stat">489</td>
-                        <td class="table-stat">38</td>
-                        <td class="table-stat">845</td>
+                        <td class="table-stat">13</td>
+                        <td class="table-stat">0</td>
+                        <td class="table-stat">0</td>
+                        <td class="table-stat">13</td>
                     </tr>
-                    <tr onclick="showDetail(12, 'DiamondHands', '@diamond_hands_', 'DH', 334, 456, 35, 790)">
+                    <tr onclick="showDetail(12, 'veryborny', '@veryborny', 'V', 0, 6, 0, 6)">
                         <td>12</td>
                         <td>
                             <div class="table-name-cell">
-                                <div class="table-avatar">DH</div>
+                                <div class="table-avatar">
+                                    <img src="affiliate-profile-pics/veryborny_veryborny.jpg" alt="veryborny" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='V'">
+                                </div>
                                 <div>
-                                    <div class="table-name">DiamondHands</div>
-                                    <div class="table-handle">@diamond_hands_</div>
+                                    <div class="table-name">veryborny</div>
+                                    <div class="table-handle">@veryborny</div>
                                 </div>
                             </div>
                         </td>
-                        <td class="table-stat">334</td>
-                        <td class="table-stat">456</td>
-                        <td class="table-stat">35</td>
-                        <td class="table-stat">790</td>
+                        <td class="table-stat">0</td>
+                        <td class="table-stat">6</td>
+                        <td class="table-stat">0</td>
+                        <td class="table-stat">6</td>
+                    </tr>
+                    <tr onclick="showDetail(13, 'Medbdy7', '@Medbdy7', 'M', 0, 5, 0, 5)">
+                        <td>13</td>
+                        <td>
+                            <div class="table-name-cell">
+                                <div class="table-avatar">
+                                    <img src="affiliate-profile-pics/Medbdy7_Medbdy7.jpg" alt="Medbdy7" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='M'">
+                                </div>
+                                <div>
+                                    <div class="table-name">Medbdy7</div>
+                                    <div class="table-handle">@Medbdy7</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="table-stat">0</td>
+                        <td class="table-stat">5</td>
+                        <td class="table-stat">0</td>
+                        <td class="table-stat">5</td>
+                    </tr>
+                    <tr onclick="showDetail(14, 'cryptocchio0', '@cryptocchio0', 'C', 0, 2, 1, 3)">
+                        <td>14</td>
+                        <td>
+                            <div class="table-name-cell">
+                                <div class="table-avatar">
+                                    <img src="affiliate-profile-pics/cryptocchio0_cryptocchio0.jpg" alt="cryptocchio0" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='C'">
+                                </div>
+                                <div>
+                                    <div class="table-name">cryptocchio0</div>
+                                    <div class="table-handle">@cryptocchio0</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="table-stat">0</td>
+                        <td class="table-stat">2</td>
+                        <td class="table-stat">1</td>
+                        <td class="table-stat">3</td>
+                    </tr>
+                    <tr onclick="showDetail(15, 'BigHammer', '@BigHammer', 'B', 0, 3, 0, 3)">
+                        <td>15</td>
+                        <td>
+                            <div class="table-name-cell">
+                                <div class="table-avatar">
+                                    <img src="affiliate-profile-pics/BigHammer_BigHammer.jpg" alt="BigHammer" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='B'">
+                                </div>
+                                <div>
+                                    <div class="table-name">BigHammer</div>
+                                    <div class="table-handle">@BigHammer</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="table-stat">0</td>
+                        <td class="table-stat">3</td>
+                        <td class="table-stat">0</td>
+                        <td class="table-stat">3</td>
+                    </tr>
+                    <tr onclick="showDetail(16, 'Maksym_Kuznetsov', '@Maksym_Kuznetsov', 'MK', 0, 2, 0, 2)">
+                        <td>16</td>
+                        <td>
+                            <div class="table-name-cell">
+                                <div class="table-avatar">
+                                    <img src="affiliate-profile-pics/Maksym_Kuznetsov_Maksym_Kuznetsov.jpg" alt="Maksym_Kuznetsov" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='MK'">
+                                </div>
+                                <div>
+                                    <div class="table-name">Maksym_Kuznetsov</div>
+                                    <div class="table-handle">@Maksym_Kuznetsov</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="table-stat">0</td>
+                        <td class="table-stat">2</td>
+                        <td class="table-stat">0</td>
+                        <td class="table-stat">2</td>
+                    </tr>
+                    <tr onclick="showDetail(17, 'tarcioanderson', '@tarcioanderson', 'T', 0, 2, 0, 2)">
+                        <td>17</td>
+                        <td>
+                            <div class="table-name-cell">
+                                <div class="table-avatar">
+                                    <img src="affiliate-profile-pics/tarcioanderson_tarcioanderson.jpg" alt="tarcioanderson" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='T'">
+                                </div>
+                                <div>
+                                    <div class="table-name">tarcioanderson</div>
+                                    <div class="table-handle">@tarcioanderson</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="table-stat">0</td>
+                        <td class="table-stat">2</td>
+                        <td class="table-stat">0</td>
+                        <td class="table-stat">2</td>
+                    </tr>
+                    <tr onclick="showDetail(18, 'Shake51', '@Shake51', 'S', 0, 1, 0, 1)">
+                        <td>18</td>
+                        <td>
+                            <div class="table-name-cell">
+                                <div class="table-avatar">
+                                    <img src="affiliate-profile-pics/Shake51_Shake51.jpg" alt="Shake51" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='S'">
+                                </div>
+                                <div>
+                                    <div class="table-name">Shake51</div>
+                                    <div class="table-handle">@Shake51</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="table-stat">0</td>
+                        <td class="table-stat">1</td>
+                        <td class="table-stat">0</td>
+                        <td class="table-stat">1</td>
+                    </tr>
+                    <tr onclick="showDetail(19, 'aLfy116', '@aLfy116', 'A', 0, 1, 0, 1)">
+                        <td>19</td>
+                        <td>
+                            <div class="table-name-cell">
+                                <div class="table-avatar">
+                                    <img src="affiliate-profile-pics/aLfy116_aLfy116.jpg" alt="aLfy116" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='A'">
+                                </div>
+                                <div>
+                                    <div class="table-name">aLfy116</div>
+                                    <div class="table-handle">@aLfy116</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="table-stat">0</td>
+                        <td class="table-stat">1</td>
+                        <td class="table-stat">0</td>
+                        <td class="table-stat">1</td>
+                    </tr>
+                    <tr onclick="showDetail(20, 'jeyojeyojeyo', '@jeyojeyojeyo', 'J', 0, 0, 1, 1)">
+                        <td>20</td>
+                        <td>
+                            <div class="table-name-cell">
+                                <div class="table-avatar">
+                                    <img src="affiliate-profile-pics/jeyojeyojeyo_jeyojeyojeyo.jpg" alt="jeyojeyojeyo" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='J'">
+                                </div>
+                                <div>
+                                    <div class="table-name">jeyojeyojeyo</div>
+                                    <div class="table-handle">@jeyojeyojeyo</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="table-stat">0</td>
+                        <td class="table-stat">0</td>
+                        <td class="table-stat">1</td>
+                        <td class="table-stat">1</td>
+                    </tr>
+                    <tr onclick="showDetail(21, 'JIHANWOOOO', '@JIHANWOOOO', 'J', 0, 1, 0, 1)">
+                        <td>21</td>
+                        <td>
+                            <div class="table-name-cell">
+                                <div class="table-avatar">
+                                    <img src="affiliate-profile-pics/JIHANWOOOO_JIHANWOOOO.jpg" alt="JIHANWOOOO" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='J'">
+                                </div>
+                                <div>
+                                    <div class="table-name">JIHANWOOOO</div>
+                                    <div class="table-handle">@JIHANWOOOO</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="table-stat">0</td>
+                        <td class="table-stat">1</td>
+                        <td class="table-stat">0</td>
+                        <td class="table-stat">1</td>
                     </tr>
                 </tbody>
             </table>
@@ -2992,214 +2481,19 @@
     </div>
 
     <script>
-        // Web Audio API Sound Engine - Futuristic Cyber Sounds
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        const audioCtx = new AudioContext();
-        let isMuted = false;
-
-        // Sound Generator Functions with Variations
-        function playSound(soundName, variant = 0) {
-            if (isMuted) return;
-
-            switch(soundName) {
-                case 'button-click':
-                    playDigitalBeep(variant);
-                    break;
-                case 'modal-open':
-                    playWhooshUp(variant);
-                    break;
-                case 'modal-close':
-                    playWhooshDown();
-                    break;
-                case 'card-click':
-                    playLaserZap(variant);
-                    break;
-                case 'hover':
-                    playSubtleBlip(Math.random());
-                    break;
-                case 'popup-open':
-                    playElectronicUp();
-                    break;
-                case 'popup-close':
-                    playElectronicDown();
-                    break;
-                case 'achievement':
-                    playPowerUp();
-                    break;
-            }
-        }
-
-        // Digital Beep with pitch variation
-        function playDigitalBeep(variant = 0) {
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-
-            // Vary pitch based on variant
-            const pitches = [700, 800, 900, 1000, 850];
-            osc.frequency.value = pitches[variant % pitches.length];
-            osc.type = 'square';
-            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
-
-            osc.start(audioCtx.currentTime);
-            osc.stop(audioCtx.currentTime + 0.1);
-        }
-
-        // Smooth Airlock Whoosh (modal open)
-        function playWhooshUp(variant = 0) {
-            // Simple smooth whoosh - just filtered white noise
-            const noise = audioCtx.createBufferSource();
-            const noiseBuffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.4, audioCtx.sampleRate);
-            const noiseData = noiseBuffer.getChannelData(0);
-            for (let i = 0; i < noiseBuffer.length; i++) {
-                noiseData[i] = Math.random() * 2 - 1;
-            }
-            noise.buffer = noiseBuffer;
-
-            const filter = audioCtx.createBiquadFilter();
-            filter.type = 'lowpass';
-            filter.frequency.setValueAtTime(400, audioCtx.currentTime);
-            filter.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.3);
-            filter.Q.value = 2;
-
-            const gain = audioCtx.createGain();
-            noise.connect(filter);
-            filter.connect(gain);
-            gain.connect(audioCtx.destination);
-
-            gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
-
-            noise.start(audioCtx.currentTime);
-            noise.stop(audioCtx.currentTime + 0.4);
-        }
-
-        // Whoosh Down (modal close)
-        function playWhooshDown() {
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-
-            osc.type = 'sawtooth';
-            osc.frequency.setValueAtTime(800, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(200, audioCtx.currentTime + 0.2);
-
-            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
-
-            osc.start(audioCtx.currentTime);
-            osc.stop(audioCtx.currentTime + 0.2);
-        }
-
-        // Laser Zap with rank variation (card clicks)
-        function playLaserZap(rank = 1) {
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-
-            osc.type = 'sawtooth';
-            // Higher ranks get higher pitches
-            const startFreq = 1200 + (rank * 50);
-            osc.frequency.setValueAtTime(startFreq, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.15);
-
-            gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
-
-            osc.start(audioCtx.currentTime);
-            osc.stop(audioCtx.currentTime + 0.15);
-        }
-
-        // Subtle Blip with random variation (hover)
-        function playSubtleBlip(randomFactor = 0.5) {
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-
-            // Random pitch variation
-            osc.frequency.value = 500 + (randomFactor * 300);
-            osc.type = 'sine';
-            gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
-
-            osc.start(audioCtx.currentTime);
-            osc.stop(audioCtx.currentTime + 0.05);
-        }
-
-        // Electronic Up (popup open)
-        function playElectronicUp() {
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-
-            osc.type = 'triangle';
-            osc.frequency.setValueAtTime(400, audioCtx.currentTime);
-            osc.frequency.linearRampToValueAtTime(600, audioCtx.currentTime + 0.1);
-
-            gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
-
-            osc.start(audioCtx.currentTime);
-            osc.stop(audioCtx.currentTime + 0.1);
-        }
-
-        // Electronic Down (popup close)
-        function playElectronicDown() {
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-
-            osc.type = 'triangle';
-            osc.frequency.setValueAtTime(600, audioCtx.currentTime);
-            osc.frequency.linearRampToValueAtTime(400, audioCtx.currentTime + 0.1);
-
-            gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
-
-            osc.start(audioCtx.currentTime);
-            osc.stop(audioCtx.currentTime + 0.1);
-        }
-
-        // Power Up (achievement)
-        function playPowerUp() {
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-
-            osc.type = 'square';
-            osc.frequency.setValueAtTime(300, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(900, audioCtx.currentTime + 0.4);
-
-            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
-
-            osc.start(audioCtx.currentTime);
-            osc.stop(audioCtx.currentTime + 0.4);
+        // Sound effect logging
+        function playSound(soundName) {
+            console.log(`🔊 Sound: ${soundName}`);
         }
 
         // Mute functionality
+        let isMuted = false;
+
         function toggleMute() {
             isMuted = !isMuted;
-            document.getElementById('muteIcon').textContent = isMuted ? '✕' : '⚡';
-
-            if (!isMuted) {
-                playDigitalBeep(); // Confirmation beep
-            }
+            document.getElementById('muteIcon').textContent = isMuted ? '🔇' : '🔊';
+            console.log(isMuted ? '🔇 Audio muted' : '🔊 Audio unmuted');
+            playSound(isMuted ? 'mute' : 'unmute');
         }
 
         // Modal controls
@@ -3207,7 +2501,7 @@
             const modal = document.getElementById('hallModal');
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
-            playSound('modal-open', 1); // Variant 1 for Hall of Fame
+            playSound('modal-open');
             playSound('achievement');
         }
 
@@ -3215,7 +2509,7 @@
             const modal = document.getElementById('leaderboardModal');
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
-            playSound('modal-open', 2); // Variant 2 for Full Leaderboard
+            playSound('modal-open');
         }
 
         function closeModal(modalId) {
@@ -3260,8 +2554,8 @@
                 setTimeout(() => particle.remove(), 700);
             }
 
-            // Play sounds with rank variation
-            playSound('card-click', rank);
+            // Play sounds
+            playSound('card-click');
             playSound('particle-burst');
 
             // Show detail popup after animation starts
