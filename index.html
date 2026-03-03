@@ -484,32 +484,32 @@
             z-index: 10;
         }
 
-        /* Podium reveal sequence: 2nd → 1st → 3rd (like real awards ceremony) - SLOWER */
+        /* Podium reveal sequence: 3rd → 2nd → 1st (building to champion) - SLOWER */
         .podium-card:nth-child(1) {
-            animation-delay: 1.8s;  /* Rank 1 - The champion appears second (slower) */
+            animation-delay: 3.4s;  /* Rank 1 - The CHAMPION appears LAST! */
             order: 2;
         }
 
         .podium-card:nth-child(1)::after {
-            animation-delay: 3.8s;  /* Scan after card appears */
+            animation-delay: 5.4s;  /* Scan after card appears */
         }
 
         .podium-card:nth-child(2) {
-            animation-delay: 0.6s;  /* Rank 2 - Runner-up appears first */
+            animation-delay: 2.0s;  /* Rank 2 - Runner-up appears second */
             order: 1;
         }
 
         .podium-card:nth-child(2)::after {
-            animation-delay: 2.6s;
+            animation-delay: 4.0s;
         }
 
         .podium-card:nth-child(3) {
-            animation-delay: 3s;  /* Rank 3 - Third place appears last (slower) */
+            animation-delay: 0.6s;  /* Rank 3 - Third place appears FIRST */
             order: 3;
         }
 
         .podium-card:nth-child(3)::after {
-            animation-delay: 5.6s;
+            animation-delay: 2.6s;
         }
 
         /* Dramatic rising entrance with particles */
@@ -566,15 +566,15 @@
         }
 
         .podium-card:nth-child(1) {
-            animation-delay: 1.8s, 3.6s;
+            animation-delay: 3.4s, 5.2s;  /* Champion last */
         }
 
         .podium-card:nth-child(2) {
-            animation-delay: 0.6s, 2.4s;
+            animation-delay: 2.0s, 3.8s;  /* Runner-up second */
         }
 
         .podium-card:nth-child(3) {
-            animation-delay: 3s, 5.4s;
+            animation-delay: 0.6s, 2.4s;  /* Third place first */
         }
 
         @keyframes subtleGlitch {
