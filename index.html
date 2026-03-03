@@ -3278,17 +3278,27 @@
 
         // Digital Beep with pitch variation
         function playDigitalBeep(variant = 0) {
+            // Soft robotic acknowledgment tone
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
+            const filter = audioCtx.createBiquadFilter();
 
-            osc.connect(gain);
+            osc.connect(filter);
+            filter.connect(gain);
             gain.connect(audioCtx.destination);
 
-            // Vary pitch based on variant
+            // Vary pitch based on variant - using sine for smooth robotic feel
             const pitches = [700, 800, 900, 1000, 850];
             osc.frequency.value = pitches[variant % pitches.length];
-            osc.type = 'square';
-            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            osc.type = 'sine';
+
+            // Gentle lowpass filter for softer robotic quality
+            filter.type = 'lowpass';
+            filter.frequency.value = 2000;
+            filter.Q.value = 1;
+
+            // Reduced volume for subtle confirmation
+            gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
             gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
 
             osc.start(audioCtx.currentTime);
@@ -3324,23 +3334,57 @@
             noise.stop(audioCtx.currentTime + 0.4);
         }
 
-        // Whoosh Down (modal close)
+        // Airlock Seal (modal close) - smooth pneumatic closing
         function playWhooshDown() {
+            // Smooth mechanical hum for closing
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
+            const filter = audioCtx.createBiquadFilter();
 
-            osc.connect(gain);
+            osc.connect(filter);
+            filter.connect(gain);
             gain.connect(audioCtx.destination);
 
-            osc.type = 'sawtooth';
-            osc.frequency.setValueAtTime(800, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(200, audioCtx.currentTime + 0.2);
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(180, audioCtx.currentTime + 0.25);
 
-            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
+            // Lowpass filter sweep for smooth airlock seal effect
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(1200, audioCtx.currentTime);
+            filter.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.25);
+            filter.Q.value = 1.5;
+
+            // Gentle fade for pneumatic seal
+            gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.25);
 
             osc.start(audioCtx.currentTime);
-            osc.stop(audioCtx.currentTime + 0.2);
+            osc.stop(audioCtx.currentTime + 0.25);
+
+            // Add subtle air release hiss
+            const noise = audioCtx.createBufferSource();
+            const noiseBuffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.15, audioCtx.sampleRate);
+            const noiseData = noiseBuffer.getChannelData(0);
+            for (let i = 0; i < noiseBuffer.length; i++) {
+                noiseData[i] = Math.random() * 2 - 1;
+            }
+            noise.buffer = noiseBuffer;
+
+            const noiseFilter = audioCtx.createBiquadFilter();
+            noiseFilter.type = 'highpass';
+            noiseFilter.frequency.value = 2500;
+
+            const noiseGain = audioCtx.createGain();
+            noise.connect(noiseFilter);
+            noiseFilter.connect(noiseGain);
+            noiseGain.connect(audioCtx.destination);
+
+            noiseGain.gain.setValueAtTime(0.04, audioCtx.currentTime + 0.1);
+            noiseGain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.25);
+
+            noise.start(audioCtx.currentTime + 0.1);
+            noise.stop(audioCtx.currentTime + 0.25);
         }
 
         // Automatic Door Slide (card clicks) - futuristic pneumatic door
