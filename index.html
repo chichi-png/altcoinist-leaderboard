@@ -2380,6 +2380,76 @@
             }
         }
 
+        /* Pagination Controls */
+        .pagination-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: var(--space-6);
+            padding: var(--space-6) 0;
+            margin-top: var(--space-6);
+            border-top: 2px solid var(--gray-700);
+        }
+
+        .pagination-btn {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-4) var(--space-6);
+            background: linear-gradient(135deg, var(--gray-900) 0%, var(--gray-850) 100%);
+            border: 2px solid var(--cyan-bright);
+            border-radius: var(--radius-lg);
+            color: var(--cyan-bright);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+        }
+
+        .pagination-btn:hover:not(:disabled) {
+            background: linear-gradient(135deg, var(--gray-850) 0%, var(--gray-800) 100%);
+            border-color: var(--cyan);
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .pagination-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: var(--gray-600);
+            color: var(--gray-600);
+            box-shadow: none;
+        }
+
+        .pagination-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-2);
+            color: var(--gray-400);
+        }
+
+        .page-indicator {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .page-indicator span {
+            color: var(--cyan-bright);
+        }
+
+        .entries-info {
+            font-size: 0.9rem;
+            color: var(--gray-500);
+        }
+
+        .entries-info span {
+            color: var(--gray-300);
+            font-weight: 600;
+        }
+
         /* Mobile Responsive Design */
         @media (max-width: 1024px) {
             .podium {
@@ -2525,6 +2595,25 @@
 
             .hall-total {
                 font-size: 1.5rem;
+            }
+
+            /* Pagination mobile styles */
+            .pagination-controls {
+                flex-direction: column;
+                gap: var(--space-4);
+            }
+
+            .pagination-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .pagination-info {
+                order: -1;
+            }
+
+            .entries-info {
+                font-size: 0.8rem;
             }
         }
     </style>
@@ -2924,386 +3013,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr onclick="showDetail(1, 'rbthreek', '@rbthreek', 'R', 10, 195, 98, 303)">
-                        <td>1</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/rbthreek_rbthreek.jpg" alt="rbthreek" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='R'">
-                                </div>
-                                <div>
-                                    <div class="table-name">rbthreek</div>
-                                    <div class="table-handle">@rbthreek</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">10</td>
-                        <td class="table-stat">195</td>
-                        <td class="table-stat">98</td>
-                        <td class="table-stat">303</td>
-                    </tr>
-                    <tr onclick="showDetail(2, 'N30_CRYPTO', '@N30_cryptoo', 'NC', 74, 21, 6, 101)">
-                        <td>2</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/N30_CRYPTO_N30_cryptoo.jpg" alt="N30_CRYPTO" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='NC'">
-                                </div>
-                                <div>
-                                    <div class="table-name">N30_CRYPTO</div>
-                                    <div class="table-handle">@N30_cryptoo</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">74</td>
-                        <td class="table-stat">21</td>
-                        <td class="table-stat">6</td>
-                        <td class="table-stat">101</td>
-                    </tr>
-                    <tr onclick="showDetail(3, 'thebasedfrog', '@thebasedfrogx', 'T', 44, 11, 2, 57)">
-                        <td>3</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/thebasedfrog_thebasedfrogx.jpg" alt="thebasedfrog" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='T'">
-                                </div>
-                                <div>
-                                    <div class="table-name">thebasedfrog</div>
-                                    <div class="table-handle">@thebasedfrogx</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">44</td>
-                        <td class="table-stat">11</td>
-                        <td class="table-stat">2</td>
-                        <td class="table-stat">57</td>
-                    </tr>
-                    <tr onclick="showDetail(4, 'Neolawyer', '@NLinker777', 'N', 37, 5, 1, 43)">
-                        <td>4</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/DJ_nlinker777.jpg" alt="Neolawyer" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='N'">
-                                </div>
-                                <div>
-                                    <div class="table-name">Neolawyer</div>
-                                    <div class="table-handle">@NLinker777</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">37</td>
-                        <td class="table-stat">5</td>
-                        <td class="table-stat">1</td>
-                        <td class="table-stat">43</td>
-                    </tr>
-                    <tr onclick="showDetail(5, 'spennypretzel', '@SpennyCrypto', 'S', 19, 9, 5, 33)">
-                        <td>5</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/Spenny_spennycrypto.jpg" alt="spennypretzel" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='S'">
-                                </div>
-                                <div>
-                                    <div class="table-name">spennypretzel</div>
-                                    <div class="table-handle">@SpennyCrypto</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">19</td>
-                        <td class="table-stat">9</td>
-                        <td class="table-stat">5</td>
-                        <td class="table-stat">33</td>
-                    </tr>
-                    <tr onclick="showDetail(6, 'slavicbased', '@slavicbased', 'S', 0, 26, 3, 29)">
-                        <td>6</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/Slavicbased_basedsnipez.jpg" alt="slavicbased" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='S'">
-                                </div>
-                                <div>
-                                    <div class="table-name">slavicbased</div>
-                                    <div class="table-handle">@slavicbased</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">26</td>
-                        <td class="table-stat">3</td>
-                        <td class="table-stat">29</td>
-                    </tr>
-                    <tr onclick="showDetail(7, 'arrieindewarrie', '@arindewar', 'A', 17, 4, 1, 22)">
-                        <td>7</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/Arindewar_arindewar.jpg" alt="arrieindewarrie" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='A'">
-                                </div>
-                                <div>
-                                    <div class="table-name">arrieindewarrie</div>
-                                    <div class="table-handle">@arindewar</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">17</td>
-                        <td class="table-stat">4</td>
-                        <td class="table-stat">1</td>
-                        <td class="table-stat">22</td>
-                    </tr>
-                    <tr onclick="showDetail(8, 'I_Love_Dogs21', '@I_Love_Dogs21', 'IL', 0, 19, 1, 20)">
-                        <td>8</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/I_Love_Dogs21_I_Love_Dogs21.jpg" alt="I_Love_Dogs21" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='IL'">
-                                </div>
-                                <div>
-                                    <div class="table-name">I_Love_Dogs21</div>
-                                    <div class="table-handle">@I_Love_Dogs21</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">19</td>
-                        <td class="table-stat">1</td>
-                        <td class="table-stat">20</td>
-                    </tr>
-                    <tr onclick="showDetail(9, 'Vanxyrus', '@Vanxyrus', 'V', 13, 4, 2, 19)">
-                        <td>9</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/Mj_vanxyrus.jpg" alt="Vanxyrus" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='V'">
-                                </div>
-                                <div>
-                                    <div class="table-name">Vanxyrus</div>
-                                    <div class="table-handle">@Vanxyrus</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">13</td>
-                        <td class="table-stat">4</td>
-                        <td class="table-stat">2</td>
-                        <td class="table-stat">19</td>
-                    </tr>
-                    <tr onclick="showDetail(10, 'chironthetrader', '@chironthetrader', 'C', 0, 9, 6, 15)">
-                        <td>10</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/Chiron_chironchain.jpg" alt="chironthetrader" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='C'">
-                                </div>
-                                <div>
-                                    <div class="table-name">chironthetrader</div>
-                                    <div class="table-handle">@chironthetrader</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">9</td>
-                        <td class="table-stat">6</td>
-                        <td class="table-stat">15</td>
-                    </tr>
-                    <tr onclick="showDetail(11, 'Debankindad', '@DebankinDad', 'D', 13, 0, 0, 13)">
-                        <td>11</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/Debankindad_DebankinDad.jpg" alt="Debankindad" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='D'">
-                                </div>
-                                <div>
-                                    <div class="table-name">Debankindad</div>
-                                    <div class="table-handle">@DebankinDad</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">13</td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">13</td>
-                    </tr>
-                    <tr onclick="showDetail(12, 'veryborny', '@veryborny', 'V', 0, 6, 0, 6)">
-                        <td>12</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/veryborny_veryborny.jpg" alt="veryborny" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='V'">
-                                </div>
-                                <div>
-                                    <div class="table-name">veryborny</div>
-                                    <div class="table-handle">@veryborny</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">6</td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">6</td>
-                    </tr>
-                    <tr onclick="showDetail(13, 'Medbdy7', '@Medbdy7', 'M', 0, 5, 0, 5)">
-                        <td>13</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/Medbdy7_Medbdy7.jpg" alt="Medbdy7" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='M'">
-                                </div>
-                                <div>
-                                    <div class="table-name">Medbdy7</div>
-                                    <div class="table-handle">@Medbdy7</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">5</td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">5</td>
-                    </tr>
-                    <tr onclick="showDetail(14, 'cryptocchio0', '@cryptocchio0', 'C', 0, 2, 1, 3)">
-                        <td>14</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/cryptocchio0_cryptocchio0.jpg" alt="cryptocchio0" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='C'">
-                                </div>
-                                <div>
-                                    <div class="table-name">cryptocchio0</div>
-                                    <div class="table-handle">@cryptocchio0</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">2</td>
-                        <td class="table-stat">1</td>
-                        <td class="table-stat">3</td>
-                    </tr>
-                    <tr onclick="showDetail(15, 'BigHammer', '@BigHammer', 'B', 0, 3, 0, 3)">
-                        <td>15</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/BigHammer_BigHammer.jpg" alt="BigHammer" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='B'">
-                                </div>
-                                <div>
-                                    <div class="table-name">BigHammer</div>
-                                    <div class="table-handle">@BigHammer</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">3</td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">3</td>
-                    </tr>
-                    <tr onclick="showDetail(16, 'Maksym_Kuznetsov', '@Maksym_Kuznetsov', 'MK', 0, 2, 0, 2)">
-                        <td>16</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/Maksym_Kuznetsov_Maksym_Kuznetsov.jpg" alt="Maksym_Kuznetsov" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='MK'">
-                                </div>
-                                <div>
-                                    <div class="table-name">Maksym_Kuznetsov</div>
-                                    <div class="table-handle">@Maksym_Kuznetsov</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">2</td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">2</td>
-                    </tr>
-                    <tr onclick="showDetail(17, 'tarcioanderson', '@tarcioanderson', 'T', 0, 2, 0, 2)">
-                        <td>17</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/tarcioanderson_tarcioanderson.jpg" alt="tarcioanderson" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='T'">
-                                </div>
-                                <div>
-                                    <div class="table-name">tarcioanderson</div>
-                                    <div class="table-handle">@tarcioanderson</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">2</td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">2</td>
-                    </tr>
-                    <tr onclick="showDetail(18, 'Shake51', '@Shake51', 'S', 0, 1, 0, 1)">
-                        <td>18</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/Shake51_Shake51.jpg" alt="Shake51" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='S'">
-                                </div>
-                                <div>
-                                    <div class="table-name">Shake51</div>
-                                    <div class="table-handle">@Shake51</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">1</td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">1</td>
-                    </tr>
-                    <tr onclick="showDetail(19, 'aLfy116', '@aLfy116', 'A', 0, 1, 0, 1)">
-                        <td>19</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/aLfy116_aLfy116.jpg" alt="aLfy116" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='A'">
-                                </div>
-                                <div>
-                                    <div class="table-name">aLfy116</div>
-                                    <div class="table-handle">@aLfy116</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">1</td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">1</td>
-                    </tr>
-                    <tr onclick="showDetail(20, 'jeyojeyojeyo', '@jeyojeyojeyo', 'J', 0, 0, 1, 1)">
-                        <td>20</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/jeyojeyojeyo_jeyojeyojeyo.jpg" alt="jeyojeyojeyo" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='J'">
-                                </div>
-                                <div>
-                                    <div class="table-name">jeyojeyojeyo</div>
-                                    <div class="table-handle">@jeyojeyojeyo</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">1</td>
-                        <td class="table-stat">1</td>
-                    </tr>
-                    <tr onclick="showDetail(21, 'JIHANWOOOO', '@JIHANWOOOO', 'J', 0, 1, 0, 1)">
-                        <td>21</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/JIHANWOOOO_JIHANWOOOO.jpg" alt="JIHANWOOOO" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='J'">
-                                </div>
-                                <div>
-                                    <div class="table-name">JIHANWOOOO</div>
-                                    <div class="table-handle">@JIHANWOOOO</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">1</td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">1</td>
-                    </tr>
+                    <!-- Table rows dynamically generated by JavaScript -->
                 </tbody>
             </table>
+
+            <!-- Pagination Controls -->
+            <div class="pagination-controls">
+                <button class="pagination-btn" id="prevBtn" onclick="changePage(-1)" disabled>
+                    <span>← Previous</span>
+                </button>
+                <div class="pagination-info">
+                    <span class="page-indicator">Page <span id="currentPage">1</span> of <span id="totalPages">3</span></span>
+                    <span class="entries-info">Showing <span id="showingStart">1</span>-<span id="showingEnd">10</span> of <span id="totalEntries">21</span></span>
+                </div>
+                <button class="pagination-btn" id="nextBtn" onclick="changePage(1)">
+                    <span>Next →</span>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -3648,10 +3374,106 @@
             });
         }
 
+        // Leaderboard data and pagination state
+        const affiliatesData = [
+            {rank: 1, name: 'rbthreek', handle: '@rbthreek', avatar: 'R', tweets: 10, referrals: 195, traders: 98, total: 303, imgSrc: 'affiliate-profile-pics/rbthreek_rbthreek.jpg'},
+            {rank: 2, name: 'N30_CRYPTO', handle: '@N30_cryptoo', avatar: 'NC', tweets: 74, referrals: 21, traders: 6, total: 101, imgSrc: 'affiliate-profile-pics/N30_CRYPTO_N30_cryptoo.jpg'},
+            {rank: 3, name: 'thebasedfrog', handle: '@thebasedfrogx', avatar: 'T', tweets: 44, referrals: 11, traders: 2, total: 57, imgSrc: 'affiliate-profile-pics/thebasedfrog_thebasedfrogx.jpg'},
+            {rank: 4, name: 'Neolawyer', handle: '@NLinker777', avatar: 'N', tweets: 37, referrals: 5, traders: 1, total: 43, imgSrc: 'affiliate-profile-pics/DJ_nlinker777.jpg'},
+            {rank: 5, name: 'spennypretzel', handle: '@SpennyCrypto', avatar: 'S', tweets: 19, referrals: 9, traders: 5, total: 33, imgSrc: 'affiliate-profile-pics/spennypretzel_SpennyCrypto.jpg'},
+            {rank: 6, name: 'slavicbased', handle: '@slavicbased', avatar: 'S', tweets: 0, referrals: 26, traders: 3, total: 29, imgSrc: 'affiliate-profile-pics/slavicbased_slavicbased.jpg'},
+            {rank: 7, name: 'arrieindewarrie', handle: '@arindewar', avatar: 'A', tweets: 17, referrals: 4, traders: 1, total: 22, imgSrc: 'affiliate-profile-pics/arrieindewarrie_arindewar.jpg'},
+            {rank: 8, name: 'I_Love_Dogs21', handle: '@I_Love_Dogs21', avatar: 'IL', tweets: 0, referrals: 19, traders: 1, total: 20, imgSrc: 'affiliate-profile-pics/I_Love_Dogs21_I_Love_Dogs21.jpg'},
+            {rank: 9, name: 'Vanxyrus', handle: '@Vanxyrus', avatar: 'V', tweets: 13, referrals: 4, traders: 2, total: 19, imgSrc: 'affiliate-profile-pics/Vanxyrus_Vanxyrus.jpg'},
+            {rank: 10, name: 'chironthetrader', handle: '@chironthetrader', avatar: 'C', tweets: 0, referrals: 9, traders: 6, total: 15, imgSrc: 'affiliate-profile-pics/chironthetrader_chironthetrader.jpg'},
+            {rank: 11, name: 'Debankindad', handle: '@DebankinDad', avatar: 'D', tweets: 13, referrals: 0, traders: 0, total: 13, imgSrc: 'affiliate-profile-pics/Debankindad_DebankinDad.jpg'},
+            {rank: 12, name: 'veryborny', handle: '@veryborny', avatar: 'V', tweets: 0, referrals: 6, traders: 0, total: 6, imgSrc: 'affiliate-profile-pics/veryborny_veryborny.jpg'},
+            {rank: 13, name: 'Medbdy7', handle: '@Medbdy7', avatar: 'M', tweets: 0, referrals: 5, traders: 0, total: 5, imgSrc: 'affiliate-profile-pics/Medbdy7_Medbdy7.jpg'},
+            {rank: 14, name: 'cryptocchio0', handle: '@cryptocchio0', avatar: 'C', tweets: 0, referrals: 2, traders: 1, total: 3, imgSrc: 'affiliate-profile-pics/cryptocchio0_cryptocchio0.jpg'},
+            {rank: 15, name: 'BigHammer', handle: '@BigHammer', avatar: 'B', tweets: 0, referrals: 3, traders: 0, total: 3, imgSrc: 'affiliate-profile-pics/BigHammer_BigHammer.jpg'},
+            {rank: 16, name: 'Maksym_Kuznetsov', handle: '@Maksym_Kuznetsov', avatar: 'MK', tweets: 0, referrals: 2, traders: 0, total: 2, imgSrc: 'affiliate-profile-pics/Maksym_Kuznetsov_Maksym_Kuznetsov.jpg'},
+            {rank: 17, name: 'tarcioanderson', handle: '@tarcioanderson', avatar: 'T', tweets: 0, referrals: 2, traders: 0, total: 2, imgSrc: 'affiliate-profile-pics/tarcioanderson_tarcioanderson.jpg'},
+            {rank: 18, name: 'Shake51', handle: '@Shake51', avatar: 'S', tweets: 0, referrals: 1, traders: 0, total: 1, imgSrc: 'affiliate-profile-pics/Shake51_Shake51.jpg'},
+            {rank: 19, name: 'aLfy116', handle: '@aLfy116', avatar: 'A', tweets: 0, referrals: 1, traders: 0, total: 1, imgSrc: 'affiliate-profile-pics/aLfy116_aLfy116.jpg'},
+            {rank: 20, name: 'jeyojeyojeyo', handle: '@jeyojeyojeyo', avatar: 'J', tweets: 0, referrals: 0, traders: 1, total: 1, imgSrc: 'affiliate-profile-pics/jeyojeyojeyo_jeyojeyojeyo.jpg'},
+            {rank: 21, name: 'JIHANWOOOO', handle: '@JIHANWOOOO', avatar: 'J', tweets: 0, referrals: 1, traders: 0, total: 1, imgSrc: 'affiliate-profile-pics/JIHANWOOOO_JIHANWOOOO.jpg'}
+        ];
+
+        let currentPage = 1;
+        const itemsPerPage = 10;
+        const totalPages = Math.ceil(affiliatesData.length / itemsPerPage);
+
+        function renderLeaderboardPage() {
+            const tbody = document.querySelector('.leaderboard-table tbody');
+            tbody.innerHTML = '';
+
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = Math.min(startIndex + itemsPerPage, affiliatesData.length);
+            const pageData = affiliatesData.slice(startIndex, endIndex);
+
+            pageData.forEach(affiliate => {
+                const row = document.createElement('tr');
+                row.onclick = () => showDetail(
+                    affiliate.rank, affiliate.name, affiliate.handle, affiliate.avatar,
+                    affiliate.tweets, affiliate.referrals, affiliate.traders, affiliate.total
+                );
+
+                row.innerHTML = `
+                    <td>${affiliate.rank}</td>
+                    <td>
+                        <div class="table-name-cell">
+                            <div class="table-avatar">
+                                <img src="${affiliate.imgSrc}" alt="${affiliate.name}"
+                                     style="width:100%;height:100%;object-fit:cover;border-radius:50%;"
+                                     onerror="this.parentElement.innerHTML='${affiliate.avatar}'">
+                            </div>
+                            <div>
+                                <div class="table-name">${affiliate.name}</div>
+                                <div class="table-handle">${affiliate.handle}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="table-stat">${affiliate.tweets}</td>
+                    <td class="table-stat">${affiliate.referrals}</td>
+                    <td class="table-stat">${affiliate.traders}</td>
+                    <td class="table-stat">${affiliate.total}</td>
+                `;
+
+                tbody.appendChild(row);
+            });
+
+            // Update pagination controls
+            document.getElementById('currentPage').textContent = currentPage;
+            document.getElementById('totalPages').textContent = totalPages;
+            document.getElementById('showingStart').textContent = startIndex + 1;
+            document.getElementById('showingEnd').textContent = endIndex;
+            document.getElementById('totalEntries').textContent = affiliatesData.length;
+
+            // Update button states
+            document.getElementById('prevBtn').disabled = currentPage === 1;
+            document.getElementById('nextBtn').disabled = currentPage === totalPages;
+
+            // Re-attach hover sounds to new rows
+            tbody.querySelectorAll('tr').forEach(el => {
+                el.addEventListener('mouseenter', () => playSound('hover'));
+            });
+        }
+
+        function changePage(direction) {
+            const newPage = currentPage + direction;
+            if (newPage >= 1 && newPage <= totalPages) {
+                currentPage = newPage;
+                renderLeaderboardPage();
+                playSound('button-click');
+            }
+        }
+
         function openFullLeaderboard() {
             const modal = document.getElementById('leaderboardModal');
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
+            currentPage = 1; // Reset to first page
+            renderLeaderboardPage(); // Render the first page
             playSound('modal-open', 2); // Variant 2 for Full Leaderboard
         }
 
