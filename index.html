@@ -1792,7 +1792,7 @@
 
     <!-- Mute Button -->
     <button class="mute-btn" onclick="toggleMute()" aria-label="Toggle sound">
-        <span id="muteIcon">🔊</span>
+        <span id="muteIcon">⚡</span>
     </button>
 
     <!-- Landing Page -->
@@ -2348,19 +2348,204 @@
     </div>
 
     <script>
-        // Sound effect logging
+        // Web Audio API Sound Engine - Futuristic Cyber Sounds
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        const audioCtx = new AudioContext();
+        let isMuted = false;
+
+        // Sound Generator Functions
         function playSound(soundName) {
-            console.log(`🔊 Sound: ${soundName}`);
+            if (isMuted) return;
+
+            switch(soundName) {
+                case 'button-click':
+                    playDigitalBeep();
+                    break;
+                case 'modal-open':
+                    playWhooshUp();
+                    break;
+                case 'modal-close':
+                    playWhooshDown();
+                    break;
+                case 'card-click':
+                    playLaserZap();
+                    break;
+                case 'hover':
+                    playSubtleBlip();
+                    break;
+                case 'popup-open':
+                    playElectronicUp();
+                    break;
+                case 'popup-close':
+                    playElectronicDown();
+                    break;
+                case 'achievement':
+                    playPowerUp();
+                    break;
+            }
+        }
+
+        // Digital Beep (button clicks)
+        function playDigitalBeep() {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.frequency.value = 800;
+            osc.type = 'square';
+            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.1);
+        }
+
+        // Whoosh Up (modal open)
+        function playWhooshUp() {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            const filter = audioCtx.createBiquadFilter();
+
+            osc.connect(filter);
+            filter.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(200, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(800, audioCtx.currentTime + 0.3);
+
+            filter.type = 'lowpass';
+            filter.frequency.value = 2000;
+
+            gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.3);
+        }
+
+        // Whoosh Down (modal close)
+        function playWhooshDown() {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(200, audioCtx.currentTime + 0.2);
+
+            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
+
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.2);
+        }
+
+        // Laser Zap (card clicks)
+        function playLaserZap() {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(1200, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.15);
+
+            gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.15);
+        }
+
+        // Subtle Blip (hover)
+        function playSubtleBlip() {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.frequency.value = 600;
+            osc.type = 'sine';
+            gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
+
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.05);
+        }
+
+        // Electronic Up (popup open)
+        function playElectronicUp() {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+            osc.frequency.linearRampToValueAtTime(600, audioCtx.currentTime + 0.1);
+
+            gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.1);
+        }
+
+        // Electronic Down (popup close)
+        function playElectronicDown() {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+            osc.frequency.linearRampToValueAtTime(400, audioCtx.currentTime + 0.1);
+
+            gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.1);
+        }
+
+        // Power Up (achievement)
+        function playPowerUp() {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.type = 'square';
+            osc.frequency.setValueAtTime(300, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(900, audioCtx.currentTime + 0.4);
+
+            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.4);
         }
 
         // Mute functionality
-        let isMuted = false;
-
         function toggleMute() {
             isMuted = !isMuted;
-            document.getElementById('muteIcon').textContent = isMuted ? '🔇' : '🔊';
-            console.log(isMuted ? '🔇 Audio muted' : '🔊 Audio unmuted');
-            playSound(isMuted ? 'mute' : 'unmute');
+            document.getElementById('muteIcon').textContent = isMuted ? '✕' : '⚡';
+
+            if (!isMuted) {
+                playDigitalBeep(); // Confirmation beep
+            }
         }
 
         // Modal controls
