@@ -1013,6 +1013,76 @@
             }
         }
 
+        /* Hall of Fame entrance - walking through hallway */
+        #hallModal .modal-content {
+            animation: hallwayEntrance 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes hallwayEntrance {
+            0% {
+                opacity: 0;
+                transform: translateZ(-500px) scale(0.5);
+                filter: blur(20px);
+            }
+            30% {
+                opacity: 0.3;
+            }
+            60% {
+                opacity: 0.7;
+                filter: blur(5px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateZ(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        /* Animate gallery walls sliding into view */
+        #hallModal.active .gallery-wall {
+            animation: wallSlideIn 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes wallSlideIn {
+            0% {
+                transform: perspective(1500px) rotateY(0deg) translateX(0);
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        #hallModal.active .gallery-wall.left {
+            transform: perspective(1500px) rotateY(35deg);
+        }
+
+        #hallModal.active .gallery-wall.right {
+            transform: perspective(1500px) rotateY(-35deg);
+        }
+
+        /* Hall grid cards zoom in like portraits being revealed */
+        #hallModal.active .hall-card {
+            animation: cardReveal 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+        }
+
+        #hallModal.active .hall-card:nth-child(1) { animation-delay: 0.4s; }
+        #hallModal.active .hall-card:nth-child(2) { animation-delay: 0.5s; }
+        #hallModal.active .hall-card:nth-child(3) { animation-delay: 0.6s; }
+
+        @keyframes cardReveal {
+            0% {
+                opacity: 0;
+                transform: scale(0.3) translateY(100px);
+                filter: blur(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+                filter: blur(0);
+            }
+        }
+
         /* Cyber Background for Modals */
         .hall-background {
             position: absolute;
@@ -1027,27 +1097,51 @@
         .gallery-wall {
             position: absolute;
             height: 100%;
-            width: 400px;
-            background: linear-gradient(90deg,
-                rgba(30, 30, 35, 0.8) 0%,
-                rgba(20, 20, 25, 0.9) 50%,
-                rgba(15, 15, 20, 0.95) 100%);
-            border: 1px solid rgba(0, 243, 255, 0.1);
+            width: 500px;
+            background:
+                linear-gradient(90deg,
+                    rgba(30, 30, 35, 0.9) 0%,
+                    rgba(20, 20, 25, 0.95) 50%,
+                    rgba(15, 15, 20, 1) 100%),
+                repeating-linear-gradient(0deg,
+                    rgba(0, 243, 255, 0.02) 0px,
+                    transparent 2px,
+                    transparent 50px,
+                    rgba(0, 243, 255, 0.02) 52px);
+            border: 2px solid rgba(0, 243, 255, 0.15);
             box-shadow:
-                inset 0 0 100px rgba(0, 0, 0, 0.8),
-                inset 0 0 50px rgba(0, 243, 255, 0.05);
+                inset 0 0 150px rgba(0, 0, 0, 0.9),
+                inset 0 0 80px rgba(0, 243, 255, 0.08),
+                0 0 50px rgba(0, 0, 0, 0.8);
         }
 
         .gallery-wall.left {
-            left: -100px;
-            transform: perspective(1200px) rotateY(30deg);
+            left: -150px;
+            transform: perspective(1500px) rotateY(35deg);
             transform-origin: right center;
         }
 
         .gallery-wall.right {
-            right: -100px;
-            transform: perspective(1200px) rotateY(-30deg);
+            right: -150px;
+            transform: perspective(1500px) rotateY(-35deg);
             transform-origin: left center;
+        }
+
+        /* Hallway depth panels behind the walls */
+        .gallery-wall::before {
+            content: '';
+            position: absolute;
+            inset: 10% 0;
+            background: linear-gradient(180deg,
+                transparent 0%,
+                rgba(0, 243, 255, 0.03) 50%,
+                transparent 100%);
+            opacity: 0;
+            animation: wallIlluminate 3s ease-out forwards;
+        }
+
+        @keyframes wallIlluminate {
+            to { opacity: 1; }
         }
 
         /* Gallery Floor - Wooden/Elegant Pattern */
@@ -1417,10 +1511,18 @@
         }
 
         .hall-card {
-            background: linear-gradient(135deg, var(--gray-950) 0%, var(--gray-900) 100%);
-            border: 2px solid var(--gray-700);
+            background:
+                linear-gradient(135deg,
+                    rgba(30, 25, 20, 0.9) 0%,
+                    rgba(20, 20, 25, 0.95) 50%,
+                    rgba(10, 10, 15, 1) 100%);
+            border: 3px solid;
+            border-image: linear-gradient(135deg,
+                rgba(218, 165, 32, 0.4) 0%,
+                rgba(0, 243, 255, 0.4) 50%,
+                rgba(218, 165, 32, 0.4) 100%) 1;
             border-radius: var(--radius-2xl);
-            padding: var(--space-8);
+            padding: var(--space-10);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -1429,9 +1531,36 @@
             cursor: pointer;
             transition: all var(--transition-smooth);
             animation: hallCardEntrance 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
-            box-shadow: var(--shadow-lg), var(--shadow-inner);
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.6),
+                0 0 40px rgba(218, 165, 32, 0.15),
+                inset 0 0 60px rgba(0, 0, 0, 0.5),
+                inset 0 1px 2px rgba(255, 255, 255, 0.1);
             will-change: transform, box-shadow;
             -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Golden spotlight on each card */
+        .hall-card::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 300px;
+            background: linear-gradient(180deg,
+                rgba(218, 165, 32, 0.2) 0%,
+                rgba(218, 165, 32, 0.08) 40%,
+                transparent 100%);
+            filter: blur(40px);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+
+        .hall-card:hover::before {
+            opacity: 1;
         }
 
         .hall-card:active {
@@ -1467,9 +1596,16 @@
         }
 
         .hall-card:hover {
-            transform: translateY(-12px) scale(1.04);
-            border-color: var(--cyan-bright);
-            box-shadow: 0 0 50px var(--glow-cyan), var(--shadow-xl);
+            transform: translateY(-16px) scale(1.06);
+            border-image: linear-gradient(135deg,
+                rgba(218, 165, 32, 0.8) 0%,
+                rgba(0, 243, 255, 0.8) 50%,
+                rgba(218, 165, 32, 0.8) 100%) 1;
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, 0.8),
+                0 0 60px rgba(218, 165, 32, 0.4),
+                0 0 40px rgba(0, 243, 255, 0.3),
+                inset 0 0 80px rgba(218, 165, 32, 0.1);
         }
 
         /* Click Ripple Effect */
@@ -2750,31 +2886,61 @@
             osc.stop(audioCtx.currentTime + 0.1);
         }
 
-        // Whoosh Up with variation (modal open)
+        // Spaceship Door Opening (modal open)
         function playWhooshUp(variant = 0) {
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            const filter = audioCtx.createBiquadFilter();
+            // Create hydraulic hiss sound
+            const noise = audioCtx.createBufferSource();
+            const noiseBuffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.5, audioCtx.sampleRate);
+            const noiseData = noiseBuffer.getChannelData(0);
+            for (let i = 0; i < noiseBuffer.length; i++) {
+                noiseData[i] = Math.random() * 2 - 1;
+            }
+            noise.buffer = noiseBuffer;
 
-            osc.connect(filter);
-            filter.connect(gain);
-            gain.connect(audioCtx.destination);
+            const noiseFilter = audioCtx.createBiquadFilter();
+            noiseFilter.type = 'bandpass';
+            noiseFilter.frequency.value = 800;
+            noiseFilter.Q.value = 1;
 
-            osc.type = 'sawtooth';
-            // Different starting frequencies for variety
-            const startFreqs = [200, 250, 180, 220];
-            const endFreqs = [800, 900, 750, 850];
-            osc.frequency.setValueAtTime(startFreqs[variant % startFreqs.length], audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(endFreqs[variant % endFreqs.length], audioCtx.currentTime + 0.3);
+            const noiseGain = audioCtx.createGain();
+            noise.connect(noiseFilter);
+            noiseFilter.connect(noiseGain);
+            noiseGain.connect(audioCtx.destination);
 
-            filter.type = 'lowpass';
-            filter.frequency.value = 2000;
+            noiseGain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+            noiseGain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
 
-            gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+            // Add mechanical chunk sound at start
+            const chunk = audioCtx.createOscillator();
+            const chunkGain = audioCtx.createGain();
+            chunk.connect(chunkGain);
+            chunkGain.connect(audioCtx.destination);
 
-            osc.start(audioCtx.currentTime);
-            osc.stop(audioCtx.currentTime + 0.3);
+            chunk.type = 'square';
+            chunk.frequency.value = 100;
+            chunkGain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            chunkGain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
+
+            // Add smooth servo motor sound
+            const servo = audioCtx.createOscillator();
+            const servoGain = audioCtx.createGain();
+            servo.connect(servoGain);
+            servoGain.connect(audioCtx.destination);
+
+            servo.type = 'sine';
+            servo.frequency.setValueAtTime(150, audioCtx.currentTime);
+            servo.frequency.linearRampToValueAtTime(120, audioCtx.currentTime + 0.45);
+
+            servoGain.gain.setValueAtTime(0.08, audioCtx.currentTime + 0.05);
+            servoGain.gain.linearRampToValueAtTime(0.001, audioCtx.currentTime + 0.45);
+
+            // Start all sounds
+            noise.start(audioCtx.currentTime);
+            noise.stop(audioCtx.currentTime + 0.5);
+            chunk.start(audioCtx.currentTime);
+            chunk.stop(audioCtx.currentTime + 0.08);
+            servo.start(audioCtx.currentTime + 0.05);
+            servo.stop(audioCtx.currentTime + 0.45);
         }
 
         // Whoosh Down (modal close)
