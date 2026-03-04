@@ -228,16 +228,10 @@
 
         @keyframes ambientFloat {
             0%, 100% {
-                transform: translate(0, 0) scale(1);
-                opacity: 0.3;
+                opacity: 0.25;
             }
-            33% {
-                transform: translate(100px, -80px) scale(1.15);
-                opacity: 0.5;
-            }
-            66% {
-                transform: translate(-80px, 100px) scale(0.95);
-                opacity: 0.4;
+            50% {
+                opacity: 0.45;
             }
         }
 
@@ -432,6 +426,8 @@
             margin-bottom: var(--space-16);
             position: relative;
             z-index: 2;
+            overflow: visible;  /* Allow champion zoom to exceed container */
+            padding: var(--space-16) 0;  /* Extra padding for zoom effect */
         }
 
         .podium-card {
@@ -531,6 +527,46 @@
             }
         }
 
+        /* EPIC CHAMPION ZOOM ENTRANCE - Rank 1 Special Effect */
+        @keyframes championZoomEntrance {
+            0% {
+                opacity: 0;
+                transform: translateY(200px) scale(0.5) rotateX(30deg);
+                filter: blur(20px) brightness(0.3);
+                box-shadow: 0 0 0 rgba(0, 243, 255, 0);
+            }
+            30% {
+                opacity: 1;
+                transform: translateY(0) scale(1.6) rotateX(0deg);
+                filter: blur(0) brightness(2);
+                box-shadow: 0 0 200px var(--glow-cyan), 0 0 400px var(--glow-cyan), inset 0 0 100px rgba(0, 243, 255, 0.5);
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(0) scale(1.65) rotateX(0deg);
+                filter: blur(0) brightness(2.2);
+                box-shadow: 0 0 250px var(--glow-cyan), 0 0 500px var(--glow-cyan), inset 0 0 120px rgba(0, 243, 255, 0.6);
+            }
+            70% {
+                opacity: 1;
+                transform: translateY(0) scale(1.55) rotateX(0deg);
+                filter: blur(0) brightness(1.8);
+                box-shadow: 0 0 200px var(--glow-cyan), 0 0 400px var(--glow-cyan), inset 0 0 100px rgba(0, 243, 255, 0.5);
+            }
+            85% {
+                opacity: 1;
+                transform: translateY(0) scale(1.2) rotateX(0deg);
+                filter: blur(0) brightness(1.3);
+                box-shadow: 0 0 120px var(--glow-cyan), 0 0 240px var(--glow-cyan), inset 0 0 60px rgba(0, 243, 255, 0.3);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1.08) rotateX(0deg);
+                filter: blur(0) brightness(1);
+                box-shadow: 0 0 80px var(--glow-cyan), 0 0 160px var(--glow-cyan);
+            }
+        }
+
         /* Holographic scan animation */
         @keyframes holoScan {
             0% {
@@ -566,7 +602,9 @@
         }
 
         .podium-card:nth-child(1) {
-            animation-delay: 6.5s, 8.3s;  /* Champion last - EPIC ENTRANCE */
+            animation: championZoomEntrance 2s cubic-bezier(0.16, 1, 0.3, 1) 6.5s both,
+                       subtleGlitch 0.3s ease-in-out 8.5s;  /* CHAMPION EPIC ZOOM ENTRANCE */
+            z-index: 100;  /* Stay on top during entrance */
         }
 
         .podium-card:nth-child(2) {
