@@ -196,10 +196,10 @@
         /* Ambient Glows */
         .ambient-glow {
             position: absolute;
-            width: 800px;
-            height: 800px;
+            width: 600px;
+            height: 600px;
             border-radius: 50%;
-            filter: blur(100px);
+            filter: blur(60px);
             animation: ambientFloat 20s ease-in-out infinite;
         }
 
@@ -527,43 +527,32 @@
             }
         }
 
-        /* EPIC CHAMPION ZOOM ENTRANCE - Rank 1 Special Effect */
+        /* EPIC CHAMPION ZOOM ENTRANCE - Optimized for Performance */
         @keyframes championZoomEntrance {
             0% {
                 opacity: 0;
-                transform: translateY(200px) scale(0.5) rotateX(30deg);
-                filter: blur(20px) brightness(0.3);
-                box-shadow: 0 0 0 rgba(0, 243, 255, 0);
+                transform: translateY(150px) scale(0.6);
+                filter: brightness(0.4);
             }
             30% {
                 opacity: 1;
-                transform: translateY(0) scale(1.6) rotateX(0deg);
-                filter: blur(0) brightness(2);
-                box-shadow: 0 0 200px var(--glow-cyan), 0 0 400px var(--glow-cyan), inset 0 0 100px rgba(0, 243, 255, 0.5);
+                transform: translateY(0) scale(1.45);
+                filter: brightness(1.6);
             }
-            50% {
+            55% {
                 opacity: 1;
-                transform: translateY(0) scale(1.65) rotateX(0deg);
-                filter: blur(0) brightness(2.2);
-                box-shadow: 0 0 250px var(--glow-cyan), 0 0 500px var(--glow-cyan), inset 0 0 120px rgba(0, 243, 255, 0.6);
+                transform: translateY(0) scale(1.5);
+                filter: brightness(1.8);
             }
-            70% {
+            75% {
                 opacity: 1;
-                transform: translateY(0) scale(1.55) rotateX(0deg);
-                filter: blur(0) brightness(1.8);
-                box-shadow: 0 0 200px var(--glow-cyan), 0 0 400px var(--glow-cyan), inset 0 0 100px rgba(0, 243, 255, 0.5);
-            }
-            85% {
-                opacity: 1;
-                transform: translateY(0) scale(1.2) rotateX(0deg);
-                filter: blur(0) brightness(1.3);
-                box-shadow: 0 0 120px var(--glow-cyan), 0 0 240px var(--glow-cyan), inset 0 0 60px rgba(0, 243, 255, 0.3);
+                transform: translateY(0) scale(1.3);
+                filter: brightness(1.4);
             }
             100% {
                 opacity: 1;
-                transform: translateY(0) scale(1.08) rotateX(0deg);
-                filter: blur(0) brightness(1);
-                box-shadow: 0 0 80px var(--glow-cyan), 0 0 160px var(--glow-cyan);
+                transform: translateY(0) scale(1.08);
+                filter: brightness(1);
             }
         }
 
@@ -1181,25 +1170,17 @@
             }
         }
 
-        /* Modal Base */
+        /* Modal Base - Optimized */
         .modal {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.96);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
+            background: rgba(0, 0, 0, 0.98);
             display: none;
             align-items: center;
             justify-content: center;
             z-index: 9999;
             padding: var(--space-8);
             overflow-y: auto;
-        }
-
-        @supports not (backdrop-filter: blur(24px)) {
-            .modal {
-                background: rgba(0, 0, 0, 0.98);
-            }
         }
 
         .modal::before {
@@ -2207,24 +2188,16 @@
             letter-spacing: -0.03em;
         }
 
-        /* Click Popup Overlay */
+        /* Click Popup Overlay - Optimized */
         .popup-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.92);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: rgba(0, 0, 0, 0.96);
             display: none;
             align-items: center;
             justify-content: center;
             z-index: 10000;
             padding: var(--space-4);
-        }
-
-        @supports not (backdrop-filter: blur(20px)) {
-            .popup-overlay {
-                background: rgba(0, 0, 0, 0.96);
-            }
         }
 
         .popup-overlay.active {
