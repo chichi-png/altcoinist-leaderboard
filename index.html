@@ -72,6 +72,71 @@
             --transition-slow: 600ms cubic-bezier(0.4, 0, 0.2, 1);
         }
 
+        /* ========================================
+           PERFORMANCE OPTIMIZATIONS
+           ======================================== */
+
+        /* Force GPU acceleration for animated elements */
+        .podium-card,
+        .hall-card,
+        .stat-card,
+        .neon-streak,
+        .particle,
+        .gallery-spotlight,
+        .modal-content,
+        .detail-popup,
+        .hall-scanner,
+        .body-scanner {
+            will-change: transform, opacity;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
+
+        /* Contain paint and layout for isolated sections */
+        .landing,
+        .podium,
+        .hall-background,
+        .trophy-background {
+            contain: layout paint;
+        }
+
+        /* Optimize box-shadow animations by using opacity instead */
+        @media (prefers-reduced-motion: no-preference) {
+            /* Animations are enabled */
+        }
+
+        /* Disable expensive animations for users who prefer reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Optimize table rendering - containment removed to show pagination */
+
+        /* Reduce complexity of blur effects */
+        .modal::before,
+        .hall-background::before {
+            will-change: opacity;
+        }
+
+        /* Pause background animations when modals are open for better performance */
+        body:has(.modal.active) .landing .neon-streak,
+        body:has(.modal.active) .cyber-grid,
+        body:has(.modal.active) .podium .particle {
+            animation-play-state: paused;
+        }
+
+        /* Optimize scrolling performance */
+        .modal-content {
+            overflow: visible;
+            -webkit-overflow-scrolling: touch;
+        }
+
         /* Reset & Base */
         * {
             margin: 0;
@@ -163,9 +228,15 @@
 
         @keyframes ambientFloat {
             0%, 100% {
-                opacity: 0.2;
+                transform: translate(0, 0) scale(1);
+                opacity: 0.3;
             }
-            50% {
+            33% {
+                transform: translate(100px, -80px) scale(1.15);
+                opacity: 0.5;
+            }
+            66% {
+                transform: translate(-80px, 100px) scale(0.95);
                 opacity: 0.4;
             }
         }
@@ -287,6 +358,70 @@
             letter-spacing: 0.02em;
         }
 
+        /* Matrix-Style Falling Code (Landing Page Only) */
+        .landing .matrix-column {
+            position: absolute;
+            top: -100%;
+            width: 2px;
+            height: 100vh;
+            opacity: 0.6;
+            animation: matrixFall linear infinite;
+            pointer-events: none;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: var(--cyan-bright);
+            text-shadow: 0 0 8px var(--glow-cyan);
+            white-space: nowrap;
+            overflow: hidden;
+            writing-mode: vertical-lr;
+        }
+
+        @keyframes matrixFall {
+            0% {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.4;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        /* Neon Streaks (Landing Page) */
+        .landing .neon-streak {
+            position: absolute;
+            width: 2px;
+            height: 150px;
+            background: linear-gradient(180deg, transparent, var(--cyan-bright), transparent);
+            opacity: 0;
+            animation: streakFall linear infinite;
+            box-shadow: 0 0 10px var(--glow-cyan);
+            pointer-events: none;
+        }
+
+        @keyframes streakFall {
+            0% {
+                top: -150px;
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 0.6;
+            }
+            100% {
+                top: 100vh;
+                opacity: 0;
+            }
+        }
+
         /* Top 3 Podium */
         .podium {
             display: grid;
@@ -309,10 +444,12 @@
             align-items: center;
             position: relative;
             overflow: hidden;
-            transition: all var(--transition-smooth);
-            animation: cardEntrance 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+            transition: transform 0.3s ease-out, box-shadow var(--transition-smooth);
+            animation: dramaticRise 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
             box-shadow: var(--shadow-xl), var(--shadow-inner);
             will-change: transform, box-shadow;
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
 
         .podium-card:active {
@@ -327,75 +464,139 @@
             pointer-events: none;
         }
 
-        /* Removed scanline from ::after to avoid conflict with corner accents */
+        /* Holographic scan line effect */
+        .podium-card::after {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg,
+                transparent 0%,
+                rgba(0, 243, 255, 0.3) 20%,
+                rgba(0, 243, 255, 0.9) 50%,
+                rgba(0, 243, 255, 0.3) 80%,
+                transparent 100%);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.8);
+            animation: holoScan 2s ease-out forwards;
+            pointer-events: none;
+            z-index: 10;
+        }
 
-        /* Sequential Animation: 3rd -> 2nd -> 1st (Champion gets final spotlight) */
-        /* Each card gets full time to load stats and be appreciated before next appears */
+        /* Podium reveal sequence: 3rd → 2nd → 1st (building to champion) - EVEN SLOWER FOR FULL APPRECIATION */
         .podium-card:nth-child(1) {
-            animation: championEntrance 2.5s cubic-bezier(0.16, 1, 0.3, 1) 6.5s both; /* Rank 1 - Epic champion entrance */
+            animation-delay: 6.5s, 8.0s;  /* CHAMPION appears LAST with extra dramatic entrance */
             order: 2;
         }
 
+        .podium-card:nth-child(1)::after {
+            animation-delay: 8.5s;  /* Scan after champion fully appears */
+        }
+
         .podium-card:nth-child(2) {
-            animation-delay: 3.5s; /* Rank 2 - Appears after rank 3 fully loads (1.5s anim + 2s view time) */
+            animation-delay: 3.5s, 5.0s;  /* Rank 2 - Runner-up appears after rank 3 fully loads */
             order: 1;
         }
 
+        .podium-card:nth-child(2)::after {
+            animation-delay: 5.5s;
+        }
+
         .podium-card:nth-child(3) {
-            animation-delay: 0.5s; /* Rank 3 - First to appear */
+            animation-delay: 0.5s, 2.0s;  /* Rank 3 - Third place appears FIRST */
             order: 3;
         }
 
-        @keyframes cardEntrance {
-            from {
-                opacity: 0;
-                transform: translateY(60px) scale(0.92);
-                filter: blur(8px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-                filter: blur(0);
-            }
+        .podium-card:nth-child(3)::after {
+            animation-delay: 2.5s;
         }
 
-        /* Epic Champion Entrance - Rank 1 Special Effect */
-        @keyframes championEntrance {
+        /* Dramatic rising entrance with particles */
+        @keyframes dramaticRise {
             0% {
                 opacity: 0;
-                transform: translateY(-100px) scale(0.5);
-                filter: blur(20px) brightness(0.5);
-                box-shadow: 0 0 0 rgba(0, 243, 255, 0);
-            }
-            20% {
-                opacity: 1;
-                transform: translateY(0) scale(1.5);
-                filter: blur(0) brightness(1.8);
-                box-shadow: 0 0 180px var(--glow-cyan), 0 0 300px var(--glow-cyan), inset 0 0 60px var(--glow-cyan);
-            }
-            40% {
-                opacity: 1;
-                transform: translateY(0) scale(1.55);
-                filter: blur(0) brightness(1.8);
-                box-shadow: 0 0 200px var(--glow-cyan), 0 0 350px var(--glow-cyan), inset 0 0 80px var(--glow-cyan);
+                transform: translateY(200px) scale(0.8) rotateX(20deg);
+                filter: blur(10px) brightness(0.4);
             }
             60% {
                 opacity: 1;
-                transform: translateY(0) scale(1.5);
-                filter: blur(0) brightness(1.6);
-                box-shadow: 0 0 180px var(--glow-cyan), 0 0 300px var(--glow-cyan), inset 0 0 60px var(--glow-cyan);
-            }
-            80% {
-                opacity: 1;
-                transform: translateY(0) scale(1.2);
+                transform: translateY(-10px) scale(1.02) rotateX(0deg);
                 filter: blur(0) brightness(1.2);
-                box-shadow: 0 0 120px var(--glow-cyan), 0 0 200px var(--glow-cyan), inset 0 0 40px rgba(0, 243, 255, 0.3);
             }
             100% {
                 opacity: 1;
-                transform: translateY(0) scale(1.08);
+                transform: translateY(0) scale(1) rotateX(0deg);
                 filter: blur(0) brightness(1);
-                box-shadow: 0 0 80px var(--glow-cyan), var(--shadow-xl);
+            }
+        }
+
+        /* Holographic scan animation */
+        @keyframes holoScan {
+            0% {
+                top: -10%;
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            45% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.3;
+                box-shadow: 0 0 40px rgba(0, 243, 255, 1);
+            }
+            55% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                top: 110%;
+                opacity: 0;
+            }
+        }
+
+        /* Glitch effect during scan */
+        .podium-card {
+            animation: dramaticRise 1.2s cubic-bezier(0.16, 1, 0.3, 1) both,
+                       subtleGlitch 0.3s ease-in-out;
+        }
+
+        .podium-card:nth-child(1) {
+            animation-delay: 6.5s, 8.3s;  /* Champion last - EPIC ENTRANCE */
+        }
+
+        .podium-card:nth-child(2) {
+            animation-delay: 3.5s, 5.3s;  /* Runner-up second */
+        }
+
+        .podium-card:nth-child(3) {
+            animation-delay: 0.5s, 2.3s;  /* Third place first */
+        }
+
+        @keyframes subtleGlitch {
+            0%, 100% {
+                transform: translateX(0);
+                filter: brightness(1);
+            }
+            20% {
+                transform: translateX(-2px);
+                filter: brightness(1.2) hue-rotate(5deg);
+            }
+            40% {
+                transform: translateX(2px);
+                filter: brightness(0.8) hue-rotate(-5deg);
+            }
+            60% {
+                transform: translateX(-1px);
+                filter: brightness(1.3);
+            }
+            80% {
+                transform: translateX(1px);
+                filter: brightness(0.9);
             }
         }
 
@@ -404,11 +605,10 @@
             border-color: var(--cyan-bright);
             box-shadow: 0 0 60px var(--glow-cyan), var(--shadow-xl);
             transform: scale(1.08);
-            z-index: 100; /* Stay on top during epic entrance */
         }
 
         .podium-card.rank-1:hover {
-            transform: translateY(-12px) scale(1.1);
+            /* 3D tilt applied via JavaScript, keep scale */
             box-shadow: 0 0 80px var(--glow-cyan), var(--shadow-xl);
         }
 
@@ -425,7 +625,7 @@
         }
 
         .podium-card.rank-2:hover {
-            transform: translateY(-12px) scale(1.03);
+            /* 3D tilt applied via JavaScript */
             border-color: var(--teal-bright);
             box-shadow: 0 0 60px var(--glow-teal), var(--shadow-xl);
         }
@@ -442,7 +642,7 @@
         }
 
         .podium-card.rank-3:hover {
-            transform: translateY(-12px) scale(1.03);
+            /* 3D tilt applied via JavaScript */
             border-color: var(--blue-bright);
             box-shadow: 0 0 60px var(--glow-blue), var(--shadow-xl);
         }
@@ -637,10 +837,13 @@
             font-weight: 800;
             letter-spacing: -0.03em;
             margin-bottom: var(--space-2);
-            color: white;
+            color: var(--cyan-bright);
             text-align: center;
             position: relative;
             transition: all var(--transition-base);
+            text-shadow:
+                0 0 12px var(--glow-cyan),
+                0 0 24px rgba(0, 243, 255, 0.4);
         }
 
         .podium-card:hover .affiliate-name {
@@ -701,6 +904,24 @@
             border-radius: var(--radius-lg);
             transition: all var(--transition-base);
             box-shadow: var(--shadow-inner);
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        /* Sequential stat reveal animation */
+        .score-row.reveal {
+            animation: statReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes statReveal {
+            0% {
+                opacity: 0;
+                transform: translateX(-20px) scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
         }
 
         .score-row:hover {
@@ -983,6 +1204,250 @@
             }
         }
 
+        /* DRAMATIC Hall of Fame Entrance with WOW Factor */
+
+        /* Add tunnel overlay for dramatic entrance */
+        #hallModal::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(ellipse at center,
+                transparent 0%,
+                rgba(0, 0, 0, 0.9) 60%,
+                rgba(0, 0, 0, 1) 100%);
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0;
+        }
+
+        #hallModal.active::before {
+            animation: tunnelReveal 2s ease-out forwards;
+        }
+
+        @keyframes tunnelReveal {
+            0% {
+                opacity: 1;
+                transform: scale(0.3);
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: scale(3);
+            }
+        }
+
+        /* Modal content zooms from far away */
+        #hallModal .modal-content {
+            transform-style: preserve-3d;
+            perspective: 2000px;
+        }
+
+        #hallModal.active .modal-content {
+            animation: dramaticZoomIn 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes dramaticZoomIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.1) translateY(200px);
+                filter: blur(30px) brightness(0.3);
+            }
+            40% {
+                opacity: 0.5;
+                filter: blur(15px) brightness(0.6);
+            }
+            70% {
+                opacity: 0.9;
+                filter: blur(2px) brightness(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+                filter: blur(0) brightness(1);
+            }
+        }
+
+        /* Gallery walls burst open dramatically */
+        #hallModal .gallery-wall {
+            opacity: 0;
+            transition: none;
+        }
+
+        #hallModal.active .gallery-wall.left {
+            animation: wallBurstLeft 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.6s;
+        }
+
+        #hallModal.active .gallery-wall.right {
+            animation: wallBurstRight 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.6s;
+        }
+
+        @keyframes wallBurstLeft {
+            0% {
+                opacity: 0;
+                transform: perspective(1500px) rotateY(90deg) translateX(-500px);
+            }
+            60% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 1;
+                transform: perspective(1500px) rotateY(35deg) translateX(0);
+            }
+        }
+
+        @keyframes wallBurstRight {
+            0% {
+                opacity: 0;
+                transform: perspective(1500px) rotateY(-90deg) translateX(500px);
+            }
+            60% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 1;
+                transform: perspective(1500px) rotateY(-35deg) translateX(0);
+            }
+        }
+
+        /* Light sweep across the hall */
+        #hallModal.active .hall-background::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(90deg,
+                transparent 0%,
+                rgba(218, 165, 32, 0.3) 48%,
+                rgba(255, 255, 255, 0.4) 50%,
+                rgba(218, 165, 32, 0.3) 52%,
+                transparent 100%);
+            animation: lightSweep 2s ease-out forwards;
+            animation-delay: 0.8s;
+            pointer-events: none;
+        }
+
+        @keyframes lightSweep {
+            0% {
+                left: -100%;
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                left: 100%;
+                opacity: 0;
+            }
+        }
+
+        /* Cards explode into view with dramatic entrance - one by one */
+        #hallModal .hall-card {
+            opacity: 0;
+            transform: scale(0);
+        }
+
+        #hallModal.active .hall-card {
+            animation: cardExplosion 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        #hallModal.active .hall-card:nth-child(1) {
+            animation-delay: 2s;
+        }
+        #hallModal.active .hall-card:nth-child(2) {
+            animation-delay: 2.5s;
+        }
+        #hallModal.active .hall-card:nth-child(3) {
+            animation-delay: 3s;
+        }
+        #hallModal.active .hall-card:nth-child(4) {
+            animation-delay: 3.5s;
+        }
+        #hallModal.active .hall-card:nth-child(5) {
+            animation-delay: 4s;
+        }
+        #hallModal.active .hall-card:nth-child(6) {
+            animation-delay: 4.5s;
+        }
+        #hallModal.active .hall-card:nth-child(7) {
+            animation-delay: 5s;
+        }
+
+        @keyframes cardExplosion {
+            0% {
+                opacity: 0;
+                transform: scale(0) rotateY(180deg);
+                filter: blur(20px) brightness(3);
+            }
+            50% {
+                filter: blur(5px) brightness(1.5);
+            }
+            70% {
+                transform: scale(1.1) rotateY(0deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotateY(0deg);
+                filter: blur(0) brightness(1);
+            }
+        }
+
+        /* Spotlights sweep dramatically */
+        #hallModal.active .gallery-spotlight {
+            animation: spotlightDramatic 3s ease-out forwards, spotlightSway 10s ease-in-out 3s infinite;
+        }
+
+        @keyframes spotlightDramatic {
+            0% {
+                opacity: 0;
+                transform: translateY(-200px) scale(0.5);
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0.7;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Title glows dramatically */
+        #hallModal.active .modal-title {
+            animation: titleGlowReveal 2s ease-out forwards;
+            animation-delay: 1s;
+        }
+
+        @keyframes titleGlowReveal {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+                text-shadow: 0 0 0 transparent;
+            }
+            50% {
+                text-shadow:
+                    0 0 40px var(--glow-cyan),
+                    0 0 80px var(--glow-cyan),
+                    0 0 120px rgba(0, 243, 255, 0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+                text-shadow:
+                    0 0 20px var(--glow-cyan),
+                    0 0 40px var(--glow-cyan),
+                    0 0 60px rgba(0, 243, 255, 0.5),
+                    0 0 80px rgba(0, 243, 255, 0.3);
+            }
+        }
+
         /* Cyber Background for Modals */
         .hall-background {
             position: absolute;
@@ -990,95 +1455,404 @@
             overflow: hidden;
             pointer-events: none;
             z-index: 0;
-            opacity: 0.8;
+            background: radial-gradient(ellipse at center, rgba(15, 15, 15, 0.7) 0%, rgba(10, 10, 10, 0.95) 100%);
         }
 
-        /* Hexagon Grid Pattern */
-        .hex-grid {
+        /* Gallery Walls with 3D Perspective */
+        .gallery-wall {
             position: absolute;
-            inset: 0;
-            background-image:
-                linear-gradient(30deg, transparent 38%, rgba(0, 243, 255, 0.06) 38%, rgba(0, 243, 255, 0.06) 62%, transparent 62%),
-                linear-gradient(90deg, transparent 38%, rgba(0, 255, 204, 0.06) 38%, rgba(0, 255, 204, 0.06) 62%, transparent 62%),
-                linear-gradient(150deg, transparent 38%, rgba(56, 255, 147, 0.06) 38%, rgba(56, 255, 147, 0.06) 62%, transparent 62%);
-            background-size: 90px 156px;
-            animation: hexShift 25s linear infinite;
+            height: 100%;
+            width: 500px;
+            background:
+                linear-gradient(90deg,
+                    rgba(30, 30, 35, 0.9) 0%,
+                    rgba(20, 20, 25, 0.95) 50%,
+                    rgba(15, 15, 20, 1) 100%),
+                repeating-linear-gradient(0deg,
+                    rgba(0, 243, 255, 0.02) 0px,
+                    transparent 2px,
+                    transparent 50px,
+                    rgba(0, 243, 255, 0.02) 52px);
+            border: 2px solid rgba(0, 243, 255, 0.15);
+            box-shadow:
+                inset 0 0 150px rgba(0, 0, 0, 0.9),
+                inset 0 0 80px rgba(0, 243, 255, 0.08),
+                0 0 50px rgba(0, 0, 0, 0.8);
         }
 
-        @keyframes hexShift {
-            from { background-position: 0 0, 0 0, 0 0; }
-            to { background-position: 90px 156px, 0 156px, 90px 0; }
+        .gallery-wall.left {
+            left: -150px;
+            transform: perspective(1500px) rotateY(35deg);
+            transform-origin: right center;
         }
 
-        /* Scanning Lines */
-        .scan-lines {
+        .gallery-wall.right {
+            right: -150px;
+            transform: perspective(1500px) rotateY(-35deg);
+            transform-origin: left center;
+        }
+
+        /* Hallway depth panels behind the walls */
+        .gallery-wall::before {
+            content: '';
             position: absolute;
-            inset: 0;
-            background: linear-gradient(
-                to bottom,
-                transparent 48%,
-                rgba(0, 243, 255, 0.04) 48%,
-                rgba(0, 243, 255, 0.04) 52%,
-                transparent 52%
-            );
-            background-size: 100% 6px;
-            animation: scanMove 10s linear infinite;
+            inset: 10% 0;
+            background: linear-gradient(180deg,
+                transparent 0%,
+                rgba(0, 243, 255, 0.03) 50%,
+                transparent 100%);
+            opacity: 0;
+            animation: wallIlluminate 3s ease-out forwards;
         }
 
-        @keyframes scanMove {
-            from { background-position: 0 0; }
-            to { background-position: 0 100%; }
+        @keyframes wallIlluminate {
+            to { opacity: 1; }
         }
 
-        /* Data Stream Effect */
-        .data-stream {
+        /* Gallery Floor - Wooden/Elegant Pattern */
+        .gallery-floor {
             position: absolute;
-            width: 3px;
-            height: 120px;
-            background: linear-gradient(to bottom, transparent, var(--cyan-bright), transparent);
-            opacity: 0.7;
-            animation: streamFall linear infinite;
-            border-radius: 2px;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%) perspective(800px) rotateX(70deg);
+            width: 80%;
+            height: 600px;
+            background:
+                repeating-linear-gradient(90deg,
+                    rgba(40, 35, 30, 0.3) 0px,
+                    rgba(45, 40, 35, 0.35) 5px,
+                    rgba(40, 35, 30, 0.3) 10px
+                ),
+                linear-gradient(180deg,
+                    transparent 0%,
+                    rgba(0, 243, 255, 0.05) 50%,
+                    transparent 100%);
+            border: 2px solid rgba(0, 243, 255, 0.15);
+            box-shadow: 0 50px 150px rgba(0, 0, 0, 0.9);
+            pointer-events: none;
         }
 
-        @keyframes streamFall {
-            from {
-                transform: translateY(-120px);
-                opacity: 0;
+        /* Gallery Spotlights from Ceiling */
+        .gallery-spotlight {
+            position: absolute;
+            top: -50px;
+            width: 250px;
+            height: 800px;
+            background: linear-gradient(180deg,
+                rgba(0, 243, 255, 0.2) 0%,
+                rgba(0, 243, 255, 0.08) 30%,
+                rgba(0, 243, 255, 0.02) 60%,
+                transparent 100%);
+            filter: blur(50px);
+            transform-origin: top center;
+            animation: spotlightSway 10s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes spotlightSway {
+            0%, 100% {
+                transform: translateX(-15px);
+                opacity: 0.6;
             }
             50% {
+                transform: translateX(15px);
+                opacity: 0.8;
+            }
+        }
+
+        /* Ambient Light Particles (subtle) */
+        .light-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--cyan-bright);
+            border-radius: 50%;
+            opacity: 0;
+            animation: particleFloat 8s ease-in-out infinite;
+            box-shadow: 0 0 10px var(--glow-cyan);
+        }
+
+        @keyframes particleFloat {
+            0%, 100% {
+                opacity: 0;
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                opacity: 0.6;
+                transform: translateY(-100px) scale(1.5);
+            }
+        }
+
+        /* Picture Frame Accent Lines */
+        .frame-accent {
+            position: absolute;
+            border: 2px solid rgba(218, 165, 32, 0.2);
+            box-shadow:
+                inset 0 0 30px rgba(218, 165, 32, 0.1),
+                0 0 20px rgba(218, 165, 32, 0.15);
+            pointer-events: none;
+            animation: frameGlow 6s ease-in-out infinite;
+        }
+
+        @keyframes frameGlow {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        /* Trophy Room Background (Full Leaderboard) */
+        .trophy-background {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+            background:
+                radial-gradient(ellipse at top, rgba(255, 215, 0, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at center, rgba(10, 10, 10, 0.9) 0%, rgba(5, 5, 5, 0.98) 100%);
+        }
+
+        /* Stadium Lights */
+        .stadium-light {
+            position: absolute;
+            width: 300px;
+            height: 600px;
+            background: linear-gradient(180deg,
+                rgba(255, 215, 0, 0.15) 0%,
+                rgba(255, 215, 0, 0.08) 20%,
+                rgba(0, 243, 255, 0.04) 40%,
+                transparent 70%);
+            filter: blur(60px);
+            animation: stadiumPulse 5s ease-in-out infinite;
+            transform-origin: top center;
+        }
+
+        @keyframes stadiumPulse {
+            0%, 100% {
+                opacity: 0.8;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+        }
+
+        /* Victory Banners */
+        .victory-banner {
+            position: absolute;
+            width: 120px;
+            height: 500px;
+            background: linear-gradient(180deg,
+                transparent 0%,
+                rgba(0, 243, 255, 0.25) 10%,
+                rgba(0, 243, 255, 0.15) 40%,
+                rgba(0, 243, 255, 0.08) 70%,
+                transparent 100%);
+            clip-path: polygon(10% 0%, 90% 0%, 85% 100%, 15% 100%);
+            animation: bannerSway 8s ease-in-out infinite;
+            border-left: 1px solid rgba(0, 243, 255, 0.3);
+            border-right: 1px solid rgba(0, 243, 255, 0.3);
+        }
+
+        @keyframes bannerSway {
+            0%, 100% {
+                transform: translateX(0) rotateZ(0deg);
+            }
+            50% {
+                transform: translateX(10px) rotateZ(2deg);
+            }
+        }
+
+        /* Golden Corner Accents */
+        .golden-corner {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border: 3px solid rgba(255, 215, 0, 0.3);
+            box-shadow:
+                0 0 30px rgba(255, 215, 0, 0.2),
+                inset 0 0 30px rgba(255, 215, 0, 0.1);
+            animation: goldenPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes goldenPulse {
+            0%, 100% {
+                opacity: 0.5;
+                box-shadow:
+                    0 0 30px rgba(255, 215, 0, 0.2),
+                    inset 0 0 30px rgba(255, 215, 0, 0.1);
+            }
+            50% {
+                opacity: 0.8;
+                box-shadow:
+                    0 0 50px rgba(255, 215, 0, 0.4),
+                    inset 0 0 50px rgba(255, 215, 0, 0.2);
+            }
+        }
+
+        /* Trophy Glow Orbs */
+        .trophy-orb {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.4) 0%, transparent 70%);
+            filter: blur(40px);
+            animation: orbFloat 6s ease-in-out infinite;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translateY(-30px) scale(1.2);
                 opacity: 0.9;
             }
-            to {
-                transform: translateY(calc(100vh + 120px));
+        }
+
+        /* Slow Body Scanner (Full Leaderboard) */
+        .body-scanner {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg,
+                transparent 0%,
+                rgba(0, 243, 255, 0.3) 20%,
+                rgba(0, 243, 255, 0.8) 50%,
+                rgba(0, 243, 255, 0.3) 80%,
+                transparent 100%);
+            box-shadow:
+                0 0 20px rgba(0, 243, 255, 0.8),
+                0 0 40px rgba(0, 243, 255, 0.4),
+                0 2px 60px rgba(0, 243, 255, 0.6);
+            animation: scanSlow 12s linear infinite;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .body-scanner::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: linear-gradient(180deg,
+                rgba(0, 243, 255, 0.15) 0%,
+                rgba(0, 243, 255, 0.05) 50%,
+                transparent 100%);
+            filter: blur(20px);
+            transform: translateY(-40px);
+        }
+
+        .body-scanner::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: linear-gradient(180deg,
+                transparent 0%,
+                rgba(0, 243, 255, 0.05) 50%,
+                rgba(0, 243, 255, 0.15) 100%);
+            filter: blur(20px);
+            transform: translateY(4px);
+        }
+
+        @keyframes scanSlow {
+            0% {
+                top: 0;
+                opacity: 0;
+            }
+            5% {
+                opacity: 1;
+            }
+            95% {
+                opacity: 1;
+            }
+            100% {
+                top: 100%;
                 opacity: 0;
             }
         }
 
-        /* Circuit Lines */
-        .circuit-line {
+        /* Hall of Fame Scanner - Slower and more dramatic */
+        .hall-scanner {
             position: absolute;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--teal-bright), transparent);
-            opacity: 0.4;
-            animation: circuitPulse 4s ease-in-out infinite;
-            border-radius: 1px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg,
+                transparent 0%,
+                rgba(218, 165, 32, 0.3) 20%,
+                rgba(218, 165, 32, 0.9) 50%,
+                rgba(218, 165, 32, 0.3) 80%,
+                transparent 100%);
+            box-shadow:
+                0 0 30px rgba(218, 165, 32, 0.9),
+                0 0 60px rgba(218, 165, 32, 0.5),
+                0 2px 80px rgba(218, 165, 32, 0.7);
+            animation: hallScan 25s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 15;
         }
 
-        @keyframes circuitPulse {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.7; }
+        .hall-scanner::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(180deg,
+                rgba(218, 165, 32, 0.2) 0%,
+                rgba(218, 165, 32, 0.08) 50%,
+                transparent 100%);
+            filter: blur(25px);
+            transform: translateY(-50px);
+        }
+
+        .hall-scanner::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(180deg,
+                transparent 0%,
+                rgba(218, 165, 32, 0.08) 50%,
+                rgba(218, 165, 32, 0.2) 100%);
+            filter: blur(25px);
+            transform: translateY(3px);
+        }
+
+        @keyframes hallScan {
+            0% {
+                top: 0;
+                opacity: 0;
+            }
+            3% {
+                opacity: 1;
+            }
+            97% {
+                opacity: 1;
+            }
+            100% {
+                top: 100%;
+                opacity: 0;
+            }
         }
 
         /* Close Button */
         .close-btn {
-            position: absolute;
-            top: 0;
-            right: 0;
+            position: fixed;
+            top: 24px;
+            right: 24px;
             width: 56px;
             height: 56px;
             border-radius: var(--radius-xl);
-            background: var(--gray-900);
+            background: rgba(10, 10, 10, 0.95);
             border: 2px solid var(--gray-700);
             color: var(--cyan-bright);
             cursor: pointer;
@@ -1088,8 +1862,9 @@
             font-size: 1.75rem;
             transition: all var(--transition-base);
             box-shadow: var(--shadow-lg), var(--shadow-inner);
-            z-index: 10;
+            z-index: 10001;
             font-weight: 300;
+            backdrop-filter: blur(10px);
         }
 
         .close-btn:hover {
@@ -1099,25 +1874,62 @@
             transform: scale(1.12) rotate(90deg);
         }
 
+        /* Back Button */
+        .back-btn {
+            position: fixed;
+            top: 32px;
+            left: 32px;
+            padding: var(--space-3) var(--space-6);
+            border-radius: var(--radius-lg);
+            background: rgba(10, 10, 10, 0.95);
+            border: 2px solid var(--cyan-bright);
+            color: var(--cyan-bright);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            font-size: 1.1rem;
+            font-weight: 700;
+            transition: all var(--transition-base);
+            box-shadow: 0 0 30px var(--glow-cyan), var(--shadow-lg);
+            z-index: 10001;
+            text-shadow: 0 0 10px var(--glow-cyan);
+            backdrop-filter: blur(10px);
+        }
+
+        .back-btn:hover {
+            background: var(--cyan-bright);
+            color: var(--black);
+            box-shadow: 0 0 50px var(--glow-cyan), var(--shadow-xl);
+            transform: translateX(-4px);
+        }
+
         /* Modal Titles */
         .modal-title {
             font-size: clamp(2.5rem, 6vw, 4.5rem);
             font-weight: 900;
             letter-spacing: -0.04em;
             margin-bottom: var(--space-4);
-            background: linear-gradient(135deg, var(--cyan-bright) 0%, var(--teal-bright) 50%, var(--green-primary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--cyan-bright);
             text-align: center;
+            text-shadow:
+                0 0 20px var(--glow-cyan),
+                0 0 40px var(--glow-cyan),
+                0 0 60px rgba(0, 243, 255, 0.5),
+                0 0 80px rgba(0, 243, 255, 0.3);
+            filter: drop-shadow(0 0 30px var(--cyan-bright));
         }
 
         .modal-subtitle {
             font-size: 1.25rem;
-            color: var(--teal);
+            color: var(--cyan-bright);
             text-align: center;
             margin-bottom: var(--space-16);
             font-weight: 500;
+            text-shadow:
+                0 0 15px var(--glow-cyan),
+                0 0 30px rgba(0, 243, 255, 0.6),
+                0 0 45px rgba(0, 243, 255, 0.4);
         }
 
         /* Hall of Fame Grid */
@@ -1130,10 +1942,18 @@
         }
 
         .hall-card {
-            background: linear-gradient(135deg, var(--gray-950) 0%, var(--gray-900) 100%);
-            border: 2px solid var(--gray-700);
+            background:
+                linear-gradient(135deg,
+                    rgba(30, 25, 20, 0.9) 0%,
+                    rgba(20, 20, 25, 0.95) 50%,
+                    rgba(10, 10, 15, 1) 100%);
+            border: 3px solid;
+            border-image: linear-gradient(135deg,
+                rgba(218, 165, 32, 0.4) 0%,
+                rgba(0, 243, 255, 0.4) 50%,
+                rgba(218, 165, 32, 0.4) 100%) 1;
             border-radius: var(--radius-2xl);
-            padding: var(--space-8);
+            padding: var(--space-10);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -1142,9 +1962,36 @@
             cursor: pointer;
             transition: all var(--transition-smooth);
             animation: hallCardEntrance 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
-            box-shadow: var(--shadow-lg), var(--shadow-inner);
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.6),
+                0 0 40px rgba(218, 165, 32, 0.15),
+                inset 0 0 60px rgba(0, 0, 0, 0.5),
+                inset 0 1px 2px rgba(255, 255, 255, 0.1);
             will-change: transform, box-shadow;
             -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Golden spotlight on each card */
+        .hall-card::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 300px;
+            background: linear-gradient(180deg,
+                rgba(218, 165, 32, 0.2) 0%,
+                rgba(218, 165, 32, 0.08) 40%,
+                transparent 100%);
+            filter: blur(40px);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+
+        .hall-card:hover::before {
+            opacity: 1;
         }
 
         .hall-card:active {
@@ -1180,9 +2027,16 @@
         }
 
         .hall-card:hover {
-            transform: translateY(-12px) scale(1.04);
-            border-color: var(--cyan-bright);
-            box-shadow: 0 0 50px var(--glow-cyan), var(--shadow-xl);
+            transform: translateY(-16px) scale(1.06);
+            border-image: linear-gradient(135deg,
+                rgba(218, 165, 32, 0.8) 0%,
+                rgba(0, 243, 255, 0.8) 50%,
+                rgba(218, 165, 32, 0.8) 100%) 1;
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, 0.8),
+                0 0 60px rgba(218, 165, 32, 0.4),
+                0 0 40px rgba(0, 243, 255, 0.3),
+                inset 0 0 80px rgba(218, 165, 32, 0.1);
         }
 
         /* Click Ripple Effect */
@@ -1428,14 +2282,19 @@
             text-align: center;
             margin-bottom: var(--space-2);
             letter-spacing: -0.03em;
+            color: var(--cyan-bright);
+            text-shadow:
+                0 0 15px var(--glow-cyan),
+                0 0 30px rgba(0, 243, 255, 0.5);
         }
 
         .popup-handle {
             font-size: 1.1rem;
-            color: var(--cyan);
+            color: var(--cyan-bright);
             text-align: center;
             margin-bottom: var(--space-10);
             font-weight: 500;
+            text-shadow: 0 0 10px var(--glow-cyan);
         }
 
         .popup-stats {
@@ -1481,11 +2340,6 @@
         .popup-stat.total .popup-stat-value {
             color: var(--black);
             font-size: 1.75rem;
-        }
-
-        /* Table Scroll Container - Hidden by default, shown on mobile */
-        .table-scroll-hint {
-            display: none;
         }
 
         /* Full Leaderboard Table */
@@ -1586,12 +2440,15 @@
         .table-name {
             font-weight: 700;
             font-size: 1.05rem;
+            color: var(--cyan-bright);
+            text-shadow: 0 0 8px var(--glow-cyan);
         }
 
         .table-handle {
             font-size: 0.9rem;
-            color: var(--teal);
+            color: var(--cyan);
             font-weight: 500;
+            text-shadow: 0 0 5px rgba(0, 243, 255, 0.4);
         }
 
         .table-stat {
@@ -1643,6 +2500,79 @@
                 opacity: 1;
                 transform: scale(1.1);
             }
+        }
+
+        /* Pagination Controls */
+        .pagination-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: var(--space-6);
+            padding: var(--space-6) 0;
+            margin-top: var(--space-6);
+            margin-bottom: var(--space-6);
+            border-top: 2px solid var(--gray-700);
+            position: relative;
+            z-index: 10;
+        }
+
+        .pagination-btn {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-4) var(--space-6);
+            background: linear-gradient(135deg, var(--gray-900) 0%, var(--gray-850) 100%);
+            border: 2px solid var(--cyan-bright);
+            border-radius: var(--radius-lg);
+            color: var(--cyan-bright);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+        }
+
+        .pagination-btn:hover:not(:disabled) {
+            background: linear-gradient(135deg, var(--gray-850) 0%, var(--gray-800) 100%);
+            border-color: var(--cyan);
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .pagination-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: var(--gray-600);
+            color: var(--gray-600);
+            box-shadow: none;
+        }
+
+        .pagination-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-2);
+            color: var(--gray-400);
+        }
+
+        .page-indicator {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .page-indicator span {
+            color: var(--cyan-bright);
+        }
+
+        .entries-info {
+            font-size: 0.9rem;
+            color: var(--gray-500);
+        }
+
+        .entries-info span {
+            color: var(--gray-300);
+            font-weight: 600;
         }
 
         /* Mobile Responsive Design */
@@ -1775,23 +2705,6 @@
                 font-size: 1rem;
                 margin-right: var(--space-3);
             }
-
-            /* Table scroll container for mobile */
-            .table-scroll-container {
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-                margin: 0 calc(-1 * var(--space-4));
-                padding: 0 var(--space-4);
-            }
-
-            .table-scroll-hint {
-                display: block;
-                text-align: center;
-                color: var(--cyan-bright);
-                font-size: 0.85rem;
-                margin-top: var(--space-4);
-                opacity: 0.7;
-            }
         }
 
         @media (max-width: 480px) {
@@ -1809,56 +2722,24 @@
                 font-size: 1.5rem;
             }
 
-            /* Hide Tweets column on very small screens - show only Rank, Affiliate, Total */
-            .leaderboard-table th:nth-child(3),
-            .leaderboard-table td:nth-child(3) {
-                display: none;
+            /* Pagination mobile styles */
+            .pagination-controls {
+                flex-direction: column;
+                gap: var(--space-4);
             }
 
-            /* Larger touch targets for small screens */
-            .leaderboard-table th,
-            .leaderboard-table td {
-                padding: var(--space-5) var(--space-3);
+            .pagination-btn {
+                width: 100%;
+                justify-content: center;
             }
 
-            .leaderboard-table tbody tr {
-                min-height: 60px;
+            .pagination-info {
+                order: -1;
             }
 
-            .table-avatar {
-                width: 40px;
-                height: 40px;
-                margin-right: var(--space-2);
+            .entries-info {
+                font-size: 0.8rem;
             }
-
-            /* Orientation suggestion banner */
-            .orientation-hint {
-                position: fixed;
-                bottom: var(--space-4);
-                left: 50%;
-                transform: translateX(-50%);
-                background: linear-gradient(135deg, var(--gray-900), var(--gray-850));
-                border: 2px solid var(--cyan-bright);
-                border-radius: var(--radius-lg);
-                padding: var(--space-3) var(--space-6);
-                font-size: 0.85rem;
-                color: var(--cyan-bright);
-                box-shadow: 0 0 20px var(--glow-cyan);
-                z-index: 9999;
-                animation: fadeIn 1s ease-in-out;
-                display: none;
-            }
-
-            @media (orientation: portrait) and (max-height: 600px) {
-                .orientation-hint {
-                    display: block;
-                }
-            }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateX(-50%) translateY(20px); }
-            to { opacity: 1; transform: translateX(-50%) translateY(0); }
         }
     </style>
 </head>
@@ -1874,20 +2755,19 @@
 
     <!-- Mute Button -->
     <button class="mute-btn" onclick="toggleMute()" aria-label="Toggle sound">
-        <span id="muteIcon">🔊</span>
+        <span id="muteIcon">⚡</span>
     </button>
 
     <!-- Landing Page -->
     <section class="landing">
-        <!-- Spotlights -->
+        <!-- Matrix, particles, confetti removed for smooth performance -->
+        <!-- Spotlights kept for dramatic effect -->
         <div class="spotlight spotlight-1"></div>
         <div class="spotlight spotlight-2"></div>
         <div class="spotlight spotlight-3"></div>
 
-        <!-- Confetti and particles removed for smooth performance -->
-
         <h1 class="landing-title">Top Performers</h1>
-        <p class="landing-subtitle">Congratulations to our elite affiliates 🚀</p>
+        <!-- Subtitle removed per user request -->
 
         <!-- Top 3 Podium -->
         <div class="podium">
@@ -1999,10 +2879,10 @@
 
         <div class="action-buttons">
             <button class="btn" onclick="openHallOfFame()">
-                <span>🏆 Hall of Fame (4-10)</span>
+                <span>Hall of Fame</span>
             </button>
             <button class="btn" onclick="openFullLeaderboard()">
-                <span>📊 Full Leaderboard</span>
+                <span>Full Leaderboard</span>
             </button>
         </div>
     </section>
@@ -2012,26 +2892,40 @@
         <div class="modal-content" onclick="event.stopPropagation()">
             <!-- Cyber Background -->
             <div class="hall-background">
-                <div class="hex-grid"></div>
-                <div class="scan-lines"></div>
-                <!-- Data Streams -->
-                <div class="data-stream" style="left: 8%; animation-duration: 3.5s; animation-delay: 0s;"></div>
-                <div class="data-stream" style="left: 22%; animation-duration: 4.5s; animation-delay: 1.2s;"></div>
-                <div class="data-stream" style="left: 42%; animation-duration: 4s; animation-delay: 0.6s;"></div>
-                <div class="data-stream" style="left: 58%; animation-duration: 5s; animation-delay: 1.8s;"></div>
-                <div class="data-stream" style="left: 76%; animation-duration: 4.2s; animation-delay: 0.9s;"></div>
-                <div class="data-stream" style="left: 92%; animation-duration: 4.8s; animation-delay: 2.4s;"></div>
-                <!-- Circuit Lines -->
-                <div class="circuit-line" style="width: 45%; top: 18%; left: 8%; animation-delay: 0s;"></div>
-                <div class="circuit-line" style="width: 35%; top: 38%; right: 12%; animation-delay: 1.2s;"></div>
-                <div class="circuit-line" style="width: 55%; top: 58%; left: 18%; animation-delay: 0.6s;"></div>
-                <div class="circuit-line" style="width: 40%; top: 78%; right: 8%; animation-delay: 1.8s;"></div>
+                <!-- Gallery Walls -->
+                <div class="gallery-wall left"></div>
+                <div class="gallery-wall right"></div>
+
+                <!-- Gallery Floor -->
+                <div class="gallery-floor"></div>
+
+                <!-- Gallery Spotlights -->
+                <div class="gallery-spotlight" style="left: 15%; animation-delay: 0s;"></div>
+                <div class="gallery-spotlight" style="left: 35%; animation-delay: 3s;"></div>
+                <div class="gallery-spotlight" style="left: 50%; animation-delay: 1.5s;"></div>
+                <div class="gallery-spotlight" style="left: 65%; animation-delay: 4.5s;"></div>
+                <div class="gallery-spotlight" style="left: 85%; animation-delay: 2s;"></div>
+
+                <!-- Light Particles -->
+                <div class="light-particle" style="left: 20%; top: 30%; animation-delay: 0s;"></div>
+                <div class="light-particle" style="left: 40%; top: 50%; animation-delay: 2s;"></div>
+                <div class="light-particle" style="left: 60%; top: 40%; animation-delay: 4s;"></div>
+                <div class="light-particle" style="left: 80%; top: 60%; animation-delay: 6s;"></div>
+
+                <!-- Frame Accents -->
+                <div class="frame-accent" style="width: 90%; height: 90%; top: 5%; left: 5%; animation-delay: 0s;"></div>
+                <div class="frame-accent" style="width: 85%; height: 85%; top: 7.5%; left: 7.5%; animation-delay: 2s;"></div>
             </div>
 
+            <!-- Hall of Fame Scanner -->
+            <div class="hall-scanner"></div>
+
             <button class="close-btn" onclick="closeModal('hallModal')" aria-label="Close">×</button>
+            <button class="back-btn" onclick="closeModal('hallModal')" aria-label="Back">
+                <span>← Back</span>
+            </button>
 
             <h2 class="modal-title">Hall of Fame</h2>
-            <p class="modal-subtitle">Ranks 4-10 • Click for details 🔥</p>
 
             <div class="hall-grid">
                 <!-- Rank 4 -->
@@ -2040,7 +2934,7 @@
                     <div class="corner-accent"></div>
                     <div class="hall-rank">4</div>
                     <div class="hall-avatar">
-                        <img src="affiliate-profile-pics/Neolawyer_NLinker777.jpg" alt="Neolawyer" onerror="this.parentElement.innerHTML='NL'">
+                        <img src="affiliate-profile-pics/DJ_nlinker777.jpg" alt="Neolawyer" onerror="this.parentElement.innerHTML='NL'">
                     </div>
                     <h3 class="hall-name">Neolawyer</h3>
                     <p class="hall-handle">@NLinker777</p>
@@ -2053,7 +2947,7 @@
                     <div class="corner-accent"></div>
                     <div class="hall-rank">5</div>
                     <div class="hall-avatar">
-                        <img src="affiliate-profile-pics/spennypretzel_SpennyCrypto.jpg" alt="spennypretzel" onerror="this.parentElement.innerHTML='SP'">
+                        <img src="affiliate-profile-pics/Spenny_spennycrypto.jpg" alt="spennypretzel" onerror="this.parentElement.innerHTML='SP'">
                     </div>
                     <h3 class="hall-name">spennypretzel</h3>
                     <p class="hall-handle">@SpennyCrypto</p>
@@ -2066,7 +2960,7 @@
                     <div class="corner-accent"></div>
                     <div class="hall-rank">6</div>
                     <div class="hall-avatar">
-                        <img src="affiliate-profile-pics/slavicbased_slavicbased.jpg" alt="slavicbased" onerror="this.parentElement.innerHTML='SB'">
+                        <img src="affiliate-profile-pics/Slavicbased_basedsnipez.jpg" alt="slavicbased" onerror="this.parentElement.innerHTML='SB'">
                     </div>
                     <h3 class="hall-name">slavicbased</h3>
                     <p class="hall-handle">@slavicbased</p>
@@ -2079,7 +2973,7 @@
                     <div class="corner-accent"></div>
                     <div class="hall-rank">7</div>
                     <div class="hall-avatar">
-                        <img src="affiliate-profile-pics/arrieindewarrie_arindewar.jpg" alt="arrieindewarrie" onerror="this.parentElement.innerHTML='AR'">
+                        <img src="affiliate-profile-pics/Arindewar_arindewar.jpg" alt="arrieindewarrie" onerror="this.parentElement.innerHTML='AR'">
                     </div>
                     <h3 class="hall-name">arrieindewarrie</h3>
                     <p class="hall-handle">@arindewar</p>
@@ -2092,7 +2986,7 @@
                     <div class="corner-accent"></div>
                     <div class="hall-rank">8</div>
                     <div class="hall-avatar">
-                        <img src="affiliate-profile-pics/I_Love_Dogs21_I_Love_Dogs21.jpg" alt="I_Love_Dogs21" onerror="this.parentElement.innerHTML='IL'">
+                        IL
                     </div>
                     <h3 class="hall-name">I_Love_Dogs21</h3>
                     <p class="hall-handle">@I_Love_Dogs21</p>
@@ -2105,7 +2999,7 @@
                     <div class="corner-accent"></div>
                     <div class="hall-rank">9</div>
                     <div class="hall-avatar">
-                        <img src="affiliate-profile-pics/Vanxyrus_Vanxyrus.jpg" alt="Vanxyrus" onerror="this.parentElement.innerHTML='VX'">
+                        <img src="affiliate-profile-pics/Mj_vanxyrus.jpg" alt="Vanxyrus" onerror="this.parentElement.innerHTML='VX'">
                     </div>
                     <h3 class="hall-name">Vanxyrus</h3>
                     <p class="hall-handle">@Vanxyrus</p>
@@ -2118,11 +3012,11 @@
                     <div class="corner-accent"></div>
                     <div class="hall-rank">10</div>
                     <div class="hall-avatar">
-                        <img src="affiliate-profile-pics/chironthetrader_chironthetrader.jpg" alt="chironthetrader" onerror="this.parentElement.innerHTML='CT'">
+                        <img src="affiliate-profile-pics/Chiron_chironchain.jpg" alt="chironthetrader" onerror="this.parentElement.innerHTML='CT'">
                     </div>
-                    <h3 class="hall-name">chironthetrader</h3>
-                    <p class="hall-handle">@chironthetrader</p>
-                    <p class="hall-total">15</p>
+                    <h3 class="hall-name">Zeus</h3>
+                    <p class="hall-handle">@vlagudfsfjr</p>
+                    <p class="hall-total">923</p>
                 </div>
             </div>
         </div>
@@ -2159,28 +3053,44 @@
     <!-- Full Leaderboard Modal -->
     <div class="modal" id="leaderboardModal" onclick="closeModalOnBackdrop(event, 'leaderboardModal')">
         <div class="modal-content" onclick="event.stopPropagation()">
-            <!-- Cyber Background -->
-            <div class="hall-background">
-                <div class="hex-grid"></div>
-                <div class="scan-lines"></div>
-                <!-- Data Streams -->
-                <div class="data-stream" style="left: 10%; animation-duration: 4s; animation-delay: 0.3s;"></div>
-                <div class="data-stream" style="left: 30%; animation-duration: 4.8s; animation-delay: 1.5s;"></div>
-                <div class="data-stream" style="left: 50%; animation-duration: 4.2s; animation-delay: 0.8s;"></div>
-                <div class="data-stream" style="left: 70%; animation-duration: 4.6s; animation-delay: 2s;"></div>
-                <div class="data-stream" style="left: 90%; animation-duration: 4.4s; animation-delay: 1s;"></div>
-                <!-- Circuit Lines -->
-                <div class="circuit-line" style="width: 50%; top: 25%; left: 10%; animation-delay: 0.5s;"></div>
-                <div class="circuit-line" style="width: 40%; top: 50%; right: 15%; animation-delay: 1.5s;"></div>
-                <div class="circuit-line" style="width: 60%; top: 75%; left: 15%; animation-delay: 1s;"></div>
+            <!-- Trophy Room Background -->
+            <div class="trophy-background">
+                <!-- Stadium Lights -->
+                <div class="stadium-light" style="top: -200px; left: 10%; animation-delay: 0s;"></div>
+                <div class="stadium-light" style="top: -200px; left: 30%; animation-delay: 1.5s;"></div>
+                <div class="stadium-light" style="top: -200px; left: 50%; animation-delay: 0.8s;"></div>
+                <div class="stadium-light" style="top: -200px; left: 70%; animation-delay: 2.2s;"></div>
+                <div class="stadium-light" style="top: -200px; right: 10%; animation-delay: 1s;"></div>
+
+                <!-- Victory Banners -->
+                <div class="victory-banner" style="top: 0; left: 5%; animation-delay: 0s;"></div>
+                <div class="victory-banner" style="top: 0; left: 20%; animation-delay: 2s;"></div>
+                <div class="victory-banner" style="top: 0; right: 20%; animation-delay: 4s;"></div>
+                <div class="victory-banner" style="top: 0; right: 5%; animation-delay: 6s;"></div>
+
+                <!-- Golden Corners -->
+                <div class="golden-corner" style="top: 0; left: 0; border-right: none; border-bottom: none; animation-delay: 0s;"></div>
+                <div class="golden-corner" style="top: 0; right: 0; border-left: none; border-bottom: none; animation-delay: 1s;"></div>
+                <div class="golden-corner" style="bottom: 0; left: 0; border-right: none; border-top: none; animation-delay: 2s;"></div>
+                <div class="golden-corner" style="bottom: 0; right: 0; border-left: none; border-top: none; animation-delay: 3s;"></div>
+
+                <!-- Trophy Glow Orbs -->
+                <div class="trophy-orb" style="top: 20%; left: 15%; animation-delay: 0s;"></div>
+                <div class="trophy-orb" style="top: 40%; right: 20%; animation-delay: 2s;"></div>
+                <div class="trophy-orb" style="bottom: 30%; left: 25%; animation-delay: 4s;"></div>
             </div>
 
+            <!-- Slow Body Scanner -->
+            <div class="body-scanner"></div>
+
             <button class="close-btn" onclick="closeModal('leaderboardModal')" aria-label="Close">×</button>
+            <button class="back-btn" onclick="closeModal('leaderboardModal')" aria-label="Back">
+                <span>← Back</span>
+            </button>
 
             <h2 class="modal-title">Full Leaderboard</h2>
             <p class="modal-subtitle">All affiliates ranked by performance 📈</p>
 
-            <div class="table-scroll-container">
             <table class="leaderboard-table">
                 <thead>
                     <tr>
@@ -2193,410 +3103,401 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr onclick="showDetail(1, 'rbthreek', '@rbthreek', 'R', 10, 195, 98, 303)">
-                        <td>1</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/rbthreek_rbthreek.jpg" alt="rbthreek" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='R'">
-                                </div>
-                                <div>
-                                    <div class="table-name">rbthreek</div>
-                                    <div class="table-handle">@rbthreek</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">10</td>
-                        <td class="table-stat">195</td>
-                        <td class="table-stat">98</td>
-                        <td class="table-stat">303</td>
-                    </tr>
-                    <tr onclick="showDetail(2, 'N30_CRYPTO', '@N30_cryptoo', 'NC', 74, 21, 6, 101)">
-                        <td>2</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/N30_CRYPTO_N30_cryptoo.jpg" alt="N30_CRYPTO" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='NC'">
-                                </div>
-                                <div>
-                                    <div class="table-name">N30_CRYPTO</div>
-                                    <div class="table-handle">@N30_cryptoo</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">74</td>
-                        <td class="table-stat">21</td>
-                        <td class="table-stat">6</td>
-                        <td class="table-stat">101</td>
-                    </tr>
-                    <tr onclick="showDetail(3, 'thebasedfrog', '@thebasedfrogx', 'T', 44, 11, 2, 57)">
-                        <td>3</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/thebasedfrog_thebasedfrogx.jpg" alt="thebasedfrog" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='T'">
-                                </div>
-                                <div>
-                                    <div class="table-name">thebasedfrog</div>
-                                    <div class="table-handle">@thebasedfrogx</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">44</td>
-                        <td class="table-stat">11</td>
-                        <td class="table-stat">2</td>
-                        <td class="table-stat">57</td>
-                    </tr>
-                    <tr onclick="showDetail(4, 'Neolawyer', '@NLinker777', 'N', 37, 5, 1, 43)">
-                        <td>4</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/Neolawyer_NLinker777.jpg" alt="Neolawyer" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='N'">
-                                </div>
-                                <div>
-                                    <div class="table-name">Neolawyer</div>
-                                    <div class="table-handle">@NLinker777</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">37</td>
-                        <td class="table-stat">5</td>
-                        <td class="table-stat">1</td>
-                        <td class="table-stat">43</td>
-                    </tr>
-                    <tr onclick="showDetail(5, 'spennypretzel', '@SpennyCrypto', 'S', 19, 9, 5, 33)">
-                        <td>5</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/spennypretzel_SpennyCrypto.jpg" alt="spennypretzel" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='S'">
-                                </div>
-                                <div>
-                                    <div class="table-name">spennypretzel</div>
-                                    <div class="table-handle">@SpennyCrypto</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">19</td>
-                        <td class="table-stat">9</td>
-                        <td class="table-stat">5</td>
-                        <td class="table-stat">33</td>
-                    </tr>
-                    <tr onclick="showDetail(6, 'slavicbased', '@slavicbased', 'S', 0, 26, 3, 29)">
-                        <td>6</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/slavicbased_slavicbased.jpg" alt="slavicbased" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='S'">
-                                </div>
-                                <div>
-                                    <div class="table-name">slavicbased</div>
-                                    <div class="table-handle">@slavicbased</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">26</td>
-                        <td class="table-stat">3</td>
-                        <td class="table-stat">29</td>
-                    </tr>
-                    <tr onclick="showDetail(7, 'arrieindewarrie', '@arindewar', 'A', 17, 4, 1, 22)">
-                        <td>7</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/arrieindewarrie_arindewar.jpg" alt="arrieindewarrie" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='A'">
-                                </div>
-                                <div>
-                                    <div class="table-name">arrieindewarrie</div>
-                                    <div class="table-handle">@arindewar</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">17</td>
-                        <td class="table-stat">4</td>
-                        <td class="table-stat">1</td>
-                        <td class="table-stat">22</td>
-                    </tr>
-                    <tr onclick="showDetail(8, 'I_Love_Dogs21', '@I_Love_Dogs21', 'IL', 0, 19, 1, 20)">
-                        <td>8</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/I_Love_Dogs21_I_Love_Dogs21.jpg" alt="I_Love_Dogs21" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='IL'">
-                                </div>
-                                <div>
-                                    <div class="table-name">I_Love_Dogs21</div>
-                                    <div class="table-handle">@I_Love_Dogs21</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">19</td>
-                        <td class="table-stat">1</td>
-                        <td class="table-stat">20</td>
-                    </tr>
-                    <tr onclick="showDetail(9, 'Vanxyrus', '@Vanxyrus', 'V', 13, 4, 2, 19)">
-                        <td>9</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/Vanxyrus_Vanxyrus.jpg" alt="Vanxyrus" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='V'">
-                                </div>
-                                <div>
-                                    <div class="table-name">Vanxyrus</div>
-                                    <div class="table-handle">@Vanxyrus</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">13</td>
-                        <td class="table-stat">4</td>
-                        <td class="table-stat">2</td>
-                        <td class="table-stat">19</td>
-                    </tr>
-                    <tr onclick="showDetail(10, 'chironthetrader', '@chironthetrader', 'C', 0, 9, 6, 15)">
-                        <td>10</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/chironthetrader_chironthetrader.jpg" alt="chironthetrader" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='C'">
-                                </div>
-                                <div>
-                                    <div class="table-name">chironthetrader</div>
-                                    <div class="table-handle">@chironthetrader</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">9</td>
-                        <td class="table-stat">6</td>
-                        <td class="table-stat">15</td>
-                    </tr>
-                    <tr onclick="showDetail(11, 'Debankindad', '@DebankinDad', 'D', 13, 0, 0, 13)">
-                        <td>11</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/Debankindad_DebankinDad.jpg" alt="Debankindad" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='D'">
-                                </div>
-                                <div>
-                                    <div class="table-name">Debankindad</div>
-                                    <div class="table-handle">@DebankinDad</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">13</td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">13</td>
-                    </tr>
-                    <tr onclick="showDetail(12, 'veryborny', '@veryborny', 'V', 0, 6, 0, 6)">
-                        <td>12</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/veryborny_veryborny.jpg" alt="veryborny" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='V'">
-                                </div>
-                                <div>
-                                    <div class="table-name">veryborny</div>
-                                    <div class="table-handle">@veryborny</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">6</td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">6</td>
-                    </tr>
-                    <tr onclick="showDetail(13, 'Medbdy7', '@Medbdy7', 'M', 0, 5, 0, 5)">
-                        <td>13</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/Medbdy7_Medbdy7.jpg" alt="Medbdy7" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='M'">
-                                </div>
-                                <div>
-                                    <div class="table-name">Medbdy7</div>
-                                    <div class="table-handle">@Medbdy7</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">5</td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">5</td>
-                    </tr>
-                    <tr onclick="showDetail(14, 'cryptocchio0', '@cryptocchio0', 'C', 0, 2, 1, 3)">
-                        <td>14</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/cryptocchio0_cryptocchio0.jpg" alt="cryptocchio0" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='C'">
-                                </div>
-                                <div>
-                                    <div class="table-name">cryptocchio0</div>
-                                    <div class="table-handle">@cryptocchio0</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">2</td>
-                        <td class="table-stat">1</td>
-                        <td class="table-stat">3</td>
-                    </tr>
-                    <tr onclick="showDetail(15, 'BigHammer', '@BigHammer', 'B', 0, 3, 0, 3)">
-                        <td>15</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/BigHammer_BigHammer.jpg" alt="BigHammer" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='B'">
-                                </div>
-                                <div>
-                                    <div class="table-name">BigHammer</div>
-                                    <div class="table-handle">@BigHammer</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">3</td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">3</td>
-                    </tr>
-                    <tr onclick="showDetail(16, 'Maksym_Kuznetsov', '@Maksym_Kuznetsov', 'MK', 0, 2, 0, 2)">
-                        <td>16</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/Maksym_Kuznetsov_Maksym_Kuznetsov.jpg" alt="Maksym_Kuznetsov" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='MK'">
-                                </div>
-                                <div>
-                                    <div class="table-name">Maksym_Kuznetsov</div>
-                                    <div class="table-handle">@Maksym_Kuznetsov</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">2</td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">2</td>
-                    </tr>
-                    <tr onclick="showDetail(17, 'tarcioanderson', '@tarcioanderson', 'T', 0, 2, 0, 2)">
-                        <td>17</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/tarcioanderson_tarcioanderson.jpg" alt="tarcioanderson" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='T'">
-                                </div>
-                                <div>
-                                    <div class="table-name">tarcioanderson</div>
-                                    <div class="table-handle">@tarcioanderson</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">2</td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">2</td>
-                    </tr>
-                    <tr onclick="showDetail(18, 'Shake51', '@Shake51', 'S', 0, 1, 0, 1)">
-                        <td>18</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/Shake51_Shake51.jpg" alt="Shake51" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='S'">
-                                </div>
-                                <div>
-                                    <div class="table-name">Shake51</div>
-                                    <div class="table-handle">@Shake51</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">1</td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">1</td>
-                    </tr>
-                    <tr onclick="showDetail(19, 'aLfy116', '@aLfy116', 'A', 0, 1, 0, 1)">
-                        <td>19</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/aLfy116_aLfy116.jpg" alt="aLfy116" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='A'">
-                                </div>
-                                <div>
-                                    <div class="table-name">aLfy116</div>
-                                    <div class="table-handle">@aLfy116</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">1</td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">1</td>
-                    </tr>
-                    <tr onclick="showDetail(20, 'jeyojeyojeyo', '@jeyojeyojeyo', 'J', 0, 0, 1, 1)">
-                        <td>20</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/jeyojeyojeyo_jeyojeyojeyo.jpg" alt="jeyojeyojeyo" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='J'">
-                                </div>
-                                <div>
-                                    <div class="table-name">jeyojeyojeyo</div>
-                                    <div class="table-handle">@jeyojeyojeyo</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">1</td>
-                        <td class="table-stat">1</td>
-                    </tr>
-                    <tr onclick="showDetail(21, 'JIHANWOOOO', '@JIHANWOOOO', 'J', 0, 1, 0, 1)">
-                        <td>21</td>
-                        <td>
-                            <div class="table-name-cell">
-                                <div class="table-avatar">
-                                    <img src="affiliate-profile-pics/JIHANWOOOO_JIHANWOOOO.jpg" alt="JIHANWOOOO" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='J'">
-                                </div>
-                                <div>
-                                    <div class="table-name">JIHANWOOOO</div>
-                                    <div class="table-handle">@JIHANWOOOO</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">1</td>
-                        <td class="table-stat">0</td>
-                        <td class="table-stat">1</td>
-                    </tr>
+                    <!-- Table rows dynamically generated by JavaScript -->
                 </tbody>
             </table>
-            <p class="table-scroll-hint">← Swipe to see all stats →</p>
+
+            <!-- Pagination Controls -->
+            <div class="pagination-controls">
+                <button class="pagination-btn" id="prevBtn" onclick="changePage(-1)" disabled>
+                    <span>← Previous</span>
+                </button>
+                <div class="pagination-info">
+                    <span class="page-indicator">Page <span id="currentPage">1</span> of <span id="totalPages">3</span></span>
+                    <span class="entries-info">Showing <span id="showingStart">1</span>-<span id="showingEnd">10</span> of <span id="totalEntries">21</span></span>
+                </div>
+                <button class="pagination-btn" id="nextBtn" onclick="changePage(1)">
+                    <span>Next →</span>
+                </button>
             </div>
         </div>
     </div>
 
-    <!-- Orientation hint for small portrait screens -->
-    <div class="orientation-hint">
-        🔄 Rotate to landscape for best view
-    </div>
-
     <script>
-        // Sound effect logging
-        function playSound(soundName) {
-            console.log(`🔊 Sound: ${soundName}`);
+        // Web Audio API Sound Engine - Futuristic Cyber Sounds
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        const audioCtx = new AudioContext();
+        let isMuted = false;
+
+        // Sound Generator Functions with Variations
+        function playSound(soundName, variant = 0) {
+            if (isMuted) return;
+
+            switch(soundName) {
+                case 'button-click':
+                    playDigitalBeep(variant);
+                    break;
+                case 'modal-open':
+                    playWhooshUp(variant);
+                    break;
+                case 'modal-close':
+                    playWhooshDown();
+                    break;
+                case 'card-click':
+                    playLaserZap(variant);
+                    break;
+                case 'hover':
+                    playSubtleBlip(Math.random());
+                    break;
+                case 'popup-open':
+                    playElectronicUp();
+                    break;
+                case 'popup-close':
+                    playElectronicDown();
+                    break;
+                case 'achievement':
+                    playPowerUp();
+                    break;
+            }
+        }
+
+        // Digital Beep with pitch variation
+        function playDigitalBeep(variant = 0) {
+            // Soft robotic acknowledgment tone
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            const filter = audioCtx.createBiquadFilter();
+
+            osc.connect(filter);
+            filter.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            // Vary pitch based on variant - using sine for smooth robotic feel
+            const pitches = [700, 800, 900, 1000, 850];
+            osc.frequency.value = pitches[variant % pitches.length];
+            osc.type = 'sine';
+
+            // Gentle lowpass filter for softer robotic quality
+            filter.type = 'lowpass';
+            filter.frequency.value = 2000;
+            filter.Q.value = 1;
+
+            // Reduced volume for subtle confirmation
+            gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.1);
+        }
+
+        // Smooth Airlock Whoosh (modal open)
+        function playWhooshUp(variant = 0) {
+            // Simple smooth whoosh - just filtered white noise
+            const noise = audioCtx.createBufferSource();
+            const noiseBuffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.4, audioCtx.sampleRate);
+            const noiseData = noiseBuffer.getChannelData(0);
+            for (let i = 0; i < noiseBuffer.length; i++) {
+                noiseData[i] = Math.random() * 2 - 1;
+            }
+            noise.buffer = noiseBuffer;
+
+            const filter = audioCtx.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(400, audioCtx.currentTime);
+            filter.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.3);
+            filter.Q.value = 2;
+
+            const gain = audioCtx.createGain();
+            noise.connect(filter);
+            filter.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
+
+            noise.start(audioCtx.currentTime);
+            noise.stop(audioCtx.currentTime + 0.4);
+        }
+
+        // Airlock Seal (modal close) - smooth pneumatic closing
+        function playWhooshDown() {
+            // Smooth mechanical hum for closing
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            const filter = audioCtx.createBiquadFilter();
+
+            osc.connect(filter);
+            filter.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(180, audioCtx.currentTime + 0.25);
+
+            // Lowpass filter sweep for smooth airlock seal effect
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(1200, audioCtx.currentTime);
+            filter.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.25);
+            filter.Q.value = 1.5;
+
+            // Gentle fade for pneumatic seal
+            gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.25);
+
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.25);
+
+            // Add subtle air release hiss
+            const noise = audioCtx.createBufferSource();
+            const noiseBuffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.15, audioCtx.sampleRate);
+            const noiseData = noiseBuffer.getChannelData(0);
+            for (let i = 0; i < noiseBuffer.length; i++) {
+                noiseData[i] = Math.random() * 2 - 1;
+            }
+            noise.buffer = noiseBuffer;
+
+            const noiseFilter = audioCtx.createBiquadFilter();
+            noiseFilter.type = 'highpass';
+            noiseFilter.frequency.value = 2500;
+
+            const noiseGain = audioCtx.createGain();
+            noise.connect(noiseFilter);
+            noiseFilter.connect(noiseGain);
+            noiseGain.connect(audioCtx.destination);
+
+            noiseGain.gain.setValueAtTime(0.04, audioCtx.currentTime + 0.1);
+            noiseGain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.25);
+
+            noise.start(audioCtx.currentTime + 0.1);
+            noise.stop(audioCtx.currentTime + 0.25);
+        }
+
+        // Soft Data Panel Activation (card clicks) - gentle electronic confirmation
+        function playLaserZap(rank = 1) {
+            // Very soft, high-pitched electronic click - like a touchscreen tap
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            const filter = audioCtx.createBiquadFilter();
+
+            osc.connect(filter);
+            filter.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.type = 'sine';
+
+            // High frequency for soft click (like a digital interface)
+            osc.frequency.setValueAtTime(2400, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(1800, audioCtx.currentTime + 0.04);
+
+            // Gentle lowpass filter
+            filter.type = 'lowpass';
+            filter.frequency.value = 3000;
+            filter.Q.value = 0.5;
+
+            // Very quiet and quick
+            gain.gain.setValueAtTime(0, audioCtx.currentTime);
+            gain.gain.linearRampToValueAtTime(0.03, audioCtx.currentTime + 0.005);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.04);
+
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.04);
+        }
+
+        // Hall of Fame Card Reveal Sound - mechanical scanner lock-on
+        function playCardReveal() {
+            // Soft scanner beep - like a data terminal acknowledgment
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            const filter = audioCtx.createBiquadFilter();
+
+            osc.connect(filter);
+            filter.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(880, audioCtx.currentTime); // A5 note
+
+            filter.type = 'lowpass';
+            filter.frequency.value = 1500;
+            filter.Q.value = 1;
+
+            // Quick soft pulse
+            gain.gain.setValueAtTime(0, audioCtx.currentTime);
+            gain.gain.linearRampToValueAtTime(0.04, audioCtx.currentTime + 0.01);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.15);
+        }
+
+        // Subtle Blip with random variation (hover)
+        function playSubtleBlip(randomFactor = 0.5) {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            // Random pitch variation
+            osc.frequency.value = 500 + (randomFactor * 300);
+            osc.type = 'sine';
+            gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
+
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.05);
+        }
+
+        // Data Panel Slide Open (popup open) - soft panel extension
+        function playElectronicUp() {
+            // Gentle sine wave confirmation - no frequency sweep
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            const filter = audioCtx.createBiquadFilter();
+
+            osc.connect(filter);
+            filter.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.type = 'sine';
+            osc.frequency.value = 1200; // Single steady tone
+
+            filter.type = 'lowpass';
+            filter.frequency.value = 2000;
+            filter.Q.value = 0.5;
+
+            // Very soft and quick
+            gain.gain.setValueAtTime(0, audioCtx.currentTime);
+            gain.gain.linearRampToValueAtTime(0.035, audioCtx.currentTime + 0.01);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.06);
+
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.06);
+        }
+
+        // Data Panel Slide Close (popup close) - soft panel retraction
+        function playElectronicDown() {
+            // Gentle sine wave confirmation - slightly lower tone
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            const filter = audioCtx.createBiquadFilter();
+
+            osc.connect(filter);
+            filter.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.type = 'sine';
+            osc.frequency.value = 900; // Single steady tone, lower than open
+
+            filter.type = 'lowpass';
+            filter.frequency.value = 1800;
+            filter.Q.value = 0.5;
+
+            // Very soft and quick
+            gain.gain.setValueAtTime(0, audioCtx.currentTime);
+            gain.gain.linearRampToValueAtTime(0.03, audioCtx.currentTime + 0.01);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.06);
+
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.06);
+        }
+
+        // Gentle Achievement Chime (softer, more pleasant)
+        function playPowerUp() {
+            // First tone - soft and warm
+            const osc1 = audioCtx.createOscillator();
+            const gain1 = audioCtx.createGain();
+
+            osc1.connect(gain1);
+            gain1.connect(audioCtx.destination);
+
+            osc1.type = 'sine';
+            osc1.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
+
+            gain1.gain.setValueAtTime(0, audioCtx.currentTime);
+            gain1.gain.linearRampToValueAtTime(0.06, audioCtx.currentTime + 0.02);
+            gain1.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.6);
+
+            osc1.start(audioCtx.currentTime);
+            osc1.stop(audioCtx.currentTime + 0.6);
+
+            // Second tone - harmonic
+            const osc2 = audioCtx.createOscillator();
+            const gain2 = audioCtx.createGain();
+
+            osc2.connect(gain2);
+            gain2.connect(audioCtx.destination);
+
+            osc2.type = 'sine';
+            osc2.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1); // E5
+
+            gain2.gain.setValueAtTime(0, audioCtx.currentTime + 0.1);
+            gain2.gain.linearRampToValueAtTime(0.05, audioCtx.currentTime + 0.12);
+            gain2.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.7);
+
+            osc2.start(audioCtx.currentTime + 0.1);
+            osc2.stop(audioCtx.currentTime + 0.7);
+        }
+
+        // Victory Fanfare for Podium Reveals (rank-specific)
+        function playVictoryFanfare(rank) {
+            // Base frequency depends on rank (higher for better ranks)
+            const baseFreq = rank === 1 ? 523.25 : (rank === 2 ? 440 : 392); // C5, A4, G4
+            const duration = rank === 1 ? 0.8 : 0.6;
+            const volume = rank === 1 ? 0.08 : 0.06;
+
+            // Main fanfare tone
+            const osc1 = audioCtx.createOscillator();
+            const gain1 = audioCtx.createGain();
+            const filter1 = audioCtx.createBiquadFilter();
+
+            osc1.connect(filter1);
+            filter1.connect(gain1);
+            gain1.connect(audioCtx.destination);
+
+            osc1.type = 'triangle';
+            osc1.frequency.setValueAtTime(baseFreq, audioCtx.currentTime);
+            osc1.frequency.linearRampToValueAtTime(baseFreq * 1.5, audioCtx.currentTime + 0.15);
+
+            filter1.type = 'lowpass';
+            filter1.frequency.setValueAtTime(3000, audioCtx.currentTime);
+            filter1.Q.value = 1;
+
+            gain1.gain.setValueAtTime(0, audioCtx.currentTime);
+            gain1.gain.linearRampToValueAtTime(volume, audioCtx.currentTime + 0.05);
+            gain1.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+
+            osc1.start(audioCtx.currentTime);
+            osc1.stop(audioCtx.currentTime + duration);
+
+            // Harmonic overlay for rank 1 (extra special)
+            if (rank === 1) {
+                const osc2 = audioCtx.createOscillator();
+                const gain2 = audioCtx.createGain();
+
+                osc2.connect(gain2);
+                gain2.connect(audioCtx.destination);
+
+                osc2.type = 'sine';
+                osc2.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.2); // E5
+
+                gain2.gain.setValueAtTime(0, audioCtx.currentTime + 0.2);
+                gain2.gain.linearRampToValueAtTime(0.06, audioCtx.currentTime + 0.25);
+                gain2.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 1);
+
+                osc2.start(audioCtx.currentTime + 0.2);
+                osc2.stop(audioCtx.currentTime + 1);
+            }
         }
 
         // Mute functionality
-        let isMuted = false;
-
         function toggleMute() {
             isMuted = !isMuted;
-            document.getElementById('muteIcon').textContent = isMuted ? '🔇' : '🔊';
-            console.log(isMuted ? '🔇 Audio muted' : '🔊 Audio unmuted');
-            playSound(isMuted ? 'mute' : 'unmute');
+            document.getElementById('muteIcon').textContent = isMuted ? '✕' : '⚡';
+
+            if (!isMuted) {
+                playDigitalBeep(); // Confirmation beep
+            }
         }
 
         // Modal controls
@@ -2604,15 +3505,117 @@
             const modal = document.getElementById('hallModal');
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
-            playSound('modal-open');
+            playSound('modal-open', 1); // Variant 1 for Hall of Fame
             playSound('achievement');
+
+            // Play card reveal sounds as each card appears (matching animation delays)
+            const cardRevealTimes = [2000, 2500, 3000, 3500, 4000, 4500, 5000]; // milliseconds
+            cardRevealTimes.forEach(delay => {
+                setTimeout(() => playCardReveal(), delay);
+            });
+        }
+
+        // Leaderboard data and pagination state
+        const affiliatesData = [
+            {rank: 1, name: 'rbthreek', handle: '@rbthreek', avatar: 'R', tweets: 10, referrals: 195, traders: 98, total: 303, imgSrc: 'affiliate-profile-pics/rbthreek_rbthreek.jpg'},
+            {rank: 2, name: 'N30_CRYPTO', handle: '@N30_cryptoo', avatar: 'NC', tweets: 74, referrals: 21, traders: 6, total: 101, imgSrc: 'affiliate-profile-pics/N30_CRYPTO_N30_cryptoo.jpg'},
+            {rank: 3, name: 'thebasedfrog', handle: '@thebasedfrogx', avatar: 'T', tweets: 44, referrals: 11, traders: 2, total: 57, imgSrc: 'affiliate-profile-pics/thebasedfrog_thebasedfrogx.jpg'},
+            {rank: 4, name: 'Neolawyer', handle: '@NLinker777', avatar: 'N', tweets: 37, referrals: 5, traders: 1, total: 43, imgSrc: 'affiliate-profile-pics/DJ_nlinker777.jpg'},
+            {rank: 5, name: 'spennypretzel', handle: '@SpennyCrypto', avatar: 'S', tweets: 19, referrals: 9, traders: 5, total: 33, imgSrc: 'affiliate-profile-pics/spennypretzel_SpennyCrypto.jpg'},
+            {rank: 6, name: 'slavicbased', handle: '@slavicbased', avatar: 'S', tweets: 0, referrals: 26, traders: 3, total: 29, imgSrc: 'affiliate-profile-pics/slavicbased_slavicbased.jpg'},
+            {rank: 7, name: 'arrieindewarrie', handle: '@arindewar', avatar: 'A', tweets: 17, referrals: 4, traders: 1, total: 22, imgSrc: 'affiliate-profile-pics/arrieindewarrie_arindewar.jpg'},
+            {rank: 8, name: 'I_Love_Dogs21', handle: '@I_Love_Dogs21', avatar: 'IL', tweets: 0, referrals: 19, traders: 1, total: 20, imgSrc: 'affiliate-profile-pics/I_Love_Dogs21_I_Love_Dogs21.jpg'},
+            {rank: 9, name: 'Vanxyrus', handle: '@Vanxyrus', avatar: 'V', tweets: 13, referrals: 4, traders: 2, total: 19, imgSrc: 'affiliate-profile-pics/Vanxyrus_Vanxyrus.jpg'},
+            {rank: 10, name: 'chironthetrader', handle: '@chironthetrader', avatar: 'C', tweets: 0, referrals: 9, traders: 6, total: 15, imgSrc: 'affiliate-profile-pics/chironthetrader_chironthetrader.jpg'},
+            {rank: 11, name: 'Debankindad', handle: '@DebankinDad', avatar: 'D', tweets: 13, referrals: 0, traders: 0, total: 13, imgSrc: 'affiliate-profile-pics/Debankindad_DebankinDad.jpg'},
+            {rank: 12, name: 'veryborny', handle: '@veryborny', avatar: 'V', tweets: 0, referrals: 6, traders: 0, total: 6, imgSrc: 'affiliate-profile-pics/veryborny_veryborny.jpg'},
+            {rank: 13, name: 'Medbdy7', handle: '@Medbdy7', avatar: 'M', tweets: 0, referrals: 5, traders: 0, total: 5, imgSrc: 'affiliate-profile-pics/Medbdy7_Medbdy7.jpg'},
+            {rank: 14, name: 'cryptocchio0', handle: '@cryptocchio0', avatar: 'C', tweets: 0, referrals: 2, traders: 1, total: 3, imgSrc: 'affiliate-profile-pics/cryptocchio0_cryptocchio0.jpg'},
+            {rank: 15, name: 'BigHammer', handle: '@BigHammer', avatar: 'B', tweets: 0, referrals: 3, traders: 0, total: 3, imgSrc: 'affiliate-profile-pics/BigHammer_BigHammer.jpg'},
+            {rank: 16, name: 'Maksym_Kuznetsov', handle: '@Maksym_Kuznetsov', avatar: 'MK', tweets: 0, referrals: 2, traders: 0, total: 2, imgSrc: 'affiliate-profile-pics/Maksym_Kuznetsov_Maksym_Kuznetsov.jpg'},
+            {rank: 17, name: 'tarcioanderson', handle: '@tarcioanderson', avatar: 'T', tweets: 0, referrals: 2, traders: 0, total: 2, imgSrc: 'affiliate-profile-pics/tarcioanderson_tarcioanderson.jpg'},
+            {rank: 18, name: 'Shake51', handle: '@Shake51', avatar: 'S', tweets: 0, referrals: 1, traders: 0, total: 1, imgSrc: 'affiliate-profile-pics/Shake51_Shake51.jpg'},
+            {rank: 19, name: 'aLfy116', handle: '@aLfy116', avatar: 'A', tweets: 0, referrals: 1, traders: 0, total: 1, imgSrc: 'affiliate-profile-pics/aLfy116_aLfy116.jpg'},
+            {rank: 20, name: 'jeyojeyojeyo', handle: '@jeyojeyojeyo', avatar: 'J', tweets: 0, referrals: 0, traders: 1, total: 1, imgSrc: 'affiliate-profile-pics/jeyojeyojeyo_jeyojeyojeyo.jpg'},
+            {rank: 21, name: 'JIHANWOOOO', handle: '@JIHANWOOOO', avatar: 'J', tweets: 0, referrals: 1, traders: 0, total: 1, imgSrc: 'affiliate-profile-pics/JIHANWOOOO_JIHANWOOOO.jpg'}
+        ];
+
+        let currentPage = 1;
+        const itemsPerPage = 10;
+        const totalPages = Math.ceil(affiliatesData.length / itemsPerPage);
+
+        function renderLeaderboardPage() {
+            const tbody = document.querySelector('.leaderboard-table tbody');
+            tbody.innerHTML = '';
+
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = Math.min(startIndex + itemsPerPage, affiliatesData.length);
+            const pageData = affiliatesData.slice(startIndex, endIndex);
+
+            pageData.forEach(affiliate => {
+                const row = document.createElement('tr');
+                row.onclick = () => showDetail(
+                    affiliate.rank, affiliate.name, affiliate.handle, affiliate.avatar,
+                    affiliate.tweets, affiliate.referrals, affiliate.traders, affiliate.total
+                );
+
+                row.innerHTML = `
+                    <td>${affiliate.rank}</td>
+                    <td>
+                        <div class="table-name-cell">
+                            <div class="table-avatar">
+                                <img src="${affiliate.imgSrc}" alt="${affiliate.name}"
+                                     style="width:100%;height:100%;object-fit:cover;border-radius:50%;"
+                                     onerror="this.parentElement.innerHTML='${affiliate.avatar}'">
+                            </div>
+                            <div>
+                                <div class="table-name">${affiliate.name}</div>
+                                <div class="table-handle">${affiliate.handle}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="table-stat">${affiliate.tweets}</td>
+                    <td class="table-stat">${affiliate.referrals}</td>
+                    <td class="table-stat">${affiliate.traders}</td>
+                    <td class="table-stat">${affiliate.total}</td>
+                `;
+
+                tbody.appendChild(row);
+            });
+
+            // Update pagination controls
+            document.getElementById('currentPage').textContent = currentPage;
+            document.getElementById('totalPages').textContent = totalPages;
+            document.getElementById('showingStart').textContent = startIndex + 1;
+            document.getElementById('showingEnd').textContent = endIndex;
+            document.getElementById('totalEntries').textContent = affiliatesData.length;
+
+            // Update button states
+            document.getElementById('prevBtn').disabled = currentPage === 1;
+            document.getElementById('nextBtn').disabled = currentPage === totalPages;
+
+            // Re-attach hover sounds to new rows
+            tbody.querySelectorAll('tr').forEach(el => {
+                el.addEventListener('mouseenter', () => playSound('hover'));
+            });
+        }
+
+        function changePage(direction) {
+            const newPage = currentPage + direction;
+            if (newPage >= 1 && newPage <= totalPages) {
+                currentPage = newPage;
+                renderLeaderboardPage();
+                playSound('button-click');
+            }
         }
 
         function openFullLeaderboard() {
             const modal = document.getElementById('leaderboardModal');
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
-            playSound('modal-open');
+            currentPage = 1; // Reset to first page
+            renderLeaderboardPage(); // Render the first page
+            playSound('modal-open', 2); // Variant 2 for Full Leaderboard
         }
 
         function closeModal(modalId) {
@@ -2657,8 +3660,8 @@
                 setTimeout(() => particle.remove(), 700);
             }
 
-            // Play sounds
-            playSound('card-click');
+            // Play sounds with rank variation
+            playSound('card-click', rank);
             playSound('particle-burst');
 
             // Show detail popup after animation starts
@@ -2716,6 +3719,109 @@
         if (podium) {
             observer.observe(podium);
         }
+
+        // ===== 3D TILT EFFECT ON PODIUM CARDS =====
+        const podiumCards = document.querySelectorAll('.podium-card');
+
+        podiumCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = ((y - centerY) / centerY) * -10; // Max 10deg tilt
+                const rotateY = ((x - centerX) / centerX) * 10;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${card.classList.contains('rank-1') ? '1.08' : '1'})`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale(${card.classList.contains('rank-1') ? '1.08' : '1'})`;
+            });
+        });
+
+        // ===== ANIMATED STATS COUNT-UP =====
+        function animateValue(element, start, end, duration, suffix = '') {
+            const range = end - start;
+            const startTime = performance.now();
+
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+
+                // Easing function for smooth deceleration
+                const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+                const current = Math.floor(start + range * easeOutQuart);
+
+                element.textContent = current.toLocaleString() + suffix;
+
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                } else {
+                    element.textContent = end.toLocaleString() + suffix;
+                }
+            }
+
+            requestAnimationFrame(update);
+        }
+
+        // Trigger sequential stat reveal when podium cards appear
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const card = entry.target;
+                    const cardDelay = parseFloat(getComputedStyle(card).animationDelay) * 1000;
+
+                    setTimeout(() => {
+                        // Get rank from card class
+                        const rank = card.classList.contains('rank-1') ? 1 :
+                                    (card.classList.contains('rank-2') ? 2 : 3);
+
+                        // Get all score rows in this card
+                        const scoreRows = card.querySelectorAll('.score-row');
+
+                        // Reveal each stat row one by one
+                        scoreRows.forEach((row, index) => {
+                            setTimeout(() => {
+                                // Add reveal class to trigger fade-in animation
+                                row.classList.add('reveal');
+
+                                // Start count-up animation for this stat
+                                const statValue = row.querySelector('.score-value');
+                                if (statValue) {
+                                    const targetValue = parseInt(statValue.textContent.replace(/,/g, ''));
+                                    if (!isNaN(targetValue)) {
+                                        // Slower count-up: 1.5 seconds per stat
+                                        setTimeout(() => {
+                                            animateValue(statValue, 0, targetValue, 1500);
+                                        }, 300); // Start counting 300ms after row appears
+                                    }
+                                }
+
+                                // Play soft blip sound for each stat reveal
+                                playSubtleBlip(0.3);
+
+                            }, index * 700); // 700ms delay between each stat (slower)
+                        });
+
+                        // Play rank-specific victory fanfare after all stats revealed
+                        setTimeout(() => {
+                            playVictoryFanfare(rank);
+                        }, scoreRows.length * 700 + 500);
+
+                    }, cardDelay + 1000); // Start stats reveal 1s after card appears
+
+                    statsObserver.unobserve(card);
+                }
+            });
+        }, { threshold: 0.8 });
+
+        podiumCards.forEach(card => {
+            statsObserver.observe(card);
+        });
 
         console.log('🎮 Affiliate Leaderboard - Ultimate Edition');
         console.log('🎨 Enhanced cyber aesthetic with improved UI/UX');
