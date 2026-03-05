@@ -2940,7 +2940,7 @@
 
             <div class="hall-grid">
                 <!-- Rank 4 -->
-                <div class="hall-card" onclick="clickCard(this, 4, 'Neolawyer', '@NLinker777', 'NL', 37, 5, 1, 43)">
+                <div class="hall-card" onclick="clickCard(this, 4, 'Neolawyer', '@NLinker777', 'NL', 37, 5, 1, 43, 'affiliate-profile-pics/DJ_nlinker777.jpg')">
                     <div class="card-glow"></div>
                     <div class="corner-accent"></div>
                     <div class="hall-rank">4</div>
@@ -2953,7 +2953,7 @@
                 </div>
 
                 <!-- Rank 5 -->
-                <div class="hall-card" onclick="clickCard(this, 5, 'spennypretzel', '@SpennyCrypto', 'SP', 19, 9, 5, 33)">
+                <div class="hall-card" onclick="clickCard(this, 5, 'spennypretzel', '@SpennyCrypto', 'SP', 19, 9, 5, 33, 'affiliate-profile-pics/Spenny_spennycrypto.jpg')">
                     <div class="card-glow"></div>
                     <div class="corner-accent"></div>
                     <div class="hall-rank">5</div>
@@ -2966,7 +2966,7 @@
                 </div>
 
                 <!-- Rank 6 -->
-                <div class="hall-card" onclick="clickCard(this, 6, 'slavicbased', '@slavicbased', 'SB', 0, 26, 3, 29)">
+                <div class="hall-card" onclick="clickCard(this, 6, 'slavicbased', '@slavicbased', 'SB', 0, 26, 3, 29, 'affiliate-profile-pics/Slavicbased_basedsnipez.jpg')">
                     <div class="card-glow"></div>
                     <div class="corner-accent"></div>
                     <div class="hall-rank">6</div>
@@ -3567,7 +3567,7 @@
                 const row = document.createElement('tr');
                 row.onclick = () => showDetail(
                     affiliate.rank, affiliate.name, affiliate.handle, affiliate.avatar,
-                    affiliate.tweets, affiliate.referrals, affiliate.traders, affiliate.total
+                    affiliate.tweets, affiliate.referrals, affiliate.traders, affiliate.total, affiliate.imgSrc
                 );
 
                 row.innerHTML = `
@@ -3643,7 +3643,7 @@
         }
 
         // Click card with animations
-        function clickCard(card, rank, name, handle, avatar, tweets, referrals, traders, total) {
+        function clickCard(card, rank, name, handle, avatar, tweets, referrals, traders, total, imgSrc) {
             const rect = card.getBoundingClientRect();
 
             // Create ripple effect
@@ -3677,13 +3677,33 @@
 
             // Show detail popup after animation starts
             setTimeout(() => {
-                showDetail(rank, name, handle, avatar, tweets, referrals, traders, total);
+                showDetail(rank, name, handle, avatar, tweets, referrals, traders, total, imgSrc);
             }, 180);
         }
 
         // Detail popup controls
-        function showDetail(rank, name, handle, avatar, tweets, referrals, traders, total) {
-            document.getElementById('popupAvatar').textContent = avatar;
+        function showDetail(rank, name, handle, avatar, tweets, referrals, traders, total, imgSrc) {
+            const avatarElement = document.getElementById('popupAvatar');
+
+            // Clear previous content
+            avatarElement.innerHTML = '';
+
+            // Try to load image, fallback to text avatar
+            if (imgSrc) {
+                const img = document.createElement('img');
+                img.src = imgSrc;
+                img.alt = name;
+                img.style.width = '100%';
+                img.style.height = '100%';
+                img.style.objectFit = 'cover';
+                img.onerror = () => {
+                    avatarElement.textContent = avatar;
+                };
+                avatarElement.appendChild(img);
+            } else {
+                avatarElement.textContent = avatar;
+            }
+
             document.getElementById('popupName').textContent = name;
             document.getElementById('popupHandle').textContent = handle;
             document.getElementById('popupTweets').textContent = tweets.toLocaleString();
