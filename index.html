@@ -2644,8 +2644,14 @@
 
             .btn {
                 width: 100%;
-                padding: var(--space-4) var(--space-6);
-                font-size: 1.1rem;
+                padding: var(--space-5) var(--space-6);
+                font-size: 1.2rem;
+                min-height: 56px; /* Better touch target */
+            }
+
+            /* Enhanced button glow on mobile */
+            .btn:active {
+                box-shadow: 0 0 40px var(--glow-cyan), var(--shadow-lg);
             }
 
             .podium-card {
@@ -2653,14 +2659,23 @@
             }
 
             .avatar-container {
-                width: 160px;
-                height: 160px;
+                width: 180px;
+                height: 180px;
             }
 
             .avatar-main {
-                width: 160px;
-                height: 160px;
-                font-size: 3rem;
+                width: 180px;
+                height: 180px;
+                font-size: 3.5rem;
+            }
+
+            /* Enhance mobile animations */
+            .podium-card {
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+
+            .podium-card:active {
+                transform: scale(0.98);
             }
 
             .rank-badge {
@@ -2690,9 +2705,24 @@
             }
 
             .popup-avatar {
-                width: 140px;
-                height: 140px;
-                font-size: 3rem;
+                width: 160px;
+                height: 160px;
+                font-size: 3.5rem;
+            }
+
+            /* Enhanced mobile popup with better spacing */
+            .detail-popup {
+                max-width: 90vw;
+                margin: auto;
+            }
+
+            .popup-stats {
+                gap: var(--space-4);
+            }
+
+            /* Smooth momentum scrolling for iOS */
+            .modal {
+                -webkit-overflow-scrolling: touch;
             }
 
             .mute-btn {
@@ -2702,12 +2732,21 @@
                 right: var(--space-4);
             }
 
-            /* Hide less critical columns on mobile */
-            .leaderboard-table th:nth-child(4),
-            .leaderboard-table td:nth-child(4),
-            .leaderboard-table th:nth-child(5),
-            .leaderboard-table td:nth-child(5) {
-                display: none;
+            /* Make table horizontally scrollable on mobile instead of hiding columns */
+            .leaderboard-table-container {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .leaderboard-table {
+                min-width: 100%;
+                font-size: 0.85rem;
+            }
+
+            .leaderboard-table th,
+            .leaderboard-table td {
+                white-space: nowrap;
+                padding: var(--space-3) var(--space-2);
             }
 
             .table-avatar {
@@ -2719,10 +2758,20 @@
         }
 
         @media (max-width: 480px) {
+            /* Enhanced touch feedback for all interactive elements */
+            .hall-card:active,
+            .btn:active {
+                transform: scale(0.97);
+            }
+
+            .leaderboard-table tbody tr:active {
+                background: rgba(0, 243, 255, 0.15);
+            }
+
             .hall-avatar {
-                width: 120px;
-                height: 120px;
-                font-size: 2rem;
+                width: 140px;
+                height: 140px;
+                font-size: 2.5rem;
             }
 
             .hall-name {
