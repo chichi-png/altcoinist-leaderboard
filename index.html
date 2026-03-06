@@ -1054,6 +1054,21 @@
             transform: translateY(-1px) scale(0.96);
         }
 
+        /* Keyboard focus styles for accessibility */
+        .btn:focus-visible,
+        button:focus-visible {
+            outline: 3px solid var(--cyan-bright);
+            outline-offset: 4px;
+        }
+
+        .podium-card:focus-visible,
+        .hall-card:focus-visible,
+        .leaderboard-table tbody tr:focus-visible {
+            outline: 3px solid var(--cyan-bright);
+            outline-offset: 4px;
+            box-shadow: 0 0 60px var(--glow-cyan);
+        }
+
         .btn {
             -webkit-tap-highlight-color: transparent;
             touch-action: manipulation;
@@ -2844,7 +2859,7 @@
         <!-- Top 3 Podium -->
         <div class="podium">
             <!-- Rank 1 - Cyan -->
-            <div class="podium-card rank-1">
+            <div class="podium-card rank-1" tabindex="0">
                 <div class="card-glow"></div>
                 <div class="corner-accent"></div>
                 <div class="rank-badge">1</div>
@@ -2879,7 +2894,7 @@
             </div>
 
             <!-- Rank 2 - Teal -->
-            <div class="podium-card rank-2">
+            <div class="podium-card rank-2" tabindex="0">
                 <div class="card-glow"></div>
                 <div class="corner-accent"></div>
                 <div class="rank-badge">2</div>
@@ -2914,7 +2929,7 @@
             </div>
 
             <!-- Rank 3 - Electric Blue -->
-            <div class="podium-card rank-3">
+            <div class="podium-card rank-3" tabindex="0">
                 <div class="card-glow"></div>
                 <div class="corner-accent"></div>
                 <div class="rank-badge">3</div>
@@ -3001,7 +3016,7 @@
 
             <div class="hall-grid">
                 <!-- Rank 1 -->
-                <div class="hall-card" onclick="clickCard(this, 1, 'rbthreek', '@rbthreek', 'R', 12, 197, 97, 306, 'assets/images/affiliates/Rb3k_rbthreek.jpg')">
+                <div class="hall-card" tabindex="0" onclick="clickCard(this, 1, 'rbthreek', '@rbthreek', 'R', 12, 197, 97, 306, 'assets/images/affiliates/Rb3k_rbthreek.jpg')">
                     <div class="card-glow"></div>
                     <div class="corner-accent"></div>
                     <div class="hall-rank">1</div>
@@ -3014,7 +3029,7 @@
                 </div>
 
                 <!-- Rank 2 -->
-                <div class="hall-card" onclick="clickCard(this, 2, 'N30_CRYPTO', '@N30_cryptoo', 'NC', 98, 22, 5, 125, 'assets/images/affiliates/N30_n30_cryptoo.jpg')">
+                <div class="hall-card" tabindex="0" onclick="clickCard(this, 2, 'N30_CRYPTO', '@N30_cryptoo', 'NC', 98, 22, 5, 125, 'assets/images/affiliates/N30_n30_cryptoo.jpg')">
                     <div class="card-glow"></div>
                     <div class="corner-accent"></div>
                     <div class="hall-rank">2</div>
@@ -3027,7 +3042,7 @@
                 </div>
 
                 <!-- Rank 3 -->
-                <div class="hall-card" onclick="clickCard(this, 3, 'slavicbased', '@slavicbased', 'S', 39, 31, 3, 73, 'assets/images/affiliates/Slavicbased_basedsnipez.jpg')">
+                <div class="hall-card" tabindex="0" onclick="clickCard(this, 3, 'slavicbased', '@slavicbased', 'S', 39, 31, 3, 73, 'assets/images/affiliates/Slavicbased_basedsnipez.jpg')">
                     <div class="card-glow"></div>
                     <div class="corner-accent"></div>
                     <div class="hall-rank">3</div>
@@ -3040,7 +3055,7 @@
                 </div>
 
                 <!-- Rank 4 -->
-                <div class="hall-card" onclick="clickCard(this, 4, 'thebasedfrog', '@thebasedfrogx', 'T', 52, 13, 3, 68, 'assets/images/affiliates/Tyler_Kenny_thebasedfrogx.jpg')">
+                <div class="hall-card" tabindex="0" onclick="clickCard(this, 4, 'thebasedfrog', '@thebasedfrogx', 'T', 52, 13, 3, 68, 'assets/images/affiliates/Tyler_Kenny_thebasedfrogx.jpg')">
                     <div class="card-glow"></div>
                     <div class="corner-accent"></div>
                     <div class="hall-rank">4</div>
@@ -3053,7 +3068,7 @@
                 </div>
 
                 <!-- Rank 5 -->
-                <div class="hall-card" onclick="clickCard(this, 5, 'Neolawyer', '@NLinker777', 'N', 38, 5, 1, 44, 'assets/images/affiliates/DJ_nlinker777.jpg')">
+                <div class="hall-card" tabindex="0" onclick="clickCard(this, 5, 'Neolawyer', '@NLinker777', 'N', 38, 5, 1, 44, 'assets/images/affiliates/DJ_nlinker777.jpg')">
                     <div class="card-glow"></div>
                     <div class="corner-accent"></div>
                     <div class="hall-rank">5</div>
@@ -3066,7 +3081,7 @@
                 </div>
 
                 <!-- Rank 6 -->
-                <div class="hall-card" onclick="clickCard(this, 6, 'spennypretzel', '@SpennyCrypto', 'S', 21, 10, 5, 36, 'assets/images/affiliates/Spenny_spennycrypto.jpg')">
+                <div class="hall-card" tabindex="0" onclick="clickCard(this, 6, 'spennypretzel', '@SpennyCrypto', 'S', 21, 10, 5, 36, 'assets/images/affiliates/Spenny_spennycrypto.jpg')">
                     <div class="card-glow"></div>
                     <div class="corner-accent"></div>
                     <div class="hall-rank">6</div>
@@ -3079,7 +3094,7 @@
                 </div>
 
                 <!-- Rank 7 -->
-                <div class="hall-card" onclick="clickCard(this, 7, 'arrieindewarrie', '@arindewar', 'A', 26, 4, 1, 31, 'assets/images/affiliates/Arindewar_arindewar.jpg')">
+                <div class="hall-card" tabindex="0" onclick="clickCard(this, 7, 'arrieindewarrie', '@arindewar', 'A', 26, 4, 1, 31, 'assets/images/affiliates/Arindewar_arindewar.jpg')">
                     <div class="card-glow"></div>
                     <div class="corner-accent"></div>
                     <div class="hall-rank">7</div>
@@ -3092,7 +3107,7 @@
                 </div>
 
                 <!-- Rank 8 -->
-                <div class="hall-card" onclick="clickCard(this, 8, 'I_Love_Dogs21', '@I_Love_Dogs21', 'IL', 0, 19, 1, 20, '')">
+                <div class="hall-card" tabindex="0" onclick="clickCard(this, 8, 'I_Love_Dogs21', '@I_Love_Dogs21', 'IL', 0, 19, 1, 20, '')">
                     <div class="card-glow"></div>
                     <div class="corner-accent"></div>
                     <div class="hall-rank">8</div>
@@ -3105,7 +3120,7 @@
                 </div>
 
                 <!-- Rank 9 -->
-                <div class="hall-card" onclick="clickCard(this, 9, 'mDiBe89', '@mDiBe89', 'M', 18, 0, 0, 18, 'assets/images/affiliates/mDiBe89_tibbiracer.jpg')">
+                <div class="hall-card" tabindex="0" onclick="clickCard(this, 9, 'mDiBe89', '@mDiBe89', 'M', 18, 0, 0, 18, 'assets/images/affiliates/mDiBe89_tibbiracer.jpg')">
                     <div class="card-glow"></div>
                     <div class="corner-accent"></div>
                     <div class="hall-rank">9</div>
@@ -3118,7 +3133,7 @@
                 </div>
 
                 <!-- Rank 10 -->
-                <div class="hall-card" onclick="clickCard(this, 10, 'chironthetrader', '@chironthetrader', 'C', 1, 9, 6, 16, 'assets/images/affiliates/Chiron_chironchain.jpg')">
+                <div class="hall-card" tabindex="0" onclick="clickCard(this, 10, 'chironthetrader', '@chironthetrader', 'C', 1, 9, 6, 16, 'assets/images/affiliates/Chiron_chironchain.jpg')">
                     <div class="card-glow"></div>
                     <div class="corner-accent"></div>
                     <div class="hall-rank">10</div>
@@ -3635,7 +3650,7 @@
             {rank: 5, name: 'Neolawyer', handle: '@NLinker777', avatar: 'N', tweets: 38, referrals: 5, traders: 1, total: 44, imgSrc: 'assets/images/affiliates/DJ_nlinker777.jpg'},
             {rank: 6, name: 'spennypretzel', handle: '@SpennyCrypto', avatar: 'S', tweets: 21, referrals: 10, traders: 5, total: 36, imgSrc: 'assets/images/affiliates/Spenny_spennycrypto.jpg'},
             {rank: 7, name: 'arrieindewarrie', handle: '@arindewar', avatar: 'A', tweets: 26, referrals: 4, traders: 1, total: 31, imgSrc: 'assets/images/affiliates/Arindewar_arindewar.jpg'},
-            {rank: 8, name: 'I_Love_Dogs21', handle: '@I_Love_Dogs21', avatar: 'IL', tweets: 0, referrals: 19, traders: 1, total: 20, imgSrc: 'assets/images/affiliates/I_Love_Dogs21_I_Love_Dogs21.jpg'},
+            {rank: 8, name: 'I_Love_Dogs21', handle: '@I_Love_Dogs21', avatar: 'IL', tweets: 0, referrals: 19, traders: 1, total: 20, imgSrc: ''},
             {rank: 9, name: 'mDiBe89', handle: '@mDiBe89', avatar: 'M', tweets: 18, referrals: 0, traders: 0, total: 18, imgSrc: 'assets/images/affiliates/mDiBe89_tibbiracer.jpg'},
             {rank: 10, name: 'chironthetrader', handle: '@chironthetrader', avatar: 'C', tweets: 1, referrals: 9, traders: 6, total: 16, imgSrc: 'assets/images/affiliates/Chiron_chironchain.jpg'},
             {rank: 11, name: 'Vanxyrus', handle: '@Vanxyrus', avatar: 'VX', tweets: 0, referrals: 4, traders: 2, total: 6, imgSrc: 'assets/images/affiliates/Mj_vanxyrus.jpg'},
@@ -3822,6 +3837,17 @@
             }
         });
 
+        // Keyboard accessibility for cards (Enter/Space to activate)
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                const target = e.target;
+                if (target.classList.contains('hall-card')) {
+                    e.preventDefault();
+                    target.click();
+                }
+            }
+        });
+
         // Add hover sounds
         document.querySelectorAll('.podium-card, .btn, .close-btn, .mute-btn, .leaderboard-table tbody tr').forEach(el => {
             el.addEventListener('mouseenter', () => playSound('hover'));
@@ -3944,13 +3970,6 @@
         podiumCards.forEach(card => {
             statsObserver.observe(card);
         });
-
-        console.log('🎮 Affiliate Leaderboard - Ultimate Edition');
-        console.log('🎨 Enhanced cyber aesthetic with improved UI/UX');
-        console.log('📱 Mobile-optimized responsive design');
-        console.log('✨ Click Hall of Fame cards for ripple + burst effects');
-        console.log('🌐 Full cyber background with hexagons, scan lines & data streams');
-        console.log('💎 Top 3: Cyan (1st), Teal (2nd), Electric Blue (3rd)');
     </script>
 </body>
 </html>
