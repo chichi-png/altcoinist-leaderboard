@@ -2586,6 +2586,35 @@
             font-weight: 600;
         }
 
+        /* Twitter/X Profile Cards */
+        #twitterPostsContainer .hall-card,
+        #xProfilesContainer .hall-card {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all var(--transition-smooth);
+        }
+
+        #twitterPostsContainer .hall-card:hover,
+        #xProfilesContainer .hall-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 50px var(--glow-cyan);
+        }
+
+        /* Video Cards (future) */
+        .video-card {
+            background: linear-gradient(135deg, var(--gray-950) 0%, var(--gray-900) 100%);
+            border: 2px solid var(--gray-700);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-8);
+            transition: all var(--transition-smooth);
+        }
+
+        .video-card:hover {
+            border-color: var(--cyan-bright);
+            box-shadow: 0 0 50px var(--glow-cyan);
+            transform: translateY(-4px);
+        }
+
         /* Mobile Responsive Design */
         @media (max-width: 1024px) {
             .podium {
@@ -2762,6 +2791,28 @@
         <div class="ambient-glow glow-1"></div>
         <div class="ambient-glow glow-2"></div>
         <div class="ambient-glow glow-3"></div>
+
+        <!-- Password Gate Modal -->
+        <div class="modal active" id="passwordModal" style="z-index: 99999;">
+            <div class="modal-content" style="max-width: 500px;" onclick="event.stopPropagation()">
+                <h2 class="modal-title" style="font-size: 2.5rem;">Affiliate Access</h2>
+                <p class="modal-subtitle">Enter password to continue</p>
+
+                <div style="padding: 2rem;">
+                    <input
+                        type="password"
+                        id="passwordInput"
+                        placeholder="Enter password"
+                        style="width: 100%; padding: 1rem; font-size: 1.2rem; background: var(--gray-900); border: 2px solid var(--gray-700); border-radius: var(--radius-lg); color: white; margin-bottom: 1rem;"
+                        onkeypress="if(event.key==='Enter') checkPassword()"
+                    />
+                    <button class="btn" onclick="checkPassword()" style="width: 100%;">
+                        <span>Enter</span>
+                    </button>
+                    <p id="passwordError" style="color: var(--cyan-bright); margin-top: 1rem; display: none;">Incorrect password</p>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Mute Button -->
@@ -2792,27 +2843,27 @@
                         <div class="ring-mask"></div>
                     </div>
                     <div class="avatar-main">
-                        <img src="affiliate-profile-pics/3Dmax_3dmax_virtuals.jpg" alt="3Dmax" onerror="this.parentElement.innerHTML='3D'">
+                        <img src="affiliate-profile-pics/rbthreek_rbthreek.jpg" alt="Rb3k" onerror="this.parentElement.innerHTML='R'">
                     </div>
                 </div>
-                <h2 class="affiliate-name">rbthreek</h2>
+                <h2 class="affiliate-name">Rb3k</h2>
                 <p class="affiliate-handle">@rbthreek</p>
                 <div class="scores">
                     <div class="score-row">
                         <span class="score-label">Tweets</span>
-                        <span class="score-value">10</span>
+                        <span class="score-value">12</span>
                     </div>
                     <div class="score-row">
                         <span class="score-label">Referrals</span>
-                        <span class="score-value">195</span>
+                        <span class="score-value">206</span>
                     </div>
                     <div class="score-row">
                         <span class="score-label">Traders</span>
-                        <span class="score-value">98</span>
+                        <span class="score-value">103</span>
                     </div>
                     <div class="score-row total">
                         <span class="score-label">Total</span>
-                        <span class="score-value">303</span>
+                        <span class="score-value">321</span>
                     </div>
                 </div>
             </div>
@@ -2827,27 +2878,27 @@
                         <div class="ring-mask"></div>
                     </div>
                     <div class="avatar-main">
-                        <img src="affiliate-profile-pics/Alf_alfy11116.jpg" alt="Alf" onerror="this.parentElement.innerHTML='AF'">
+                        <img src="affiliate-profile-pics/N30_CRYPTO_N30_cryptoo.jpg" alt="N30" onerror="this.parentElement.innerHTML='NC'">
                     </div>
                 </div>
-                <h2 class="affiliate-name">N30_CRYPTO</h2>
+                <h2 class="affiliate-name">N30</h2>
                 <p class="affiliate-handle">@N30_cryptoo</p>
                 <div class="scores">
                     <div class="score-row">
                         <span class="score-label">Tweets</span>
-                        <span class="score-value">74</span>
+                        <span class="score-value">106</span>
                     </div>
                     <div class="score-row">
                         <span class="score-label">Referrals</span>
-                        <span class="score-value">21</span>
+                        <span class="score-value">22</span>
                     </div>
                     <div class="score-row">
                         <span class="score-label">Traders</span>
-                        <span class="score-value">6</span>
+                        <span class="score-value">5</span>
                     </div>
                     <div class="score-row total">
                         <span class="score-label">Total</span>
-                        <span class="score-value">101</span>
+                        <span class="score-value">133</span>
                     </div>
                 </div>
             </div>
@@ -2862,38 +2913,47 @@
                         <div class="ring-mask"></div>
                     </div>
                     <div class="avatar-main">
-                        <img src="affiliate-profile-pics/cryptic_t_cryptic_tits.png" alt="Cryptic_t" onerror="this.parentElement.innerHTML='CT'">
+                        <img src="affiliate-profile-pics/slavicbased_basedsnipez.jpg" alt="Slavicbased" onerror="this.parentElement.innerHTML='S'">
                     </div>
                 </div>
-                <h2 class="affiliate-name">thebasedfrog</h2>
-                <p class="affiliate-handle">@thebasedfrogx</p>
+                <h2 class="affiliate-name">Slavicbased</h2>
+                <p class="affiliate-handle">@basedsnipez</p>
                 <div class="scores">
                     <div class="score-row">
                         <span class="score-label">Tweets</span>
-                        <span class="score-value">44</span>
+                        <span class="score-value">41</span>
                     </div>
                     <div class="score-row">
                         <span class="score-label">Referrals</span>
-                        <span class="score-value">11</span>
+                        <span class="score-value">80</span>
                     </div>
                     <div class="score-row">
                         <span class="score-label">Traders</span>
-                        <span class="score-value">2</span>
+                        <span class="score-value">8</span>
                     </div>
                     <div class="score-row total">
                         <span class="score-label">Total</span>
-                        <span class="score-value">57</span>
+                        <span class="score-value">129</span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="action-buttons">
+        <div class="action-buttons" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-6); max-width: 1300px; width: 100%;">
             <button class="btn" onclick="openHallOfFame()">
-                <span>Hall of Fame</span>
+                <span>🏆 Hall of Fame</span>
             </button>
             <button class="btn" onclick="openFullLeaderboard()">
-                <span>Full Leaderboard</span>
+                <span>📊 Full Leaderboard</span>
+            </button>
+            <button class="btn" onclick="openTwitterPosts()">
+                <span>🐦 Twitter Posts</span>
+            </button>
+            <button class="btn" onclick="openXProfiles()">
+                <span>🔗 X Profiles</span>
+            </button>
+            <button class="btn" onclick="openVideoTutorials()">
+                <span>🎥 Video Tutorials</span>
             </button>
         </div>
     </section>
@@ -3056,6 +3116,57 @@
                 <div class="popup-stat total">
                     <span class="popup-stat-label">Total</span>
                     <span class="popup-stat-value" id="popupTotal">1,487</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Twitter Posts Library Modal -->
+    <div class="modal" id="twitterModal" onclick="closeModalOnBackdrop(event, 'twitterModal')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="hall-background">
+                <div class="gallery-wall left"></div>
+                <div class="gallery-wall right"></div>
+                <div class="gallery-floor"></div>
+            </div>
+
+            <button class="close-btn" onclick="closeModal('twitterModal')">×</button>
+            <button class="back-btn" onclick="closeModal('twitterModal')">
+                <span>← Back</span>
+            </button>
+
+            <h2 class="modal-title">Twitter Posts Library</h2>
+            <p class="modal-subtitle">Konstantin's product posts for sharing 🚀</p>
+
+            <div id="twitterPostsContainer" style="position: relative; z-index: 2; max-width: 1200px; margin: 0 auto;">
+                <div style="text-align: center; padding: 3rem; color: var(--cyan-bright);">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">⚡</div>
+                    <p>Loading posts...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- X Profiles Modal -->
+    <div class="modal" id="xProfilesModal" onclick="closeModalOnBackdrop(event, 'xProfilesModal')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="hall-background">
+                <div class="gallery-wall left"></div>
+                <div class="gallery-wall right"></div>
+            </div>
+
+            <button class="close-btn" onclick="closeModal('xProfilesModal')">×</button>
+            <button class="back-btn" onclick="closeModal('xProfilesModal')">
+                <span>← Back</span>
+            </button>
+
+            <h2 class="modal-title">X Profile Links</h2>
+            <p class="modal-subtitle">Follow & support your fellow affiliates 🤝</p>
+
+            <div id="xProfilesContainer" style="position: relative; z-index: 2; max-width: 1400px; margin: 0 auto;">
+                <div style="text-align: center; padding: 3rem; color: var(--cyan-bright);">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">⚡</div>
+                    <p>Loading profiles...</p>
                 </div>
             </div>
         </div>
@@ -3528,27 +3639,42 @@
 
         // Leaderboard data and pagination state
         const affiliatesData = [
-            {rank: 1, name: 'rbthreek', handle: '@rbthreek', avatar: 'R', tweets: 10, referrals: 195, traders: 98, total: 303, imgSrc: 'affiliate-profile-pics/rbthreek_rbthreek.jpg'},
-            {rank: 2, name: 'N30_CRYPTO', handle: '@N30_cryptoo', avatar: 'NC', tweets: 74, referrals: 21, traders: 6, total: 101, imgSrc: 'affiliate-profile-pics/N30_CRYPTO_N30_cryptoo.jpg'},
-            {rank: 3, name: 'thebasedfrog', handle: '@thebasedfrogx', avatar: 'T', tweets: 44, referrals: 11, traders: 2, total: 57, imgSrc: 'affiliate-profile-pics/thebasedfrog_thebasedfrogx.jpg'},
-            {rank: 4, name: 'Neolawyer', handle: '@NLinker777', avatar: 'N', tweets: 37, referrals: 5, traders: 1, total: 43, imgSrc: 'affiliate-profile-pics/DJ_nlinker777.jpg'},
-            {rank: 5, name: 'spennypretzel', handle: '@SpennyCrypto', avatar: 'S', tweets: 19, referrals: 9, traders: 5, total: 33, imgSrc: 'affiliate-profile-pics/spennypretzel_SpennyCrypto.jpg'},
-            {rank: 6, name: 'slavicbased', handle: '@slavicbased', avatar: 'S', tweets: 0, referrals: 26, traders: 3, total: 29, imgSrc: 'affiliate-profile-pics/slavicbased_slavicbased.jpg'},
-            {rank: 7, name: 'arrieindewarrie', handle: '@arindewar', avatar: 'A', tweets: 17, referrals: 4, traders: 1, total: 22, imgSrc: 'affiliate-profile-pics/arrieindewarrie_arindewar.jpg'},
-            {rank: 8, name: 'I_Love_Dogs21', handle: '@I_Love_Dogs21', avatar: 'IL', tweets: 0, referrals: 19, traders: 1, total: 20, imgSrc: 'affiliate-profile-pics/I_Love_Dogs21_I_Love_Dogs21.jpg'},
-            {rank: 9, name: 'Vanxyrus', handle: '@Vanxyrus', avatar: 'V', tweets: 13, referrals: 4, traders: 2, total: 19, imgSrc: 'affiliate-profile-pics/Vanxyrus_Vanxyrus.jpg'},
-            {rank: 10, name: 'chironthetrader', handle: '@chironthetrader', avatar: 'C', tweets: 0, referrals: 9, traders: 6, total: 15, imgSrc: 'affiliate-profile-pics/chironthetrader_chironthetrader.jpg'},
-            {rank: 11, name: 'Debankindad', handle: '@DebankinDad', avatar: 'D', tweets: 13, referrals: 0, traders: 0, total: 13, imgSrc: 'affiliate-profile-pics/Debankindad_DebankinDad.jpg'},
-            {rank: 12, name: 'veryborny', handle: '@veryborny', avatar: 'V', tweets: 0, referrals: 6, traders: 0, total: 6, imgSrc: 'affiliate-profile-pics/veryborny_veryborny.jpg'},
-            {rank: 13, name: 'Medbdy7', handle: '@Medbdy7', avatar: 'M', tweets: 0, referrals: 5, traders: 0, total: 5, imgSrc: 'affiliate-profile-pics/Medbdy7_Medbdy7.jpg'},
-            {rank: 14, name: 'cryptocchio0', handle: '@cryptocchio0', avatar: 'C', tweets: 0, referrals: 2, traders: 1, total: 3, imgSrc: 'affiliate-profile-pics/cryptocchio0_cryptocchio0.jpg'},
-            {rank: 15, name: 'BigHammer', handle: '@BigHammer', avatar: 'B', tweets: 0, referrals: 3, traders: 0, total: 3, imgSrc: 'affiliate-profile-pics/BigHammer_BigHammer.jpg'},
-            {rank: 16, name: 'Maksym_Kuznetsov', handle: '@Maksym_Kuznetsov', avatar: 'MK', tweets: 0, referrals: 2, traders: 0, total: 2, imgSrc: 'affiliate-profile-pics/Maksym_Kuznetsov_Maksym_Kuznetsov.jpg'},
-            {rank: 17, name: 'tarcioanderson', handle: '@tarcioanderson', avatar: 'T', tweets: 0, referrals: 2, traders: 0, total: 2, imgSrc: 'affiliate-profile-pics/tarcioanderson_tarcioanderson.jpg'},
-            {rank: 18, name: 'Shake51', handle: '@Shake51', avatar: 'S', tweets: 0, referrals: 1, traders: 0, total: 1, imgSrc: 'affiliate-profile-pics/Shake51_Shake51.jpg'},
-            {rank: 19, name: 'aLfy116', handle: '@aLfy116', avatar: 'A', tweets: 0, referrals: 1, traders: 0, total: 1, imgSrc: 'affiliate-profile-pics/aLfy116_aLfy116.jpg'},
-            {rank: 20, name: 'jeyojeyojeyo', handle: '@jeyojeyojeyo', avatar: 'J', tweets: 0, referrals: 0, traders: 1, total: 1, imgSrc: 'affiliate-profile-pics/jeyojeyojeyo_jeyojeyojeyo.jpg'},
-            {rank: 21, name: 'JIHANWOOOO', handle: '@JIHANWOOOO', avatar: 'J', tweets: 0, referrals: 1, traders: 0, total: 1, imgSrc: 'affiliate-profile-pics/JIHANWOOOO_JIHANWOOOO.jpg'}
+            {rank: 1, name: 'Rb3k', handle: '@rbthreek', avatar: 'R', tweets: 12, referrals: 206, traders: 103, total: 321, imgSrc: 'affiliate-profile-pics/rbthreek_rbthreek.jpg'},
+            {rank: 2, name: 'N30', handle: '@N30_cryptoo', avatar: 'NC', tweets: 106, referrals: 22, traders: 5, total: 133, imgSrc: 'affiliate-profile-pics/N30_CRYPTO_N30_cryptoo.jpg'},
+            {rank: 3, name: 'Slavicbased', handle: '@basedsnipez', avatar: 'S', tweets: 41, referrals: 80, traders: 8, total: 129, imgSrc: 'affiliate-profile-pics/slavicbased_basedsnipez.jpg'},
+            {rank: 4, name: 'DJ', handle: '@nlinker777', avatar: 'DJ', tweets: 79, referrals: 2, traders: 1, total: 82, imgSrc: 'affiliate-profile-pics/thegardener777_nlinker777.jpg'},
+            {rank: 5, name: 'Tyler Kenny', handle: '@thebasedfrogx', avatar: 'T', tweets: 55, referrals: 10, traders: 2, total: 67, imgSrc: 'affiliate-profile-pics/thebasedfrog_thebasedfrogx.jpg'},
+            {rank: 6, name: 'Spenny', handle: '@SpennyCrypto', avatar: 'S', tweets: 19, referrals: 19, traders: 5, total: 43, imgSrc: 'affiliate-profile-pics/spennypretzel_SpennyCrypto.jpg'},
+            {rank: 7, name: 'Arindewar', handle: '@arindewar', avatar: 'A', tweets: 35, referrals: 5, traders: 1, total: 41, imgSrc: 'affiliate-profile-pics/arrieindewarrie_arindewar.jpg'},
+            {rank: 8, name: 'Mj', handle: '@Vanxyrus', avatar: 'V', tweets: 26, referrals: 8, traders: 3, total: 37, imgSrc: 'affiliate-profile-pics/Vanxyrus_Vanxyrus.jpg'},
+            {rank: 9, name: 'mDiBe89', handle: '@tibbiracer', avatar: 'M', tweets: 23, referrals: 0, traders: 0, total: 23, imgSrc: 'affiliate-profile-pics/mDiBe89_tibbiracer.jpg'},
+            {rank: 10, name: 'I_Love_Dogs21', handle: '@I_Love_Dogs21', avatar: 'IL', tweets: 0, referrals: 20, traders: 1, total: 21, imgSrc: 'affiliate-profile-pics/I_Love_Dogs21_I_Love_Dogs21.jpg'},
+            {rank: 11, name: 'Flynn', handle: '@flynn_howitt', avatar: 'F', tweets: 17, referrals: 0, traders: 0, total: 17, imgSrc: 'affiliate-profile-pics/Flynn180_flynn_howitt.jpg'},
+            {rank: 12, name: 'Debankind', handle: '@DebankinDad', avatar: 'D', tweets: 17, referrals: 0, traders: 0, total: 17, imgSrc: 'affiliate-profile-pics/Debankindad_DebankinDad.jpg'},
+            {rank: 13, name: 'Chiron', handle: '@chironchain', avatar: 'C', tweets: 1, referrals: 9, traders: 6, total: 16, imgSrc: 'affiliate-profile-pics/chironthetrader_chironchain.jpg'},
+            {rank: 14, name: 'Neo Lawyer', handle: '@NeoLawyer1', avatar: 'N', tweets: 8, referrals: 5, traders: 1, total: 14, imgSrc: 'affiliate-profile-pics/Neolawyer_NeoLawyer1.jpg'},
+            {rank: 15, name: 'Big Hammer', handle: '@joebangsjr', avatar: 'BH', tweets: 8, referrals: 3, traders: 1, total: 12, imgSrc: 'affiliate-profile-pics/BigHammer_joebangsjr.jpg'},
+            {rank: 16, name: 'Borny', handle: '@unborninfinite', avatar: 'B', tweets: 4, referrals: 5, traders: 0, total: 9, imgSrc: 'affiliate-profile-pics/veryborny_unborninfinite.jpg'},
+            {rank: 17, name: 'Mr Thurgood', handle: '@Maksym_Kuznetsov', avatar: 'MK', tweets: 2, referrals: 7, traders: 0, total: 9, imgSrc: 'affiliate-profile-pics/Maksym_Kuznetsov_Maksym_Kuznetsov.jpg'},
+            {rank: 18, name: 'Premium Mind', handle: '@deepseektetra', avatar: 'PM', tweets: 8, referrals: 0, traders: 0, total: 8, imgSrc: 'affiliate-profile-pics/techy0x_deepseektetra.jpg'},
+            {rank: 19, name: 'Cryptic_t', handle: '@cryptic_tits', avatar: 'C', tweets: 2, referrals: 3, traders: 1, total: 6, imgSrc: 'affiliate-profile-pics/cryptocchio0_cryptic_tits.jpg'},
+            {rank: 20, name: 'Anderson', handle: '@0x7_anderson', avatar: 'A', tweets: 4, referrals: 2, traders: 0, total: 6, imgSrc: 'affiliate-profile-pics/tarcioanderson_0x7_anderson.jpg'},
+            {rank: 21, name: 'LC', handle: '@mrlcguy', avatar: 'LC', tweets: 2, referrals: 4, traders: 0, total: 6, imgSrc: 'affiliate-profile-pics/AltcoinMatcha_mrlcguy.jpg'},
+            {rank: 22, name: 'Base Pop', handle: '@kd11201', avatar: 'BP', tweets: 5, referrals: 0, traders: 0, total: 5, imgSrc: 'affiliate-profile-pics/SocialBlocks_kd11201.jpg'},
+            {rank: 23, name: 'Medbdy', handle: '@medbdy', avatar: 'M', tweets: 1, referrals: 4, traders: 0, total: 5, imgSrc: 'affiliate-profile-pics/Medbdy7_medbdy.jpg'},
+            {rank: 24, name: 'Shake', handle: '@shake51_', avatar: 'S', tweets: 3, referrals: 1, traders: 0, total: 4, imgSrc: 'affiliate-profile-pics/Shake51_shake51_.jpg'},
+            {rank: 25, name: 'Joebangsjr', handle: '@jeyojeyojeyo', avatar: 'J', tweets: 3, referrals: 0, traders: 1, total: 4, imgSrc: 'affiliate-profile-pics/jeyojeyojeyo_jeyojeyojeyo.jpg'},
+            {rank: 26, name: 'Alf', handle: '@alfy11116', avatar: 'A', tweets: 3, referrals: 1, traders: 0, total: 4, imgSrc: 'affiliate-profile-pics/aLfy116_alfy11116.jpg'},
+            {rank: 27, name: 'Nlinker', handle: '@JIHANWOOOO', avatar: 'J', tweets: 3, referrals: 1, traders: 0, total: 4, imgSrc: 'affiliate-profile-pics/JIHANWOOOO_JIHANWOOOO.jpg'},
+            {rank: 28, name: 'Cryptic_t', handle: '@cryptic_tits', avatar: 'C', tweets: 2, referrals: 0, traders: 0, total: 2, imgSrc: 'affiliate-profile-pics/cryptic_t_cryptic_tits.jpg'},
+            {rank: 29, name: '3Dmax', handle: '@3dmax_virtuals', avatar: '3D', tweets: 2, referrals: 0, traders: 0, total: 2, imgSrc: 'affiliate-profile-pics/Elohim528_3dmax_virtuals.jpg'},
+            {rank: 30, name: 'SexCaliber', handle: '@sexcalibur31', avatar: 'SC', tweets: 1, referrals: 0, traders: 0, total: 1, imgSrc: 'affiliate-profile-pics/sexcalibur31_sexcalibur31.jpg'},
+            {rank: 31, name: 'Math', handle: '@mathburn666', avatar: 'M', tweets: 1, referrals: 0, traders: 0, total: 1, imgSrc: 'affiliate-profile-pics/mathburn666_mathburn666.jpg'},
+            {rank: 32, name: 'Nouyarao', handle: '@sentientom', avatar: 'N', tweets: 0, referrals: 0, traders: 0, total: 0, imgSrc: 'affiliate-profile-pics/Nouyarao_sentientom.jpg'},
+            {rank: 33, name: 'AltcoinMiyagi', handle: '@altcoinmiyagi', avatar: 'AM', tweets: 0, referrals: 0, traders: 0, total: 0, imgSrc: 'affiliate-profile-pics/altcoinist_ai_altcoinmiyagi.jpg'},
+            {rank: 34, name: 'Zeus', handle: '@vlagudfsfjr', avatar: 'Z', tweets: 0, referrals: 0, traders: 0, total: 0, imgSrc: 'affiliate-profile-pics/zeus4r_vlagudfsfjr.jpg'},
+            {rank: 35, name: 'Karaiso', handle: '@karaiso4', avatar: 'K', tweets: 0, referrals: 0, traders: 0, total: 0, imgSrc: 'affiliate-profile-pics/karaiso_karaiso4.jpg'},
+            {rank: 36, name: 'Poorad', handle: '@pooorad', avatar: 'P', tweets: 0, referrals: 0, traders: 0, total: 0, imgSrc: 'affiliate-profile-pics/acespades34_pooorad.jpg'}
         ];
 
         let currentPage = 1;
@@ -3627,6 +3753,181 @@
             currentPage = 1; // Reset to first page
             renderLeaderboardPage(); // Render the first page
             playSound('modal-open', 2); // Variant 2 for Full Leaderboard
+        }
+
+        // Password gate functions
+        async function checkPassword() {
+            const input = document.getElementById('passwordInput');
+            const error = document.getElementById('passwordError');
+
+            try {
+                const response = await fetch('/api/check-password', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({password: input.value})
+                });
+
+                const result = await response.json();
+
+                if (result.valid) {
+                    sessionStorage.setItem('affiliateAuth', 'true');
+                    document.getElementById('passwordModal').style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                    playSound('achievement');
+                } else {
+                    error.style.display = 'block';
+                    input.value = '';
+                    playSound('button-click');
+                }
+            } catch (err) {
+                console.error('Password check failed:', err);
+                error.textContent = 'Connection error';
+                error.style.display = 'block';
+            }
+        }
+
+        // Check auth on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            if (sessionStorage.getItem('affiliateAuth') === 'true') {
+                document.getElementById('passwordModal').style.display = 'none';
+            } else {
+                document.getElementById('passwordModal').style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+        });
+
+        // Twitter Posts modal
+        async function openTwitterPosts() {
+            const modal = document.getElementById('twitterModal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            playSound('modal-open', 1);
+
+            const container = document.getElementById('twitterPostsContainer');
+
+            try {
+                const response = await fetch('/api/twitter-posts');
+                const posts = await response.json();
+
+                if (posts.error) {
+                    container.innerHTML = `
+                        <div style="text-align: center; padding: 3rem; color: var(--cyan-bright);">
+                            <p>⚠️ Error loading posts: ${posts.error}</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = `
+                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: var(--space-8);">
+                        ${posts.map((post, i) => `
+                            <div class="hall-card" style="animation-delay: ${i * 0.1}s; cursor: pointer;"
+                                 onclick="window.open('${post.url}', '_blank')">
+                                <div class="card-glow"></div>
+                                <div class="corner-accent"></div>
+                                <div style="padding: var(--space-6);">
+                                    <div style="font-size: 2rem; margin-bottom: var(--space-4);">🐦</div>
+                                    <h3 style="font-size: 1.3rem; margin-bottom: var(--space-3); color: var(--cyan-bright);">
+                                        ${post.title}
+                                    </h3>
+                                    <p style="font-size: 0.9rem; color: var(--teal); margin-bottom: var(--space-4);">
+                                        ${post.date}
+                                    </p>
+                                    ${post.preview ? `
+                                        <p style="font-size: 0.95rem; color: var(--gray-300); line-height: 1.6;">
+                                            ${post.preview}
+                                        </p>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+
+                document.querySelectorAll('#twitterPostsContainer .hall-card').forEach((card, i) => {
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'scale(1)';
+                        playCardReveal();
+                    }, i * 100);
+                });
+
+            } catch (error) {
+                console.error('Failed to load Twitter posts:', error);
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 3rem; color: var(--cyan-bright);">
+                        <p>⚠️ Failed to load posts. Please try again.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // X Profiles modal
+        async function openXProfiles() {
+            const modal = document.getElementById('xProfilesModal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            playSound('modal-open', 1);
+
+            const container = document.getElementById('xProfilesContainer');
+
+            try {
+                const response = await fetch('/api/x-profiles');
+                const profiles = await response.json();
+
+                if (profiles.error) {
+                    container.innerHTML = `
+                        <div style="text-align: center; padding: 3rem; color: var(--cyan-bright);">
+                            <p>⚠️ Error loading profiles: ${profiles.error}</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = `
+                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: var(--space-6);">
+                        ${profiles.map((profile, i) => `
+                            <div class="hall-card" style="animation-delay: ${i * 0.05}s; cursor: pointer; text-align: center;"
+                                 onclick="window.open('${profile.url}', '_blank')">
+                                <div class="card-glow"></div>
+                                <div class="corner-accent"></div>
+                                <div style="padding: var(--space-6);">
+                                    <div style="font-size: 2.5rem; margin-bottom: var(--space-3);">
+                                        ${profile.avatar || '👤'}
+                                    </div>
+                                    <h3 style="font-size: 1.2rem; margin-bottom: var(--space-2); color: var(--cyan-bright);">
+                                        ${profile.name}
+                                    </h3>
+                                    <p style="font-size: 0.95rem; color: var(--teal);">
+                                        ${profile.handle}
+                                    </p>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+
+                document.querySelectorAll('#xProfilesContainer .hall-card').forEach((card, i) => {
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'scale(1)';
+                        playCardReveal();
+                    }, i * 50);
+                });
+
+            } catch (error) {
+                console.error('Failed to load X profiles:', error);
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 3rem; color: var(--cyan-bright);">
+                        <p>⚠️ Failed to load profiles. Please try again.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Video Tutorials (placeholder for Phase 6)
+        function openVideoTutorials() {
+            alert('Video tutorials coming soon! 🎥');
         }
 
         function closeModal(modalId) {
