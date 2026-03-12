@@ -21,3 +21,6 @@ build/
 
 # Vercel
 .vercel
+
+# Brainstorming mockups
+.superpowers/
