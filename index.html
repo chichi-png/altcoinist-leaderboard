@@ -3759,49 +3759,53 @@
 
         // Leaderboard data and pagination state
         const affiliatesData = [
-            {rank: 1, name: 'Rb3k', handle: '@rbthreek', avatar: 'R', tweets: 12, referrals: 206, traders: 103, total: 321, imgSrc: 'assets/images/affiliates/Rb3k_(rbthreek).jpg', profileUrl: 'https://x.com/rbthreek'},
-            {rank: 2, name: 'N30', handle: '@N30_cryptoo', avatar: 'NC', tweets: 106, referrals: 22, traders: 5, total: 133, imgSrc: 'assets/images/affiliates/N30_(n30_cryptoo).jpg', profileUrl: 'https://x.com/N30_cryptoo'},
-            {rank: 3, name: 'Slavicbased', handle: '@basedsnipez', avatar: 'S', tweets: 41, referrals: 80, traders: 8, total: 129, imgSrc: 'assets/images/affiliates/Slavicbased_(basedsnipez).jpg', profileUrl: 'https://x.com/basedsnipez'},
-            {rank: 4, name: 'DJ', handle: '@nlinker777', avatar: 'DJ', tweets: 79, referrals: 2, traders: 1, total: 82, imgSrc: 'assets/images/affiliates/DJ_(nlinker777).jpg', profileUrl: 'https://x.com/NLinker777'},
-            {rank: 5, name: 'Tyler Kenny', handle: '@thebasedfrogx', avatar: 'T', tweets: 55, referrals: 10, traders: 2, total: 67, imgSrc: 'assets/images/affiliates/Tyler_Kenny_(thebasedfrogx).jpg', profileUrl: 'https://x.com/thebasedfrogx'},
-            {rank: 6, name: 'Spenny', handle: '@SpennyCrypto', avatar: 'S', tweets: 19, referrals: 19, traders: 5, total: 43, imgSrc: 'assets/images/affiliates/Spenny_(spennycrypto).jpg', profileUrl: 'https://x.com/SpennyCrypto'},
-            {rank: 7, name: 'Arindewar', handle: '@arindewar', avatar: 'A', tweets: 35, referrals: 5, traders: 1, total: 41, imgSrc: 'assets/images/affiliates/Arindewar_(arindewar).jpg', profileUrl: 'https://x.com/arindewar'},
-            {rank: 8, name: 'Mj', handle: '@Vanxyrus', avatar: 'V', tweets: 26, referrals: 8, traders: 3, total: 37, imgSrc: 'assets/images/affiliates/Mj_(vanxyrus).jpg', profileUrl: 'https://x.com/Vanxyrus'},
-            {rank: 9, name: 'mDiBe89', handle: '@tibbiracer', avatar: 'M', tweets: 23, referrals: 0, traders: 0, total: 23, imgSrc: 'assets/images/affiliates/mDiBe89_(tibbiracer).jpg', profileUrl: 'https://x.com/tibbiracer'},
-            {rank: 10, name: 'I_Love_Dogs21', handle: '@I_Love_Dogs21', avatar: 'IL', tweets: 0, referrals: 20, traders: 1, total: 21, imgSrc: 'assets/images/affiliates/I_Love_Dogs21_I_Love_Dogs21.jpg', profileUrl: 'https://x.com/I_Love_Dogs21'},
-            {rank: 11, name: 'Flynn', handle: '@flynn_howitt', avatar: 'F', tweets: 17, referrals: 0, traders: 0, total: 17, imgSrc: 'assets/images/affiliates/Flynn_(flynn_howitt).jpg', profileUrl: 'https://x.com/Flynn_howitt'},
-            {rank: 12, name: 'Debankind', handle: '@DebankinDad', avatar: 'D', tweets: 17, referrals: 0, traders: 0, total: 17, imgSrc: 'assets/images/affiliates/Debankind_(debankindad).jpg', profileUrl: 'https://x.com/DebankinDad'},
-            {rank: 13, name: 'Chiron', handle: '@chironchain', avatar: 'C', tweets: 1, referrals: 9, traders: 6, total: 16, imgSrc: 'assets/images/affiliates/Chiron_(chironchain).jpg', profileUrl: 'https://x.com/chironchain'},
-            {rank: 14, name: 'Neo Lawyer', handle: '@NeoLawyer1', avatar: 'N', tweets: 8, referrals: 5, traders: 1, total: 14, imgSrc: 'assets/images/affiliates/neo_lawyer_(neolawyer1).jpg', profileUrl: 'https://x.com/Neolawyer1'},
-            {rank: 15, name: 'Big Hammer', handle: '@joebangsjr', avatar: 'BH', tweets: 8, referrals: 3, traders: 1, total: 12, imgSrc: 'assets/images/affiliates/big_hammer_(joebangsjr).jpg', profileUrl: 'https://x.com/joebangsjr'},
-            {rank: 16, name: 'Borny', handle: '@unborninfinite', avatar: 'B', tweets: 4, referrals: 5, traders: 0, total: 9, imgSrc: 'assets/images/affiliates/Borny_(unborninfinite).jpg', profileUrl: 'https://x.com/unborninfinite'},
-            {rank: 17, name: 'Mr Thurgood', handle: '@Maksym_Kuznetsov', avatar: 'MK', tweets: 2, referrals: 7, traders: 0, total: 9, imgSrc: 'assets/images/affiliates/Maksym_Kuznetsov_Maksym_Kuznetsov.jpg', profileUrl: 'https://x.com/Maksym_Kuznetsov'},
-            {rank: 18, name: 'Premium Mind', handle: '@deepseektetra', avatar: 'PM', tweets: 8, referrals: 0, traders: 0, total: 8, imgSrc: 'assets/images/affiliates/Premium_Mind_(deepseektetra).jpg', profileUrl: 'https://x.com/deepseektetra'},
-            {rank: 19, name: 'Cryptic_t', handle: '@cryptic_tits', avatar: 'C', tweets: 2, referrals: 3, traders: 1, total: 6, imgSrc: 'assets/images/affiliates/cryptic_t_(cryptic_tits).png', profileUrl: 'https://x.com/cryptic_tits'},
-            {rank: 20, name: 'Anderson', handle: '@0x7_anderson', avatar: 'A', tweets: 4, referrals: 2, traders: 0, total: 6, imgSrc: 'assets/images/affiliates/Anderson_(0x7_anderson).jpg', profileUrl: 'https://x.com/0x7_anderson'},
-            {rank: 21, name: 'LC', handle: '@mrlcguy', avatar: 'LC', tweets: 2, referrals: 4, traders: 0, total: 6, imgSrc: 'assets/images/affiliates/LC_(mrlcguy).jpg', profileUrl: 'https://x.com/mrlcguy'},
-            {rank: 22, name: 'Base Pop', handle: '@kd11201', avatar: 'BP', tweets: 5, referrals: 0, traders: 0, total: 5, imgSrc: 'assets/images/affiliates/Base_Pop_(kd11201).jpg', profileUrl: 'https://x.com/KD11201'},
-            {rank: 23, name: 'Medbdy', handle: '@medbdy', avatar: 'M', tweets: 1, referrals: 4, traders: 0, total: 5, imgSrc: 'assets/images/affiliates/Medbdy_(medbdy).jpg', profileUrl: 'https://x.com/medbdy'},
-            {rank: 24, name: 'Shake', handle: '@shake51_', avatar: 'S', tweets: 3, referrals: 1, traders: 0, total: 4, imgSrc: 'assets/images/affiliates/Shake_(shake51_).jpg', profileUrl: 'https://x.com/Shake51_'},
-            {rank: 25, name: 'Joebangsjr', handle: '@jeyojeyojeyo', avatar: 'J', tweets: 3, referrals: 0, traders: 1, total: 4, imgSrc: 'assets/images/affiliates/jeyojeyojeyo_jeyojeyojeyo.jpg', profileUrl: 'https://x.com/jeyojeyojeyo'},
-            {rank: 26, name: 'Alf', handle: '@alfy11116', avatar: 'A', tweets: 3, referrals: 1, traders: 0, total: 4, imgSrc: 'assets/images/affiliates/Alf_(alfy11116).jpg', profileUrl: 'https://x.com/alfy11116'},
-            {rank: 27, name: 'Nlinker', handle: '@JIHANWOOOO', avatar: 'J', tweets: 3, referrals: 1, traders: 0, total: 4, imgSrc: 'assets/images/affiliates/JIHANWOOOO_JIHANWOOOO.jpg', profileUrl: 'https://x.com/JIHANWOOOO'},
-            {rank: 28, name: 'Cryptic_t', handle: '@cryptic_tits', avatar: 'C', tweets: 2, referrals: 0, traders: 0, total: 2, imgSrc: 'assets/images/affiliates/cryptic_t_(cryptic_tits).png', profileUrl: 'https://x.com/cryptic_tits'},
-            {rank: 29, name: '3Dmax', handle: '@3dmax_virtuals', avatar: '3D', tweets: 2, referrals: 0, traders: 0, total: 2, imgSrc: 'assets/images/affiliates/3Dmax_(3dmax_virtuals).jpg', profileUrl: 'https://x.com/3DMax_Virtuals'},
-            {rank: 30, name: 'SexCaliber', handle: '@sexcalibur31', avatar: 'SC', tweets: 1, referrals: 0, traders: 0, total: 1, imgSrc: 'assets/images/affiliates/SexCaliber_(sexcalibur31).jpg', profileUrl: 'https://x.com/Sexcalibur31'},
-            {rank: 31, name: 'Math', handle: '@mathburn666', avatar: 'M', tweets: 1, referrals: 0, traders: 0, total: 1, imgSrc: 'assets/images/affiliates/Math_(mathburn666).jpg', profileUrl: 'https://x.com/mathburn666'},
-            {rank: 32, name: 'Nouyarao', handle: '@sentientom', avatar: 'N', tweets: 0, referrals: 0, traders: 0, total: 0, imgSrc: 'assets/images/affiliates/Nouyarao_(sentientom).jpg', profileUrl: 'https://x.com/sentientom'},
-            {rank: 33, name: 'AltcoinMiyagi', handle: '@altcoinmiyagi', avatar: 'AM', tweets: 0, referrals: 0, traders: 0, total: 0, imgSrc: 'assets/images/affiliates/AltcoinMiyagi_(altcoinmiyagi).jpg', profileUrl: 'https://x.com/AltcoinMiyagi'},
-            {rank: 34, name: 'Zeus', handle: '@vlagudfsfjr', avatar: 'Z', tweets: 0, referrals: 0, traders: 0, total: 0, imgSrc: 'assets/images/affiliates/Zeus_(vlagudfsfjr).jpg', profileUrl: 'https://x.com/vlagudfsfjr'},
-            {rank: 35, name: 'Karaiso', handle: '@karaiso4', avatar: 'K', tweets: 0, referrals: 0, traders: 0, total: 0, imgSrc: 'assets/images/affiliates/Karaiso_(karaiso4).jpg', profileUrl: 'https://x.com/karaiso4'},
-            {rank: 36, name: 'Poorad', handle: '@pooorad', avatar: 'P', tweets: 0, referrals: 0, traders: 0, total: 0, imgSrc: 'assets/images/affiliates/poorad_(pooorad).jpg', profileUrl: 'https://x.com/Pooorad'},
-            {rank: 37, name: 'Kapo', handle: '@kapothegoat01', avatar: 'K', tweets: 0, referrals: 0, traders: 0, total: 0, imgSrc: 'assets/images/affiliates/kapo_(kapothegoat01).jpg', profileUrl: 'https://x.com/KAPOTHEGOAT01'},
-            {rank: 38, name: 'Techy', handle: '@techy0x', avatar: 'T', tweets: 0, referrals: 0, traders: 0, total: 0, imgSrc: 'assets/images/affiliates/techy_(techy0x).jpg', profileUrl: 'https://x.com/techy0x'}
+            {rank: 1, name: 'Rb3k', handle: '@rbthreek', avatar: 'R', tweets: 12, referrals: 206, traders: 103, total: 321, imgSrc: 'assets/images/affiliates/Rb3k_(rbthreek).jpg', profileUrl: 'https://x.com/rbthreek', bio: 'Crypto trader & Altcoinist affiliate | Bringing alpha to the masses 📈', location: 'Global'},
+            {rank: 2, name: 'N30', handle: '@N30_cryptoo', avatar: 'NC', tweets: 106, referrals: 22, traders: 5, total: 133, imgSrc: 'assets/images/affiliates/N30_(n30_cryptoo).jpg', profileUrl: 'https://x.com/N30_cryptoo', bio: 'DeFi enthusiast | Altcoinist partner | Sharing the best crypto opportunities 🚀', location: 'Worldwide'},
+            {rank: 3, name: 'Slavicbased', handle: '@basedsnipez', avatar: 'S', tweets: 41, referrals: 80, traders: 8, total: 129, imgSrc: 'assets/images/affiliates/Slavicbased_(basedsnipez).jpg', profileUrl: 'https://x.com/basedsnipez', bio: 'Based trader | Crypto native | Altcoinist affiliate helping you find gems 💎', location: 'Europe'},
+            {rank: 4, name: 'DJ', handle: '@nlinker777', avatar: 'DJ', tweets: 79, referrals: 2, traders: 1, total: 82, imgSrc: 'assets/images/affiliates/DJ_(nlinker777).jpg', profileUrl: 'https://x.com/NLinker777', bio: 'Crypto trader | Content creator | Altcoinist affiliate sharing the best plays 🎯', location: 'Online'},
+            {rank: 5, name: 'Tyler Kenny', handle: '@thebasedfrogx', avatar: 'T', tweets: 55, referrals: 10, traders: 2, total: 67, imgSrc: 'assets/images/affiliates/Tyler_Kenny_(thebasedfrogx).jpg', profileUrl: 'https://x.com/thebasedfrogx', bio: 'Based frog energy | Altcoin hunter | Helping you navigate crypto 🐸💰', location: 'DeFi'},
+            {rank: 6, name: 'Spenny', handle: '@SpennyCrypto', avatar: 'S', tweets: 19, referrals: 19, traders: 5, total: 43, imgSrc: 'assets/images/affiliates/Spenny_(spennycrypto).jpg', profileUrl: 'https://x.com/SpennyCrypto', bio: 'Crypto analyst | Altcoinist partner | Building wealth one trade at a time ⚡', location: 'Crypto Twitter'},
+            {rank: 7, name: 'Arindewar', handle: '@arindewar', avatar: 'A', tweets: 35, referrals: 5, traders: 1, total: 41, imgSrc: 'assets/images/affiliates/Arindewar_(arindewar).jpg', profileUrl: 'https://x.com/arindewar', bio: 'Web3 enthusiast | Altcoinist affiliate | Sharing alpha and opportunities 🌐', location: 'Metaverse'},
+            {rank: 8, name: 'Mj', handle: '@Vanxyrus', avatar: 'V', tweets: 26, referrals: 8, traders: 3, total: 37, imgSrc: 'assets/images/affiliates/Mj_(vanxyrus).jpg', profileUrl: 'https://x.com/Vanxyrus', bio: 'Crypto trader | DeFi explorer | Helping others grow their portfolio 📊', location: 'Worldwide'},
+            {rank: 9, name: 'mDiBe89', handle: '@tibbiracer', avatar: 'M', tweets: 23, referrals: 0, traders: 0, total: 23, imgSrc: 'assets/images/affiliates/mDiBe89_(tibbiracer).jpg', profileUrl: 'https://x.com/tibbiracer', bio: 'Racing through crypto markets | Altcoinist affiliate | Fast lanes only 🏎️', location: 'Digital'},
+            {rank: 10, name: 'I_Love_Dogs21', handle: '@I_Love_Dogs21', avatar: 'IL', tweets: 0, referrals: 20, traders: 1, total: 21, imgSrc: 'assets/images/affiliates/I_Love_Dogs21_I_Love_Dogs21.jpg', profileUrl: 'https://x.com/I_Love_Dogs21', bio: 'Dog coins & DeFi | Altcoinist affiliate | Building my pack 🐕', location: 'Dogecoin HQ'},
+            {rank: 11, name: 'Flynn', handle: '@flynn_howitt', avatar: 'F', tweets: 17, referrals: 0, traders: 0, total: 17, imgSrc: 'assets/images/affiliates/Flynn_(flynn_howitt).jpg', profileUrl: 'https://x.com/Flynn_howitt', bio: 'Crypto content creator | Altcoinist affiliate | Bringing value to the community 🎬', location: 'Content World'},
+            {rank: 12, name: 'Debankind', handle: '@DebankinDad', avatar: 'D', tweets: 17, referrals: 0, traders: 0, total: 17, imgSrc: 'assets/images/affiliates/Debankind_(debankindad).jpg', profileUrl: 'https://x.com/DebankinDad', bio: 'DeFi dad | Crypto advocate | Altcoinist partner sharing opportunities 👨‍👧‍👦', location: 'DeFi Land'},
+            {rank: 13, name: 'Chiron', handle: '@chironchain', avatar: 'C', tweets: 1, referrals: 9, traders: 6, total: 16, imgSrc: 'assets/images/affiliates/Chiron_(chironchain).jpg', profileUrl: 'https://x.com/chironchain', bio: 'Blockchain builder | Altcoinist affiliate | Onchain alpha provider ⛓️', location: 'The Blockchain'},
+            {rank: 14, name: 'Neo Lawyer', handle: '@NeoLawyer1', avatar: 'N', tweets: 8, referrals: 5, traders: 1, total: 14, imgSrc: 'assets/images/affiliates/neo_lawyer_(neolawyer1).jpg', profileUrl: 'https://x.com/Neolawyer1', bio: 'Crypto legal expert | Altcoinist partner | Navigating Web3 compliance ⚖️', location: 'Legal Zone'},
+            {rank: 15, name: 'Big Hammer', handle: '@joebangsjr', avatar: 'BH', tweets: 8, referrals: 3, traders: 1, total: 12, imgSrc: 'assets/images/affiliates/big_hammer_(joebangsjr).jpg', profileUrl: 'https://x.com/joebangsjr', bio: 'Hitting crypto hard | Altcoinist affiliate | Smashing through markets 🔨', location: 'Trading Pit'},
+            {rank: 16, name: 'Borny', handle: '@unborninfinite', avatar: 'B', tweets: 4, referrals: 5, traders: 0, total: 9, imgSrc: 'assets/images/affiliates/Borny_(unborninfinite).jpg', profileUrl: 'https://x.com/unborninfinite', bio: 'Infinite possibilities | Altcoinist affiliate | Exploring crypto frontiers ∞', location: 'Beyond'},
+            {rank: 17, name: 'Mr Thurgood', handle: '@Maksym_Kuznetsov', avatar: 'MK', tweets: 2, referrals: 7, traders: 0, total: 9, imgSrc: 'assets/images/affiliates/Maksym_Kuznetsov_Maksym_Kuznetsov.jpg', profileUrl: 'https://x.com/Maksym_Kuznetsov', bio: 'Crypto strategist | Altcoinist partner | Building generational wealth 💼', location: 'Strategy HQ'},
+            {rank: 18, name: 'Premium Mind', handle: '@deepseektetra', avatar: 'PM', tweets: 8, referrals: 0, traders: 0, total: 8, imgSrc: 'assets/images/affiliates/Premium_Mind_(deepseektetra).jpg', profileUrl: 'https://x.com/deepseektetra', bio: 'Deep thinker | Altcoinist affiliate | Premium crypto insights 🧠', location: 'The Matrix'},
+            {rank: 19, name: 'Cryptic_t', handle: '@cryptic_tits', avatar: 'C', tweets: 2, referrals: 3, traders: 1, total: 6, imgSrc: 'assets/images/affiliates/cryptic_t_(cryptic_tits).png', profileUrl: 'https://x.com/cryptic_tits', bio: 'Mysterious trader | Altcoinist partner | Decoding crypto signals 🔐', location: 'Encrypted'},
+            {rank: 20, name: 'Anderson', handle: '@0x7_anderson', avatar: 'A', tweets: 4, referrals: 2, traders: 0, total: 6, imgSrc: 'assets/images/affiliates/Anderson_(0x7_anderson).jpg', profileUrl: 'https://x.com/0x7_anderson', bio: '0x7 protocol enthusiast | Altcoinist affiliate | Onchain opportunities 🎲', location: 'Protocol Layer'},
+            {rank: 21, name: 'LC', handle: '@mrlcguy', avatar: 'LC', tweets: 2, referrals: 4, traders: 0, total: 6, imgSrc: 'assets/images/affiliates/LC_(mrlcguy).jpg', profileUrl: 'https://x.com/mrlcguy', bio: 'LC energy | Altcoinist affiliate | Crypto opportunities daily 🌊', location: 'Crypto Waves'},
+            {rank: 22, name: 'Base Pop', handle: '@kd11201', avatar: 'BP', tweets: 5, referrals: 0, traders: 0, total: 5, imgSrc: 'assets/images/affiliates/Base_Pop_(kd11201).jpg', profileUrl: 'https://x.com/KD11201', bio: 'Based on Base | Altcoinist partner | L2 maximalist 🔵', location: 'Base Chain'},
+            {rank: 23, name: 'Medbdy', handle: '@medbdy', avatar: 'M', tweets: 1, referrals: 4, traders: 0, total: 5, imgSrc: 'assets/images/affiliates/Medbdy_(medbdy).jpg', profileUrl: 'https://x.com/medbdy', bio: 'Crypto health check | Altcoinist affiliate | Keeping portfolios healthy 🩺', location: 'Med Bay'},
+            {rank: 24, name: 'Shake', handle: '@shake51_', avatar: 'S', tweets: 3, referrals: 1, traders: 0, total: 4, imgSrc: 'assets/images/affiliates/Shake_(shake51_).jpg', profileUrl: 'https://x.com/Shake51_', bio: 'Shaking up crypto | Altcoinist partner | Making moves 🤝', location: 'Trading Floor'},
+            {rank: 25, name: 'Joebangsjr', handle: '@jeyojeyojeyo', avatar: 'J', tweets: 3, referrals: 0, traders: 1, total: 4, imgSrc: 'assets/images/affiliates/jeyojeyojeyo_jeyojeyojeyo.jpg', profileUrl: 'https://x.com/jeyojeyojeyo', bio: 'Crypto enthusiast | Altcoinist affiliate | Building my empire 🏗️', location: 'Empire State'},
+            {rank: 26, name: 'Alf', handle: '@alfy11116', avatar: 'A', tweets: 3, referrals: 1, traders: 0, total: 4, imgSrc: 'assets/images/affiliates/Alf_(alfy11116).jpg', profileUrl: 'https://x.com/alfy11116', bio: 'Alien among traders | Altcoinist partner | Out of this world plays 👽', location: 'Outer Space'},
+            {rank: 27, name: 'Nlinker', handle: '@JIHANWOOOO', avatar: 'J', tweets: 3, referrals: 1, traders: 0, total: 4, imgSrc: 'assets/images/affiliates/JIHANWOOOO_JIHANWOOOO.jpg', profileUrl: 'https://x.com/JIHANWOOOO', bio: 'Linking opportunities | Altcoinist affiliate | Connecting dots in crypto 🔗', location: 'The Network'},
+            {rank: 28, name: 'Cryptic_t', handle: '@cryptic_tits', avatar: 'C', tweets: 2, referrals: 0, traders: 0, total: 2, imgSrc: 'assets/images/affiliates/cryptic_t_(cryptic_tits).png', profileUrl: 'https://x.com/cryptic_tits', bio: 'Mysterious trader | Altcoinist partner | Decoding crypto signals 🔐', location: 'Encrypted'},
+            {rank: 29, name: '3Dmax', handle: '@3dmax_virtuals', avatar: '3D', tweets: 2, referrals: 0, traders: 0, total: 2, imgSrc: 'assets/images/affiliates/3Dmax_(3dmax_virtuals).jpg', profileUrl: 'https://x.com/3DMax_Virtuals', bio: '3D vision | Altcoinist affiliate | Seeing crypto from all angles 🎮', location: 'Virtual Reality'},
+            {rank: 30, name: 'SexCaliber', handle: '@sexcalibur31', avatar: 'SC', tweets: 1, referrals: 0, traders: 0, total: 1, imgSrc: 'assets/images/affiliates/SexCaliber_(sexcalibur31).jpg', profileUrl: 'https://x.com/Sexcalibur31', bio: 'Legendary trader | Altcoinist partner | Wielding profits ⚔️', location: 'Camelot'},
+            {rank: 31, name: 'Math', handle: '@mathburn666', avatar: 'M', tweets: 1, referrals: 0, traders: 0, total: 1, imgSrc: 'assets/images/affiliates/Math_(mathburn666).jpg', profileUrl: 'https://x.com/mathburn666', bio: 'Numbers don\'t lie | Altcoinist affiliate | Mathematical crypto approach 🔢', location: 'Equation Zone'},
+            {rank: 32, name: 'Nouyarao', handle: '@sentientom', avatar: 'N', tweets: 0, referrals: 0, traders: 0, total: 0, imgSrc: 'assets/images/affiliates/Nouyarao_(sentientom).jpg', profileUrl: 'https://x.com/sentientom', bio: 'Sentient being | Altcoinist partner | Conscious crypto trading 🤖', location: 'AI Realm'},
+            {rank: 33, name: 'AltcoinMiyagi', handle: '@altcoinmiyagi', avatar: 'AM', tweets: 0, referrals: 0, traders: 0, total: 0, imgSrc: 'assets/images/affiliates/AltcoinMiyagi_(altcoinmiyagi).jpg', profileUrl: 'https://x.com/AltcoinMiyagi', bio: 'Crypto sensei | Altcoinist affiliate | Teaching the way of altcoins 🥋', location: 'Dojo'},
+            {rank: 34, name: 'Zeus', handle: '@vlagudfsfjr', avatar: 'Z', tweets: 0, referrals: 0, traders: 0, total: 0, imgSrc: 'assets/images/affiliates/Zeus_(vlagudfsfjr).jpg', profileUrl: 'https://x.com/vlagudfsfjr', bio: 'Thunder trader | Altcoinist partner | Striking when the market\'s hot ⚡', location: 'Mount Olympus'},
+            {rank: 35, name: 'Karaiso', handle: '@karaiso4', avatar: 'K', tweets: 0, referrals: 0, traders: 0, total: 0, imgSrc: 'assets/images/affiliates/Karaiso_(karaiso4).jpg', profileUrl: 'https://x.com/karaiso4', bio: 'Crypto journeyman | Altcoinist affiliate | Finding hidden gems 💎', location: 'Treasure Island'},
+            {rank: 36, name: 'Poorad', handle: '@pooorad', avatar: 'P', tweets: 0, referrals: 0, traders: 0, total: 0, imgSrc: 'assets/images/affiliates/poorad_(pooorad).jpg', profileUrl: 'https://x.com/Pooorad', bio: 'Building wealth from scratch | Altcoinist partner | Rags to riches 📈', location: 'Moon Mission'},
+            {rank: 37, name: 'Kapo', handle: '@kapothegoat01', avatar: 'K', tweets: 0, referrals: 0, traders: 0, total: 0, imgSrc: 'assets/images/affiliates/kapo_(kapothegoat01).jpg', profileUrl: 'https://x.com/KAPOTHEGOAT01', bio: 'GOAT trader | Altcoinist affiliate | Greatest of all trades 🐐', location: 'Top of the Mountain'},
+            {rank: 38, name: 'Techy', handle: '@techy0x', avatar: 'T', tweets: 0, referrals: 0, traders: 0, total: 0, imgSrc: 'assets/images/affiliates/techy_(techy0x).jpg', profileUrl: 'https://x.com/techy0x', bio: 'Tech-savvy trader | Altcoinist partner | 0x protocol enthusiast 💻', location: 'Tech Hub'}
         ];
 
         let currentPage = 1;
         const itemsPerPage = 10;
         const totalPages = Math.ceil(affiliatesData.length / itemsPerPage);
+
+        // Affiliates page pagination
+        let affiliatesCurrentPage = 1;
+        const affiliatesPerPage = 5;
 
         function renderLeaderboardPage() {
             const tbody = document.querySelector('.leaderboard-table tbody');
@@ -4343,11 +4347,19 @@
                     tweetCount: affiliate.tweets || 0
                 }));
 
-                // Render simple preview cards in grid
-                const cardsHtml = window.currentAffiliatesList.map((affiliate, i) => {
+                // Calculate pagination
+                const totalAffiliates = window.currentAffiliatesList.length;
+                const totalAffiliatesPages = Math.ceil(totalAffiliates / affiliatesPerPage);
+                const startIndex = (affiliatesCurrentPage - 1) * affiliatesPerPage;
+                const endIndex = Math.min(startIndex + affiliatesPerPage, totalAffiliates);
+                const pageAffiliates = window.currentAffiliatesList.slice(startIndex, endIndex);
+
+                // Render simple preview cards in grid (only current page)
+                const cardsHtml = pageAffiliates.map((affiliate, i) => {
+                    const globalIndex = startIndex + i;
                     return `
                         <div class="hall-card" style="animation-delay: ${i * 0.05}s; cursor: pointer; text-align: center; position: relative;"
-                             onclick="openAffiliateProfileModal(${i})">
+                             onclick="openAffiliateProfileModal(${globalIndex})">
                             <div class="card-glow"></div>
                             <div class="corner-accent"></div>
                             ${affiliate.rank ? `
@@ -4380,6 +4392,23 @@
                     <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 2rem; max-width: 1400px; margin: 0 auto;">
                         ${cardsHtml}
                     </div>
+
+                    <!-- Pagination Controls -->
+                    ${totalAffiliatesPages > 1 ? `
+                        <div style="display: flex; justify-content: center; align-items: center; gap: 2rem; margin-top: 3rem; padding: 2rem;">
+                            <button class="btn" onclick="changeAffiliatesPage(-1)" ${affiliatesCurrentPage === 1 ? 'disabled' : ''}
+                                    style="padding: 0.75rem 1.5rem; ${affiliatesCurrentPage === 1 ? 'opacity: 0.5; cursor: not-allowed;' : 'cursor: pointer;'}">
+                                <span>← Previous</span>
+                            </button>
+                            <div style="font-size: 1.1rem; color: var(--cyan-bright); font-weight: bold;">
+                                Page ${affiliatesCurrentPage} of ${totalAffiliatesPages}
+                            </div>
+                            <button class="btn" onclick="changeAffiliatesPage(1)" ${affiliatesCurrentPage === totalAffiliatesPages ? 'disabled' : ''}
+                                    style="padding: 0.75rem 1.5rem; ${affiliatesCurrentPage === totalAffiliatesPages ? 'opacity: 0.5; cursor: not-allowed;' : 'cursor: pointer;'}">
+                                <span>Next →</span>
+                            </button>
+                        </div>
+                    ` : ''}
                 `;
 
                 // Animate cards
@@ -4399,6 +4428,19 @@
             }
         }
 
+        function changeAffiliatesPage(direction) {
+            const totalAffiliates = window.currentAffiliatesList.length;
+            const totalAffiliatesPages = Math.ceil(totalAffiliates / affiliatesPerPage);
+            const newPage = affiliatesCurrentPage + direction;
+
+            if (newPage >= 1 && newPage <= totalAffiliatesPages) {
+                affiliatesCurrentPage = newPage;
+                loadAffiliatesPage();
+                window.scrollTo({ top: 200, behavior: 'smooth' });
+                playSound('card-click');
+            }
+        }
+
         function openAffiliateProfileModal(index) {
             const affiliate = window.currentAffiliatesList[index];
             const modal = document.getElementById('affiliateProfileModal');
@@ -4407,19 +4449,21 @@
             // Build the profile card HTML
             content.innerHTML = `
                 <div style="background: linear-gradient(135deg, rgba(0, 30, 60, 0.9), rgba(0, 50, 80, 0.9)); border-radius: 20px; overflow: hidden; border: 2px solid var(--cyan-bright); box-shadow: 0 0 40px rgba(0, 255, 255, 0.3);">
-                    <!-- Banner placeholder -->
-                    <div style="height: 150px; background: linear-gradient(135deg, var(--cyan-bright), var(--teal)); position: relative;">
+                    <!-- Banner -->
+                    <div style="height: 200px; background: linear-gradient(135deg, rgba(0, 150, 200, 0.3), rgba(0, 200, 150, 0.3)), linear-gradient(45deg, transparent 30%, rgba(0, 255, 255, 0.1) 30%, rgba(0, 255, 255, 0.1) 70%, transparent 70%), linear-gradient(-45deg, transparent 30%, rgba(0, 229, 204, 0.1) 30%, rgba(0, 229, 204, 0.1) 70%, transparent 70%); background-size: 100% 100%, 20px 20px, 20px 20px; background-position: 0 0, 0 0, 10px 10px; position: relative; overflow: hidden;">
+                        <!-- Cyber grid overlay -->
+                        <div style="position: absolute; inset: 0; background: repeating-linear-gradient(0deg, rgba(0, 255, 255, 0.05) 0px, transparent 1px, transparent 40px, rgba(0, 255, 255, 0.05) 41px), repeating-linear-gradient(90deg, rgba(0, 255, 255, 0.05) 0px, transparent 1px, transparent 40px, rgba(0, 255, 255, 0.05) 41px);"></div>
                         ${affiliate.rank ? `
-                            <div style="position: absolute; top: 15px; right: 15px; background: rgba(0, 0, 0, 0.8); color: var(--cyan-bright); padding: 8px 16px; border-radius: 20px; font-size: 1rem; font-weight: bold; border: 2px solid var(--cyan-bright);">
+                            <div style="position: absolute; top: 15px; right: 15px; background: rgba(0, 0, 0, 0.9); color: var(--cyan-bright); padding: 10px 20px; border-radius: 20px; font-size: 1.1rem; font-weight: bold; border: 2px solid var(--cyan-bright); box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);">
                                 #${affiliate.rank}
                             </div>
                         ` : ''}
                     </div>
 
                     <!-- Profile section -->
-                    <div style="padding: 0 2rem 2rem 2rem; position: relative; margin-top: -50px;">
+                    <div style="padding: 0 2rem 2rem 2rem; position: relative; margin-top: -60px;">
                         <!-- Profile picture -->
-                        <div style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden; border: 5px solid var(--dark-bg); box-shadow: 0 0 30px rgba(0, 255, 255, 0.5); margin-bottom: 1rem; background: var(--dark-bg);">
+                        <div style="width: 130px; height: 130px; border-radius: 50%; overflow: hidden; border: 5px solid var(--dark-bg); box-shadow: 0 0 30px rgba(0, 255, 255, 0.5); margin-bottom: 1rem; background: var(--dark-bg);">
                             ${affiliate.imgSrc ? `
                                 <img src="${affiliate.imgSrc}" alt="${affiliate.name}" style="width: 100%; height: 100%; object-fit: cover;">
                             ` : `
@@ -4433,9 +4477,23 @@
                         <h2 style="font-size: 2rem; color: var(--cyan-bright); margin-bottom: 0.5rem; font-weight: bold;">
                             ${affiliate.name}
                         </h2>
-                        <p style="font-size: 1.1rem; color: var(--teal); margin-bottom: 1.5rem;">
+                        <p style="font-size: 1.1rem; color: var(--teal); margin-bottom: 0.5rem;">
                             ${affiliate.displayHandle}
                         </p>
+
+                        <!-- Bio -->
+                        ${affiliate.bio ? `
+                            <p style="font-size: 1rem; color: #e1e8ed; margin-bottom: 1rem; line-height: 1.5;">
+                                ${affiliate.bio}
+                            </p>
+                        ` : ''}
+
+                        <!-- Location -->
+                        ${affiliate.location ? `
+                            <p style="font-size: 0.9rem; color: var(--teal); margin-bottom: 1.5rem;">
+                                📍 ${affiliate.location}
+                            </p>
+                        ` : '<div style="margin-bottom: 1.5rem;"></div>'}
 
                         <!-- Stats grid -->
                         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
