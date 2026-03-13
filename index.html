@@ -2780,6 +2780,32 @@
             .entries-info {
                 font-size: 0.8rem;
             }
+
+            /* Mobile header navigation */
+            header nav {
+                flex-direction: column !important;
+                gap: 1rem !important;
+                padding: 1rem !important;
+            }
+
+            header nav > div:first-child {
+                font-size: 1.8rem !important;
+                text-align: center;
+            }
+
+            header nav > div:last-child {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav-btn {
+                font-size: 0.9rem !important;
+                padding: 0.6rem 1rem !important;
+            }
+
+            .page-container {
+                padding-top: 160px !important; /* Extra padding for taller mobile header */
+            }
         }
         /* Header Navigation Styles */
         .nav-btn:hover {
@@ -3262,48 +3288,6 @@
 
             <div id="affiliateProfileContent" style="position: relative; z-index: 2; max-width: 800px; margin: 0 auto;">
                 <!-- Profile content will be injected here -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Affiliates Directory Modal -->
-    <div class="modal" id="affiliatesModal" onclick="closeModalOnBackdrop(event, 'affiliatesModal')">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <div class="hall-background">
-                <div class="gallery-wall left"></div>
-                <div class="gallery-wall right"></div>
-            </div>
-            <button class="close-btn" onclick="closeAffiliatesModal()">×</button>
-            <button class="back-btn" onclick="closeAffiliatesModal()">
-                <span>← Back</span>
-            </button>
-            <h2 class="modal-title">🎯 Affiliates Directory</h2>
-            <p class="modal-subtitle">View all affiliates and their promotional content</p>
-            <div id="affiliatesGridContainer" style="position: relative; z-index: 2; max-width: 1400px; margin: 0 auto;">
-                <div style="text-align: center; padding: 3rem; color: var(--cyan-bright);">
-                    <div style="font-size: 3rem; margin-bottom: 1rem;">⚡</div>
-                    <p>Loading affiliates...</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Individual Affiliate Profile Modal -->
-    <div class="modal" id="affiliateProfileModal" onclick="closeModalOnBackdrop(event, 'affiliateProfileModal')">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <div class="hall-background">
-                <div class="gallery-wall left"></div>
-                <div class="gallery-wall right"></div>
-            </div>
-            <button class="close-btn" onclick="closeAffiliateProfile()">×</button>
-            <button class="back-btn" onclick="backToAffiliatesGrid()">
-                <span>← Back to Directory</span>
-            </button>
-            <div id="affiliateProfileContent" style="position: relative; z-index: 2; max-width: 1200px; margin: 0 auto;">
-                <!-- Profile header injected here -->
-            </div>
-            <div id="affiliateTweetsContainer" style="position: relative; z-index: 2; max-width: 1200px; margin: 2rem auto 0;">
-                <!-- Tweets injected here -->
             </div>
         </div>
     </div>
@@ -4678,9 +4662,12 @@
             playSound('modal-close');
         }
 
-        // ===== Affiliates Directory Functions =====
+        // ===== Affiliates Directory Functions (DEPRECATED - Old Modal System) =====
+        // NOTE: These functions reference deleted modals and are no longer used
+        // They remain for backwards compatibility but should not be called
+        // New page-based system uses loadAffiliatesPage() instead
 
-        // Global state for affiliates directory
+        // Global state for affiliates directory (kept for compatibility)
         let affiliatesApiData = null;
         let currentAffiliateHandle = null;
         let currentAffiliateDisplayedTweets = 10;
@@ -4997,37 +4984,6 @@
             if (affiliate) {
                 renderTweetFeed(affiliate.apiTweets, affiliate);
             }
-        }
-
-        function closeAffiliatesModal() {
-            const modal = document.getElementById('affiliatesModal');
-            modal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-            playSound('modal-close');
-        }
-
-        function closeAffiliateProfile() {
-            const modal = document.getElementById('affiliateProfileModal');
-            modal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-            playSound('modal-close');
-            currentAffiliateHandle = null;
-            currentAffiliateDisplayedTweets = 10;
-        }
-
-        function backToAffiliatesGrid() {
-            // Hide profile modal
-            document.getElementById('affiliateProfileModal').classList.remove('active');
-            playSound('modal-close');
-
-            // Show grid modal
-            setTimeout(() => {
-                document.getElementById('affiliatesModal').classList.add('active');
-                playSound('modal-open', 1);
-            }, 200);
-
-            currentAffiliateHandle = null;
-            currentAffiliateDisplayedTweets = 10;
         }
 
         // ===== End Affiliates Directory Functions =====
