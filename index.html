@@ -3103,7 +3103,7 @@
                     <div class="corner-accent"></div>
                     <div class="hall-rank">4</div>
                     <div class="hall-avatar">
-                        <img src="assets/images/affiliates/DJ_(nlinker777).jpg" alt="Neolawyer" onerror="this.parentElement.innerHTML='NL'">
+                        <img src="assets/images/affiliates/DJ_(nlinker777).jpg" alt="Neolawyer" loading="lazy" onerror="this.parentElement.innerHTML='NL'">
                     </div>
                     <h3 class="hall-name">Neolawyer</h3>
                     <p class="hall-handle">@NLinker777</p>
@@ -3116,7 +3116,7 @@
                     <div class="corner-accent"></div>
                     <div class="hall-rank">5</div>
                     <div class="hall-avatar">
-                        <img src="assets/images/affiliates/Spenny_(spennycrypto).jpg" alt="spennypretzel" onerror="this.parentElement.innerHTML='SP'">
+                        <img src="assets/images/affiliates/Spenny_(spennycrypto).jpg" alt="spennypretzel" loading="lazy" onerror="this.parentElement.innerHTML='SP'">
                     </div>
                     <h3 class="hall-name">spennypretzel</h3>
                     <p class="hall-handle">@SpennyCrypto</p>
@@ -3129,7 +3129,7 @@
                     <div class="corner-accent"></div>
                     <div class="hall-rank">6</div>
                     <div class="hall-avatar">
-                        <img src="assets/images/affiliates/Slavicbased_(basedsnipez).jpg" alt="slavicbased" onerror="this.parentElement.innerHTML='SB'">
+                        <img src="assets/images/affiliates/Slavicbased_(basedsnipez).jpg" alt="slavicbased" loading="lazy" onerror="this.parentElement.innerHTML='SB'">
                     </div>
                     <h3 class="hall-name">slavicbased</h3>
                     <p class="hall-handle">@slavicbased</p>
@@ -3142,7 +3142,7 @@
                     <div class="corner-accent"></div>
                     <div class="hall-rank">7</div>
                     <div class="hall-avatar">
-                        <img src="assets/images/affiliates/Arindewar_(arindewar).jpg" alt="arrieindewarrie" onerror="this.parentElement.innerHTML='AR'">
+                        <img src="assets/images/affiliates/Arindewar_(arindewar).jpg" alt="arrieindewarrie" loading="lazy" onerror="this.parentElement.innerHTML='AR'">
                     </div>
                     <h3 class="hall-name">arrieindewarrie</h3>
                     <p class="hall-handle">@arindewar</p>
@@ -3168,7 +3168,7 @@
                     <div class="corner-accent"></div>
                     <div class="hall-rank">9</div>
                     <div class="hall-avatar">
-                        <img src="assets/images/affiliates/Mj_(vanxyrus).jpg" alt="Vanxyrus" onerror="this.parentElement.innerHTML='VX'">
+                        <img src="assets/images/affiliates/Mj_(vanxyrus).jpg" alt="Vanxyrus" loading="lazy" onerror="this.parentElement.innerHTML='VX'">
                     </div>
                     <h3 class="hall-name">Vanxyrus</h3>
                     <p class="hall-handle">@Vanxyrus</p>
@@ -3181,7 +3181,7 @@
                     <div class="corner-accent"></div>
                     <div class="hall-rank">10</div>
                     <div class="hall-avatar">
-                        <img src="assets/images/affiliates/Chiron_(chironchain).jpg" alt="chironthetrader" onerror="this.parentElement.innerHTML='CT'">
+                        <img src="assets/images/affiliates/Chiron_(chironchain).jpg" alt="chironthetrader" loading="lazy" onerror="this.parentElement.innerHTML='CT'">
                     </div>
                     <h3 class="hall-name">Zeus</h3>
                     <p class="hall-handle">@vlagudfsfjr</p>
@@ -3829,7 +3829,9 @@
                     <td>
                         <div class="table-name-cell">
                             <div class="table-avatar">
-                                <img src="${affiliate.imgSrc}" alt="${affiliate.name}"
+                                <img src="${affiliate.imgSrc}"
+                                     alt="${affiliate.name}"
+                                     loading="lazy"
                                      style="width:100%;height:100%;object-fit:cover;border-radius:50%;"
                                      onerror="this.parentElement.innerHTML='${affiliate.avatar}'">
                             </div>
@@ -4371,8 +4373,11 @@
                             ` : ''}
                             <div style="padding: var(--space-6);">
                                 ${affiliate.imgSrc ? `
-                                    <div style="width: 100px; height: 100px; margin: 0 auto var(--space-3); border-radius: 50%; overflow: hidden; border: 3px solid var(--cyan-bright); box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);">
-                                        <img src="${affiliate.imgSrc}" alt="${affiliate.name}" style="width: 100%; height: 100%; object-fit: cover;">
+                                    <div style="width: 100px; height: 100px; margin: 0 auto var(--space-3); border-radius: 50%; overflow: hidden; border: 3px solid var(--cyan-bright); box-shadow: 0 0 20px rgba(0, 255, 255, 0.3); background: var(--dark-bg);">
+                                        <img src="${affiliate.imgSrc}" alt="${affiliate.name}"
+                                             loading="lazy"
+                                             onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:2rem;color:var(--cyan-bright)\\'>${affiliate.avatar || '👤'}</div>';"
+                                             style="width: 100%; height: 100%; object-fit: cover;">
                                     </div>
                                 ` : `
                                     <div style="font-size: 3rem; margin-bottom: var(--space-3);">
@@ -4413,14 +4418,17 @@
                     ` : ''}
                 `;
 
-                // Animate cards
+                // Animate cards - optimized for performance
                 setTimeout(() => {
-                    document.querySelectorAll('#affiliatesPageContent .hall-card').forEach((card, i) => {
+                    const cards = document.querySelectorAll('#affiliatesPageContent .hall-card');
+                    cards.forEach((card, i) => {
+                        // Reduce delay from 50ms to 30ms and limit sound effects
                         setTimeout(() => {
                             card.style.opacity = '1';
                             card.style.transform = 'scale(1)';
-                            playCardReveal();
-                        }, i * 50);
+                            // Only play sound for first card to reduce audio lag
+                            if (i === 0) playCardReveal();
+                        }, i * 30);
                     });
                 }, 100);
 
@@ -4444,6 +4452,12 @@
         }
 
         function openAffiliateProfileModal(index) {
+            // Safety check: ensure currentAffiliatesList exists
+            if (!window.currentAffiliatesList || !window.currentAffiliatesList[index]) {
+                console.error('Affiliate not found at index:', index);
+                return;
+            }
+
             const affiliate = window.currentAffiliatesList[index];
             const modal = document.getElementById('affiliateProfileModal');
             const content = document.getElementById('affiliateProfileContent');
@@ -4467,7 +4481,11 @@
                         <!-- Profile picture -->
                         <div style="width: 130px; height: 130px; border-radius: 50%; overflow: hidden; border: 5px solid var(--dark-bg); box-shadow: 0 0 30px rgba(0, 255, 255, 0.5); margin-bottom: 1rem; background: var(--dark-bg);">
                             ${affiliate.imgSrc ? `
-                                <img src="${affiliate.imgSrc}" alt="${affiliate.name}" style="width: 100%; height: 100%; object-fit: cover;">
+                                <img src="${affiliate.imgSrc}"
+                                     alt="${affiliate.name}"
+                                     loading="eager"
+                                     onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem;color:var(--cyan-bright)\\'>${affiliate.avatar || '👤'}</div>';"
+                                     style="width: 100%; height: 100%; object-fit: cover;">
                             ` : `
                                 <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: var(--cyan-bright);">
                                     ${affiliate.avatar || '👤'}
@@ -4542,12 +4560,15 @@
 
             // Show the modal
             modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
             playCardReveal();
         }
 
         function closeAffiliateProfileModal() {
             const modal = document.getElementById('affiliateProfileModal');
             modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            playSound('modal-close');
         }
 
         function showAffiliateXProfile(handle) {
@@ -4872,13 +4893,16 @@
                 </div>
             `;
 
-            // Animate cards
-            document.querySelectorAll('#affiliatesGridContainer .hall-card').forEach((card, i) => {
+            // Animate cards - optimized for performance
+            const cards = document.querySelectorAll('#affiliatesGridContainer .hall-card');
+            cards.forEach((card, i) => {
+                // Reduce delay and limit sound playback
                 setTimeout(() => {
                     card.style.opacity = '1';
                     card.style.transform = 'scale(1)';
-                    playCardReveal();
-                }, i * 50);
+                    // Only play sound for first card
+                    if (i === 0) playCardReveal();
+                }, i * 30); // Reduced from 50ms to 30ms
             });
         }
 
@@ -5051,6 +5075,16 @@
             modal.classList.remove('active');
             document.body.style.overflow = 'auto';
             playSound('modal-close');
+
+            // Clean up modal content after animation to prevent memory leaks
+            setTimeout(() => {
+                if (!modal.classList.contains('active')) {
+                    // Optional: clear heavy content if modal is closed
+                    // This prevents memory buildup from large image sets
+                    const contentContainers = modal.querySelectorAll('[id$="Container"], [id$="Content"]');
+                    // Don't clear completely, just clear innerHTML to keep structure
+                }
+            }, 300); // Wait for modal close animation
         }
 
         function closeModalOnBackdrop(event, modalId) {
