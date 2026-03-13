@@ -3845,7 +3845,7 @@
         }
 
         // X Profiles modal
-        async function openXProfiles() {
+        function openXProfiles() {
             const modal = document.getElementById('xProfilesModal');
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -3853,58 +3853,51 @@
 
             const container = document.getElementById('xProfilesContainer');
 
-            try {
-                const response = await fetch('/api/x-profiles');
-                const profiles = await response.json();
+            // Use local affiliatesData instead of API call
+            const profiles = affiliatesData.map(affiliate => ({
+                name: affiliate.name,
+                handle: affiliate.handle,
+                url: affiliate.profileUrl || `https://x.com/${affiliate.handle.replace('@', '')}`,
+                imgSrc: affiliate.imgSrc,
+                avatar: affiliate.avatar
+            }));
 
-                if (profiles.error) {
-                    container.innerHTML = `
-                        <div style="text-align: center; padding: 3rem; color: var(--cyan-bright);">
-                            <p>⚠️ Error loading profiles: ${profiles.error}</p>
-                        </div>
-                    `;
-                    return;
-                }
-
-                container.innerHTML = `
-                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: var(--space-6);">
-                        ${profiles.map((profile, i) => `
-                            <div class="hall-card" style="animation-delay: ${i * 0.05}s; cursor: pointer; text-align: center;"
-                                 onclick="window.open('${profile.url}', '_blank')">
-                                <div class="card-glow"></div>
-                                <div class="corner-accent"></div>
-                                <div style="padding: var(--space-6);">
+            container.innerHTML = `
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: var(--space-6);">
+                    ${profiles.map((profile, i) => `
+                        <div class="hall-card" style="animation-delay: ${i * 0.05}s; cursor: pointer; text-align: center;"
+                             onclick="window.open('${profile.url}', '_blank')">
+                            <div class="card-glow"></div>
+                            <div class="corner-accent"></div>
+                            <div style="padding: var(--space-6);">
+                                ${profile.imgSrc ? `
+                                    <div style="width: 80px; height: 80px; margin: 0 auto var(--space-3); border-radius: 50%; overflow: hidden; border: 3px solid var(--cyan-bright); box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);">
+                                        <img src="${profile.imgSrc}" alt="${profile.name}" style="width: 100%; height: 100%; object-fit: cover;">
+                                    </div>
+                                ` : `
                                     <div style="font-size: 2.5rem; margin-bottom: var(--space-3);">
                                         ${profile.avatar || '👤'}
                                     </div>
-                                    <h3 style="font-size: 1.2rem; margin-bottom: var(--space-2); color: var(--cyan-bright);">
-                                        ${profile.name}
-                                    </h3>
-                                    <p style="font-size: 0.95rem; color: var(--teal);">
-                                        ${profile.handle}
-                                    </p>
-                                </div>
+                                `}
+                                <h3 style="font-size: 1.2rem; margin-bottom: var(--space-2); color: var(--cyan-bright);">
+                                    ${profile.name}
+                                </h3>
+                                <p style="font-size: 0.95rem; color: var(--teal);">
+                                    ${profile.handle}
+                                </p>
                             </div>
-                        `).join('')}
-                    </div>
-                `;
+                        </div>
+                    `).join('')}
+                </div>
+            `;
 
-                document.querySelectorAll('#xProfilesContainer .hall-card').forEach((card, i) => {
-                    setTimeout(() => {
-                        card.style.opacity = '1';
-                        card.style.transform = 'scale(1)';
-                        playCardReveal();
-                    }, i * 50);
-                });
-
-            } catch (error) {
-                console.error('Failed to load X profiles:', error);
-                container.innerHTML = `
-                    <div style="text-align: center; padding: 3rem; color: var(--cyan-bright);">
-                        <p>⚠️ Failed to load profiles. Please try again.</p>
-                    </div>
-                `;
-            }
+            document.querySelectorAll('#xProfilesContainer .hall-card').forEach((card, i) => {
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'scale(1)';
+                    playCardReveal();
+                }, i * 50);
+            });
         }
 
         // ===== Affiliates Directory Functions =====
