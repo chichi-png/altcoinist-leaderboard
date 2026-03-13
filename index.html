@@ -2930,6 +2930,9 @@
             <button class="btn" onclick="openXProfiles()">
                 <span>🔗 X Profiles</span>
             </button>
+            <button class="btn" onclick="openAffiliatesDirectory()">
+                <span>🎯 Affiliates</span>
+            </button>
         </div>
     </section>
 
@@ -3143,6 +3146,48 @@
                     <div style="font-size: 3rem; margin-bottom: 1rem;">⚡</div>
                     <p>Loading profiles...</p>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Affiliates Directory Modal -->
+    <div class="modal" id="affiliatesModal" onclick="closeModalOnBackdrop(event, 'affiliatesModal')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="hall-background">
+                <div class="gallery-wall left"></div>
+                <div class="gallery-wall right"></div>
+            </div>
+            <button class="close-btn" onclick="closeAffiliatesModal()">×</button>
+            <button class="back-btn" onclick="closeAffiliatesModal()">
+                <span>← Back</span>
+            </button>
+            <h2 class="modal-title">🎯 Affiliates Directory</h2>
+            <p class="modal-subtitle">View all affiliates and their promotional content</p>
+            <div id="affiliatesGridContainer" style="position: relative; z-index: 2; max-width: 1400px; margin: 0 auto;">
+                <div style="text-align: center; padding: 3rem; color: var(--cyan-bright);">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">⚡</div>
+                    <p>Loading affiliates...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Individual Affiliate Profile Modal -->
+    <div class="modal" id="affiliateProfileModal" onclick="closeModalOnBackdrop(event, 'affiliateProfileModal')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="hall-background">
+                <div class="gallery-wall left"></div>
+                <div class="gallery-wall right"></div>
+            </div>
+            <button class="close-btn" onclick="closeAffiliateProfile()">×</button>
+            <button class="back-btn" onclick="backToAffiliatesGrid()">
+                <span>← Back to Directory</span>
+            </button>
+            <div id="affiliateProfileContent" style="position: relative; z-index: 2; max-width: 1200px; margin: 0 auto;">
+                <!-- Profile header injected here -->
+            </div>
+            <div id="affiliateTweetsContainer" style="position: relative; z-index: 2; max-width: 1200px; margin: 2rem auto 0;">
+                <!-- Tweets injected here -->
             </div>
         </div>
     </div>
@@ -3861,6 +3906,360 @@
                 `;
             }
         }
+
+        // ===== Affiliates Directory Functions =====
+
+        // Global state for affiliates directory
+        let affiliatesApiData = null;
+        let currentAffiliateHandle = null;
+        let currentAffiliateDisplayedTweets = 10;
+
+        async function openAffiliatesDirectory() {
+            const modal = document.getElementById('affiliatesModal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            playSound('modal-open', 1);
+
+            const container = document.getElementById('affiliatesGridContainer');
+
+            try {
+                // Fetch API data (or use cached)
+                if (!affiliatesApiData) {
+                    const response = await fetch('/api/affiliate-tweets');
+                    affiliatesApiData = await response.json();
+                }
+
+                if (!affiliatesApiData.success || affiliatesApiData.error) {
+                    container.innerHTML = `
+                        <div style="text-align: center; padding: 3rem; color: var(--cyan-bright);">
+                            <p>⚠️ Error loading affiliates: ${affiliatesApiData.error || 'Unknown error'}</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                // Merge with leaderboard data
+                const mergedAffiliates = mergeAffiliateData(affiliatesApiData.affiliates);
+
+                // Render grid
+                renderAffiliatesGrid(mergedAffiliates, container);
+
+            } catch (error) {
+                console.error('Failed to load affiliates:', error);
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 3rem; color: var(--cyan-bright);">
+                        <p>⚠️ Failed to load affiliates. Please try again.</p>
+                    </div>
+                `;
+            }
+        }
+
+        function mergeAffiliateData(apiAffiliates) {
+            // Normalize handle for comparison (remove @ and lowercase)
+            const normalizeHandle = (handle) => {
+                return handle.replace(/^@/, '').toLowerCase();
+            };
+
+            // Create map of API affiliates by normalized handle
+            const apiMap = new Map();
+            apiAffiliates.forEach(affiliate => {
+                apiMap.set(normalizeHandle(affiliate.handle), affiliate);
+            });
+
+            // Merge with leaderboard data
+            const merged = [];
+
+            // Add affiliates from leaderboard with API data
+            affiliatesData.forEach(leaderboardAffiliate => {
+                const normalizedHandle = normalizeHandle(leaderboardAffiliate.handle);
+                const apiData = apiMap.get(normalizedHandle);
+
+                merged.push({
+                    rank: leaderboardAffiliate.rank,
+                    name: leaderboardAffiliate.name,
+                    handle: normalizedHandle,
+                    displayHandle: leaderboardAffiliate.handle,
+                    avatar: leaderboardAffiliate.avatar || leaderboardAffiliate.imgSrc,
+                    tweets: leaderboardAffiliate.tweets,
+                    referrals: leaderboardAffiliate.referrals,
+                    traders: leaderboardAffiliate.traders,
+                    total: leaderboardAffiliate.total,
+                    tweetCount: apiData ? apiData.tweetCount : 0,
+                    profileUrl: apiData ? apiData.profileUrl : `https://x.com/${normalizedHandle}`,
+                    apiTweets: apiData ? apiData.tweets : []
+                });
+
+                // Remove from API map (we've processed it)
+                if (apiData) {
+                    apiMap.delete(normalizedHandle);
+                }
+            });
+
+            // Add remaining API affiliates not in leaderboard
+            apiMap.forEach((apiData, handle) => {
+                merged.push({
+                    rank: null,
+                    name: `@${handle}`,
+                    handle: handle,
+                    displayHandle: `@${handle}`,
+                    avatar: '👤',
+                    tweets: 0,
+                    referrals: 0,
+                    traders: 0,
+                    total: 0,
+                    tweetCount: apiData.tweetCount,
+                    profileUrl: apiData.profileUrl,
+                    apiTweets: apiData.tweets
+                });
+            });
+
+            // Sort by rank (nulls last), then by tweet count
+            merged.sort((a, b) => {
+                if (a.rank === null && b.rank === null) return b.tweetCount - a.tweetCount;
+                if (a.rank === null) return 1;
+                if (b.rank === null) return -1;
+                return a.rank - b.rank;
+            });
+
+            return merged;
+        }
+
+        function renderAffiliatesGrid(affiliates, container) {
+            container.innerHTML = `
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--space-6);">
+                    ${affiliates.map((affiliate, i) => `
+                        <div class="hall-card" style="animation-delay: ${i * 0.05}s; cursor: pointer; text-align: center; position: relative;"
+                             onclick="openAffiliateProfile('${affiliate.handle}')">
+                            <div class="card-glow"></div>
+                            <div class="corner-accent"></div>
+                            ${affiliate.rank !== null ? `
+                                <div style="position: absolute; top: 10px; right: 10px; background: linear-gradient(135deg, var(--cyan-bright), var(--teal)); color: var(--dark-bg); padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: bold;">
+                                    #${affiliate.rank}
+                                </div>
+                            ` : ''}
+                            <div style="padding: var(--space-6);">
+                                <div style="font-size: 2.5rem; margin-bottom: var(--space-3);">
+                                    ${affiliate.avatar}
+                                </div>
+                                <h3 style="font-size: 1.1rem; margin-bottom: var(--space-2); color: var(--cyan-bright);">
+                                    ${affiliate.name}
+                                </h3>
+                                <p style="font-size: 0.85rem; color: var(--teal); margin-bottom: var(--space-3);">
+                                    ${affiliate.displayHandle}
+                                </p>
+                                <div style="font-size: 0.9rem; color: var(--cyan-light);">
+                                    📝 ${affiliate.tweetCount} tweet${affiliate.tweetCount !== 1 ? 's' : ''}
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+
+            // Animate cards
+            document.querySelectorAll('#affiliatesGridContainer .hall-card').forEach((card, i) => {
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'scale(1)';
+                    playCardReveal();
+                }, i * 50);
+            });
+        }
+
+        function openAffiliateProfile(handle) {
+            // Find affiliate data
+            const affiliates = mergeAffiliateData(affiliatesApiData.affiliates);
+            const affiliate = affiliates.find(a => a.handle === handle);
+
+            if (!affiliate) {
+                console.error('Affiliate not found:', handle);
+                return;
+            }
+
+            currentAffiliateHandle = handle;
+            currentAffiliateDisplayedTweets = 10;
+
+            // Hide grid modal, show profile modal
+            document.getElementById('affiliatesModal').classList.remove('active');
+            const profileModal = document.getElementById('affiliateProfileModal');
+            profileModal.classList.add('active');
+            playSound('modal-open', 1);
+
+            // Render profile header
+            renderProfileHeader(affiliate);
+
+            // Render tweet feed
+            renderTweetFeed(affiliate.apiTweets, affiliate);
+        }
+
+        function renderProfileHeader(affiliate) {
+            const container = document.getElementById('affiliateProfileContent');
+
+            container.innerHTML = `
+                <div style="text-align: center; padding: var(--space-8) var(--space-6);">
+                    <div style="font-size: 4rem; margin-bottom: var(--space-4);">
+                        ${affiliate.avatar}
+                    </div>
+                    <h2 style="font-size: 2rem; margin-bottom: var(--space-2); color: var(--cyan-bright);">
+                        ${affiliate.name}
+                    </h2>
+                    <p style="font-size: 1.2rem; color: var(--teal); margin-bottom: var(--space-6);">
+                        ${affiliate.displayHandle}
+                    </p>
+
+                    ${affiliate.rank !== null ? `
+                        <div style="display: inline-flex; gap: var(--space-4); margin-bottom: var(--space-6); flex-wrap: wrap; justify-content: center;">
+                            <div style="background: rgba(0, 255, 255, 0.1); padding: var(--space-3) var(--space-5); border-radius: 12px;">
+                                <div style="font-size: 0.85rem; color: var(--teal); margin-bottom: 4px;">Rank</div>
+                                <div style="font-size: 1.5rem; color: var(--cyan-bright); font-weight: bold;">#${affiliate.rank}</div>
+                            </div>
+                            <div style="background: rgba(0, 255, 255, 0.1); padding: var(--space-3) var(--space-5); border-radius: 12px;">
+                                <div style="font-size: 0.85rem; color: var(--teal); margin-bottom: 4px;">Referrals</div>
+                                <div style="font-size: 1.5rem; color: var(--cyan-bright); font-weight: bold;">${affiliate.referrals}</div>
+                            </div>
+                            <div style="background: rgba(0, 255, 255, 0.1); padding: var(--space-3) var(--space-5); border-radius: 12px;">
+                                <div style="font-size: 0.85rem; color: var(--teal); margin-bottom: 4px;">Tweets</div>
+                                <div style="font-size: 1.5rem; color: var(--cyan-bright); font-weight: bold;">${affiliate.tweets}</div>
+                            </div>
+                            <div style="background: rgba(0, 255, 255, 0.1); padding: var(--space-3) var(--space-5); border-radius: 12px;">
+                                <div style="font-size: 0.85rem; color: var(--teal); margin-bottom: 4px;">Total</div>
+                                <div style="font-size: 1.5rem; color: var(--cyan-bright); font-weight: bold;">$${affiliate.total.toLocaleString()}</div>
+                            </div>
+                        </div>
+                    ` : ''}
+
+                    <button class="btn" onclick="window.open('${affiliate.profileUrl}', '_blank')" style="margin-top: var(--space-4);">
+                        <span>🔗 Visit X Profile</span>
+                    </button>
+                </div>
+            `;
+        }
+
+        function renderTweetFeed(tweets, affiliate) {
+            const container = document.getElementById('affiliateTweetsContainer');
+
+            if (!tweets || tweets.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 3rem; color: var(--cyan-bright);">
+                        <p>No promotional tweets available yet</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const tweetsToShow = tweets.slice(0, currentAffiliateDisplayedTweets);
+            const hasMore = tweets.length > currentAffiliateDisplayedTweets;
+
+            container.innerHTML = `
+                <h3 style="font-size: 1.5rem; margin-bottom: var(--space-6); text-align: center; color: var(--cyan-bright);">
+                    📝 Promotional Tweets (${tweets.length})
+                </h3>
+                <div style="display: grid; gap: var(--space-6); max-width: 800px; margin: 0 auto;">
+                    ${tweetsToShow.map((tweet, i) => {
+                        const date = new Date(tweet.postedOn);
+                        const formattedDate = date.toLocaleDateString('en-US', {
+                            month: 'short',
+                            day: 'numeric',
+                            year: 'numeric'
+                        });
+
+                        return `
+                            <div class="hall-card" style="animation-delay: ${i * 0.05}s;">
+                                <div class="card-glow"></div>
+                                <div class="corner-accent"></div>
+                                <div style="padding: var(--space-6);">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4);">
+                                        <div style="font-size: 0.9rem; color: var(--teal);">
+                                            📅 ${formattedDate}
+                                        </div>
+                                        <a href="${tweet.link}" target="_blank"
+                                           style="color: var(--cyan-bright); text-decoration: none; font-size: 0.9rem; padding: 6px 12px; background: rgba(0, 255, 255, 0.1); border-radius: 8px; transition: all 0.3s;"
+                                           onmouseover="this.style.background='rgba(0, 255, 255, 0.2)'"
+                                           onmouseout="this.style.background='rgba(0, 255, 255, 0.1)'">
+                                            View on X →
+                                        </a>
+                                    </div>
+
+                                    ${tweet.insight ? `
+                                        <div style="margin-bottom: var(--space-4); padding: var(--space-4); background: rgba(0, 255, 255, 0.05); border-radius: 8px; border-left: 3px solid var(--cyan-bright);">
+                                            <div style="font-size: 0.95rem; color: var(--cyan-light); line-height: 1.6;">
+                                                ${tweet.insight}
+                                            </div>
+                                        </div>
+                                    ` : ''}
+
+                                    <div style="display: flex; gap: var(--space-5); flex-wrap: wrap; font-size: 0.9rem; color: var(--teal);">
+                                        <div>❤️ ${tweet.likes.toLocaleString()}</div>
+                                        <div>💬 ${tweet.replies.toLocaleString()}</div>
+                                        <div>🔄 ${tweet.reposts.toLocaleString()}</div>
+                                        <div>🔖 ${tweet.bookmarks.toLocaleString()}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+
+                ${hasMore ? `
+                    <div style="text-align: center; margin-top: var(--space-8);">
+                        <button class="btn" onclick="loadMoreTweets()">
+                            <span>Load More Tweets</span>
+                        </button>
+                    </div>
+                ` : ''}
+            `;
+
+            // Animate cards
+            document.querySelectorAll('#affiliateTweetsContainer .hall-card').forEach((card, i) => {
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'scale(1)';
+                    playCardReveal();
+                }, i * 50);
+            });
+        }
+
+        function loadMoreTweets() {
+            currentAffiliateDisplayedTweets += 10;
+            const affiliates = mergeAffiliateData(affiliatesApiData.affiliates);
+            const affiliate = affiliates.find(a => a.handle === currentAffiliateHandle);
+            if (affiliate) {
+                renderTweetFeed(affiliate.apiTweets, affiliate);
+            }
+        }
+
+        function closeAffiliatesModal() {
+            const modal = document.getElementById('affiliatesModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            playSound('modal-close');
+        }
+
+        function closeAffiliateProfile() {
+            const modal = document.getElementById('affiliateProfileModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            playSound('modal-close');
+            currentAffiliateHandle = null;
+            currentAffiliateDisplayedTweets = 10;
+        }
+
+        function backToAffiliatesGrid() {
+            // Hide profile modal
+            document.getElementById('affiliateProfileModal').classList.remove('active');
+            playSound('modal-close');
+
+            // Show grid modal
+            setTimeout(() => {
+                document.getElementById('affiliatesModal').classList.add('active');
+                playSound('modal-open', 1);
+            }, 200);
+
+            currentAffiliateHandle = null;
+            currentAffiliateDisplayedTweets = 10;
+        }
+
+        // ===== End Affiliates Directory Functions =====
 
         function closeModal(modalId) {
             const modal = document.getElementById(modalId);
