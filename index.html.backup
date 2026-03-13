@@ -2793,6 +2793,30 @@
         <div class="ambient-glow glow-3"></div>
 
         <!-- Password Gate Modal -->
+        <div class="modal active" id="passwordModal" style="z-index: 99999;">
+            <div class="modal-content" style="max-width: 500px;" onclick="event.stopPropagation()">
+                <h2 class="modal-title" style="font-size: 2.5rem;">Affiliate Access</h2>
+                <p class="modal-subtitle">Enter password to continue</p>
+
+                <div style="padding: 2rem;">
+                    <input
+                        type="password"
+                        id="passwordInput"
+                        placeholder="Enter password"
+                        style="width: 100%; padding: 1rem; font-size: 1.2rem; background: var(--gray-900); border: 2px solid var(--gray-700); border-radius: var(--radius-lg); color: white; margin-bottom: 1rem;"
+                        onkeypress="if(event.key==='Enter') checkPassword()"
+                    />
+                    <button class="btn" onclick="checkPassword()" style="width: 100%;">
+                        <span>Enter</span>
+                    </button>
+                    <p id="passwordError" style="color: var(--cyan-bright); margin-top: 1rem; display: none;">Incorrect password</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mute Button -->
+    <button class="mute-btn" onclick="toggleMute()" aria-label="Toggle sound">
         <span id="muteIcon">⚡</span>
     </button>
 
@@ -2819,7 +2843,7 @@
                         <div class="ring-mask"></div>
                     </div>
                     <div class="avatar-main">
-                        <img src="assets/images/affiliates/Rb3k_(rbthreek).jpg" alt="Rb3k" onerror="this.parentElement.innerHTML='R'">
+                        <img src="assets/images/affiliates/rbthreek_rbthreek.jpg" alt="Rb3k" onerror="this.parentElement.innerHTML='R'">
                     </div>
                 </div>
                 <h2 class="affiliate-name">Rb3k</h2>
@@ -2854,7 +2878,7 @@
                         <div class="ring-mask"></div>
                     </div>
                     <div class="avatar-main">
-                        <img src="assets/images/affiliates/N30_(n30_cryptoo).jpg" alt="N30" onerror="this.parentElement.innerHTML='NC'">
+                        <img src="assets/images/affiliates/N30_CRYPTO_N30_cryptoo.jpg" alt="N30" onerror="this.parentElement.innerHTML='NC'">
                     </div>
                 </div>
                 <h2 class="affiliate-name">N30</h2>
@@ -2889,7 +2913,7 @@
                         <div class="ring-mask"></div>
                     </div>
                     <div class="avatar-main">
-                        <img src="assets/images/affiliates/Slavicbased_(basedsnipez).jpg" alt="Slavicbased" onerror="this.parentElement.innerHTML='S'">
+                        <img src="assets/images/affiliates/slavicbased_basedsnipez.jpg" alt="Slavicbased" onerror="this.parentElement.innerHTML='S'">
                     </div>
                 </div>
                 <h2 class="affiliate-name">Slavicbased</h2>
@@ -2981,7 +3005,7 @@
                     <div class="corner-accent"></div>
                     <div class="hall-rank">4</div>
                     <div class="hall-avatar">
-                        <img src="assets/images/affiliates/DJ_(nlinker777).jpg" alt="Neolawyer" onerror="this.parentElement.innerHTML='NL'">
+                        <img src="assets/images/affiliates/DJ_nlinker777.jpg" alt="Neolawyer" onerror="this.parentElement.innerHTML='NL'">
                     </div>
                     <h3 class="hall-name">Neolawyer</h3>
                     <p class="hall-handle">@NLinker777</p>
@@ -2994,7 +3018,7 @@
                     <div class="corner-accent"></div>
                     <div class="hall-rank">5</div>
                     <div class="hall-avatar">
-                        <img src="assets/images/affiliates/Spenny_(spennycrypto).jpg" alt="spennypretzel" onerror="this.parentElement.innerHTML='SP'">
+                        <img src="assets/images/affiliates/Spenny_spennycrypto.jpg" alt="spennypretzel" onerror="this.parentElement.innerHTML='SP'">
                     </div>
                     <h3 class="hall-name">spennypretzel</h3>
                     <p class="hall-handle">@SpennyCrypto</p>
@@ -3007,7 +3031,7 @@
                     <div class="corner-accent"></div>
                     <div class="hall-rank">6</div>
                     <div class="hall-avatar">
-                        <img src="assets/images/affiliates/Slavicbased_(basedsnipez).jpg" alt="slavicbased" onerror="this.parentElement.innerHTML='SB'">
+                        <img src="assets/images/affiliates/Slavicbased_basedsnipez.jpg" alt="slavicbased" onerror="this.parentElement.innerHTML='SB'">
                     </div>
                     <h3 class="hall-name">slavicbased</h3>
                     <p class="hall-handle">@slavicbased</p>
@@ -3020,7 +3044,7 @@
                     <div class="corner-accent"></div>
                     <div class="hall-rank">7</div>
                     <div class="hall-avatar">
-                        <img src="assets/images/affiliates/Arindewar_(arindewar).jpg" alt="arrieindewarrie" onerror="this.parentElement.innerHTML='AR'">
+                        <img src="assets/images/affiliates/Arindewar_arindewar.jpg" alt="arrieindewarrie" onerror="this.parentElement.innerHTML='AR'">
                     </div>
                     <h3 class="hall-name">arrieindewarrie</h3>
                     <p class="hall-handle">@arindewar</p>
@@ -3046,7 +3070,7 @@
                     <div class="corner-accent"></div>
                     <div class="hall-rank">9</div>
                     <div class="hall-avatar">
-                        <img src="assets/images/affiliates/Mj_(vanxyrus).jpg" alt="Vanxyrus" onerror="this.parentElement.innerHTML='VX'">
+                        <img src="assets/images/affiliates/Mj_vanxyrus.jpg" alt="Vanxyrus" onerror="this.parentElement.innerHTML='VX'">
                     </div>
                     <h3 class="hall-name">Vanxyrus</h3>
                     <p class="hall-handle">@Vanxyrus</p>
@@ -3059,7 +3083,7 @@
                     <div class="corner-accent"></div>
                     <div class="hall-rank">10</div>
                     <div class="hall-avatar">
-                        <img src="assets/images/affiliates/Chiron_(chironchain).jpg" alt="chironthetrader" onerror="this.parentElement.innerHTML='CT'">
+                        <img src="assets/images/affiliates/Chiron_chironchain.jpg" alt="chironthetrader" onerror="this.parentElement.innerHTML='CT'">
                     </div>
                     <h3 class="hall-name">Zeus</h3>
                     <p class="hall-handle">@vlagudfsfjr</p>
@@ -3615,44 +3639,44 @@
 
         // Leaderboard data and pagination state
         const affiliatesData = [
-            {rank: 1, name: 'Rb3k', handle: '@rbthreek', avatar: 'R', tweets: 12, referrals: 206, traders: 103, total: 321, imgSrc: 'assets/images/affiliates/Rb3k_(rbthreek).jpg'},
-            {rank: 2, name: 'N30', handle: '@N30_cryptoo', avatar: 'NC', tweets: 106, referrals: 22, traders: 5, total: 133, imgSrc: 'assets/images/affiliates/N30_(n30_cryptoo).jpg'},
-            {rank: 3, name: 'Slavicbased', handle: '@basedsnipez', avatar: 'S', tweets: 41, referrals: 80, traders: 8, total: 129, imgSrc: 'assets/images/affiliates/Slavicbased_(basedsnipez).jpg'},
-            {rank: 4, name: 'DJ', handle: '@nlinker777', avatar: 'DJ', tweets: 79, referrals: 2, traders: 1, total: 82, imgSrc: 'assets/images/affiliates/DJ_(nlinker777).jpg'},
-            {rank: 5, name: 'Tyler Kenny', handle: '@thebasedfrogx', avatar: 'T', tweets: 55, referrals: 10, traders: 2, total: 67, imgSrc: 'assets/images/affiliates/Tyler_Kenny_(thebasedfrogx).jpg'},
-            {rank: 6, name: 'Spenny', handle: '@SpennyCrypto', avatar: 'S', tweets: 19, referrals: 19, traders: 5, total: 43, imgSrc: 'assets/images/affiliates/Spenny_(spennycrypto).jpg'},
-            {rank: 7, name: 'Arindewar', handle: '@arindewar', avatar: 'A', tweets: 35, referrals: 5, traders: 1, total: 41, imgSrc: 'assets/images/affiliates/Arindewar_(arindewar).jpg'},
-            {rank: 8, name: 'Mj', handle: '@Vanxyrus', avatar: 'V', tweets: 26, referrals: 8, traders: 3, total: 37, imgSrc: 'assets/images/affiliates/Mj_(vanxyrus).jpg'},
-            {rank: 9, name: 'mDiBe89', handle: '@tibbiracer', avatar: 'M', tweets: 23, referrals: 0, traders: 0, total: 23, imgSrc: 'assets/images/affiliates/mDiBe89_(tibbiracer).jpg'},
+            {rank: 1, name: 'Rb3k', handle: '@rbthreek', avatar: 'R', tweets: 12, referrals: 206, traders: 103, total: 321, imgSrc: 'assets/images/affiliates/rbthreek_rbthreek.jpg'},
+            {rank: 2, name: 'N30', handle: '@N30_cryptoo', avatar: 'NC', tweets: 106, referrals: 22, traders: 5, total: 133, imgSrc: 'assets/images/affiliates/N30_CRYPTO_N30_cryptoo.jpg'},
+            {rank: 3, name: 'Slavicbased', handle: '@basedsnipez', avatar: 'S', tweets: 41, referrals: 80, traders: 8, total: 129, imgSrc: 'assets/images/affiliates/Slavicbased_basedsnipez.jpg'},
+            {rank: 4, name: 'DJ', handle: '@nlinker777', avatar: 'DJ', tweets: 79, referrals: 2, traders: 1, total: 82, imgSrc: 'assets/images/affiliates/DJ_nlinker777.jpg'},
+            {rank: 5, name: 'Tyler Kenny', handle: '@thebasedfrogx', avatar: 'T', tweets: 55, referrals: 10, traders: 2, total: 67, imgSrc: 'assets/images/affiliates/thebasedfrog_thebasedfrogx.jpg'},
+            {rank: 6, name: 'Spenny', handle: '@SpennyCrypto', avatar: 'S', tweets: 19, referrals: 19, traders: 5, total: 43, imgSrc: 'assets/images/affiliates/spennypretzel_SpennyCrypto.jpg'},
+            {rank: 7, name: 'Arindewar', handle: '@arindewar', avatar: 'A', tweets: 35, referrals: 5, traders: 1, total: 41, imgSrc: 'assets/images/affiliates/arrieindewarrie_arindewar.jpg'},
+            {rank: 8, name: 'Mj', handle: '@Vanxyrus', avatar: 'V', tweets: 26, referrals: 8, traders: 3, total: 37, imgSrc: 'assets/images/affiliates/Vanxyrus_Vanxyrus.jpg'},
+            {rank: 9, name: 'mDiBe89', handle: '@tibbiracer', avatar: 'M', tweets: 23, referrals: 0, traders: 0, total: 23, imgSrc: 'assets/images/affiliates/mDiBe89_tibbiracer.jpg'},
             {rank: 10, name: 'I_Love_Dogs21', handle: '@I_Love_Dogs21', avatar: 'IL', tweets: 0, referrals: 20, traders: 1, total: 21, imgSrc: 'assets/images/affiliates/I_Love_Dogs21_I_Love_Dogs21.jpg'},
-            {rank: 11, name: 'Flynn', handle: '@flynn_howitt', avatar: 'F', tweets: 17, referrals: 0, traders: 0, total: 17, imgSrc: 'assets/images/affiliates/Flynn_(flynn_howitt).jpg'},
-            {rank: 12, name: 'Debankind', handle: '@DebankinDad', avatar: 'D', tweets: 17, referrals: 0, traders: 0, total: 17, imgSrc: 'assets/images/affiliates/Debankind_(debankindad).jpg'},
-            {rank: 13, name: 'Chiron', handle: '@chironchain', avatar: 'C', tweets: 1, referrals: 9, traders: 6, total: 16, imgSrc: 'assets/images/affiliates/Chiron_(chironchain).jpg'},
-            {rank: 14, name: 'Neo Lawyer', handle: '@NeoLawyer1', avatar: 'N', tweets: 8, referrals: 5, traders: 1, total: 14, imgSrc: 'assets/images/affiliates/neo_lawyer_(neolawyer1).jpg'},
-            {rank: 15, name: 'Big Hammer', handle: '@joebangsjr', avatar: 'BH', tweets: 8, referrals: 3, traders: 1, total: 12, imgSrc: 'assets/images/affiliates/big_hammer_(joebangsjr).jpg'},
-            {rank: 16, name: 'Borny', handle: '@unborninfinite', avatar: 'B', tweets: 4, referrals: 5, traders: 0, total: 9, imgSrc: 'assets/images/affiliates/Borny_(unborninfinite).jpg'},
+            {rank: 11, name: 'Flynn', handle: '@flynn_howitt', avatar: 'F', tweets: 17, referrals: 0, traders: 0, total: 17, imgSrc: 'assets/images/affiliates/Flynn180_flynn_howitt.jpg'},
+            {rank: 12, name: 'Debankind', handle: '@DebankinDad', avatar: 'D', tweets: 17, referrals: 0, traders: 0, total: 17, imgSrc: 'assets/images/affiliates/Debankindad_DebankinDad.jpg'},
+            {rank: 13, name: 'Chiron', handle: '@chironchain', avatar: 'C', tweets: 1, referrals: 9, traders: 6, total: 16, imgSrc: 'assets/images/affiliates/chironthetrader_chironchain.jpg'},
+            {rank: 14, name: 'Neo Lawyer', handle: '@NeoLawyer1', avatar: 'N', tweets: 8, referrals: 5, traders: 1, total: 14, imgSrc: 'assets/images/affiliates/neo_lawyer_neolawyer1.jpg'},
+            {rank: 15, name: 'Big Hammer', handle: '@joebangsjr', avatar: 'BH', tweets: 8, referrals: 3, traders: 1, total: 12, imgSrc: 'assets/images/affiliates/big_hammer_joebangsjr.jpg'},
+            {rank: 16, name: 'Borny', handle: '@unborninfinite', avatar: 'B', tweets: 4, referrals: 5, traders: 0, total: 9, imgSrc: 'assets/images/affiliates/veryborny_unborninfinite.jpg'},
             {rank: 17, name: 'Mr Thurgood', handle: '@Maksym_Kuznetsov', avatar: 'MK', tweets: 2, referrals: 7, traders: 0, total: 9, imgSrc: 'assets/images/affiliates/Maksym_Kuznetsov_Maksym_Kuznetsov.jpg'},
-            {rank: 18, name: 'Premium Mind', handle: '@deepseektetra', avatar: 'PM', tweets: 8, referrals: 0, traders: 0, total: 8, imgSrc: 'assets/images/affiliates/Premium_Mind_(deepseektetra).jpg'},
-            {rank: 19, name: 'Cryptic_t', handle: '@cryptic_tits', avatar: 'C', tweets: 2, referrals: 3, traders: 1, total: 6, imgSrc: 'assets/images/affiliates/cryptic_t_(cryptic_tits).png'},
-            {rank: 20, name: 'Anderson', handle: '@0x7_anderson', avatar: 'A', tweets: 4, referrals: 2, traders: 0, total: 6, imgSrc: 'assets/images/affiliates/Anderson_(0x7_anderson).jpg'},
-            {rank: 21, name: 'LC', handle: '@mrlcguy', avatar: 'LC', tweets: 2, referrals: 4, traders: 0, total: 6, imgSrc: 'assets/images/affiliates/LC_(mrlcguy).jpg'},
-            {rank: 22, name: 'Base Pop', handle: '@kd11201', avatar: 'BP', tweets: 5, referrals: 0, traders: 0, total: 5, imgSrc: 'assets/images/affiliates/Base_Pop_(kd11201).jpg'},
-            {rank: 23, name: 'Medbdy', handle: '@medbdy', avatar: 'M', tweets: 1, referrals: 4, traders: 0, total: 5, imgSrc: 'assets/images/affiliates/Medbdy_(medbdy).jpg'},
-            {rank: 24, name: 'Shake', handle: '@shake51_', avatar: 'S', tweets: 3, referrals: 1, traders: 0, total: 4, imgSrc: 'assets/images/affiliates/Shake_(shake51_).jpg'},
+            {rank: 18, name: 'Premium Mind', handle: '@deepseektetra', avatar: 'PM', tweets: 8, referrals: 0, traders: 0, total: 8, imgSrc: 'assets/images/affiliates/Premium_Mind_deepseektetra.jpg'},
+            {rank: 19, name: 'Cryptic_t', handle: '@cryptic_tits', avatar: 'C', tweets: 2, referrals: 3, traders: 1, total: 6, imgSrc: 'assets/images/affiliates/cryptocchio0_cryptic_tits.jpg'},
+            {rank: 20, name: 'Anderson', handle: '@0x7_anderson', avatar: 'A', tweets: 4, referrals: 2, traders: 0, total: 6, imgSrc: 'assets/images/affiliates/tarcioanderson_0x7_anderson.jpg'},
+            {rank: 21, name: 'LC', handle: '@mrlcguy', avatar: 'LC', tweets: 2, referrals: 4, traders: 0, total: 6, imgSrc: 'assets/images/affiliates/AltcoinMatcha_mrlcguy.jpg'},
+            {rank: 22, name: 'Base Pop', handle: '@kd11201', avatar: 'BP', tweets: 5, referrals: 0, traders: 0, total: 5, imgSrc: 'assets/images/affiliates/SocialBlocks_kd11201.jpg'},
+            {rank: 23, name: 'Medbdy', handle: '@medbdy', avatar: 'M', tweets: 1, referrals: 4, traders: 0, total: 5, imgSrc: 'assets/images/affiliates/Medbdy7_medbdy.jpg'},
+            {rank: 24, name: 'Shake', handle: '@shake51_', avatar: 'S', tweets: 3, referrals: 1, traders: 0, total: 4, imgSrc: 'assets/images/affiliates/Shake51_shake51_.jpg'},
             {rank: 25, name: 'Joebangsjr', handle: '@jeyojeyojeyo', avatar: 'J', tweets: 3, referrals: 0, traders: 1, total: 4, imgSrc: 'assets/images/affiliates/jeyojeyojeyo_jeyojeyojeyo.jpg'},
-            {rank: 26, name: 'Alf', handle: '@alfy11116', avatar: 'A', tweets: 3, referrals: 1, traders: 0, total: 4, imgSrc: 'assets/images/affiliates/Alf_(alfy11116).jpg'},
+            {rank: 26, name: 'Alf', handle: '@alfy11116', avatar: 'A', tweets: 3, referrals: 1, traders: 0, total: 4, imgSrc: 'assets/images/affiliates/aLfy116_alfy11116.jpg'},
             {rank: 27, name: 'Nlinker', handle: '@JIHANWOOOO', avatar: 'J', tweets: 3, referrals: 1, traders: 0, total: 4, imgSrc: 'assets/images/affiliates/JIHANWOOOO_JIHANWOOOO.jpg'},
-            {rank: 28, name: 'Cryptic_t', handle: '@cryptic_tits', avatar: 'C', tweets: 2, referrals: 0, traders: 0, total: 2, imgSrc: 'assets/images/affiliates/cryptic_t_(cryptic_tits).png'},
-            {rank: 29, name: '3Dmax', handle: '@3dmax_virtuals', avatar: '3D', tweets: 2, referrals: 0, traders: 0, total: 2, imgSrc: 'assets/images/affiliates/3Dmax_(3dmax_virtuals).jpg'},
-            {rank: 30, name: 'SexCaliber', handle: '@sexcalibur31', avatar: 'SC', tweets: 1, referrals: 0, traders: 0, total: 1, imgSrc: 'assets/images/affiliates/SexCaliber_(sexcalibur31).jpg'},
-            {rank: 31, name: 'Math', handle: '@mathburn666', avatar: 'M', tweets: 1, referrals: 0, traders: 0, total: 1, imgSrc: 'assets/images/affiliates/Math_(mathburn666).jpg'},
-            {rank: 32, name: 'Nouyarao', handle: '@sentientom', avatar: 'N', tweets: 0, referrals: 0, traders: 0, total: 0, imgSrc: 'assets/images/affiliates/Nouyarao_(sentientom).jpg'},
-            {rank: 33, name: 'AltcoinMiyagi', handle: '@altcoinmiyagi', avatar: 'AM', tweets: 0, referrals: 0, traders: 0, total: 0, imgSrc: 'assets/images/affiliates/AltcoinMiyagi_(altcoinmiyagi).jpg'},
-            {rank: 34, name: 'Zeus', handle: '@vlagudfsfjr', avatar: 'Z', tweets: 0, referrals: 0, traders: 0, total: 0, imgSrc: 'assets/images/affiliates/Zeus_(vlagudfsfjr).jpg'},
-            {rank: 35, name: 'Karaiso', handle: '@karaiso4', avatar: 'K', tweets: 0, referrals: 0, traders: 0, total: 0, imgSrc: 'assets/images/affiliates/Karaiso_(karaiso4).jpg'},
-            {rank: 36, name: 'Poorad', handle: '@pooorad', avatar: 'P', tweets: 0, referrals: 0, traders: 0, total: 0, imgSrc: 'assets/images/affiliates/poorad_(pooorad).jpg'},
-            {rank: 37, name: 'Kapo', handle: '@kapothegoat01', avatar: 'K', tweets: 0, referrals: 0, traders: 0, total: 0, imgSrc: 'assets/images/affiliates/kapo_(kapothegoat01).jpg'},
-            {rank: 38, name: 'Techy', handle: '@techy0x', avatar: 'T', tweets: 0, referrals: 0, traders: 0, total: 0, imgSrc: 'assets/images/affiliates/techy_(techy0x).jpg'}
+            {rank: 28, name: 'Cryptic_t', handle: '@cryptic_tits', avatar: 'C', tweets: 2, referrals: 0, traders: 0, total: 2, imgSrc: 'assets/images/affiliates/cryptic_t_cryptic_tits.jpg'},
+            {rank: 29, name: '3Dmax', handle: '@3dmax_virtuals', avatar: '3D', tweets: 2, referrals: 0, traders: 0, total: 2, imgSrc: 'assets/images/affiliates/Elohim528_3dmax_virtuals.jpg'},
+            {rank: 30, name: 'SexCaliber', handle: '@sexcalibur31', avatar: 'SC', tweets: 1, referrals: 0, traders: 0, total: 1, imgSrc: 'assets/images/affiliates/sexcalibur31_sexcalibur31.jpg'},
+            {rank: 31, name: 'Math', handle: '@mathburn666', avatar: 'M', tweets: 1, referrals: 0, traders: 0, total: 1, imgSrc: 'assets/images/affiliates/mathburn666_mathburn666.jpg'},
+            {rank: 32, name: 'Nouyarao', handle: '@sentientom', avatar: 'N', tweets: 0, referrals: 0, traders: 0, total: 0, imgSrc: 'assets/images/affiliates/Nouyarao_sentientom.jpg'},
+            {rank: 33, name: 'AltcoinMiyagi', handle: '@altcoinmiyagi', avatar: 'AM', tweets: 0, referrals: 0, traders: 0, total: 0, imgSrc: 'assets/images/affiliates/altcoinist_ai_altcoinmiyagi.jpg'},
+            {rank: 34, name: 'Zeus', handle: '@vlagudfsfjr', avatar: 'Z', tweets: 0, referrals: 0, traders: 0, total: 0, imgSrc: 'assets/images/affiliates/zeus4r_vlagudfsfjr.jpg'},
+            {rank: 35, name: 'Karaiso', handle: '@karaiso4', avatar: 'K', tweets: 0, referrals: 0, traders: 0, total: 0, imgSrc: 'assets/images/affiliates/karaiso_karaiso4.jpg'},
+            {rank: 36, name: 'Poorad', handle: '@pooorad', avatar: 'P', tweets: 0, referrals: 0, traders: 0, total: 0, imgSrc: 'assets/images/affiliates/poorad_pooorad.jpg'},
+            {rank: 37, name: 'Kapo', handle: '@kapothegoat01', avatar: 'K', tweets: 0, referrals: 0, traders: 0, total: 0, imgSrc: 'assets/images/affiliates/kapo_kapothegoat01.jpg'},
+            {rank: 38, name: 'Techy', handle: '@techy0x', avatar: 'T', tweets: 0, referrals: 0, traders: 0, total: 0, imgSrc: 'assets/images/affiliates/techy_techy0x.jpg'}
         ];
 
         let currentPage = 1;
@@ -3734,6 +3758,45 @@
         }
 
         // Password gate functions
+        async function checkPassword() {
+            const input = document.getElementById('passwordInput');
+            const error = document.getElementById('passwordError');
+
+            try {
+                const response = await fetch('/api/check-password', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({password: input.value})
+                });
+
+                const result = await response.json();
+
+                if (result.valid) {
+                    sessionStorage.setItem('affiliateAuth', 'true');
+                    document.getElementById('passwordModal').style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                    playSound('achievement');
+                } else {
+                    error.style.display = 'block';
+                    input.value = '';
+                    playSound('button-click');
+                }
+            } catch (err) {
+                console.error('Password check failed:', err);
+                error.textContent = 'Connection error';
+                error.style.display = 'block';
+            }
+        }
+
+        // Check auth on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            if (sessionStorage.getItem('affiliateAuth') === 'true') {
+                document.getElementById('passwordModal').style.display = 'none';
+            } else {
+                document.getElementById('passwordModal').style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+        });
 
         // Twitter Posts modal
         async function openTwitterPosts() {
