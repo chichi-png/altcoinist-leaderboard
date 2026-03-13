@@ -3847,7 +3847,7 @@
         // X Profiles modal
         // X Profiles pagination state
         let xProfilesCurrentPage = 1;
-        const xProfilesPerPage = 12;
+        const xProfilesPerPage = 6;
         let xProfilesData = [];
 
         function openXProfiles() {
@@ -3887,7 +3887,7 @@
                         </p>
                     </div>
 
-                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--space-7); margin-bottom: var(--space-8);">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2.5rem; margin-bottom: var(--space-8); max-width: 1200px; margin-left: auto; margin-right: auto;">
                         ${currentProfiles.map((profile, i) => `
                             <div class="hall-card" style="animation-delay: ${i * 0.05}s; cursor: pointer; text-align: center; position: relative; padding: var(--space-7);"
                                  onclick="window.open('${profile.url}', '_blank')">
