@@ -3845,52 +3845,128 @@
         }
 
         // X Profiles modal
+        // X Profiles pagination state
+        let xProfilesCurrentPage = 1;
+        const xProfilesPerPage = 12;
+        let xProfilesData = [];
+
         function openXProfiles() {
             const modal = document.getElementById('xProfilesModal');
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
             playSound('modal-open', 1);
 
-            const container = document.getElementById('xProfilesContainer');
-
-            // Use local affiliatesData instead of API call
-            const profiles = affiliatesData.map(affiliate => ({
+            // Prepare profiles data
+            xProfilesData = affiliatesData.map(affiliate => ({
                 name: affiliate.name,
                 handle: affiliate.handle,
                 url: affiliate.profileUrl || `https://x.com/${affiliate.handle.replace('@', '')}`,
                 imgSrc: affiliate.imgSrc,
-                avatar: affiliate.avatar
+                avatar: affiliate.avatar,
+                rank: affiliate.rank,
+                referrals: affiliate.referrals,
+                tweets: affiliate.tweets
             }));
 
+            xProfilesCurrentPage = 1;
+            renderXProfilesPage();
+        }
+
+        function renderXProfilesPage() {
+            const container = document.getElementById('xProfilesContainer');
+            const totalPages = Math.ceil(xProfilesData.length / xProfilesPerPage);
+            const startIndex = (xProfilesCurrentPage - 1) * xProfilesPerPage;
+            const endIndex = startIndex + xProfilesPerPage;
+            const currentProfiles = xProfilesData.slice(startIndex, endIndex);
+
             container.innerHTML = `
-                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: var(--space-6);">
-                    ${profiles.map((profile, i) => `
-                        <div class="hall-card" style="animation-delay: ${i * 0.05}s; cursor: pointer; text-align: center;"
-                             onclick="window.open('${profile.url}', '_blank')">
-                            <div class="card-glow"></div>
-                            <div class="corner-accent"></div>
-                            <div style="padding: var(--space-6);">
+                <div style="margin-bottom: var(--space-8);">
+                    <div style="text-align: center; margin-bottom: var(--space-6);">
+                        <p style="font-size: 1.1rem; color: var(--cyan-light);">
+                            Page ${xProfilesCurrentPage} of ${totalPages} • Showing ${startIndex + 1}-${Math.min(endIndex, xProfilesData.length)} of ${xProfilesData.length} affiliates
+                        </p>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--space-7); margin-bottom: var(--space-8);">
+                        ${currentProfiles.map((profile, i) => `
+                            <div class="hall-card" style="animation-delay: ${i * 0.05}s; cursor: pointer; text-align: center; position: relative; padding: var(--space-7);"
+                                 onclick="window.open('${profile.url}', '_blank')">
+                                <div class="card-glow"></div>
+                                <div class="corner-accent"></div>
+
+                                ${profile.rank ? `
+                                    <div style="position: absolute; top: 12px; right: 12px; background: linear-gradient(135deg, var(--cyan-bright), var(--teal)); color: var(--dark-bg); padding: 6px 12px; border-radius: 12px; font-size: 0.85rem; font-weight: bold;">
+                                        #${profile.rank}
+                                    </div>
+                                ` : ''}
+
                                 ${profile.imgSrc ? `
-                                    <div style="width: 80px; height: 80px; margin: 0 auto var(--space-3); border-radius: 50%; overflow: hidden; border: 3px solid var(--cyan-bright); box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);">
+                                    <div style="width: 120px; height: 120px; margin: 0 auto var(--space-4); border-radius: 50%; overflow: hidden; border: 4px solid var(--cyan-bright); box-shadow: 0 0 30px rgba(0, 255, 255, 0.4);">
                                         <img src="${profile.imgSrc}" alt="${profile.name}" style="width: 100%; height: 100%; object-fit: cover;">
                                     </div>
                                 ` : `
-                                    <div style="font-size: 2.5rem; margin-bottom: var(--space-3);">
+                                    <div style="width: 120px; height: 120px; margin: 0 auto var(--space-4); border-radius: 50%; background: linear-gradient(135deg, var(--cyan-bright), var(--teal)); display: flex; align-items: center; justify-content: center; font-size: 3rem; border: 4px solid var(--cyan-bright); box-shadow: 0 0 30px rgba(0, 255, 255, 0.4);">
                                         ${profile.avatar || '👤'}
                                     </div>
                                 `}
-                                <h3 style="font-size: 1.2rem; margin-bottom: var(--space-2); color: var(--cyan-bright);">
+
+                                <h3 style="font-size: 1.4rem; margin-bottom: var(--space-2); color: var(--cyan-bright); font-weight: bold;">
                                     ${profile.name}
                                 </h3>
-                                <p style="font-size: 0.95rem; color: var(--teal);">
+                                <p style="font-size: 1rem; color: var(--teal); margin-bottom: var(--space-4);">
                                     ${profile.handle}
                                 </p>
+
+                                ${profile.rank ? `
+                                    <div style="display: flex; gap: var(--space-4); justify-content: center; font-size: 0.9rem; color: var(--cyan-light);">
+                                        <div>📝 ${profile.tweets}</div>
+                                        <div>👥 ${profile.referrals}</div>
+                                    </div>
+                                ` : ''}
+
+                                <div style="margin-top: var(--space-5); padding-top: var(--space-4); border-top: 1px solid rgba(0, 255, 255, 0.2);">
+                                    <div style="display: inline-block; padding: 8px 16px; background: rgba(0, 255, 255, 0.1); border-radius: 8px; font-size: 0.9rem; color: var(--cyan-bright);">
+                                        🔗 Visit Profile
+                                    </div>
+                                </div>
                             </div>
+                        `).join('')}
+                    </div>
+
+                    <!-- Pagination Controls -->
+                    <div style="display: flex; justify-content: center; align-items: center; gap: var(--space-4); margin-top: var(--space-8);">
+                        <button
+                            class="btn"
+                            onclick="changeXProfilesPage(${xProfilesCurrentPage - 1})"
+                            ${xProfilesCurrentPage === 1 ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}
+                        >
+                            <span>← Previous</span>
+                        </button>
+
+                        <div style="display: flex; gap: var(--space-2);">
+                            ${Array.from({length: totalPages}, (_, i) => i + 1).map(page => `
+                                <button
+                                    class="btn"
+                                    onclick="changeXProfilesPage(${page})"
+                                    style="${page === xProfilesCurrentPage ? 'background: var(--cyan-bright); color: var(--dark-bg);' : ''} min-width: 50px;"
+                                >
+                                    <span>${page}</span>
+                                </button>
+                            `).join('')}
                         </div>
-                    `).join('')}
+
+                        <button
+                            class="btn"
+                            onclick="changeXProfilesPage(${xProfilesCurrentPage + 1})"
+                            ${xProfilesCurrentPage === totalPages ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}
+                        >
+                            <span>Next →</span>
+                        </button>
+                    </div>
                 </div>
             `;
 
+            // Animate cards
             document.querySelectorAll('#xProfilesContainer .hall-card').forEach((card, i) => {
                 setTimeout(() => {
                     card.style.opacity = '1';
@@ -3898,6 +3974,21 @@
                     playCardReveal();
                 }, i * 50);
             });
+        }
+
+        function changeXProfilesPage(newPage) {
+            const totalPages = Math.ceil(xProfilesData.length / xProfilesPerPage);
+            if (newPage < 1 || newPage > totalPages) return;
+
+            xProfilesCurrentPage = newPage;
+            renderXProfilesPage();
+            playSound('card-click');
+
+            // Scroll to top of modal content
+            const modalContent = document.querySelector('#xProfilesModal .modal-content');
+            if (modalContent) {
+                modalContent.scrollTop = 0;
+            }
         }
 
         // ===== Affiliates Directory Functions =====
