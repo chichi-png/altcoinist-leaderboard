@@ -2978,7 +2978,7 @@
 
             <div class="hall-grid">
                 <!-- Rank 4 -->
-                <div class="hall-card" onclick="clickCard(this, 4, 'Neolawyer', '@NLinker777', 'NL', 37, 5, 1, 43)">
+                <div class="hall-card" onclick="clickCard(this, 4, 'Neolawyer', '@NLinker777', 'NL', 37, 5, 1, 43, 'assets/images/affiliates/DJ_(nlinker777).jpg')">
                     <div class="card-glow"></div>
                     <div class="corner-accent"></div>
                     <div class="hall-rank">4</div>
@@ -2991,7 +2991,7 @@
                 </div>
 
                 <!-- Rank 5 -->
-                <div class="hall-card" onclick="clickCard(this, 5, 'spennypretzel', '@SpennyCrypto', 'SP', 19, 9, 5, 33)">
+                <div class="hall-card" onclick="clickCard(this, 5, 'spennypretzel', '@SpennyCrypto', 'SP', 19, 9, 5, 33, 'assets/images/affiliates/Spenny_(spennycrypto).jpg')">
                     <div class="card-glow"></div>
                     <div class="corner-accent"></div>
                     <div class="hall-rank">5</div>
@@ -3004,7 +3004,7 @@
                 </div>
 
                 <!-- Rank 6 -->
-                <div class="hall-card" onclick="clickCard(this, 6, 'slavicbased', '@slavicbased', 'SB', 0, 26, 3, 29)">
+                <div class="hall-card" onclick="clickCard(this, 6, 'slavicbased', '@slavicbased', 'SB', 0, 26, 3, 29, 'assets/images/affiliates/Slavicbased_(basedsnipez).jpg')">
                     <div class="card-glow"></div>
                     <div class="corner-accent"></div>
                     <div class="hall-rank">6</div>
@@ -3017,7 +3017,7 @@
                 </div>
 
                 <!-- Rank 7 -->
-                <div class="hall-card" onclick="clickCard(this, 7, 'arrieindewarrie', '@arindewar', 'AR', 17, 4, 1, 22)">
+                <div class="hall-card" onclick="clickCard(this, 7, 'arrieindewarrie', '@arindewar', 'AR', 17, 4, 1, 22, 'assets/images/affiliates/Arindewar_(arindewar).jpg')">
                     <div class="card-glow"></div>
                     <div class="corner-accent"></div>
                     <div class="hall-rank">7</div>
@@ -3030,7 +3030,7 @@
                 </div>
 
                 <!-- Rank 8 -->
-                <div class="hall-card" onclick="clickCard(this, 8, 'I_Love_Dogs21', '@I_Love_Dogs21', 'IL', 0, 19, 1, 20)">
+                <div class="hall-card" onclick="clickCard(this, 8, 'I_Love_Dogs21', '@I_Love_Dogs21', 'IL', 0, 19, 1, 20, 'assets/images/affiliates/I_Love_Dogs21_I_Love_Dogs21.jpg')">
                     <div class="card-glow"></div>
                     <div class="corner-accent"></div>
                     <div class="hall-rank">8</div>
@@ -3043,7 +3043,7 @@
                 </div>
 
                 <!-- Rank 9 -->
-                <div class="hall-card" onclick="clickCard(this, 9, 'Vanxyrus', '@Vanxyrus', 'VX', 13, 4, 2, 19)">
+                <div class="hall-card" onclick="clickCard(this, 9, 'Vanxyrus', '@Vanxyrus', 'VX', 13, 4, 2, 19, 'assets/images/affiliates/Mj_(vanxyrus).jpg')">
                     <div class="card-glow"></div>
                     <div class="corner-accent"></div>
                     <div class="hall-rank">9</div>
@@ -3056,7 +3056,7 @@
                 </div>
 
                 <!-- Rank 10 -->
-                <div class="hall-card" onclick="clickCard(this, 10, 'chironthetrader', '@chironthetrader', 'CT', 0, 9, 6, 15)">
+                <div class="hall-card" onclick="clickCard(this, 10, 'chironthetrader', '@chironthetrader', 'CT', 0, 9, 6, 15, 'assets/images/affiliates/Chiron_(chironchain).jpg')">
                     <div class="card-glow"></div>
                     <div class="corner-accent"></div>
                     <div class="hall-rank">10</div>
@@ -3075,7 +3075,10 @@
     <div class="popup-overlay" id="detailPopup" onclick="closeDetail()">
         <div class="detail-popup" onclick="event.stopPropagation()">
             <button class="popup-close" onclick="closeDetail()">×</button>
-            <div class="popup-avatar" id="popupAvatar">AK</div>
+            <div class="popup-avatar" id="popupAvatar" style="overflow: hidden;">
+                <span id="popupAvatarText">AK</span>
+                <img id="popupAvatarImg" src="" alt="" style="display: none; width: 100%; height: 100%; object-fit: cover;">
+            </div>
             <h3 class="popup-name" id="popupName">Akkad</h3>
             <p class="popup-handle" id="popupHandle">@Akkadai_</p>
             <div class="popup-stats">
@@ -3715,7 +3718,7 @@
                 const row = document.createElement('tr');
                 row.onclick = () => showDetail(
                     affiliate.rank, affiliate.name, affiliate.handle, affiliate.avatar,
-                    affiliate.tweets, affiliate.referrals, affiliate.traders, affiliate.total
+                    affiliate.tweets, affiliate.referrals, affiliate.traders, affiliate.total, affiliate.imgSrc
                 );
 
                 row.innerHTML = `
@@ -4359,7 +4362,7 @@
         }
 
         // Click card with animations
-        function clickCard(card, rank, name, handle, avatar, tweets, referrals, traders, total) {
+        function clickCard(card, rank, name, handle, avatar, tweets, referrals, traders, total, imgSrc) {
             const rect = card.getBoundingClientRect();
 
             // Create ripple effect
@@ -4393,13 +4396,27 @@
 
             // Show detail popup after animation starts
             setTimeout(() => {
-                showDetail(rank, name, handle, avatar, tweets, referrals, traders, total);
+                showDetail(rank, name, handle, avatar, tweets, referrals, traders, total, imgSrc);
             }, 180);
         }
 
         // Detail popup controls
-        function showDetail(rank, name, handle, avatar, tweets, referrals, traders, total) {
-            document.getElementById('popupAvatar').textContent = avatar;
+        function showDetail(rank, name, handle, avatar, tweets, referrals, traders, total, imgSrc) {
+            const avatarText = document.getElementById('popupAvatarText');
+            const avatarImg = document.getElementById('popupAvatarImg');
+
+            // Show image if available, otherwise show text avatar
+            if (imgSrc && imgSrc !== '') {
+                avatarImg.src = imgSrc;
+                avatarImg.alt = name;
+                avatarImg.style.display = 'block';
+                avatarText.style.display = 'none';
+            } else {
+                avatarText.textContent = avatar;
+                avatarText.style.display = 'block';
+                avatarImg.style.display = 'none';
+            }
+
             document.getElementById('popupName').textContent = name;
             document.getElementById('popupHandle').textContent = handle;
             document.getElementById('popupTweets').textContent = tweets.toLocaleString();
