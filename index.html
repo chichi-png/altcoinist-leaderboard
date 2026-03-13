@@ -2781,6 +2781,32 @@
                 font-size: 0.8rem;
             }
         }
+        /* Header Navigation Styles */
+        .nav-btn:hover {
+            background: rgba(0, 255, 255, 0.2) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
+        }
+
+        .nav-btn.active {
+            background: var(--cyan-bright) !important;
+            color: var(--dark-bg) !important;
+            font-weight: bold;
+        }
+
+        .page-container {
+            display: none;
+            padding-top: 100px; /* Account for fixed header */
+            min-height: 100vh;
+        }
+
+        .page-container.active {
+            display: block;
+        }
+
+        body {
+            padding-top: 0;
+        }
     </style>
 </head>
 <body>
@@ -2793,13 +2819,37 @@
         <div class="ambient-glow glow-3"></div>
     </div>
 
+    <!-- Header Navigation -->
+    <header style="position: fixed; top: 0; left: 0; right: 0; z-index: 9999; background: linear-gradient(180deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.85) 100%); backdrop-filter: blur(10px); border-bottom: 2px solid var(--cyan-bright); box-shadow: 0 4px 20px rgba(0, 255, 255, 0.2);">
+        <nav style="max-width: 1400px; margin: 0 auto; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center;">
+            <div style="font-size: 1.5rem; font-weight: bold; color: var(--cyan-bright); text-shadow: 0 0 10px var(--cyan-bright);">
+                🏆 Altcoinist Leaderboard
+            </div>
+            <div style="display: flex; gap: 1rem; align-items: center;">
+                <button class="nav-btn active" onclick="switchPage('home')" data-page="home" style="padding: 0.6rem 1.2rem; background: rgba(0, 255, 255, 0.1); border: 1px solid var(--cyan-bright); border-radius: 8px; color: var(--cyan-bright); cursor: pointer; font-size: 0.95rem; transition: all 0.3s;">
+                    <span>🏠 Home</span>
+                </button>
+                <button class="nav-btn" onclick="switchPage('twitter-posts')" data-page="twitter-posts" style="padding: 0.6rem 1.2rem; background: rgba(0, 255, 255, 0.1); border: 1px solid var(--cyan-bright); border-radius: 8px; color: var(--cyan-bright); cursor: pointer; font-size: 0.95rem; transition: all 0.3s;">
+                    <span>🐦 Twitter Posts</span>
+                </button>
+                <button class="nav-btn" onclick="switchPage('x-profiles')" data-page="x-profiles" style="padding: 0.6rem 1.2rem; background: rgba(0, 255, 255, 0.1); border: 1px solid var(--cyan-bright); border-radius: 8px; color: var(--cyan-bright); cursor: pointer; font-size: 0.95rem; transition: all 0.3s;">
+                    <span>🔗 X Profiles</span>
+                </button>
+                <button class="nav-btn" onclick="switchPage('affiliates')" data-page="affiliates" style="padding: 0.6rem 1.2rem; background: rgba(0, 255, 255, 0.1); border: 1px solid var(--cyan-bright); border-radius: 8px; color: var(--cyan-bright); cursor: pointer; font-size: 0.95rem; transition: all 0.3s;">
+                    <span>🎯 Affiliates</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
     <!-- Mute Button -->
     <button class="mute-btn" onclick="toggleMute()" aria-label="Toggle sound">
         <span id="muteIcon">⚡</span>
     </button>
 
-    <!-- Landing Page -->
-    <section class="landing">
+    <!-- Home Page (Leaderboard) -->
+    <div id="home-page" class="page-container active">
+        <section class="landing">
         <!-- Matrix, particles, confetti removed for smooth performance -->
         <!-- Spotlights kept for dramatic effect -->
         <div class="spotlight spotlight-1"></div>
@@ -2935,6 +2985,62 @@
             </button>
         </div>
     </section>
+    </div>
+    <!-- End Home Page -->
+
+    <!-- Twitter Posts Page -->
+    <div id="twitter-posts-page" class="page-container">
+        <section style="padding: var(--space-10) var(--space-6); position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center;">
+            <h1 style="font-size: 3rem; margin-bottom: var(--space-4); color: var(--cyan-bright); text-shadow: 0 0 20px var(--cyan-bright);">
+                🐦 Twitter Posts Library
+            </h1>
+            <p style="font-size: 1.2rem; color: var(--cyan-light); margin-bottom: var(--space-8); text-align: center; max-width: 800px;">
+                Explore promotional tweets from top affiliates
+            </p>
+            <div id="twitterPostsPageContent" style="width: 100%; max-width: 1400px;">
+                <div style="text-align: center; padding: 3rem; color: var(--cyan-bright);">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">⚡</div>
+                    <p>Loading posts...</p>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- End Twitter Posts Page -->
+
+    <!-- X Profiles Page -->
+    <div id="x-profiles-page" class="page-container">
+        <section style="padding: var(--space-10) var(--space-6); position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center;">
+            <h1 style="font-size: 3rem; margin-bottom: var(--space-4); color: var(--cyan-bright); text-shadow: 0 0 20px var(--cyan-bright);">
+                🔗 Affiliate X Profiles
+            </h1>
+            <p style="font-size: 1.2rem; color: var(--cyan-light); margin-bottom: var(--space-8); text-align: center; max-width: 800px;">
+                Browse all affiliate profiles and visit their X accounts
+            </p>
+            <div id="xProfilesPageContent" style="width: 100%; max-width: 1400px;">
+                <!-- Content will be loaded by renderXProfilesPage -->
+            </div>
+        </section>
+    </div>
+    <!-- End X Profiles Page -->
+
+    <!-- Affiliates Directory Page -->
+    <div id="affiliates-page" class="page-container">
+        <section style="padding: var(--space-10) var(--space-6); position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center;">
+            <h1 style="font-size: 3rem; margin-bottom: var(--space-4); color: var(--cyan-bright); text-shadow: 0 0 20px var(--cyan-bright);">
+                🎯 Affiliates Directory
+            </h1>
+            <p style="font-size: 1.2rem; color: var(--cyan-light); margin-bottom: var(--space-8); text-align: center; max-width: 800px;">
+                View all affiliates and their promotional content
+            </p>
+            <div id="affiliatesPageContent" style="width: 100%; max-width: 1400px;">
+                <div style="text-align: center; padding: 3rem; color: var(--cyan-bright);">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">⚡</div>
+                    <p>Loading affiliates...</p>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- End Affiliates Directory Page -->
 
     <!-- Hall of Fame Modal -->
     <div class="modal" id="hallModal" onclick="closeModalOnBackdrop(event, 'hallModal')">
@@ -3991,6 +4097,300 @@
             const modalContent = document.querySelector('#xProfilesModal .modal-content');
             if (modalContent) {
                 modalContent.scrollTop = 0;
+            }
+        }
+
+        // ===== Page Switching System =====
+
+        function switchPage(pageName) {
+            // Hide all pages
+            document.querySelectorAll('.page-container').forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // Show selected page
+            const targetPage = document.getElementById(pageName + '-page');
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+
+            // Update nav buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            const activeBtn = document.querySelector(`[data-page="${pageName}"]`);
+            if (activeBtn) {
+                activeBtn.classList.add('active');
+            }
+
+            // Load content for specific pages
+            if (pageName === 'x-profiles') {
+                loadXProfilesPage();
+            } else if (pageName === 'twitter-posts') {
+                loadTwitterPostsPage();
+            } else if (pageName === 'affiliates') {
+                loadAffiliatesPage();
+            }
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            playSound('modal-open', 1);
+        }
+
+        function loadXProfilesPage() {
+            const container = document.getElementById('xProfilesPageContent');
+
+            // Prepare profiles data if not already done
+            if (xProfilesData.length === 0) {
+                xProfilesData = affiliatesData.map(affiliate => ({
+                    name: affiliate.name,
+                    handle: affiliate.handle,
+                    url: affiliate.profileUrl || `https://x.com/${affiliate.handle.replace('@', '')}`,
+                    imgSrc: affiliate.imgSrc,
+                    avatar: affiliate.avatar,
+                    rank: affiliate.rank,
+                    referrals: affiliate.referrals,
+                    tweets: affiliate.tweets
+                }));
+                xProfilesCurrentPage = 1;
+            }
+
+            // Render directly to page content
+            const totalPages = Math.ceil(xProfilesData.length / xProfilesPerPage);
+            const startIndex = (xProfilesCurrentPage - 1) * xProfilesPerPage;
+            const endIndex = startIndex + xProfilesPerPage;
+            const currentProfiles = xProfilesData.slice(startIndex, endIndex);
+
+            container.innerHTML = `
+                <div style="margin-bottom: var(--space-8);">
+                    <div style="text-align: center; margin-bottom: var(--space-6);">
+                        <p style="font-size: 1.1rem; color: var(--cyan-light);">
+                            Page ${xProfilesCurrentPage} of ${totalPages} • Showing ${startIndex + 1}-${Math.min(endIndex, xProfilesData.length)} of ${xProfilesData.length} affiliates
+                        </p>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2.5rem; margin-bottom: var(--space-8); max-width: 1200px; margin-left: auto; margin-right: auto;">
+                        ${currentProfiles.map((profile, i) => `
+                            <div class="hall-card" style="animation-delay: ${i * 0.05}s; cursor: pointer; text-align: center; position: relative; padding: var(--space-7);"
+                                 onclick="window.open('${profile.url}', '_blank')">
+                                <div class="card-glow"></div>
+                                <div class="corner-accent"></div>
+
+                                ${profile.rank ? `
+                                    <div style="position: absolute; top: 12px; right: 12px; background: linear-gradient(135deg, var(--cyan-bright), var(--teal)); color: var(--dark-bg); padding: 6px 12px; border-radius: 12px; font-size: 0.85rem; font-weight: bold;">
+                                        #${profile.rank}
+                                    </div>
+                                ` : ''}
+
+                                ${profile.imgSrc ? `
+                                    <div style="width: 120px; height: 120px; margin: 0 auto var(--space-4); border-radius: 50%; overflow: hidden; border: 4px solid var(--cyan-bright); box-shadow: 0 0 30px rgba(0, 255, 255, 0.4);">
+                                        <img src="${profile.imgSrc}" alt="${profile.name}" style="width: 100%; height: 100%; object-fit: cover;">
+                                    </div>
+                                ` : `
+                                    <div style="width: 120px; height: 120px; margin: 0 auto var(--space-4); border-radius: 50%; background: linear-gradient(135deg, var(--cyan-bright), var(--teal)); display: flex; align-items: center; justify-content: center; font-size: 3rem; border: 4px solid var(--cyan-bright); box-shadow: 0 0 30px rgba(0, 255, 255, 0.4);">
+                                        ${profile.avatar || '👤'}
+                                    </div>
+                                `}
+
+                                <h3 style="font-size: 1.4rem; margin-bottom: var(--space-2); color: var(--cyan-bright); font-weight: bold;">
+                                    ${profile.name}
+                                </h3>
+                                <p style="font-size: 1rem; color: var(--teal); margin-bottom: var(--space-4);">
+                                    ${profile.handle}
+                                </p>
+
+                                ${profile.rank ? `
+                                    <div style="display: flex; gap: var(--space-4); justify-content: center; font-size: 0.9rem; color: var(--cyan-light);">
+                                        <div>📝 ${profile.tweets}</div>
+                                        <div>👥 ${profile.referrals}</div>
+                                    </div>
+                                ` : ''}
+
+                                <div style="margin-top: var(--space-5); padding-top: var(--space-4); border-top: 1px solid rgba(0, 255, 255, 0.2);">
+                                    <div style="display: inline-block; padding: 8px 16px; background: rgba(0, 255, 255, 0.1); border-radius: 8px; font-size: 0.9rem; color: var(--cyan-bright);">
+                                        🔗 Visit Profile
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <!-- Pagination Controls -->
+                    <div style="display: flex; justify-content: center; align-items: center; gap: var(--space-4); margin-top: var(--space-8);">
+                        <button
+                            class="btn"
+                            onclick="changeXProfilesPageInView(${xProfilesCurrentPage - 1})"
+                            ${xProfilesCurrentPage === 1 ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}
+                        >
+                            <span>← Previous</span>
+                        </button>
+
+                        <div style="display: flex; gap: var(--space-2);">
+                            ${Array.from({length: totalPages}, (_, i) => i + 1).map(page => `
+                                <button
+                                    class="btn"
+                                    onclick="changeXProfilesPageInView(${page})"
+                                    style="${page === xProfilesCurrentPage ? 'background: var(--cyan-bright); color: var(--dark-bg);' : ''} min-width: 50px;"
+                                >
+                                    <span>${page}</span>
+                                </button>
+                            `).join('')}
+                        </div>
+
+                        <button
+                            class="btn"
+                            onclick="changeXProfilesPageInView(${xProfilesCurrentPage + 1})"
+                            ${xProfilesCurrentPage === totalPages ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}
+                        >
+                            <span>Next →</span>
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            // Animate cards
+            setTimeout(() => {
+                document.querySelectorAll('#xProfilesPageContent .hall-card').forEach((card, i) => {
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'scale(1)';
+                        playCardReveal();
+                    }, i * 50);
+                });
+            }, 100);
+        }
+
+        function changeXProfilesPageInView(newPage) {
+            const totalPages = Math.ceil(xProfilesData.length / xProfilesPerPage);
+            if (newPage < 1 || newPage > totalPages) return;
+
+            xProfilesCurrentPage = newPage;
+            loadXProfilesPage();
+            playSound('card-click');
+            window.scrollTo({ top: 200, behavior: 'smooth' });
+        }
+
+        async function loadTwitterPostsPage() {
+            const container = document.getElementById('twitterPostsPageContent');
+            container.innerHTML = '<div style="text-align: center; padding: 3rem; color: var(--cyan-bright);"><div style="font-size: 3rem; margin-bottom: 1rem;">⚡</div><p>Loading Twitter posts...</p></div>';
+
+            try {
+                const response = await fetch('/api/twitter-posts');
+                const data = await response.json();
+
+                if (data.error) {
+                    container.innerHTML = `<div style="text-align: center; padding: 3rem; color: var(--cyan-bright);"><p>⚠️ Error loading posts: ${data.error}</p></div>`;
+                    return;
+                }
+
+                const posts = data.posts || [];
+                if (posts.length === 0) {
+                    container.innerHTML = '<div style="text-align: center; padding: 3rem; color: var(--cyan-bright);"><p>No posts available</p></div>';
+                    return;
+                }
+
+                container.innerHTML = `
+                    <div style="display: grid; gap: var(--space-6); max-width: 800px; margin: 0 auto;">
+                        ${posts.map((post, i) => `
+                            <div class="hall-card" style="animation-delay: ${i * 0.05}s;">
+                                <div class="card-glow"></div>
+                                <div class="corner-accent"></div>
+                                <div style="padding: var(--space-6);">
+                                    <div style="margin-bottom: var(--space-4);">
+                                        <p style="color: var(--cyan-light); line-height: 1.6;">
+                                            ${post.text || post.content}
+                                        </p>
+                                    </div>
+                                    ${post.link ? `
+                                        <a href="${post.link}" target="_blank"
+                                           style="color: var(--cyan-bright); text-decoration: none; padding: 8px 16px; background: rgba(0, 255, 255, 0.1); border-radius: 8px; display: inline-block;">
+                                            View on X →
+                                        </a>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+
+                // Animate cards
+                setTimeout(() => {
+                    document.querySelectorAll('#twitterPostsPageContent .hall-card').forEach((card, i) => {
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'scale(1)';
+                            playCardReveal();
+                        }, i * 50);
+                    });
+                }, 100);
+
+            } catch (error) {
+                container.innerHTML = '<div style="text-align: center; padding: 3rem; color: var(--cyan-bright);"><p>⚠️ Failed to load posts</p></div>';
+            }
+        }
+
+        async function loadAffiliatesPage() {
+            const container = document.getElementById('affiliatesPageContent');
+            container.innerHTML = '<div style="text-align: center; padding: 3rem; color: var(--cyan-bright);"><div style="font-size: 3rem; margin-bottom: 1rem;">⚡</div><p>Loading affiliates...</p></div>';
+
+            try {
+                // Fetch API data (or use cached)
+                if (!affiliatesApiData) {
+                    const response = await fetch('/api/affiliate-tweets');
+                    affiliatesApiData = await response.json();
+                }
+
+                if (!affiliatesApiData.success || affiliatesApiData.error) {
+                    container.innerHTML = `<div style="text-align: center; padding: 3rem; color: var(--cyan-bright);"><p>⚠️ Error loading affiliates: ${affiliatesApiData.error || 'Unknown error'}</p></div>`;
+                    return;
+                }
+
+                // Use the same grid render logic as the modal
+                const mergedAffiliates = mergeAffiliateData(affiliatesApiData.affiliates);
+                container.innerHTML = `
+                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--space-6);">
+                        ${mergedAffiliates.map((affiliate, i) => `
+                            <div class="hall-card" style="animation-delay: ${i * 0.05}s; cursor: pointer; text-align: center; position: relative;"
+                                 onclick="window.open('${affiliate.profileUrl}', '_blank')">
+                                <div class="card-glow"></div>
+                                <div class="corner-accent"></div>
+                                ${affiliate.rank !== null ? `
+                                    <div style="position: absolute; top: 10px; right: 10px; background: linear-gradient(135deg, var(--cyan-bright), var(--teal)); color: var(--dark-bg); padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: bold;">
+                                        #${affiliate.rank}
+                                    </div>
+                                ` : ''}
+                                <div style="padding: var(--space-6);">
+                                    <div style="font-size: 2.5rem; margin-bottom: var(--space-3);">
+                                        ${affiliate.avatar}
+                                    </div>
+                                    <h3 style="font-size: 1.1rem; margin-bottom: var(--space-2); color: var(--cyan-bright);">
+                                        ${affiliate.name}
+                                    </h3>
+                                    <p style="font-size: 0.85rem; color: var(--teal); margin-bottom: var(--space-3);">
+                                        ${affiliate.displayHandle}
+                                    </p>
+                                    <div style="font-size: 0.9rem; color: var(--cyan-light);">
+                                        📝 ${affiliate.tweetCount} tweet${affiliate.tweetCount !== 1 ? 's' : ''}
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+
+                // Animate cards
+                setTimeout(() => {
+                    document.querySelectorAll('#affiliatesPageContent .hall-card').forEach((card, i) => {
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'scale(1)';
+                            playCardReveal();
+                        }, i * 50);
+                    });
+                }, 100);
+
+            } catch (error) {
+                container.innerHTML = '<div style="text-align: center; padding: 3rem; color: var(--cyan-bright);"><p>⚠️ Failed to load affiliates</p></div>';
             }
         }
 
