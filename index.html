@@ -3247,6 +3247,25 @@
         </div>
     </div>
 
+    <!-- Affiliate Profile Detail Modal -->
+    <div class="modal" id="affiliateProfileModal" onclick="closeModalOnBackdrop(event, 'affiliateProfileModal')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="hall-background">
+                <div class="gallery-wall left"></div>
+                <div class="gallery-wall right"></div>
+            </div>
+
+            <button class="close-btn" onclick="closeAffiliateProfileModal()">×</button>
+            <button class="back-btn" onclick="closeAffiliateProfileModal()">
+                <span>← Back</span>
+            </button>
+
+            <div id="affiliateProfileContent" style="position: relative; z-index: 2; max-width: 800px; margin: 0 auto;">
+                <!-- Profile content will be injected here -->
+            </div>
+        </div>
+    </div>
+
     <!-- Affiliates Directory Modal -->
     <div class="modal" id="affiliatesModal" onclick="closeModalOnBackdrop(event, 'affiliatesModal')">
         <div class="modal-content" onclick="event.stopPropagation()">
@@ -4342,104 +4361,34 @@
                     tweetCount: affiliate.tweets || 0
                 }));
 
-                // Render X profile cards in grid
+                // Render simple preview cards in grid
                 const cardsHtml = window.currentAffiliatesList.map((affiliate, i) => {
-                    // Mock profile data
-                    const displayName = affiliate.name || 'Unknown';
-                    const username = affiliate.displayHandle || '@unknown';
-                    const profileImg = affiliate.imgSrc || '';
-                    const profileUrl = affiliate.profileUrl || '#';
-                    const bio = 'Crypto enthusiast | Altcoinist Affiliate';
-                    const location = 'Global';
-                    const joinedDate = 'October 2023';
-                    const postsCount = affiliate.tweets || 0;
-                    const followingCount = Math.floor(Math.random() * 500) + 100;
-                    const followersCount = Math.floor(Math.random() * 2000) + 500;
-                    const verified = affiliate.rank && affiliate.rank <= 10;
-                    const tgUsername = username.replace('@', '');
-
                     return `
-                        <div class="hall-card" style="animation-delay: ${i * 0.05}s; overflow: hidden;">
+                        <div class="hall-card" style="animation-delay: ${i * 0.05}s; cursor: pointer; text-align: center; position: relative;"
+                             onclick="openAffiliateProfileModal(${i})">
                             <div class="card-glow"></div>
                             <div class="corner-accent"></div>
-
-                            <!-- X Profile Preview Card -->
-                            <div style="background: #000; border-radius: 8px; overflow: hidden;">
-                                <!-- Banner -->
-                                <div style="width: 100%; height: 150px; background: linear-gradient(135deg, #00ffff, #0088ff);"></div>
-
-                                <!-- Profile Info -->
-                                <div style="padding: 0 1rem 1rem 1rem;">
-                                    <!-- Profile Picture -->
-                                    <div style="margin-top: -40px; margin-bottom: 0.8rem;">
-                                        ${profileImg ? `
-                                            <div style="width: 80px; height: 80px; border-radius: 50%; border: 4px solid #000; overflow: hidden; background: #000;">
-                                                <img src="${profileImg}" alt="${displayName}" style="width: 100%; height: 100%; object-fit: cover;">
-                                            </div>
-                                        ` : `
-                                            <div style="width: 80px; height: 80px; border-radius: 50%; border: 4px solid #000; background: linear-gradient(135deg, #00ffff, #0088ff); display: flex; align-items: center; justify-content: center; font-size: 2rem;">
-                                                ${affiliate.avatar || '👤'}
-                                            </div>
-                                        `}
-                                    </div>
-
-                                    <!-- Visit Button -->
-                                    <div style="text-align: right; margin-bottom: 0.5rem;">
-                                        <button onclick="window.open('${profileUrl}', '_blank')" style="padding: 0.4rem 1rem; background: var(--cyan-bright); color: #000; border: none; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 0.85rem;">
-                                            Visit Profile
-                                        </button>
-                                    </div>
-
-                                    <!-- Name & Username -->
-                                    <div style="margin-bottom: 0.8rem;">
-                                        <div style="font-size: 1.1rem; font-weight: bold; color: #fff; display: flex; align-items: center; gap: 0.3rem;">
-                                            ${displayName}
-                                            ${verified ? '<span style="color: var(--cyan-bright);">✓</span>' : ''}
-                                        </div>
-                                        <div style="color: #8b98a5; font-size: 0.9rem;">${username}</div>
-                                    </div>
-
-                                    <!-- Bio -->
-                                    <div style="color: #fff; margin-bottom: 0.8rem; font-size: 0.9rem; line-height: 1.4;">
-                                        ${bio}
-                                    </div>
-
-                                    <!-- Info Row -->
-                                    <div style="display: flex; flex-wrap: wrap; gap: 0.8rem; color: #8b98a5; font-size: 0.85rem; margin-bottom: 0.8rem;">
-                                        <div style="display: flex; align-items: center; gap: 0.2rem;">
-                                            <span>📍</span> ${location}
-                                        </div>
-                                        <div style="display: flex; align-items: center; gap: 0.2rem;">
-                                            <span>📅</span> Joined ${joinedDate}
-                                        </div>
-                                    </div>
-
-                                    <!-- Following/Followers Stats -->
-                                    <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
-                                        <div>
-                                            <span style="color: #fff; font-weight: bold; font-size: 0.9rem;">${followingCount.toLocaleString()}</span>
-                                            <span style="color: #8b98a5; font-size: 0.85rem;"> Following</span>
-                                        </div>
-                                        <div>
-                                            <span style="color: #fff; font-weight: bold; font-size: 0.9rem;">${followersCount.toLocaleString()}</span>
-                                            <span style="color: #8b98a5; font-size: 0.85rem;"> Followers</span>
-                                        </div>
-                                    </div>
-
-                                    <!-- Contact Info -->
-                                    <div style="padding-top: 1rem; border-top: 1px solid rgba(0, 255, 255, 0.2);">
-                                        <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.9rem;">
-                                            <div style="color: #8b98a5;">
-                                                <span style="color: var(--cyan-bright); font-weight: bold;">X Handle:</span>
-                                                <span style="color: #fff; margin-left: 0.5rem;">${username}</span>
-                                            </div>
-                                            <div style="color: #8b98a5;">
-                                                <span style="color: var(--cyan-bright); font-weight: bold;">TG Username:</span>
-                                                <span style="color: #fff; margin-left: 0.5rem;">@${tgUsername}</span>
-                                            </div>
-                                        </div>
-                                    </div>
+                            ${affiliate.rank ? `
+                                <div style="position: absolute; top: 10px; right: 10px; background: linear-gradient(135deg, var(--cyan-bright), var(--teal)); color: var(--dark-bg); padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: bold;">
+                                    #${affiliate.rank}
                                 </div>
+                            ` : ''}
+                            <div style="padding: var(--space-6);">
+                                ${affiliate.imgSrc ? `
+                                    <div style="width: 100px; height: 100px; margin: 0 auto var(--space-3); border-radius: 50%; overflow: hidden; border: 3px solid var(--cyan-bright); box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);">
+                                        <img src="${affiliate.imgSrc}" alt="${affiliate.name}" style="width: 100%; height: 100%; object-fit: cover;">
+                                    </div>
+                                ` : `
+                                    <div style="font-size: 3rem; margin-bottom: var(--space-3);">
+                                        ${affiliate.avatar || '👤'}
+                                    </div>
+                                `}
+                                <h3 style="font-size: 1.2rem; margin-bottom: var(--space-2); color: var(--cyan-bright);">
+                                    ${affiliate.name}
+                                </h3>
+                                <p style="font-size: 0.95rem; color: var(--teal);">
+                                    ${affiliate.displayHandle}
+                                </p>
                             </div>
                         </div>
                     `;
@@ -4466,6 +4415,97 @@
                 console.error('Error loading affiliates:', error);
                 container.innerHTML = `<div style="text-align: center; padding: 3rem; color: var(--cyan-bright);"><p>⚠️ Failed to load affiliates</p><p style="font-size: 0.9rem; margin-top: 1rem; color: #8b98a5;">Error: ${error.message}</p></div>`;
             }
+        }
+
+        function openAffiliateProfileModal(index) {
+            const affiliate = window.currentAffiliatesList[index];
+            const modal = document.getElementById('affiliateProfileModal');
+            const content = document.getElementById('affiliateProfileContent');
+
+            // Build the profile card HTML
+            content.innerHTML = `
+                <div style="background: linear-gradient(135deg, rgba(0, 30, 60, 0.9), rgba(0, 50, 80, 0.9)); border-radius: 20px; overflow: hidden; border: 2px solid var(--cyan-bright); box-shadow: 0 0 40px rgba(0, 255, 255, 0.3);">
+                    <!-- Banner placeholder -->
+                    <div style="height: 150px; background: linear-gradient(135deg, var(--cyan-bright), var(--teal)); position: relative;">
+                        ${affiliate.rank ? `
+                            <div style="position: absolute; top: 15px; right: 15px; background: rgba(0, 0, 0, 0.8); color: var(--cyan-bright); padding: 8px 16px; border-radius: 20px; font-size: 1rem; font-weight: bold; border: 2px solid var(--cyan-bright);">
+                                #${affiliate.rank}
+                            </div>
+                        ` : ''}
+                    </div>
+
+                    <!-- Profile section -->
+                    <div style="padding: 0 2rem 2rem 2rem; position: relative; margin-top: -50px;">
+                        <!-- Profile picture -->
+                        <div style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden; border: 5px solid var(--dark-bg); box-shadow: 0 0 30px rgba(0, 255, 255, 0.5); margin-bottom: 1rem; background: var(--dark-bg);">
+                            ${affiliate.imgSrc ? `
+                                <img src="${affiliate.imgSrc}" alt="${affiliate.name}" style="width: 100%; height: 100%; object-fit: cover;">
+                            ` : `
+                                <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: var(--cyan-bright);">
+                                    ${affiliate.avatar || '👤'}
+                                </div>
+                            `}
+                        </div>
+
+                        <!-- Name and handle -->
+                        <h2 style="font-size: 2rem; color: var(--cyan-bright); margin-bottom: 0.5rem; font-weight: bold;">
+                            ${affiliate.name}
+                        </h2>
+                        <p style="font-size: 1.1rem; color: var(--teal); margin-bottom: 1.5rem;">
+                            ${affiliate.displayHandle}
+                        </p>
+
+                        <!-- Stats grid -->
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+                            <div style="text-align: center; padding: 1rem; background: rgba(0, 255, 255, 0.1); border-radius: 12px; border: 1px solid var(--cyan-bright);">
+                                <div style="font-size: 1.5rem; color: var(--cyan-bright); font-weight: bold;">${affiliate.tweets || 0}</div>
+                                <div style="font-size: 0.85rem; color: var(--teal); margin-top: 0.25rem;">Tweets</div>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: rgba(0, 255, 255, 0.1); border-radius: 12px; border: 1px solid var(--cyan-bright);">
+                                <div style="font-size: 1.5rem; color: var(--cyan-bright); font-weight: bold;">${affiliate.referrals || 0}</div>
+                                <div style="font-size: 0.85rem; color: var(--teal); margin-top: 0.25rem;">Referrals</div>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: rgba(0, 255, 255, 0.1); border-radius: 12px; border: 1px solid var(--cyan-bright);">
+                                <div style="font-size: 1.5rem; color: var(--cyan-bright); font-weight: bold;">${affiliate.traders || 0}</div>
+                                <div style="font-size: 0.85rem; color: var(--teal); margin-top: 0.25rem;">Traders</div>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: rgba(0, 255, 255, 0.1); border-radius: 12px; border: 1px solid var(--cyan-bright);">
+                                <div style="font-size: 1.5rem; color: var(--cyan-bright); font-weight: bold;">${affiliate.total || 0}</div>
+                                <div style="font-size: 0.85rem; color: var(--teal); margin-top: 0.25rem;">Total</div>
+                            </div>
+                        </div>
+
+                        <!-- Action buttons -->
+                        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                            ${affiliate.profileUrl ? `
+                                <a href="${affiliate.profileUrl}" target="_blank" rel="noopener noreferrer"
+                                   style="flex: 1; min-width: 200px; padding: 1rem 2rem; background: linear-gradient(135deg, var(--cyan-bright), var(--teal)); color: var(--dark-bg); border-radius: 12px; text-decoration: none; font-weight: bold; font-size: 1rem; text-align: center; transition: all 0.3s ease; display: inline-block;"
+                                   onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 5px 20px rgba(0, 255, 255, 0.5)';"
+                                   onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                                    🐦 Visit X Profile
+                                </a>
+                            ` : ''}
+                            ${affiliate.handle ? `
+                                <a href="https://t.me/${affiliate.handle.replace('@', '')}" target="_blank" rel="noopener noreferrer"
+                                   style="flex: 1; min-width: 200px; padding: 1rem 2rem; background: rgba(0, 255, 255, 0.2); color: var(--cyan-bright); border: 2px solid var(--cyan-bright); border-radius: 12px; text-decoration: none; font-weight: bold; font-size: 1rem; text-align: center; transition: all 0.3s ease; display: inline-block;"
+                                   onmouseover="this.style.background='rgba(0, 255, 255, 0.3)'; this.style.transform='translateY(-2px)';"
+                                   onmouseout="this.style.background='rgba(0, 255, 255, 0.2)'; this.style.transform='translateY(0)';">
+                                    ✈️ Message on Telegram
+                                </a>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Show the modal
+            modal.classList.add('active');
+            playCardReveal();
+        }
+
+        function closeAffiliateProfileModal() {
+            const modal = document.getElementById('affiliateProfileModal');
+            modal.classList.remove('active');
         }
 
         function showAffiliateXProfile(handle) {
