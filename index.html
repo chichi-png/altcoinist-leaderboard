@@ -4322,19 +4322,25 @@
             container.innerHTML = '<div style="text-align: center; padding: 3rem; color: var(--cyan-bright);"><div style="font-size: 3rem; margin-bottom: 1rem;">⚡</div><p>Loading affiliates...</p></div>';
 
             try {
-                // Fetch API data (or use cached)
+                // Try to fetch API data, but use local data as fallback
                 if (!affiliatesApiData) {
-                    const response = await fetch('/api/affiliate-tweets');
-                    affiliatesApiData = await response.json();
+                    try {
+                        const response = await fetch('/api/affiliate-tweets');
+                        affiliatesApiData = await response.json();
+                    } catch (apiError) {
+                        console.log('API not available, using local data');
+                        affiliatesApiData = { success: false };
+                    }
                 }
 
-                if (!affiliatesApiData.success || affiliatesApiData.error) {
-                    container.innerHTML = `<div style="text-align: center; padding: 3rem; color: var(--cyan-bright);"><p>⚠️ Error loading affiliates: ${affiliatesApiData.error || 'Unknown error'}</p></div>`;
-                    return;
-                }
-
-                // Store merged affiliates
-                window.currentAffiliatesList = mergeAffiliateData(affiliatesApiData.affiliates);
+                // Use local affiliatesData directly (API not required)
+                window.currentAffiliatesList = affiliatesData.map(affiliate => ({
+                    ...affiliate,
+                    handle: affiliate.handle.replace('@', '').toLowerCase(),
+                    displayHandle: affiliate.handle,
+                    apiTweets: [],
+                    tweetCount: affiliate.tweets || 0
+                }));
 
                 // Render X profile cards in grid
                 const cardsHtml = window.currentAffiliatesList.map((affiliate, i) => {
