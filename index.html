@@ -3853,10 +3853,8 @@
             document.getElementById('prevBtn').disabled = currentPage === 1;
             document.getElementById('nextBtn').disabled = currentPage === totalPages;
 
-            // Re-attach hover sounds to new rows
-            tbody.querySelectorAll('tr').forEach(el => {
-                el.addEventListener('mouseenter', () => playSound('hover'));
-            });
+            // Re-attach hover sounds to new rows (using event delegation to prevent memory leaks)
+            // Event listeners are already attached to tbody via event delegation
         }
 
         function changePage(direction) {
@@ -5084,10 +5082,20 @@
             }
         });
 
-        // Add hover sounds
-        document.querySelectorAll('.podium-card, .btn, .close-btn, .mute-btn, .leaderboard-table tbody tr').forEach(el => {
+        // Add hover sounds using event delegation to prevent memory leaks
+        document.querySelectorAll('.podium-card, .btn, .close-btn, .mute-btn').forEach(el => {
             el.addEventListener('mouseenter', () => playSound('hover'));
         });
+
+        // Event delegation for table rows (prevents memory leaks on pagination)
+        const tbody = document.querySelector('.leaderboard-table tbody');
+        if (tbody) {
+            tbody.addEventListener('mouseenter', (e) => {
+                if (e.target.closest('tr')) {
+                    playSound('hover');
+                }
+            }, true); // Use capture phase for proper delegation
+        }
 
         // Play achievement sound when top 3 section appears
         const observer = new IntersectionObserver((entries) => {
