@@ -2785,11 +2785,11 @@
             header nav {
                 flex-direction: column !important;
                 gap: 1rem !important;
-                padding: 1rem !important;
+                padding: 1.5rem 1rem !important;
             }
 
             header nav > div:first-child {
-                font-size: 1.8rem !important;
+                font-size: 2.2rem !important;
                 text-align: center;
             }
 
@@ -2799,12 +2799,12 @@
             }
 
             .nav-btn {
-                font-size: 0.9rem !important;
-                padding: 0.6rem 1rem !important;
+                font-size: 1rem !important;
+                padding: 0.7rem 1.2rem !important;
             }
 
             .page-container {
-                padding-top: 160px !important; /* Extra padding for taller mobile header */
+                padding-top: 180px !important; /* Extra padding for taller mobile header */
             }
         }
         /* Header Navigation Styles */
@@ -2822,7 +2822,7 @@
 
         .page-container {
             display: none;
-            padding-top: 100px; /* Account for fixed header */
+            padding-top: 140px; /* Account for fixed header */
             min-height: 100vh;
         }
 
@@ -2847,18 +2847,18 @@
 
     <!-- Header Navigation -->
     <header style="position: fixed; top: 0; left: 0; right: 0; z-index: 9999; background: linear-gradient(180deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.85) 100%); backdrop-filter: blur(10px); border-bottom: 2px solid var(--cyan-bright); box-shadow: 0 4px 20px rgba(0, 255, 255, 0.2);">
-        <nav style="max-width: 1400px; margin: 0 auto; padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center;">
-            <div style="font-size: 3.5rem; font-weight: bold; color: var(--cyan-bright); text-shadow: 0 0 10px var(--cyan-bright);">
+        <nav style="max-width: 1400px; margin: 0 auto; padding: 2rem 2.5rem; display: flex; justify-content: space-between; align-items: center;">
+            <div style="font-size: 5rem; font-weight: bold; color: var(--cyan-bright); text-shadow: 0 0 10px var(--cyan-bright);">
                 Altcoinist Affiliates
             </div>
             <div style="display: flex; gap: 1rem; align-items: center;">
-                <button class="nav-btn active" onclick="switchPage('home')" data-page="home" style="padding: 0.8rem 1.5rem; background: rgba(0, 255, 255, 0.1); border: 1px solid var(--cyan-bright); border-radius: 8px; color: var(--cyan-bright); cursor: pointer; font-size: 1.2rem; transition: all 0.3s;">
+                <button class="nav-btn active" onclick="switchPage('home')" data-page="home" style="padding: 1rem 2rem; background: rgba(0, 255, 255, 0.1); border: 1px solid var(--cyan-bright); border-radius: 8px; color: var(--cyan-bright); cursor: pointer; font-size: 1.6rem; transition: all 0.3s;">
                     <span>🏠 Home</span>
                 </button>
-                <button class="nav-btn" onclick="switchPage('twitter-posts')" data-page="twitter-posts" style="padding: 0.8rem 1.5rem; background: rgba(0, 255, 255, 0.1); border: 1px solid var(--cyan-bright); border-radius: 8px; color: var(--cyan-bright); cursor: pointer; font-size: 1.2rem; transition: all 0.3s;">
+                <button class="nav-btn" onclick="switchPage('twitter-posts')" data-page="twitter-posts" style="padding: 1rem 2rem; background: rgba(0, 255, 255, 0.1); border: 1px solid var(--cyan-bright); border-radius: 8px; color: var(--cyan-bright); cursor: pointer; font-size: 1.6rem; transition: all 0.3s;">
                     <span>🐦 Twitter Posts</span>
                 </button>
-                <button class="nav-btn" onclick="switchPage('affiliates')" data-page="affiliates" style="padding: 0.8rem 1.5rem; background: rgba(0, 255, 255, 0.1); border: 1px solid var(--cyan-bright); border-radius: 8px; color: var(--cyan-bright); cursor: pointer; font-size: 1.2rem; transition: all 0.3s;">
+                <button class="nav-btn" onclick="switchPage('affiliates')" data-page="affiliates" style="padding: 1rem 2rem; background: rgba(0, 255, 255, 0.1); border: 1px solid var(--cyan-bright); border-radius: 8px; color: var(--cyan-bright); cursor: pointer; font-size: 1.6rem; transition: all 0.3s;">
                     <span>🎯 Affiliates</span>
                 </button>
             </div>
