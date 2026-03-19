@@ -10,27 +10,27 @@
     <style>
         /* Design Tokens - Altcoinist Brand (Updated 2026-03-20) */
         :root {
-            /* PRIMARY BRAND COLORS (Altcoinist Cyan/Teal/Green Palette) */
-            --cyan-bright: #00f3ff;           /* Primary brand color */
-            --cyan-light: #5efdff;            /* Light cyan for text */
-            --teal-bright: #14b8a6;           /* Secondary brand color */
-            --green: #10b981;                 /* Tertiary brand color */
+            /* PRIMARY BRAND COLORS (Altcoinist Mint Green Palette) */
+            --neon-market-green: #37FF94;     /* Primary mint green brand color */
+            --electric-mint: #0CEC9A;         /* Secondary mint accent */
+            --trade-green: #10b981;           /* Tertiary green */
             --green-tertiary: #34d399;        /* Light green accent */
 
             /* LEGACY ALIASES (for backward compatibility) */
-            --neon-market-green: #00f3ff;     /* → cyan-bright (corrected) */
-            --electric-mint: #14b8a6;         /* → teal-bright (corrected) */
-            --trade-green: #10b981;           /* → green (corrected) */
+            --cyan-bright: #37FF94;           /* → neon-market-green */
+            --cyan-light: #6BFFAD;            /* Light mint for text */
+            --teal-bright: #0CEC9A;           /* → electric-mint */
+            --green: #10b981;                 /* → trade-green */
             --deep-emerald: #3EA986;          /* Supporting teal */
-            --green-primary: #00f3ff;         /* → cyan-bright */
-            --green-secondary: #14b8a6;       /* → teal-bright */
-            --cyan: #00f3ff;                  /* → cyan-bright */
-            --cyan-dark: #14b8a6;             /* → teal-bright */
-            --teal: #14b8a6;                  /* → teal-bright */
-            --teal-dark: #10b981;             /* → green */
-            --blue-electric: #00f3ff;         /* → cyan-bright */
-            --blue-bright: #14b8a6;           /* → teal-bright */
-            --blue-light: #10b981;            /* → green */
+            --green-primary: #37FF94;         /* → neon-market-green */
+            --green-secondary: #0CEC9A;       /* → electric-mint */
+            --cyan: #37FF94;                  /* → neon-market-green */
+            --cyan-dark: #0CEC9A;             /* → electric-mint */
+            --teal: #0CEC9A;                  /* → electric-mint */
+            --teal-dark: #10b981;             /* → trade-green */
+            --blue-electric: #37FF94;         /* → neon-market-green */
+            --blue-bright: #0CEC9A;           /* → electric-mint */
+            --blue-light: #10b981;            /* → trade-green */
 
             /* BACKGROUNDS (Updated to Altcoinist Dark Navy Palette) */
             --obsidian-navy: #0E111A;         /* Page background (replaces #0a0a0a) */
@@ -48,15 +48,15 @@
             --gray-700: #333333;              /* Keep for borders */
             --gray-600: #404040;              /* Keep for inactive states */
 
-            /* GLOWS (Updated to Altcoinist Cyan Palette) */
-            --glow-cyan: rgba(0, 243, 255, 0.6);       /* Primary cyan glow */
-            --glow-teal: rgba(20, 184, 166, 0.5);      /* Secondary teal glow */
-            --glow-green: rgba(16, 185, 129, 0.5);     /* Tertiary green glow */
+            /* GLOWS (Updated to Altcoinist Mint Green Palette) */
+            --glow-green: rgba(55, 255, 148, 0.6);     /* Primary mint green glow */
+            --glow-mint: rgba(12, 236, 154, 0.5);      /* Secondary mint glow */
+            --glow-trade: rgba(16, 185, 129, 0.5);     /* Tertiary green glow */
 
             /* LEGACY GLOW ALIASES */
-            --glow-mint: rgba(20, 184, 166, 0.5);      /* → glow-teal */
-            --glow-trade: rgba(16, 185, 129, 0.5);     /* → glow-green */
-            --glow-blue: rgba(0, 243, 255, 0.6);       /* → glow-cyan */
+            --glow-cyan: rgba(55, 255, 148, 0.6);      /* → glow-green */
+            --glow-teal: rgba(12, 236, 154, 0.5);      /* → glow-mint */
+            --glow-blue: rgba(55, 255, 148, 0.6);      /* → glow-green */
 
             /* Shadows */
             --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.6);
