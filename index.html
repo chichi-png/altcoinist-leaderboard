@@ -8,33 +8,53 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        /* Design Tokens - Enhanced Cyber Theme */
+        /* Design Tokens - Altcoinist Brand (Updated 2026-03-19) */
         :root {
-            --green-primary: #38ff93;
-            --green-secondary: #6fffb3;
-            --green-tertiary: #aeffd3;
-            --cyan-bright: #00f3ff;
-            --cyan: #00d9ff;
-            --cyan-dark: #00bfff;
-            --teal-bright: #00ffcc;
-            --teal: #00e5cc;
-            --teal-dark: #00ccb3;
-            --blue-electric: #0099ff;
-            --blue-bright: #00aaff;
-            --blue-light: #33bbff;
-            --black: #0a0a0a;
-            --gray-950: #0f0f0f;
-            --gray-900: #1a1a1a;
-            --gray-850: #1f1f1f;
-            --gray-800: #262626;
-            --gray-700: #333333;
-            --gray-600: #404040;
+            /* PRIMARY BRAND COLORS (Altcoinist Green Palette) */
+            --neon-market-green: #02F26F;     /* Primary accent - replaces cyan */
+            --electric-mint: #0CEC9A;         /* Secondary accent - replaces teal */
+            --trade-green: #109863;           /* Tertiary accent - replaces blue */
+            --deep-emerald: #3EA986;          /* Supporting green */
 
-            /* Enhanced Glows */
-            --glow-green: rgba(56, 255, 147, 0.5);
-            --glow-cyan: rgba(0, 243, 255, 0.6);
-            --glow-teal: rgba(0, 255, 204, 0.5);
-            --glow-blue: rgba(0, 153, 255, 0.5);
+            /* LEGACY ALIASES (for backward compatibility during migration) */
+            --green-primary: #02F26F;         /* → neon-market-green */
+            --green-secondary: #0CEC9A;       /* → electric-mint */
+            --green-tertiary: #aeffd3;        /* Keep for light accents */
+            --cyan-bright: #02F26F;           /* → Use neon-market-green */
+            --cyan: #02F26F;                  /* → Use neon-market-green */
+            --cyan-dark: #0CEC9A;             /* → Use electric-mint */
+            --teal-bright: #0CEC9A;           /* → Use electric-mint */
+            --teal: #0CEC9A;                  /* → Use electric-mint */
+            --teal-dark: #109863;             /* → Use trade-green */
+            --blue-electric: #109863;         /* → Use trade-green */
+            --blue-bright: #0CEC9A;           /* → Use electric-mint */
+            --blue-light: #109863;            /* → Use trade-green */
+
+            /* BACKGROUNDS (Updated to Altcoinist Dark Navy Palette) */
+            --obsidian-navy: #0E111A;         /* Page background (replaces #0a0a0a) */
+            --midnight-blue: #161B2D;         /* Deep panels */
+            --panel-dark: #161E2E;            /* Card backgrounds (replaces #1a1a1a) */
+            --panel-elevated: #1C2935;        /* Elevated surfaces (replaces #262626) */
+            --muted-slate: #2B2D3C;           /* Borders (replaces #333333) */
+
+            /* LEGACY BACKGROUND ALIASES */
+            --black: #0E111A;                 /* → obsidian-navy */
+            --gray-950: #0f0f0f;              /* Keep for special cases */
+            --gray-900: #161E2E;              /* → panel-dark */
+            --gray-850: #1C2935;              /* → panel-elevated */
+            --gray-800: #2B2D3C;              /* → muted-slate */
+            --gray-700: #333333;              /* Keep for borders */
+            --gray-600: #404040;              /* Keep for inactive states */
+
+            /* GLOWS (Updated to Green Palette) */
+            --glow-green: rgba(2, 242, 111, 0.6);      /* Primary glow */
+            --glow-mint: rgba(12, 236, 154, 0.5);      /* Secondary glow */
+            --glow-trade: rgba(16, 152, 99, 0.5);      /* Tertiary glow */
+
+            /* LEGACY GLOW ALIASES */
+            --glow-cyan: rgba(2, 242, 111, 0.6);       /* → glow-green */
+            --glow-teal: rgba(12, 236, 154, 0.5);      /* → glow-mint */
+            --glow-blue: rgba(16, 152, 99, 0.5);       /* → glow-trade */
 
             /* Shadows */
             --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.6);
@@ -2833,6 +2853,116 @@
         body {
             padding-top: 0;
         }
+
+        /* ========================================
+           STICKY TIME PERIOD NAVIGATION HEADER
+           ======================================== */
+        .leaderboard-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(22, 30, 46, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--muted-slate);
+            padding: 16px 0;
+            transform: translateY(-100%);
+            transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform;
+        }
+
+        .leaderboard-header.sticky {
+            transform: translateY(0);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 32px;
+        }
+
+        .time-period-tabs {
+            display: flex;
+            gap: 12px;
+            flex: 1;
+        }
+
+        .time-period-tab {
+            flex: 1;
+            max-width: 160px;
+            padding: 12px 32px;
+            background: transparent;
+            border: 2px solid var(--neon-market-green);
+            border-radius: 8px;
+            color: #F3F7FA;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            cursor: pointer;
+            transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .time-period-tab:hover {
+            background: rgba(2, 242, 111, 0.1);
+            box-shadow: 0 0 12px rgba(2, 242, 111, 0.3);
+        }
+
+        .time-period-tab.active {
+            background: var(--neon-market-green);
+            color: #0E111A;
+            font-weight: 700;
+            box-shadow: 0 0 16px rgba(2, 242, 111, 0.4);
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #F3F7FA;
+            white-space: nowrap;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .time-period-tabs {
+                width: 100%;
+            }
+
+            .time-period-tab {
+                max-width: none;
+                padding: 10px 20px;
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .time-period-tabs {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .time-period-tab {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -2845,24 +2975,18 @@
         <div class="ambient-glow glow-3"></div>
     </div>
 
-    <!-- Header Navigation -->
-    <header style="position: fixed; top: 0; left: 0; right: 0; z-index: 9999; background: linear-gradient(180deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.85) 100%); backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(0, 255, 255, 0.2);">
-        <nav style="max-width: 1600px; margin: 0 auto; padding: 2rem 2.5rem; display: flex; justify-content: space-between; align-items: center; gap: 2rem;">
-            <div style="font-size: 4rem; font-weight: bold; color: var(--cyan-bright); text-shadow: 0 0 10px var(--cyan-bright); white-space: nowrap; flex-shrink: 0;">
-                Altcoinist Affiliates
+    <!-- Sticky Time Period Navigation Header -->
+    <header class="leaderboard-header" id="stickyHeader">
+        <div class="header-container">
+            <div class="header-content">
+                <div class="time-period-tabs">
+                    <a href="index.html" class="time-period-tab active">ALL-TIME</a>
+                    <a href="weekly.html" class="time-period-tab">WEEKLY</a>
+                    <a href="monthly.html" class="time-period-tab">MONTHLY</a>
+                </div>
+                <div class="header-title">🏆 Leaderboard</div>
             </div>
-            <div style="display: flex; gap: 1rem; align-items: center;">
-                <button class="nav-btn active" onclick="switchPage('home')" data-page="home" style="padding: 1rem 2rem; background: rgba(0, 255, 255, 0.1); border: 1px solid var(--cyan-bright); border-radius: 8px; color: var(--cyan-bright); cursor: pointer; font-size: 1.6rem; transition: all 0.3s;">
-                    <span>🏠 Home</span>
-                </button>
-                <button class="nav-btn" onclick="switchPage('twitter-posts')" data-page="twitter-posts" style="padding: 1rem 2rem; background: rgba(0, 255, 255, 0.1); border: 1px solid var(--cyan-bright); border-radius: 8px; color: var(--cyan-bright); cursor: pointer; font-size: 1.6rem; transition: all 0.3s;">
-                    <span>🐦 Twitter Posts</span>
-                </button>
-                <button class="nav-btn" onclick="switchPage('affiliates')" data-page="affiliates" style="padding: 1rem 2rem; background: rgba(0, 255, 255, 0.1); border: 1px solid var(--cyan-bright); border-radius: 8px; color: var(--cyan-bright); cursor: pointer; font-size: 1.6rem; transition: all 0.3s;">
-                    <span>🎯 Affiliates</span>
-                </button>
-            </div>
-        </nav>
+        </div>
     </header>
 
     <!-- Mute Button -->
@@ -3366,6 +3490,25 @@
     </div>
 
     <script>
+        // ========================================
+        // STICKY HEADER NAVIGATION
+        // ========================================
+        const stickyHeader = document.getElementById('stickyHeader');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+
+            if (currentScroll > 200) {
+                stickyHeader.classList.add('sticky');
+            } else {
+                stickyHeader.classList.remove('sticky');
+            }
+
+            lastScroll = currentScroll;
+        });
+
+        // ========================================
         // Web Audio API Sound Engine - Futuristic Cyber Sounds
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         const audioCtx = new AudioContext();
