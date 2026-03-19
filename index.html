@@ -2851,7 +2851,7 @@
         }
 
         body {
-            padding-top: 0;
+            padding-top: 90px; /* Account for fixed main nav header */
         }
 
         /* ========================================
@@ -2975,7 +2975,24 @@
         <div class="ambient-glow glow-3"></div>
     </div>
 
-    <!-- Sticky Time Period Navigation Header -->
+    <!-- Main Navigation Header (Always Visible) -->
+    <header style="position: fixed; top: 0; left: 0; right: 0; z-index: 10000; background: linear-gradient(180deg, rgba(14, 17, 26, 0.95) 0%, rgba(14, 17, 26, 0.85) 100%); backdrop-filter: blur(10px); border-bottom: 1px solid var(--muted-slate);">
+        <nav style="max-width: 1600px; margin: 0 auto; padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; gap: 2rem;">
+            <div style="font-size: 2.5rem; font-weight: bold; color: var(--neon-market-green); text-shadow: 0 0 10px var(--neon-market-green); white-space: nowrap; flex-shrink: 0;">
+                Altcoinist Affiliates
+            </div>
+            <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+                <button class="nav-btn active" onclick="switchPage('home')" data-page="home" style="padding: 0.75rem 1.5rem; background: rgba(2, 242, 111, 0.1); border: 2px solid var(--neon-market-green); border-radius: 8px; color: var(--neon-market-green); cursor: pointer; font-size: 1.2rem; font-weight: 600; transition: all 0.3s; text-transform: uppercase; letter-spacing: 0.5px;">
+                    🏠 Leaderboard
+                </button>
+                <button class="nav-btn" onclick="switchPage('affiliates')" data-page="affiliates" style="padding: 0.75rem 1.5rem; background: rgba(2, 242, 111, 0.1); border: 2px solid var(--neon-market-green); border-radius: 8px; color: var(--neon-market-green); cursor: pointer; font-size: 1.2rem; font-weight: 600; transition: all 0.3s; text-transform: uppercase; letter-spacing: 0.5px;">
+                    🎯 Affiliates
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Sticky Time Period Navigation Header (Shows on Scroll in Leaderboard) -->
     <header class="leaderboard-header" id="stickyHeader">
         <div class="header-container">
             <div class="header-content">
@@ -2984,7 +3001,7 @@
                     <a href="weekly.html" class="time-period-tab">WEEKLY</a>
                     <a href="monthly.html" class="time-period-tab">MONTHLY</a>
                 </div>
-                <div class="header-title">🏆 Leaderboard</div>
+                <div class="header-title">🏆 Rankings</div>
             </div>
         </div>
     </header>
