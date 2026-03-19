@@ -100,7 +100,6 @@
         .podium-card,
         .hall-card,
         .stat-card,
-        .neon-streak,
         .particle,
         .gallery-spotlight,
         .modal-content,
@@ -145,7 +144,6 @@
         }
 
         /* Pause background animations when modals are open for better performance */
-        body:has(.modal.active) .landing .neon-streak,
         body:has(.modal.active) .cyber-grid,
         body:has(.modal.active) .podium .particle {
             animation-play-state: paused;
@@ -442,33 +440,6 @@
         }
 
         /* Neon Streaks (Landing Page) */
-        .landing .neon-streak {
-            position: absolute;
-            width: 2px;
-            height: 150px;
-            background: linear-gradient(180deg, transparent, var(--cyan-bright), transparent);
-            opacity: 0;
-            animation: streakFall linear infinite;
-            box-shadow: 0 0 10px var(--glow-cyan);
-            pointer-events: none;
-        }
-
-        @keyframes streakFall {
-            0% {
-                top: -150px;
-                opacity: 0;
-            }
-            20% {
-                opacity: 1;
-            }
-            80% {
-                opacity: 0.6;
-            }
-            100% {
-                top: 100vh;
-                opacity: 0;
-            }
-        }
 
         /* Top 3 Podium */
         .podium {
