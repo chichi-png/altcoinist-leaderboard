@@ -103,9 +103,7 @@
         .particle,
         .gallery-spotlight,
         .modal-content,
-        .detail-popup,
-        .hall-scanner,
-        .body-scanner {
+        .detail-popup {
             will-change: transform, opacity;
             transform: translateZ(0);
             backface-visibility: hidden;
@@ -1773,137 +1771,6 @@
             }
         }
 
-        /* Slow Body Scanner (Full Leaderboard) */
-        .body-scanner {
-            position: absolute;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg,
-                transparent 0%,
-                rgba(0, 243, 255, 0.3) 20%,
-                rgba(0, 243, 255, 0.8) 50%,
-                rgba(0, 243, 255, 0.3) 80%,
-                transparent 100%);
-            box-shadow:
-                0 0 20px rgba(0, 243, 255, 0.8),
-                0 0 40px rgba(0, 243, 255, 0.4),
-                0 2px 60px rgba(0, 243, 255, 0.6);
-            animation: scanSlow 12s linear infinite;
-            pointer-events: none;
-            z-index: 10;
-        }
-
-        .body-scanner::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            right: 0;
-            height: 80px;
-            background: linear-gradient(180deg,
-                rgba(0, 243, 255, 0.15) 0%,
-                rgba(0, 243, 255, 0.05) 50%,
-                transparent 100%);
-            filter: blur(20px);
-            transform: translateY(-40px);
-        }
-
-        .body-scanner::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            right: 0;
-            height: 80px;
-            background: linear-gradient(180deg,
-                transparent 0%,
-                rgba(0, 243, 255, 0.05) 50%,
-                rgba(0, 243, 255, 0.15) 100%);
-            filter: blur(20px);
-            transform: translateY(4px);
-        }
-
-        @keyframes scanSlow {
-            0% {
-                top: 0;
-                opacity: 0;
-            }
-            5% {
-                opacity: 1;
-            }
-            95% {
-                opacity: 1;
-            }
-            100% {
-                top: 100%;
-                opacity: 0;
-            }
-        }
-
-        /* Hall of Fame Scanner - Slower and more dramatic */
-        .hall-scanner {
-            position: absolute;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg,
-                transparent 0%,
-                rgba(218, 165, 32, 0.3) 20%,
-                rgba(218, 165, 32, 0.9) 50%,
-                rgba(218, 165, 32, 0.3) 80%,
-                transparent 100%);
-            box-shadow:
-                0 0 30px rgba(218, 165, 32, 0.9),
-                0 0 60px rgba(218, 165, 32, 0.5),
-                0 2px 80px rgba(218, 165, 32, 0.7);
-            animation: hallScan 25s ease-in-out infinite;
-            pointer-events: none;
-            z-index: 15;
-        }
-
-        .hall-scanner::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            right: 0;
-            height: 100px;
-            background: linear-gradient(180deg,
-                rgba(218, 165, 32, 0.2) 0%,
-                rgba(218, 165, 32, 0.08) 50%,
-                transparent 100%);
-            filter: blur(25px);
-            transform: translateY(-50px);
-        }
-
-        .hall-scanner::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            right: 0;
-            height: 100px;
-            background: linear-gradient(180deg,
-                transparent 0%,
-                rgba(218, 165, 32, 0.08) 50%,
-                rgba(218, 165, 32, 0.2) 100%);
-            filter: blur(25px);
-            transform: translateY(3px);
-        }
-
-        @keyframes hallScan {
-            0% {
-                top: 0;
-                opacity: 0;
-            }
-            3% {
-                opacity: 1;
-            }
-            97% {
-                opacity: 1;
-            }
-            100% {
-                top: 100%;
-                opacity: 0;
-            }
-        }
 
         /* Close Button */
         .close-btn {
@@ -2933,6 +2800,12 @@
 
     <!-- Command Center Visual Enhancements -->
     <link rel="stylesheet" href="command-center-enhancements.css">
+
+    <!-- Enhanced Affiliate Profile Styles -->
+    <link rel="stylesheet" href="enhanced-affiliate-profile.css">
+
+    <!-- Enhanced Detail Card Styles -->
+    <link rel="stylesheet" href="enhanced-card-styles.css">
 </head>
 <body>
     <!-- Hero Character Background -->
