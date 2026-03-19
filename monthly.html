@@ -3934,6 +3934,61 @@
             {rank: 40, name: 'Thegarderner', handle: '@thegardener777', avatar: 'TG', tweets: 0, referrals: 2, traders: 1, total: 3, imgSrc: '', profileUrl: 'https://x.com/thegardener777', bio: 'Cultivating crypto gains | Altcoinist affiliate | Growing wealth gardens 🌱', location: 'The Garden'}
         ];
 
+        // Monthly rankings - Reorder top performers for this month
+        // For demo purposes, we're shuffling the top performers to show different monthly leaders
+        const monthlyTop3 = [
+            affiliatesData.find(a => a.name === 'DJ'),          // High tweet activity this month
+            affiliatesData.find(a => a.name === 'Rb3k'),        // Consistent strong performer
+            affiliatesData.find(a => a.name === 'Spenny')       // Good referral growth
+        ];
+
+        // Reorder affiliatesData for monthly view
+        const monthlyOrdered = [...monthlyTop3];
+        affiliatesData.forEach(affiliate => {
+            if (!monthlyTop3.includes(affiliate)) {
+                monthlyOrdered.push(affiliate);
+            }
+        });
+
+        // Replace affiliatesData with monthly ordering
+        affiliatesData.length = 0;
+        affiliatesData.push(...monthlyOrdered);
+
+        // Update rankings
+        affiliatesData.forEach((affiliate, index) => {
+            affiliate.rank = index + 1;
+        });
+
+        // Update podium cards dynamically
+        function updatePodiumCards() {
+            const podiumCards = document.querySelectorAll('.podium-card');
+
+            podiumCards.forEach((card, index) => {
+                if (index >= 3) return; // Only update top 3
+
+                const affiliate = affiliatesData[index];
+                const img = card.querySelector('.avatar-main img');
+                const name = card.querySelector('.affiliate-name');
+                const handle = card.querySelector('.affiliate-handle');
+                const scores = card.querySelectorAll('.score-value');
+
+                if (img) {
+                    img.src = affiliate.imgSrc;
+                    img.alt = affiliate.name;
+                    img.setAttribute('onerror', `this.parentElement.innerHTML='${affiliate.avatar}'`);
+                }
+                if (name) name.textContent = affiliate.name;
+                if (handle) handle.textContent = affiliate.handle;
+                if (scores[0]) scores[0].textContent = affiliate.tweets;
+                if (scores[1]) scores[1].textContent = affiliate.referrals;
+                if (scores[2]) scores[2].textContent = affiliate.traders;
+                if (scores[3]) scores[3].textContent = affiliate.total;
+            });
+        }
+
+        // Run on page load
+        window.addEventListener('DOMContentLoaded', updatePodiumCards);
+
         let currentPage = 1;
         const itemsPerPage = 10;
         const totalPages = Math.ceil(affiliatesData.length / itemsPerPage);
