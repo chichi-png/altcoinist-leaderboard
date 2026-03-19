@@ -31,8 +31,8 @@ class CommandCenterUI {
         console.log('[Command Center UI] Initializing tactical interface...');
 
         this.injectAtmosphericLayers();
-        this.injectTacticalScanner();
-        this.injectDataStreams();
+        // this.injectTacticalScanner();  // Disabled - scanner removed
+        // this.injectDataStreams();       // Disabled - rain particles removed
         this.enhanceExistingCards();
         this.initPerformanceMonitoring();
 
