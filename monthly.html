@@ -6,7 +6,7 @@
     <title>Monthly Rankings - Altcoinist Leaderboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
         /* Design Tokens - Altcoinist Brand (Updated 2026-03-19) */
         :root {
@@ -213,6 +213,40 @@
             );
         }
 
+        /* Hero Character Background */
+        .hero-background {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            opacity: 0.12;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .hero-character {
+            position: absolute;
+            bottom: -8%;
+            right: 8%;
+            width: 700px;
+            height: 700px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><defs><linearGradient id="heroGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%2302F26F;stop-opacity:0.4"/><stop offset="100%" style="stop-color:%230CEC9A;stop-opacity:0.7"/></linearGradient></defs><rect x="150" y="50" width="100" height="120" fill="url(%23heroGrad)" rx="10"/><rect x="140" y="100" width="40" height="80" fill="url(%23heroGrad)" rx="8"/><rect x="220" y="100" width="40" height="80" fill="url(%23heroGrad)" rx="8"/><rect x="170" y="170" width="60" height="120" fill="url(%23heroGrad)" rx="8"/><rect x="130" y="200" width="30" height="90" fill="url(%23heroGrad)" rx="6"/><rect x="240" y="200" width="30" height="90" fill="url(%23heroGrad)" rx="6"/><circle cx="200" cy="80" r="30" fill="%2300F3FF" opacity="0.7"/><polygon points="180,50 185,30 200,35 215,30 220,50" fill="%2302F26F" opacity="0.9"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            filter: blur(50px) brightness(0.7);
+            animation: heroFloat 10s ease-in-out infinite;
+        }
+
+        @keyframes heroFloat {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+                opacity: 0.1;
+            }
+            50% {
+                transform: translateY(-40px) scale(1.08);
+                opacity: 0.18;
+            }
+        }
+
         /* Ambient Glows */
         .ambient-glow {
             position: absolute;
@@ -314,7 +348,7 @@
         }
 
         .landing-title::before {
-            content: 'This Month\'s Leaders';
+            content: 'Top Performers';
             position: absolute;
             left: 0;
             right: 0;
@@ -438,612 +472,597 @@
 
         /* Top 3 Podium */
         .podium {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: var(--space-10);
-            max-width: 1300px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 8rem;
+            max-width: 1600px;
             width: 100%;
             margin-bottom: var(--space-16);
             position: relative;
             z-index: 2;
-            overflow: visible;  /* Allow champion zoom to exceed container */
-            padding: var(--space-16) 0;  /* Extra padding for zoom effect */
+            overflow: visible;
+            padding: var(--space-16) 0;
+            perspective: 2000px;
         }
 
         .podium-card {
-            background: linear-gradient(135deg, var(--gray-950) 0%, var(--gray-900) 100%);
-            border: 2px solid var(--gray-700);
-            border-radius: var(--radius-2xl);
-            padding: var(--space-10) var(--space-8);
+            position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s ease-out, box-shadow var(--transition-smooth);
-            animation: dramaticRise 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
-            box-shadow: var(--shadow-xl), var(--shadow-inner);
-            will-change: transform, box-shadow;
+            animation: pedestalRise 1.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+            cursor: pointer;
             transform-style: preserve-3d;
-            perspective: 1000px;
+            will-change: transform, opacity;
         }
 
         .podium-card:active {
-            transform: scale(0.98);
+            transform: scale(0.97);
         }
 
-        .podium-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, transparent 100%);
-            pointer-events: none;
+        /* Podium reveal sequence */
+        .podium-card:nth-child(1) {
+            animation-delay: 0s;
+            order: 2; /* Champion in center */
         }
 
-        /* Holographic scan line effect */
-        .podium-card::after {
-            content: '';
-            position: absolute;
-            top: -100%;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg,
-                transparent 0%,
-                rgba(0, 243, 255, 0.3) 20%,
-                rgba(0, 243, 255, 0.9) 50%,
-                rgba(0, 243, 255, 0.3) 80%,
-                transparent 100%);
-            box-shadow: 0 0 20px rgba(0, 243, 255, 0.8);
-            animation: holoScan 2s ease-out forwards;
-            pointer-events: none;
+        .podium-card:nth-child(2) {
+            animation-delay: 0.3s;
+            order: 1; /* Runner-up on left */
+        }
+
+        .podium-card:nth-child(3) {
+            animation-delay: 0.6s;
+            order: 3; /* Third place on right */
+        }
+
+        /* Pedestal rise animation */
+        @keyframes pedestalRise {
+            0% {
+                opacity: 0;
+                transform: translateY(200px) scale(0.6);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Avatar float animation */
+        @keyframes avatarFloat {
+            0%, 100% {
+                transform: translateY(0) rotateY(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotateY(5deg);
+            }
+        }
+
+        /* Rank sizing */
+        .podium-card.rank-1 {
+            transform: scale(1.3);
             z-index: 10;
         }
 
-        /* Podium reveal sequence: 3rd → 2nd → 1st (building to champion) - EVEN SLOWER FOR FULL APPRECIATION */
-        .podium-card:nth-child(1) {
-            animation-delay: 6.5s, 8.0s;  /* CHAMPION appears LAST with extra dramatic entrance */
-            order: 2;
+        .podium-card.rank-2 {
+            transform: scale(1.1);
         }
 
-        .podium-card:nth-child(1)::after {
-            animation-delay: 8.5s;  /* Scan after champion fully appears */
+        .podium-card.rank-3 {
+            transform: scale(1);
         }
 
-        .podium-card:nth-child(2) {
-            animation-delay: 3.5s, 5.0s;  /* Rank 2 - Runner-up appears after rank 3 fully loads */
-            order: 1;
-        }
-
-        .podium-card:nth-child(2)::after {
-            animation-delay: 5.5s;
-        }
-
-        .podium-card:nth-child(3) {
-            animation-delay: 0.5s, 2.0s;  /* Rank 3 - Third place appears FIRST */
-            order: 3;
-        }
-
-        .podium-card:nth-child(3)::after {
-            animation-delay: 2.5s;
-        }
-
-        /* Dramatic rising entrance with particles */
-        @keyframes dramaticRise {
-            0% {
-                opacity: 0;
-                transform: translateY(200px) scale(0.8) rotateX(20deg);
-                filter: blur(10px) brightness(0.4);
-            }
-            60% {
-                opacity: 1;
-                transform: translateY(-10px) scale(1.02) rotateX(0deg);
-                filter: blur(0) brightness(1.2);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0) scale(1) rotateX(0deg);
-                filter: blur(0) brightness(1);
-            }
-        }
-
-        /* EPIC CHAMPION ZOOM ENTRANCE - Optimized for Performance */
-        /* UPDATED: Lightweight champion entrance - no heavy scaling */
-        @keyframes championGlowEntrance {
-            0% {
-                opacity: 0;
-                transform: translateY(150px);
-                box-shadow: 0 0 0 rgba(2, 242, 111, 0);
-            }
-            50% {
-                opacity: 1;
-                transform: translateY(0);
-                box-shadow: 0 0 60px rgba(2, 242, 111, 0.8),
-                            0 0 120px rgba(2, 242, 111, 0.4),
-                            inset 0 0 40px rgba(2, 242, 111, 0.2);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-                box-shadow: 0 0 40px rgba(2, 242, 111, 0.6),
-                            0 0 80px rgba(2, 242, 111, 0.3),
-                            inset 0 0 20px rgba(2, 242, 111, 0.1);
-            }
-        }
-
-        /* Champion continuous glow pulse */
-        @keyframes championGlowPulse {
-            0%, 100% {
-                box-shadow: 0 0 40px rgba(2, 242, 111, 0.6),
-                            0 0 80px rgba(2, 242, 111, 0.3),
-                            inset 0 0 20px rgba(2, 242, 111, 0.1);
-            }
-            50% {
-                box-shadow: 0 0 60px rgba(2, 242, 111, 0.8),
-                            0 0 120px rgba(2, 242, 111, 0.5),
-                            inset 0 0 30px rgba(2, 242, 111, 0.2);
-            }
-        }
-
-        /* Holographic scan animation */
-        @keyframes holoScan {
-            0% {
-                top: -10%;
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            45% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.3;
-                box-shadow: 0 0 40px rgba(0, 243, 255, 1);
-            }
-            55% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                top: 110%;
-                opacity: 0;
-            }
-        }
-
-        /* Glitch effect during scan */
-        .podium-card {
-            animation: dramaticRise 1.2s cubic-bezier(0.16, 1, 0.3, 1) both,
-                       subtleGlitch 0.3s ease-in-out;
-        }
-
-        .podium-card:nth-child(1) {
-            animation: championGlowEntrance 1.5s cubic-bezier(0.16, 1, 0.3, 1) 6.5s both,
-                       championGlowPulse 4s ease-in-out 8s infinite,
-                       subtleGlitch 0.3s ease-in-out 8.5s;  /* CHAMPION GLOW ENTRANCE (Optimized) */
-            transform: scale(1.05); /* Static slight enlargement - no animation lag */
-            z-index: 100;  /* Stay on top during entrance */
-        }
-
-        .podium-card:nth-child(2) {
-            animation-delay: 3.5s, 5.3s;  /* Runner-up second */
-        }
-
-        .podium-card:nth-child(3) {
-            animation-delay: 0.5s, 2.3s;  /* Third place first */
-        }
-
-        @keyframes subtleGlitch {
-            0%, 100% {
-                transform: translateX(0);
-                filter: brightness(1);
-            }
-            20% {
-                transform: translateX(-2px);
-                filter: brightness(1.2) hue-rotate(5deg);
-            }
-            40% {
-                transform: translateX(2px);
-                filter: brightness(0.8) hue-rotate(-5deg);
-            }
-            60% {
-                transform: translateX(-1px);
-                filter: brightness(1.3);
-            }
-            80% {
-                transform: translateX(1px);
-                filter: brightness(0.9);
-            }
-        }
-
-        /* Rank 1 - Cyan Champion */
-        .podium-card.rank-1 {
-            border-color: var(--cyan-bright);
-            box-shadow: 0 0 60px var(--glow-cyan), var(--shadow-xl);
-            transform: scale(1.08);
+        .podium-card:hover {
+            transform: translateY(-12px) scale(1.02);
         }
 
         .podium-card.rank-1:hover {
-            /* 3D tilt applied via JavaScript, keep scale */
-            box-shadow: 0 0 80px var(--glow-cyan), var(--shadow-xl);
-        }
-
-        .podium-card.rank-1 .card-glow {
-            background: linear-gradient(135deg, var(--cyan-bright), var(--teal-bright));
-            opacity: 0.35;
-            animation: glowPulse 3s ease-in-out infinite;
-        }
-
-        /* Rank 2 - Teal */
-        .podium-card.rank-2 {
-            border-color: var(--teal-bright);
-            box-shadow: 0 0 50px var(--glow-teal), var(--shadow-lg);
+            transform: translateY(-15px) scale(1.32);
         }
 
         .podium-card.rank-2:hover {
-            /* 3D tilt applied via JavaScript */
-            border-color: var(--teal-bright);
-            box-shadow: 0 0 60px var(--glow-teal), var(--shadow-xl);
-        }
-
-        .podium-card.rank-2 .card-glow {
-            background: linear-gradient(135deg, var(--teal-bright), var(--green-primary));
-            opacity: 0.3;
-        }
-
-        /* Rank 3 - Electric Blue */
-        .podium-card.rank-3 {
-            border-color: var(--blue-bright);
-            box-shadow: 0 0 50px var(--glow-blue), var(--shadow-lg);
+            transform: translateY(-12px) scale(1.12);
         }
 
         .podium-card.rank-3:hover {
-            /* 3D tilt applied via JavaScript */
-            border-color: var(--blue-bright);
-            box-shadow: 0 0 60px var(--glow-blue), var(--shadow-xl);
+            transform: translateY(-12px) scale(1.02);
         }
 
-        .podium-card.rank-3 .card-glow {
-            background: linear-gradient(135deg, var(--blue-bright), var(--cyan));
-            opacity: 0.3;
+        /* ========================================
+           HOLOGRAPHIC ELEMENTS
+           ======================================== */
+
+        /* Avatar float container */
+        .avatar-float {
+            position: relative;
+            margin-bottom: 3rem;
+            animation: avatarFloat 4s ease-in-out infinite;
+            z-index: 5;
         }
 
-        /* Card Glow Effect */
-        .card-glow {
+        /* Vertical light beam */
+        .light-beam {
             position: absolute;
-            inset: -3px;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 400px;
+            background: linear-gradient(to top,
+                transparent 0%,
+                rgba(2, 242, 111, 0.1) 20%,
+                rgba(2, 242, 111, 0.3) 50%,
+                rgba(2, 242, 111, 0.1) 80%,
+                transparent 100%);
+            filter: blur(20px);
+            opacity: 0.8;
+            animation: beamPulse 3s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .rank-1 .light-beam {
+            width: 160px;
+            height: 500px;
+            background: linear-gradient(to top,
+                transparent 0%,
+                rgba(2, 242, 111, 0.15) 20%,
+                rgba(2, 242, 111, 0.5) 50%,
+                rgba(2, 242, 111, 0.15) 80%,
+                transparent 100%);
+        }
+
+        .rank-2 .light-beam {
+            background: linear-gradient(to top,
+                transparent 0%,
+                rgba(12, 236, 154, 0.1) 20%,
+                rgba(12, 236, 154, 0.3) 50%,
+                rgba(12, 236, 154, 0.1) 80%,
+                transparent 100%);
+        }
+
+        .rank-3 .light-beam {
+            background: linear-gradient(to top,
+                transparent 0%,
+                rgba(16, 152, 99, 0.08) 20%,
+                rgba(16, 152, 99, 0.25) 50%,
+                rgba(16, 152, 99, 0.08) 80%,
+                transparent 100%);
+        }
+
+        @keyframes beamPulse {
+            0%, 100% {
+                opacity: 0.6;
+                transform: translateX(-50%) scaleY(1);
+            }
+            50% {
+                opacity: 1;
+                transform: translateX(-50%) scaleY(1.1);
+            }
+        }
+
+        /* Sparkles container */
+        .sparkles {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 400px;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
+            animation: sparkleFloat 3s ease-in-out infinite;
             opacity: 0;
-            border-radius: var(--radius-2xl);
-            filter: blur(24px);
-            transition: opacity var(--transition-smooth);
-            z-index: -1;
         }
 
-        .podium-card:hover .card-glow {
-            opacity: 0.4;
+        .rank-1 .sparkle { color: var(--neon-market-green); }
+        .rank-2 .sparkle { color: var(--electric-mint); }
+        .rank-3 .sparkle { color: var(--trade-green); }
+
+        .sparkle:nth-child(1) { left: 20%; bottom: 10%; animation-delay: 0s; }
+        .sparkle:nth-child(2) { left: 80%; bottom: 15%; animation-delay: 0.5s; }
+        .sparkle:nth-child(3) { left: 40%; bottom: 25%; animation-delay: 1s; }
+        .sparkle:nth-child(4) { left: 60%; bottom: 30%; animation-delay: 1.5s; }
+        .sparkle:nth-child(5) { left: 30%; bottom: 40%; animation-delay: 2s; }
+        .sparkle:nth-child(6) { left: 70%; bottom: 45%; animation-delay: 2.5s; }
+        .sparkle:nth-child(7) { left: 50%; bottom: 55%; animation-delay: 0.8s; }
+        .sparkle:nth-child(8) { left: 25%; bottom: 60%; animation-delay: 1.3s; }
+        .sparkle:nth-child(9) { left: 75%; bottom: 65%; animation-delay: 1.8s; }
+        .sparkle:nth-child(10) { left: 45%; bottom: 75%; animation-delay: 2.3s; }
+
+        @keyframes sparkleFloat {
+            0% {
+                opacity: 0;
+                transform: translateY(0) scale(0);
+            }
+            20% {
+                opacity: 1;
+                transform: translateY(-20px) scale(1);
+            }
+            80% {
+                opacity: 1;
+                transform: translateY(-200px) scale(0.8);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-250px) scale(0);
+            }
         }
 
-        @keyframes glowPulse {
-            0%, 100% { opacity: 0.35; }
-            50% { opacity: 0.55; }
-        }
-
-        /* Rank Badge - Geometric */
-        .rank-badge {
+        /* Star sparkles */
+        .sparkle-star {
             position: absolute;
-            top: var(--space-6);
-            left: var(--space-6);
-            width: 64px;
-            height: 64px;
-            border-radius: var(--radius-lg);
+            width: 8px;
+            height: 8px;
+            animation: sparkleFloat 4s ease-in-out infinite;
+            opacity: 0;
+        }
+
+        .sparkle-star::before,
+        .sparkle-star::after {
+            content: '';
+            position: absolute;
+            background: currentColor;
+            box-shadow: 0 0 15px currentColor;
+        }
+
+        .sparkle-star::before {
+            width: 8px;
+            height: 2px;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+        }
+
+        .sparkle-star::after {
+            width: 2px;
+            height: 8px;
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%);
+        }
+
+        .sparkle-star:nth-child(11) { left: 15%; bottom: 20%; animation-delay: 0.3s; }
+        .sparkle-star:nth-child(12) { left: 85%; bottom: 35%; animation-delay: 1.2s; }
+        .sparkle-star:nth-child(13) { left: 35%; bottom: 50%; animation-delay: 2.1s; }
+        .sparkle-star:nth-child(14) { left: 65%; bottom: 70%; animation-delay: 0.9s; }
+
+        /* Layered circular platforms */
+        .platform-stack {
+            position: relative;
+            width: 280px;
+            height: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .platform {
+            position: absolute;
+            bottom: 0;
+            border-radius: 50%;
+            border: 2px solid;
+            transform-style: preserve-3d;
+            transform: rotateX(75deg);
+            animation: platformRotate 8s linear infinite;
+        }
+
+        .platform-1 {
+            width: 280px;
+            height: 280px;
+            border-color: rgba(2, 242, 111, 0.15);
+            background: radial-gradient(ellipse at center,
+                rgba(2, 242, 111, 0.08) 0%,
+                transparent 70%);
+            animation-duration: 10s;
+        }
+
+        .platform-2 {
+            width: 220px;
+            height: 220px;
+            border-color: rgba(2, 242, 111, 0.25);
+            background: radial-gradient(ellipse at center,
+                rgba(2, 242, 111, 0.12) 0%,
+                transparent 70%);
+            animation-duration: 8s;
+            animation-direction: reverse;
+            bottom: 8px;
+        }
+
+        .platform-3 {
+            width: 160px;
+            height: 160px;
+            border-color: rgba(2, 242, 111, 0.4);
+            background: radial-gradient(ellipse at center,
+                rgba(2, 242, 111, 0.18) 0%,
+                transparent 70%);
+            box-shadow:
+                0 0 30px var(--glow-green),
+                inset 0 0 30px rgba(2, 242, 111, 0.2);
+            animation-duration: 6s;
+            bottom: 16px;
+        }
+
+        /* Rank-specific platform colors */
+        .rank-1 .platform-1 { border-color: rgba(2, 242, 111, 0.2); }
+        .rank-1 .platform-2 { border-color: rgba(2, 242, 111, 0.35); }
+        .rank-1 .platform-3 {
+            border-color: rgba(2, 242, 111, 0.6);
+            box-shadow:
+                0 0 50px var(--glow-green),
+                inset 0 0 40px rgba(2, 242, 111, 0.3);
+        }
+
+        .rank-2 .platform-1 { border-color: rgba(12, 236, 154, 0.15); }
+        .rank-2 .platform-2 { border-color: rgba(12, 236, 154, 0.25); }
+        .rank-2 .platform-3 {
+            border-color: rgba(12, 236, 154, 0.5);
+            box-shadow:
+                0 0 35px var(--glow-mint),
+                inset 0 0 30px rgba(12, 236, 154, 0.2);
+        }
+
+        .rank-3 .platform-1 { border-color: rgba(16, 152, 99, 0.12); }
+        .rank-3 .platform-2 { border-color: rgba(16, 152, 99, 0.2); }
+        .rank-3 .platform-3 {
+            border-color: rgba(16, 152, 99, 0.4);
+            box-shadow:
+                0 0 25px rgba(16, 152, 99, 0.5),
+                inset 0 0 25px rgba(16, 152, 99, 0.15);
+        }
+
+        @keyframes platformRotate {
+            0% {
+                transform: rotateX(75deg) rotateZ(0deg);
+            }
+            100% {
+                transform: rotateX(75deg) rotateZ(360deg);
+            }
+        }
+
+        .platform-dots {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px dotted;
+            opacity: 0.4;
+            animation: dotsGlow 2s ease-in-out infinite;
+        }
+
+        .rank-1 .platform-3 .platform-dots { border-color: var(--neon-market-green); }
+        .rank-2 .platform-3 .platform-dots { border-color: var(--electric-mint); }
+        .rank-3 .platform-3 .platform-dots { border-color: var(--trade-green); }
+
+        @keyframes dotsGlow {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Info section below platform */
+        .info-section {
+            margin-top: 2rem;
+            text-align: center;
+            z-index: 5;
+        }
+
+        /* Rank Badge on avatar */
+        .rank-badge-avatar {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--obsidian-navy);
+            border: 3px solid;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
             font-weight: 900;
-            box-shadow: var(--shadow-md);
-            z-index: 3;
-            clip-path: polygon(0% 25%, 25% 0%, 75% 0%, 100% 25%, 100% 75%, 75% 100%, 25% 100%, 0% 75%);
-            letter-spacing: -0.02em;
+            z-index: 10;
+            animation: badgeSpin 3s ease-in-out infinite;
         }
 
-        .podium-card.rank-1 .rank-badge {
-            background: linear-gradient(135deg, var(--cyan-bright), var(--teal-bright));
-            color: var(--black);
-            animation: badgeFloat 3.5s ease-in-out infinite;
-            box-shadow: 0 0 40px var(--glow-cyan), var(--shadow-md);
+        @keyframes badgeSpin {
+            0%, 100% {
+                transform: rotate(0deg) scale(1);
+            }
+            50% {
+                transform: rotate(5deg) scale(1.1);
+            }
         }
 
-        .podium-card.rank-2 .rank-badge {
-            background: linear-gradient(135deg, var(--teal-bright), var(--green-primary));
-            color: var(--black);
-            box-shadow: 0 0 35px var(--glow-teal), var(--shadow-md);
+        .rank-1 .rank-badge-avatar {
+            border-color: var(--neon-market-green);
+            color: var(--neon-market-green);
+            box-shadow: 0 0 30px var(--glow-green);
+            text-shadow: 0 0 15px var(--glow-green);
         }
 
-        .podium-card.rank-3 .rank-badge {
-            background: linear-gradient(135deg, var(--blue-bright), var(--cyan));
-            color: white;
-            box-shadow: 0 0 35px var(--glow-blue), var(--shadow-md);
+        .rank-2 .rank-badge-avatar {
+            border-color: var(--electric-mint);
+            color: var(--electric-mint);
+            box-shadow: 0 0 20px var(--glow-mint);
+            text-shadow: 0 0 10px var(--glow-mint);
+        }
+
+        .rank-3 .rank-badge-avatar {
+            border-color: var(--trade-green);
+            color: var(--trade-green);
+            box-shadow: 0 0 15px rgba(16, 152, 99, 0.6);
+            text-shadow: 0 0 8px rgba(16, 152, 99, 0.8);
         }
 
         /* Champion Crown Badge */
         .champion-crown {
             position: absolute;
-            top: -20px;
+            top: -50px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 3rem;
-            z-index: 10;
+            font-size: 3.5rem;
+            filter: drop-shadow(0 0 30px rgba(255, 215, 0, 1));
             animation: crownFloat 3s ease-in-out infinite;
-            filter: drop-shadow(0 0 10px rgba(2, 242, 111, 0.8));
+            z-index: 20;
         }
 
         @keyframes crownFloat {
             0%, 100% {
-                transform: translateX(-50%) translateY(0px) rotate(-5deg);
+                transform: translateX(-50%) translateY(0) rotate(-8deg);
             }
             50% {
-                transform: translateX(-50%) translateY(-10px) rotate(5deg);
+                transform: translateX(-50%) translateY(-15px) rotate(8deg);
             }
         }
 
-        @keyframes badgeFloat {
-            0%, 100% {
-                transform: translateY(0) scale(1) rotate(0deg);
-            }
-            50% {
-                transform: translateY(-10px) scale(1.08) rotate(2deg);
-            }
-        }
-
-        /* Avatar Container */
-        .avatar-container {
+        /* Avatar circle */
+        .avatar-circle {
             position: relative;
-            width: 200px;
-            height: 200px;
-            margin-bottom: var(--space-8);
-            animation: avatarFloat 5s ease-in-out infinite;
-        }
-
-        @keyframes avatarFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-16px); }
-        }
-
-        /* Rotating Ring - Enhanced */
-        .rotating-ring {
-            position: absolute;
-            inset: -24px;
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
-            animation: ringRotate 5s linear infinite;
-            opacity: 0.85;
-        }
-
-        .podium-card.rank-1 .rotating-ring {
-            background: conic-gradient(
-                from 0deg,
-                transparent 0deg,
-                var(--cyan-bright) 80deg,
-                transparent 160deg,
-                var(--teal-bright) 240deg,
-                transparent 320deg
-            );
-        }
-
-        .podium-card.rank-2 .rotating-ring {
-            background: conic-gradient(
-                from 0deg,
-                transparent 0deg,
-                var(--teal-bright) 80deg,
-                transparent 160deg,
-                var(--green-primary) 240deg,
-                transparent 320deg
-            );
-        }
-
-        .podium-card.rank-3 .rotating-ring {
-            background: conic-gradient(
-                from 0deg,
-                transparent 0deg,
-                var(--blue-bright) 80deg,
-                transparent 160deg,
-                var(--cyan) 240deg,
-                transparent 320deg
-            );
-        }
-
-        @keyframes ringRotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .ring-mask {
-            position: absolute;
-            inset: 5px;
-            background: var(--gray-900);
-            border-radius: 50%;
-        }
-
-        /* Hexagonal Avatar */
-        .avatar-main {
-            position: relative;
-            width: 200px;
-            height: 200px;
-            clip-path: polygon(
-                30% 0%, 70% 0%,
-                100% 30%, 100% 70%,
-                70% 100%, 30% 100%,
-                0% 70%, 0% 30%
-            );
-            background: linear-gradient(135deg, var(--gray-850) 0%, var(--gray-800) 100%);
+            overflow: hidden;
+            border: 4px solid;
+            background: linear-gradient(135deg, var(--midnight-blue), var(--obsidian-navy));
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3.5rem;
-            font-weight: 800;
-            overflow: hidden;
-            transition: transform var(--transition-smooth);
-            box-shadow: var(--shadow-inner);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            z-index: 5;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
         }
 
-        .podium-card.rank-1 .avatar-main {
-            color: var(--cyan-bright);
+        .rank-1 .avatar-circle {
+            border-color: var(--neon-market-green);
+            color: var(--neon-market-green);
+            box-shadow:
+                0 0 60px var(--glow-green),
+                0 0 100px var(--glow-green),
+                0 10px 60px rgba(0, 0, 0, 0.9);
+            animation: rank1Pulse 2s ease-in-out infinite;
         }
 
-        .podium-card.rank-2 .avatar-main {
-            color: var(--teal-bright);
+        @keyframes rank1Pulse {
+            0%, 100% {
+                box-shadow:
+                    0 0 60px var(--glow-green),
+                    0 0 100px var(--glow-green),
+                    0 10px 60px rgba(0, 0, 0, 0.9);
+            }
+            50% {
+                box-shadow:
+                    0 0 80px var(--glow-green),
+                    0 0 140px var(--glow-green),
+                    0 10px 80px rgba(0, 0, 0, 0.9);
+            }
         }
 
-        .podium-card.rank-3 .avatar-main {
-            color: var(--blue-bright);
+        .rank-2 .avatar-circle {
+            border-color: var(--electric-mint);
+            color: var(--electric-mint);
+            box-shadow:
+                0 0 40px var(--glow-mint),
+                0 0 70px var(--glow-mint),
+                0 10px 50px rgba(0, 0, 0, 0.8);
         }
 
-        .avatar-container:hover .avatar-main {
-            transform: scale(1.12) rotate(5deg);
+        .rank-3 .avatar-circle {
+            border-color: var(--trade-green);
+            color: var(--trade-green);
+            box-shadow:
+                0 0 30px rgba(16, 152, 99, 0.6),
+                0 0 50px rgba(16, 152, 99, 0.6),
+                0 10px 40px rgba(0, 0, 0, 0.7);
         }
 
-        .avatar-main img {
+        .avatar-circle img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        /* Affiliate Info */
+        /* Affiliate name */
         .affiliate-name {
-            font-size: 1.75rem;
-            font-weight: 800;
-            letter-spacing: -0.03em;
-            margin-bottom: var(--space-2);
-            color: var(--cyan-bright);
-            text-align: center;
-            position: relative;
-            transition: all var(--transition-base);
-            text-shadow:
-                0 0 12px var(--glow-cyan),
-                0 0 24px rgba(0, 243, 255, 0.4);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+            letter-spacing: 0.08em;
         }
 
-        .podium-card:hover .affiliate-name {
-            text-shadow:
-                2px 0 var(--cyan-bright),
-                -2px 0 var(--teal-bright);
-            animation: nameGlitch 0.3s ease;
+        .rank-1 .affiliate-name {
+            font-size: 2.2rem;
+            background: linear-gradient(135deg, var(--neon-market-green), var(--electric-mint));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 15px var(--glow-green));
         }
 
-        @keyframes nameGlitch {
-            0%, 100% {
-                transform: translate(0);
-            }
-            25% {
-                transform: translate(-2px, 0);
-            }
-            50% {
-                transform: translate(2px, 0);
-            }
-            75% {
-                transform: translate(-1px, 0);
-            }
+        .rank-2 .affiliate-name {
+            color: var(--electric-mint);
+            text-shadow: 0 0 15px var(--glow-mint);
+        }
+
+        .rank-3 .affiliate-name {
+            color: var(--trade-green);
+            text-shadow: 0 0 12px rgba(16, 152, 99, 0.8);
         }
 
         .affiliate-handle {
-            font-size: 1rem;
-            margin-bottom: var(--space-8);
-            font-weight: 500;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.05em;
         }
 
-        .podium-card.rank-1 .affiliate-handle {
-            color: var(--cyan);
+        /* Stats compact display */
+        .stats-compact {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            font-size: 0.85rem;
         }
 
-        .podium-card.rank-2 .affiliate-handle {
-            color: var(--teal);
-        }
-
-        .podium-card.rank-3 .affiliate-handle {
-            color: var(--blue-bright);
-        }
-
-        /* Stats Display - Enhanced */
-        .scores {
-            width: 100%;
+        .stat-item {
             display: flex;
             flex-direction: column;
-            gap: var(--space-4);
-        }
-
-        .score-row {
-            display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: var(--space-4) var(--space-5);
-            background: linear-gradient(135deg, var(--gray-900) 0%, var(--gray-850) 100%);
-            border: 1px solid var(--gray-700);
-            border-radius: var(--radius-lg);
-            transition: all var(--transition-base);
-            box-shadow: var(--shadow-inner);
-            opacity: 0;
-            transform: translateX(-20px);
+            gap: 0.2rem;
         }
 
-        /* Sequential stat reveal animation */
-        .score-row.reveal {
-            animation: statReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        .stat-label {
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
         }
 
-        @keyframes statReveal {
-            0% {
-                opacity: 0;
-                transform: translateX(-20px) scale(0.95);
-            }
-            100% {
-                opacity: 1;
-                transform: translateX(0) scale(1);
-            }
-        }
-
-        .score-row:hover {
-            background: linear-gradient(135deg, var(--gray-850) 0%, var(--gray-800) 100%);
-            transform: translateX(6px);
-            border-color: var(--gray-600);
-        }
-
-        .score-label {
-            font-size: 0.95rem;
-            color: var(--green-tertiary);
-            font-weight: 600;
-            letter-spacing: 0.02em;
-        }
-
-        .score-value {
-            font-size: 1.35rem;
-            font-weight: 800;
-            color: white;
-            letter-spacing: -0.02em;
-            transition: all var(--transition-fast);
-        }
-
-        .podium-card:hover .score-value {
-            color: var(--cyan-bright);
-            text-shadow: 0 0 10px var(--glow-cyan);
-        }
-
-        .score-row.total {
-            background: linear-gradient(135deg, var(--green-primary) 0%, var(--teal-bright) 100%);
-            margin-top: var(--space-2);
-            border: 2px solid var(--green-secondary);
-            box-shadow: 0 0 30px var(--glow-green), var(--shadow-md);
-        }
-
-        .score-row.total .score-label {
-            color: var(--black);
+        .stat-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
             font-weight: 700;
+            color: var(--neon-market-green);
         }
 
-        .score-row.total .score-value {
-            color: var(--black);
-            font-size: 1.75rem;
+        .stat-item.total .stat-value {
+            font-size: 1.6rem;
+            text-shadow: 0 0 15px var(--glow-green);
         }
 
         /* Buttons - Enhanced */
@@ -2670,23 +2689,27 @@
         /* Mobile Responsive Design */
         @media (max-width: 1024px) {
             .podium {
-                grid-template-columns: 1fr;
-                gap: var(--space-8);
-                max-width: 600px;
+                flex-direction: column;
+                align-items: center;
+                gap: 5rem;
             }
 
-            .podium-card:nth-child(1),
-            .podium-card:nth-child(2),
-            .podium-card:nth-child(3) {
-                order: initial;
-            }
-
-            .podium-card.rank-1 {
+            .podium-card.rank-1,
+            .podium-card.rank-2,
+            .podium-card.rank-3 {
                 transform: scale(1);
             }
 
-            .podium-card.rank-1:hover {
-                transform: translateY(-8px) scale(1.02);
+            .podium-card.rank-1 {
+                order: 1;
+            }
+
+            .podium-card.rank-2 {
+                order: 2;
+            }
+
+            .podium-card.rank-3 {
+                order: 3;
             }
 
             .hall-grid {
@@ -2729,29 +2752,31 @@
                 font-size: 1.1rem;
             }
 
-            .podium-card {
-                padding: var(--space-8) var(--space-6);
-            }
-
-            .avatar-container {
-                width: 160px;
-                height: 160px;
-            }
-
-            .avatar-main {
-                width: 160px;
-                height: 160px;
+            .avatar-circle {
+                width: 140px;
+                height: 140px;
                 font-size: 3rem;
             }
 
-            .rank-badge {
-                width: 52px;
-                height: 52px;
-                font-size: 1.5rem;
+            .rank-1 .avatar-circle {
+                width: 160px;
+                height: 160px;
             }
+
+            .platform-stack {
+                width: 220px;
+            }
+
+            .platform-1 { width: 220px; height: 220px; }
+            .platform-2 { width: 170px; height: 170px; }
+            .platform-3 { width: 120px; height: 120px; }
 
             .affiliate-name {
                 font-size: 1.5rem;
+            }
+
+            .rank-1 .affiliate-name {
+                font-size: 1.8rem;
             }
 
             .modal {
@@ -2936,6 +2961,11 @@
     </style>
 </head>
 <body>
+    <!-- Hero Character Background -->
+    <div class="hero-background">
+        <div class="hero-character"></div>
+    </div>
+
     <!-- Global Cyber Background -->
     <div class="cyber-bg">
         <div class="bg-grid"></div>
@@ -2952,13 +2982,13 @@
                 Altcoinist Affiliates
             </div>
             <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
-                <a href="index.html" class="nav-btn" data-page="alltime" style="padding: 0.75rem 1.5rem; background: rgba(2, 242, 111, 0.1); border: 2px solid var(--neon-market-green); border-radius: 8px; color: var(--neon-market-green); cursor: pointer; font-size: 1.2rem; font-weight: 600; transition: all 0.3s; text-transform: uppercase; letter-spacing: 0.5px; text-decoration: none; display: inline-block;">
+                <a href="index.html" class="nav-btn active" data-page="alltime" style="padding: 0.75rem 1.5rem; background: var(--neon-market-green); border: 2px solid var(--neon-market-green); border-radius: 8px; color: #0E111A; cursor: pointer; font-size: 1.2rem; font-weight: 700; transition: all 0.3s; text-transform: uppercase; letter-spacing: 0.5px; text-decoration: none; display: inline-block;">
                     🏆 All-Time Rankings
                 </a>
                 <a href="weekly.html" class="nav-btn" data-page="weekly" style="padding: 0.75rem 1.5rem; background: rgba(2, 242, 111, 0.1); border: 2px solid var(--neon-market-green); border-radius: 8px; color: var(--neon-market-green); cursor: pointer; font-size: 1.2rem; font-weight: 600; transition: all 0.3s; text-transform: uppercase; letter-spacing: 0.5px; text-decoration: none; display: inline-block;">
                     📊 Weekly Rankings
                 </a>
-                <a href="monthly.html" class="nav-btn active" data-page="monthly" style="padding: 0.75rem 1.5rem; background: var(--neon-market-green); border: 2px solid var(--neon-market-green); border-radius: 8px; color: #0E111A; cursor: pointer; font-size: 1.2rem; font-weight: 700; transition: all 0.3s; text-transform: uppercase; letter-spacing: 0.5px; text-decoration: none; display: inline-block;">
+                <a href="monthly.html" class="nav-btn" data-page="monthly" style="padding: 0.75rem 1.5rem; background: rgba(2, 242, 111, 0.1); border: 2px solid var(--neon-market-green); border-radius: 8px; color: var(--neon-market-green); cursor: pointer; font-size: 1.2rem; font-weight: 600; transition: all 0.3s; text-transform: uppercase; letter-spacing: 0.5px; text-decoration: none; display: inline-block;">
                     📈 Monthly Rankings
                 </a>
                 <button class="nav-btn" onclick="switchPage('affiliates')" data-page="affiliates" style="padding: 0.75rem 1.5rem; background: rgba(2, 242, 111, 0.1); border: 2px solid var(--neon-market-green); border-radius: 8px; color: var(--neon-market-green); cursor: pointer; font-size: 1.2rem; font-weight: 600; transition: all 0.3s; text-transform: uppercase; letter-spacing: 0.5px;">
@@ -2982,113 +3012,191 @@
         <div class="spotlight spotlight-2"></div>
         <div class="spotlight spotlight-3"></div>
 
-        <h1 class="landing-title">This Month's Leaders</h1>
-        <p style="font-size: 1.3rem; color: var(--muted-slate); text-align: center; margin-top: 1rem; font-weight: 400;">Top monthly performers • Updated in real-time</p>
+        <h1 class="landing-title">Top Performers</h1>
+        <!-- Subtitle removed per user request -->
 
-        <!-- Top 3 Podium -->
+        <!-- Top 3 Holographic Pedestals -->
         <div class="podium">
-            <!-- Rank 1 - Champion -->
+            <!-- Rank 1 - Champion (Center) -->
             <div class="podium-card rank-1">
-                <div class="card-glow"></div>
-                <div class="corner-accent"></div>
-                <div class="champion-crown">👑</div>
-                <div class="rank-badge">1</div>
-                <div class="avatar-container">
-                    <div class="rotating-ring">
-                        <div class="ring-mask"></div>
-                    </div>
-                    <div class="avatar-main">
+                <!-- Light Beam -->
+                <div class="light-beam"></div>
+
+                <!-- Sparkles -->
+                <div class="sparkles">
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                    <div class="sparkle sparkle-star"></div>
+                    <div class="sparkle sparkle-star"></div>
+                    <div class="sparkle sparkle-star"></div>
+                    <div class="sparkle sparkle-star"></div>
+                </div>
+
+                <!-- Avatar Floating -->
+                <div class="avatar-float">
+                    <div class="champion-crown">👑</div>
+                    <div class="avatar-circle">
                         <img src="assets/images/affiliates/Rb3k_(rbthreek).jpg" alt="Rb3k" onerror="this.parentElement.innerHTML='R'">
+                        <div class="rank-badge-avatar">1</div>
                     </div>
                 </div>
-                <h2 class="affiliate-name">Rb3k</h2>
-                <p class="affiliate-handle">@rbthreek</p>
-                <div class="scores">
-                    <div class="score-row">
-                        <span class="score-label">Tweets</span>
-                        <span class="score-value">12</span>
+
+                <!-- Layered Platforms -->
+                <div class="platform-stack">
+                    <div class="platform platform-1"></div>
+                    <div class="platform platform-2"></div>
+                    <div class="platform platform-3">
+                        <div class="platform-dots"></div>
                     </div>
-                    <div class="score-row">
-                        <span class="score-label">Referrals</span>
-                        <span class="score-value">208</span>
-                    </div>
-                    <div class="score-row">
-                        <span class="score-label">Traders</span>
-                        <span class="score-value">104</span>
-                    </div>
-                    <div class="score-row total">
-                        <span class="score-label">Total</span>
-                        <span class="score-value">324</span>
+                </div>
+
+                <!-- Info Section -->
+                <div class="info-section">
+                    <h2 class="affiliate-name">Rb3k</h2>
+                    <p class="affiliate-handle">@rbthreek</p>
+                    <div class="stats-compact">
+                        <div class="stat-item">
+                            <span class="stat-label">Tweets</span>
+                            <span class="stat-value">12</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Referrals</span>
+                            <span class="stat-value">208</span>
+                        </div>
+                        <div class="stat-item total">
+                            <span class="stat-label">Total</span>
+                            <span class="stat-value">324</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Rank 2 - Teal -->
+            <!-- Rank 2 - Runner Up (Left) -->
             <div class="podium-card rank-2">
-                <div class="card-glow"></div>
-                <div class="corner-accent"></div>
-                <div class="rank-badge">2</div>
-                <div class="avatar-container">
-                    <div class="rotating-ring">
-                        <div class="ring-mask"></div>
-                    </div>
-                    <div class="avatar-main">
+                <!-- Light Beam -->
+                <div class="light-beam"></div>
+
+                <!-- Sparkles -->
+                <div class="sparkles">
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                    <div class="sparkle sparkle-star"></div>
+                    <div class="sparkle sparkle-star"></div>
+                    <div class="sparkle sparkle-star"></div>
+                    <div class="sparkle sparkle-star"></div>
+                </div>
+
+                <!-- Avatar Floating -->
+                <div class="avatar-float">
+                    <div class="avatar-circle">
                         <img src="assets/images/affiliates/N30_(n30_cryptoo).jpg" alt="N30" onerror="this.parentElement.innerHTML='NC'">
+                        <div class="rank-badge-avatar">2</div>
                     </div>
                 </div>
-                <h2 class="affiliate-name">N30</h2>
-                <p class="affiliate-handle">@N30_cryptoo</p>
-                <div class="scores">
-                    <div class="score-row">
-                        <span class="score-label">Tweets</span>
-                        <span class="score-value">160</span>
+
+                <!-- Layered Platforms -->
+                <div class="platform-stack">
+                    <div class="platform platform-1"></div>
+                    <div class="platform platform-2"></div>
+                    <div class="platform platform-3">
+                        <div class="platform-dots"></div>
                     </div>
-                    <div class="score-row">
-                        <span class="score-label">Referrals</span>
-                        <span class="score-value">22</span>
-                    </div>
-                    <div class="score-row">
-                        <span class="score-label">Traders</span>
-                        <span class="score-value">5</span>
-                    </div>
-                    <div class="score-row total">
-                        <span class="score-label">Total</span>
-                        <span class="score-value">187</span>
+                </div>
+
+                <!-- Info Section -->
+                <div class="info-section">
+                    <h2 class="affiliate-name">N30</h2>
+                    <p class="affiliate-handle">@N30_cryptoo</p>
+                    <div class="stats-compact">
+                        <div class="stat-item">
+                            <span class="stat-label">Tweets</span>
+                            <span class="stat-value">160</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Referrals</span>
+                            <span class="stat-value">22</span>
+                        </div>
+                        <div class="stat-item total">
+                            <span class="stat-label">Total</span>
+                            <span class="stat-value">187</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Rank 3 - Electric Blue -->
+            <!-- Rank 3 - Third Place (Right) -->
             <div class="podium-card rank-3">
-                <div class="card-glow"></div>
-                <div class="corner-accent"></div>
-                <div class="rank-badge">3</div>
-                <div class="avatar-container">
-                    <div class="rotating-ring">
-                        <div class="ring-mask"></div>
-                    </div>
-                    <div class="avatar-main">
+                <!-- Light Beam -->
+                <div class="light-beam"></div>
+
+                <!-- Sparkles -->
+                <div class="sparkles">
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                    <div class="sparkle sparkle-star"></div>
+                    <div class="sparkle sparkle-star"></div>
+                    <div class="sparkle sparkle-star"></div>
+                    <div class="sparkle sparkle-star"></div>
+                </div>
+
+                <!-- Avatar Floating -->
+                <div class="avatar-float">
+                    <div class="avatar-circle">
                         <img src="assets/images/affiliates/DJ_(nlinker777).jpg" alt="DJ" onerror="this.parentElement.innerHTML='DJ'">
+                        <div class="rank-badge-avatar">3</div>
                     </div>
                 </div>
-                <h2 class="affiliate-name">DJ</h2>
-                <p class="affiliate-handle">@nlinker777</p>
-                <div class="scores">
-                    <div class="score-row">
-                        <span class="score-label">Tweets</span>
-                        <span class="score-value">139</span>
+
+                <!-- Layered Platforms -->
+                <div class="platform-stack">
+                    <div class="platform platform-1"></div>
+                    <div class="platform platform-2"></div>
+                    <div class="platform platform-3">
+                        <div class="platform-dots"></div>
                     </div>
-                    <div class="score-row">
-                        <span class="score-label">Referrals</span>
-                        <span class="score-value">0</span>
-                    </div>
-                    <div class="score-row">
-                        <span class="score-label">Traders</span>
-                        <span class="score-value">0</span>
-                    </div>
-                    <div class="score-row total">
-                        <span class="score-label">Total</span>
-                        <span class="score-value">139</span>
+                </div>
+
+                <!-- Info Section -->
+                <div class="info-section">
+                    <h2 class="affiliate-name">DJ</h2>
+                    <p class="affiliate-handle">@nlinker777</p>
+                    <div class="stats-compact">
+                        <div class="stat-item">
+                            <span class="stat-label">Tweets</span>
+                            <span class="stat-value">139</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Referrals</span>
+                            <span class="stat-value">0</span>
+                        </div>
+                        <div class="stat-item total">
+                            <span class="stat-label">Total</span>
+                            <span class="stat-value">139</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -3943,61 +4051,6 @@
             {rank: 39, name: 'Kapo', handle: '@kapothegoat01', avatar: 'K', tweets: 0, referrals: 0, traders: 0, total: 0, imgSrc: 'assets/images/affiliates/kapo_(kapothegoat01).jpg', profileUrl: 'https://x.com/KAPOTHEGOAT01', bio: 'GOAT trader | Altcoinist affiliate | Greatest of all trades 🐐', location: 'Top of the Mountain'},
             {rank: 40, name: 'Thegarderner', handle: '@thegardener777', avatar: 'TG', tweets: 0, referrals: 2, traders: 1, total: 3, imgSrc: '', profileUrl: 'https://x.com/thegardener777', bio: 'Cultivating crypto gains | Altcoinist affiliate | Growing wealth gardens 🌱', location: 'The Garden'}
         ];
-
-        // Monthly rankings - Reorder top performers for this month
-        // For demo purposes, we're shuffling the top performers to show different monthly leaders
-        const monthlyTop3 = [
-            affiliatesData.find(a => a.name === 'DJ'),          // High tweet activity this month
-            affiliatesData.find(a => a.name === 'Rb3k'),        // Consistent strong performer
-            affiliatesData.find(a => a.name === 'Spenny')       // Good referral growth
-        ];
-
-        // Reorder affiliatesData for monthly view
-        const monthlyOrdered = [...monthlyTop3];
-        affiliatesData.forEach(affiliate => {
-            if (!monthlyTop3.includes(affiliate)) {
-                monthlyOrdered.push(affiliate);
-            }
-        });
-
-        // Replace affiliatesData with monthly ordering
-        affiliatesData.length = 0;
-        affiliatesData.push(...monthlyOrdered);
-
-        // Update rankings
-        affiliatesData.forEach((affiliate, index) => {
-            affiliate.rank = index + 1;
-        });
-
-        // Update podium cards dynamically
-        function updatePodiumCards() {
-            const podiumCards = document.querySelectorAll('.podium-card');
-
-            podiumCards.forEach((card, index) => {
-                if (index >= 3) return; // Only update top 3
-
-                const affiliate = affiliatesData[index];
-                const img = card.querySelector('.avatar-main img');
-                const name = card.querySelector('.affiliate-name');
-                const handle = card.querySelector('.affiliate-handle');
-                const scores = card.querySelectorAll('.score-value');
-
-                if (img) {
-                    img.src = affiliate.imgSrc;
-                    img.alt = affiliate.name;
-                    img.setAttribute('onerror', `this.parentElement.innerHTML='${affiliate.avatar}'`);
-                }
-                if (name) name.textContent = affiliate.name;
-                if (handle) handle.textContent = affiliate.handle;
-                if (scores[0]) scores[0].textContent = affiliate.tweets;
-                if (scores[1]) scores[1].textContent = affiliate.referrals;
-                if (scores[2]) scores[2].textContent = affiliate.traders;
-                if (scores[3]) scores[3].textContent = affiliate.total;
-            });
-        }
-
-        // Run on page load
-        window.addEventListener('DOMContentLoaded', updatePodiumCards);
 
         let currentPage = 1;
         const itemsPerPage = 10;
@@ -5454,27 +5507,12 @@
             observer.observe(podium);
         }
 
-        // ===== 3D TILT EFFECT ON PODIUM CARDS =====
+        // ===== PODIUM CARD HOVER EFFECTS (Simplified for holographic pedestals) =====
         const podiumCards = document.querySelectorAll('.podium-card');
 
         podiumCards.forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-
-                const rotateX = ((y - centerY) / centerY) * -10; // Max 10deg tilt
-                const rotateY = ((x - centerX) / centerX) * 10;
-
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${card.classList.contains('rank-1') ? '1.08' : '1'})`;
-            });
-
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale(${card.classList.contains('rank-1') ? '1.08' : '1'})`;
-            });
+            // Remove 3D tilt - new design uses scale and translateY only
+            // Hover effects are handled by CSS
         });
 
         // ===== ANIMATED STATS COUNT-UP =====
