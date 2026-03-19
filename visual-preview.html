@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Command Center Visual Preview - Altcoinist</title>
+
+    <!-- Base Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Command Center Enhancements -->
+    <link rel="stylesheet" href="command-center-enhancements.css">
+
+    <style>
+        /* Base styling for preview */
+        :root {
+            --neon-market-green: #02F26F;
+            --electric-mint: #0CEC9A;
+            --trade-green: #109863;
+            --obsidian-navy: #0E111A;
+            --midnight-blue: #161B2D;
+            --panel-dark: #161E2E;
+            --panel-elevated: #1C2935;
+            --muted-slate: #2B2D3C;
+            --glow-green: rgba(2, 242, 111, 0.6);
+            --glow-mint: rgba(12, 236, 154, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Chakra Petch', sans-serif;
+            background: var(--obsidian-navy);
+            color: white;
+            min-height: 100vh;
+            padding: 2rem;
+            overflow-x: hidden;
+        }
+
+        .preview-container {
+            max-width: 1800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        .preview-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .preview-title {
+            font-size: 4rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            background: linear-gradient(135deg, var(--neon-market-green), var(--electric-mint));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .preview-subtitle {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1.2rem;
+            color: var(--electric-mint);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Demo Grid */
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        /* Sample Card Styles */
+        .demo-card {
+            background: linear-gradient(135deg, var(--panel-dark), var(--midnight-blue));
+            border: 2px solid var(--muted-slate);
+            border-radius: 1rem;
+            padding: 2rem;
+            position: relative;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            clip-path: polygon(
+                0 20px, 20px 0,
+                calc(100% - 20px) 0, 100% 20px,
+                100% calc(100% - 20px), calc(100% - 20px) 100%,
+                20px 100%, 0 calc(100% - 20px)
+            );
+            animation: slideInUp 0.8s ease-out both;
+        }
+
+        .demo-card:nth-child(1) { animation-delay: 0.1s; }
+        .demo-card:nth-child(2) { animation-delay: 0.2s; }
+        .demo-card:nth-child(3) { animation-delay: 0.3s; }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .demo-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-market-green);
+            box-shadow: 0 20px 60px rgba(2, 242, 111, 0.3);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--electric-mint), var(--neon-market-green));
+            border: 3px solid var(--neon-market-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            box-shadow: 0 0 30px var(--glow-green);
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+        }
+
+        .card-info {
+            flex: 1;
+        }
+
+        .card-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: white;
+            margin-bottom: 0.25rem;
+        }
+
+        .card-handle {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--electric-mint);
+            opacity: 0.8;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .metric-item {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(2, 242, 111, 0.05);
+            border: 1px solid rgba(2, 242, 111, 0.2);
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .metric-item:hover {
+            background: rgba(2, 242, 111, 0.1);
+            border-color: var(--neon-market-green);
+            transform: scale(1.05);
+        }
+
+        .metric-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--neon-market-green);
+        }
+
+        /* Feature Showcase */
+        .feature-showcase {
+            margin-top: 6rem;
+            padding: 3rem;
+            background: linear-gradient(135deg, var(--panel-dark), var(--midnight-blue));
+            border: 2px solid var(--muted-slate);
+            border-radius: 2rem;
+            position: relative;
+            animation: fadeIn 1.5s ease-out 0.5s both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(2, 242, 111, 0.05);
+            border: 1px solid rgba(2, 242, 111, 0.2);
+            border-radius: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            background: rgba(2, 242, 111, 0.1);
+            border-color: var(--neon-market-green);
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 0 15px var(--glow-green));
+        }
+
+        .feature-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--neon-market-green);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .feature-desc {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+        }
+
+        /* Controls */
+        .controls {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 1rem;
+            z-index: 1000;
+        }
+
+        .control-btn {
+            padding: 1rem 2rem;
+            background: var(--panel-dark);
+            border: 2px solid var(--neon-market-green);
+            border-radius: 0.75rem;
+            color: var(--neon-market-green);
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px var(--glow-green);
+        }
+
+        .control-btn:hover {
+            background: var(--neon-market-green);
+            color: var(--obsidian-navy);
+            box-shadow: 0 0 40px var(--glow-green);
+            transform: scale(1.05);
+        }
+
+        .control-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Info Badge */
+        .info-badge {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            padding: 1rem 2rem;
+            background: rgba(2, 242, 111, 0.1);
+            border: 2px solid var(--neon-market-green);
+            border-radius: 2rem;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--neon-market-green);
+            box-shadow: 0 0 30px var(--glow-green);
+            z-index: 1000;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 30px var(--glow-green);
+            }
+            50% {
+                box-shadow: 0 0 50px var(--glow-green);
+            }
+        }
+
+        .info-badge::before {
+            content: '●';
+            display: inline-block;
+            margin-right: 0.5rem;
+            color: var(--neon-market-green);
+            animation: blink 2s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Status Badge -->
+    <div class="info-badge">TACTICAL INTERFACE ACTIVE</div>
+
+    <!-- Main Container -->
+    <div class="preview-container">
+        <!-- Header -->
+        <div class="preview-header">
+            <h1 class="preview-title">Command Center</h1>
+            <p class="preview-subtitle">◈ Visual Enhancement Preview ◈</p>
+        </div>
+
+        <!-- Demo Cards Grid -->
+        <div class="demo-grid">
+            <!-- Card 1 -->
+            <div class="demo-card tactical-panel">
+                <div class="card-header">
+                    <div class="avatar">R</div>
+                    <div class="card-info">
+                        <div class="card-name">Rb3k</div>
+                        <div class="card-handle">@rbthreek</div>
+                    </div>
+                </div>
+                <div class="metrics-grid">
+                    <div class="metric-item">
+                        <div class="metric-label">Tweets</div>
+                        <div class="metric-value">208</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-label">Referrals</div>
+                        <div class="metric-value">142</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-label">Score</div>
+                        <div class="metric-value">350</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="demo-card tactical-panel">
+                <div class="card-header">
+                    <div class="avatar" style="background: linear-gradient(135deg, var(--trade-green), var(--electric-mint));">N</div>
+                    <div class="card-info">
+                        <div class="card-name">N30</div>
+                        <div class="card-handle">@N30_cryptoo</div>
+                    </div>
+                </div>
+                <div class="metrics-grid">
+                    <div class="metric-item">
+                        <div class="metric-label">Tweets</div>
+                        <div class="metric-value">160</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-label">Referrals</div>
+                        <div class="metric-value">98</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-label">Score</div>
+                        <div class="metric-value">258</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="demo-card tactical-panel">
+                <div class="card-header">
+                    <div class="avatar" style="background: linear-gradient(135deg, var(--neon-market-green), var(--trade-green));">D</div>
+                    <div class="card-info">
+                        <div class="card-name">DJ</div>
+                        <div class="card-handle">@nlinker777</div>
+                    </div>
+                </div>
+                <div class="metrics-grid">
+                    <div class="metric-item">
+                        <div class="metric-label">Tweets</div>
+                        <div class="metric-value">139</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-label">Referrals</div>
+                        <div class="metric-value">76</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-label">Score</div>
+                        <div class="metric-value">215</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feature Showcase -->
+        <div class="feature-showcase">
+            <h2 style="font-size: 2.5rem; text-align: center; margin-bottom: 1rem; color: var(--neon-market-green);">
+                Enhanced Features
+            </h2>
+            <p style="text-align: center; color: rgba(255,255,255,0.7); margin-bottom: 3rem; font-size: 1.1rem;">
+                Tactical UI elements automatically injected on page load
+            </p>
+
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">🎯</div>
+                    <div class="feature-title">Corner Brackets</div>
+                    <div class="feature-desc">Tactical targeting frames on all cards with pulsing animation</div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-title">Threat Indicators</div>
+                    <div class="feature-desc">5-bar threat level display with active glow effects</div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">🔍</div>
+                    <div class="feature-title">Targeting Reticle</div>
+                    <div class="feature-desc">Crosshair overlay with rotation on hover</div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">📈</div>
+                    <div class="feature-title">Progress Bars</div>
+                    <div class="feature-desc">Animated stat progress with gradient glow</div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">🌫️</div>
+                    <div class="feature-title">Command Fog</div>
+                    <div class="feature-desc">Atmospheric depth layer with pulsing animation</div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">📡</div>
+                    <div class="feature-title">Scanner Beam</div>
+                    <div class="feature-desc">Horizontal tactical scanner sweep effect</div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-title">Radar Pulse</div>
+                    <div class="feature-desc">Interactive radar pulse on card click</div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">✨</div>
+                    <div class="feature-title">Data Particles</div>
+                    <div class="feature-desc">Floating data stream particles for atmosphere</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+        <button class="control-btn" onclick="toggleAtmosphere()">Toggle Atmosphere</button>
+        <button class="control-btn" onclick="triggerPulse()">Trigger Radar</button>
+    </div>
+
+    <!-- Command Center UI System -->
+    <script src="command-center-ui.js"></script>
+
+    <script>
+        // Control functions
+        function toggleAtmosphere() {
+            if (window.commandCenterUI) {
+                const currentState = window.commandCenterUI.elements.fog?.style.display !== 'none';
+                window.commandCenterUI.toggleAtmosphere(!currentState);
+                console.log(`Atmosphere ${!currentState ? 'enabled' : 'disabled'}`);
+            }
+        }
+
+        function triggerPulse() {
+            if (window.commandCenterUI) {
+                const centerX = window.innerWidth / 2;
+                const centerY = window.innerHeight / 2;
+                window.commandCenterUI.createRadarPulse(centerX, centerY);
+            }
+        }
+
+        // Add console message
+        console.log('%c⚡ COMMAND CENTER ACTIVE ⚡', 'color: #02F26F; font-size: 24px; font-weight: bold;');
+        console.log('%cVisual enhancements loaded successfully', 'color: #0CEC9A; font-size: 14px;');
+        console.log('%cTry: toggleAtmosphere() or triggerPulse()', 'color: #00F3FF; font-size: 12px;');
+    </script>
+</body>
+</html>

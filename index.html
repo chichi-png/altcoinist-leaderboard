@@ -2959,6 +2959,9 @@
             }
         }
     </style>
+
+    <!-- Command Center Visual Enhancements -->
+    <link rel="stylesheet" href="command-center-enhancements.css">
 </head>
 <body>
     <!-- Hero Character Background -->
@@ -3213,6 +3216,71 @@
     </section>
     </div>
     <!-- End Home Page -->
+
+    <!-- Weekly Rankings Page -->
+    <div id="weekly-page" class="page-container">
+        <section style="padding: var(--space-10) var(--space-6); position: relative; z-index: 2;">
+            <!-- Header -->
+            <div style="text-align: center; margin-bottom: var(--space-12);">
+                <h1 style="font-size: 3.5rem; font-family: 'Orbitron', sans-serif; font-weight: 900; color: var(--neon-market-green); text-shadow: 0 0 30px var(--glow-green); margin-bottom: var(--space-4);">
+                    📊 Weekly Rankings
+                </h1>
+                <div style="display: inline-block; padding: var(--space-3) var(--space-6); background: rgba(2, 242, 111, 0.1); border: 2px solid var(--neon-market-green); border-radius: var(--radius-lg); margin-bottom: var(--space-8);">
+                    <span style="font-size: 1.2rem; font-weight: 600; color: var(--electric-mint); font-family: 'Inter', sans-serif;">
+                        Week 12 (Mar 17-23, 2026)
+                    </span>
+                </div>
+            </div>
+
+            <!-- Summary Stats Row -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-6); max-width: 1400px; margin: 0 auto var(--space-12);">
+                <!-- Active Affiliates -->
+                <div style="background: var(--panel-dark); border: 2px solid var(--muted-slate); border-radius: var(--radius-xl); padding: var(--space-8); text-align: center; position: relative; overflow: hidden;">
+                    <div style="position: absolute; inset: 0; background: radial-gradient(circle at center, var(--glow-green) 0%, transparent 70%); opacity: 0.1;"></div>
+                    <div style="position: relative; z-index: 1;">
+                        <div style="font-size: 1rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase; letter-spacing: 1px; margin-bottom: var(--space-3);">
+                            Active Affiliates
+                        </div>
+                        <div style="font-size: 3.5rem; font-family: 'Orbitron', sans-serif; font-weight: 900; color: var(--neon-market-green); text-shadow: 0 0 20px var(--glow-green);">
+                            47
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total Referrals -->
+                <div style="background: var(--panel-dark); border: 2px solid var(--muted-slate); border-radius: var(--radius-xl); padding: var(--space-8); text-align: center; position: relative; overflow: hidden;">
+                    <div style="position: absolute; inset: 0; background: radial-gradient(circle at center, var(--glow-mint) 0%, transparent 70%); opacity: 0.1;"></div>
+                    <div style="position: relative; z-index: 1;">
+                        <div style="font-size: 1rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase; letter-spacing: 1px; margin-bottom: var(--space-3);">
+                            Total Referrals
+                        </div>
+                        <div style="font-size: 3.5rem; font-family: 'Orbitron', sans-serif; font-weight: 900; color: var(--neon-market-green); text-shadow: 0 0 20px var(--glow-green);">
+                            892
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LTV/CAC -->
+                <div style="background: var(--panel-dark); border: 2px solid var(--muted-slate); border-radius: var(--radius-xl); padding: var(--space-8); text-align: center; position: relative; overflow: hidden;">
+                    <div style="position: absolute; inset: 0; background: radial-gradient(circle at center, var(--glow-trade) 0%, transparent 70%); opacity: 0.1;"></div>
+                    <div style="position: relative; z-index: 1;">
+                        <div style="font-size: 1rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase; letter-spacing: 1px; margin-bottom: var(--space-3);">
+                            LTV/CAC
+                        </div>
+                        <div style="font-size: 3.5rem; font-family: 'Orbitron', sans-serif; font-weight: 900; color: var(--neon-market-green); text-shadow: 0 0 20px var(--glow-green);">
+                            2.86x
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Affiliate Dashboard Grid -->
+            <div id="weekly-dashboard-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: var(--space-6); max-width: 1600px; margin: 0 auto;">
+                <!-- Affiliate cards will be dynamically generated here -->
+            </div>
+        </section>
+    </div>
+    <!-- End Weekly Page -->
 
     <!-- Twitter Posts Page -->
     <div id="twitter-posts-page" class="page-container">
@@ -5602,5 +5670,8 @@
         console.log('🌐 Full cyber background with hexagons, scan lines & data streams');
         console.log('💎 Top 3: Cyan (1st), Teal (2nd), Electric Blue (3rd)');
     </script>
+
+    <!-- Command Center UI System -->
+    <script src="command-center-ui.js"></script>
 </body>
 </html>

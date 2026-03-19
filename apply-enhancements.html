@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply Command Center Enhancements - Integration Tool</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0E111A 0%, #161B2D 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(22, 27, 45, 0.9);
+            border: 2px solid #02F26F;
+            border-radius: 1.5rem;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(2, 242, 111, 0.3);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #02F26F;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #0CEC9A;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .instructions {
+            background: rgba(2, 242, 111, 0.05);
+            border: 1px solid rgba(2, 242, 111, 0.2);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .instructions h2 {
+            color: #02F26F;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .instructions ol {
+            margin-left: 1.5rem;
+            line-height: 2;
+        }
+
+        .instructions li {
+            margin-bottom: 1rem;
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #02F26F;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: #0CEC9A;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-label {
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            background: #02F26F;
+            color: #0E111A;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.25rem;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        .file-list {
+            background: rgba(2, 242, 111, 0.05);
+            border: 1px solid rgba(2, 242, 111, 0.2);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .file-list h2 {
+            color: #02F26F;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(2, 242, 111, 0.2);
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .file-item:hover {
+            background: rgba(2, 242, 111, 0.1);
+            border-color: #02F26F;
+            transform: translateX(5px);
+        }
+
+        .file-icon {
+            font-size: 1.5rem;
+        }
+
+        .file-info {
+            flex: 1;
+        }
+
+        .file-name {
+            font-weight: bold;
+            color: #02F26F;
+            font-size: 1.1rem;
+        }
+
+        .file-desc {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .status-badge {
+            padding: 0.5rem 1rem;
+            background: #02F26F;
+            color: #0E111A;
+            border-radius: 2rem;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: 2px solid #02F26F;
+            border-radius: 0.75rem;
+            background: transparent;
+            color: #02F26F;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: #02F26F;
+            color: #0E111A;
+            transform: scale(1.05);
+        }
+
+        .btn-primary {
+            background: #02F26F;
+            color: #0E111A;
+        }
+
+        .btn-primary:hover {
+            background: #0CEC9A;
+        }
+
+        .note {
+            background: rgba(255, 184, 0, 0.1);
+            border: 1px solid rgba(255, 184, 0, 0.3);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .note strong {
+            color: #FFB800;
+        }
+
+        .checklist {
+            margin-top: 1.5rem;
+        }
+
+        .checklist label {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 0.5rem;
+        }
+
+        .checklist label:hover {
+            background: rgba(2, 242, 111, 0.1);
+        }
+
+        .checklist input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: #02F26F;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚡ Command Center Enhancements</h1>
+        <p class="subtitle">Integration Tool for Affiliate Leaderboard</p>
+
+        <!-- Instructions -->
+        <div class="instructions">
+            <h2>📋 Manual Integration Steps</h2>
+            <ol>
+                <li>
+                    <strong>Add CSS to &lt;head&gt; section</strong><br>
+                    Copy this line into the <code>&lt;head&gt;</code> of each HTML file:
+                    <div class="code-block">
+                        <span class="code-label">CSS</span>
+&lt;!-- Command Center Enhancements --&gt;
+&lt;link rel="stylesheet" href="command-center-enhancements.css"&gt;
+                    </div>
+                </li>
+                <li>
+                    <strong>Add JavaScript before &lt;/body&gt;</strong><br>
+                    Copy this line before the closing <code>&lt;/body&gt;</code> tag:
+                    <div class="code-block">
+                        <span class="code-label">JS</span>
+&lt;!-- Command Center UI System --&gt;
+&lt;script src="command-center-ui.js" defer&gt;&lt;/script&gt;
+                    </div>
+                </li>
+                <li>
+                    <strong>Clear browser cache</strong><br>
+                    Press <kbd>Ctrl + Shift + R</kbd> (Windows) or <kbd>Cmd + Shift + R</kbd> (Mac)
+                </li>
+                <li>
+                    <strong>Reload and verify</strong><br>
+                    Open browser console (F12) and look for:<br>
+                    <code style="color: #02F26F;">[Command Center UI] Tactical interface online ✓</code>
+                </li>
+            </ol>
+        </div>
+
+        <!-- Files to Update -->
+        <div class="file-list">
+            <h2>📁 Files to Update</h2>
+
+            <div class="file-item">
+                <div class="file-icon">📄</div>
+                <div class="file-info">
+                    <div class="file-name">index.html</div>
+                    <div class="file-desc">Main leaderboard page</div>
+                </div>
+                <div class="status-badge">UPDATE</div>
+            </div>
+
+            <div class="file-item">
+                <div class="file-icon">📄</div>
+                <div class="file-info">
+                    <div class="file-name">weekly.html</div>
+                    <div class="file-desc">Weekly command center</div>
+                </div>
+                <div class="status-badge">UPDATE</div>
+            </div>
+
+            <div class="file-item">
+                <div class="file-icon">📄</div>
+                <div class="file-info">
+                    <div class="file-name">monthly.html</div>
+                    <div class="file-desc">Monthly rankings</div>
+                </div>
+                <div class="status-badge">UPDATE</div>
+            </div>
+
+            <div class="file-item">
+                <div class="file-icon">📄</div>
+                <div class="file-info">
+                    <div class="file-name">landing.html</div>
+                    <div class="file-desc">Entry point with guardian</div>
+                </div>
+                <div class="status-badge">UPDATE</div>
+            </div>
+        </div>
+
+        <!-- Checklist -->
+        <div class="instructions">
+            <h2>✅ Integration Checklist</h2>
+            <div class="checklist">
+                <label>
+                    <input type="checkbox" id="check1">
+                    <span>Reviewed visual-preview.html demo</span>
+                </label>
+                <label>
+                    <input type="checkbox" id="check2">
+                    <span>Added CSS link to all 4 HTML files</span>
+                </label>
+                <label>
+                    <input type="checkbox" id="check3">
+                    <span>Added JS script to all 4 HTML files</span>
+                </label>
+                <label>
+                    <input type="checkbox" id="check4">
+                    <span>Cleared browser cache</span>
+                </label>
+                <label>
+                    <input type="checkbox" id="check5">
+                    <span>Verified console message: "Tactical interface online"</span>
+                </label>
+                <label>
+                    <input type="checkbox" id="check6">
+                    <span>Tested on Chrome/Firefox/Safari</span>
+                </label>
+                <label>
+                    <input type="checkbox" id="check7">
+                    <span>Tested on mobile devices</span>
+                </label>
+                <label>
+                    <input type="checkbox" id="check8">
+                    <span>Verified radar pulse on click</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Note -->
+        <div class="note">
+            <strong>💡 Pro Tip:</strong> Open <code>visual-preview.html</code> first to see all enhancements in action before integrating. Use the controls at the bottom to test interactive features!
+        </div>
+
+        <!-- Buttons -->
+        <div class="button-group">
+            <a href="visual-preview.html" class="btn btn-primary">
+                🎯 View Preview
+            </a>
+            <a href="VISUAL_UPGRADE_GUIDE.md" class="btn">
+                📖 Full Guide
+            </a>
+            <a href="IMPLEMENTATION_SUMMARY.md" class="btn">
+                📋 Summary
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Track checkbox progress
+        const checkboxes = document.querySelectorAll('.checklist input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                const checked = Array.from(checkboxes).filter(cb => cb.checked).length;
+                const total = checkboxes.length;
+                const progress = Math.round((checked / total) * 100);
+
+                if (progress === 100) {
+                    alert('🎉 All steps completed! Your command center is ready for deployment.');
+                }
+            });
+        });
+
+        console.log('%c⚡ INTEGRATION TOOL LOADED ⚡', 'color: #02F26F; font-size: 20px; font-weight: bold;');
+        console.log('%cFollow the steps above to integrate command center enhancements', 'color: #0CEC9A; font-size: 14px;');
+    </script>
+</body>
+</html>
