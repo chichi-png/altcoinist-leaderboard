@@ -3297,15 +3297,51 @@
                 </div>
             </div>
 
-            <!-- Monthly Content Placeholder -->
-            <div style="text-align: center; padding: var(--space-20); background: var(--panel-dark); border: 2px solid var(--muted-slate); border-radius: var(--radius-xl); max-width: 800px; margin: 0 auto;">
-                <div style="font-size: 4rem; margin-bottom: var(--space-6);">📊</div>
-                <h2 style="font-family: 'Orbitron', sans-serif; font-size: 2rem; color: var(--neon-market-green); margin-bottom: var(--space-4);">
-                    Monthly Rankings Coming Soon
-                </h2>
-                <p style="font-size: 1.2rem; color: var(--electric-mint); max-width: 600px; margin: 0 auto;">
-                    Monthly leaderboards, top performers, and detailed analytics will be available here soon.
-                </p>
+            <!-- Summary Stats Row -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-6); max-width: 1400px; margin: 0 auto var(--space-12);">
+                <!-- Active Affiliates -->
+                <div style="background: var(--panel-dark); border: 2px solid var(--muted-slate); border-radius: var(--radius-xl); padding: var(--space-8); text-align: center; position: relative; overflow: hidden;">
+                    <div style="position: absolute; inset: 0; background: radial-gradient(circle at center, var(--glow-green) 0%, transparent 70%); opacity: 0.1;"></div>
+                    <div style="position: relative; z-index: 1;">
+                        <div style="font-size: 1rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase; letter-spacing: 1px; margin-bottom: var(--space-3);">
+                            Active Affiliates
+                        </div>
+                        <div style="font-size: 3.5rem; font-family: 'Orbitron', sans-serif; font-weight: 900; color: var(--neon-market-green); text-shadow: 0 0 20px var(--glow-green);">
+                            47
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total Referrals -->
+                <div style="background: var(--panel-dark); border: 2px solid var(--muted-slate); border-radius: var(--radius-xl); padding: var(--space-8); text-align: center; position: relative; overflow: hidden;">
+                    <div style="position: absolute; inset: 0; background: radial-gradient(circle at center, var(--glow-mint) 0%, transparent 70%); opacity: 0.1;"></div>
+                    <div style="position: relative; z-index: 1;">
+                        <div style="font-size: 1rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase; letter-spacing: 1px; margin-bottom: var(--space-3);">
+                            Total Referrals
+                        </div>
+                        <div style="font-size: 3.5rem; font-family: 'Orbitron', sans-serif; font-weight: 900; color: var(--neon-market-green); text-shadow: 0 0 20px var(--glow-green);">
+                            3,247
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LTV/CAC -->
+                <div style="background: var(--panel-dark); border: 2px solid var(--muted-slate); border-radius: var(--radius-xl); padding: var(--space-8); text-align: center; position: relative; overflow: hidden;">
+                    <div style="position: absolute; inset: 0; background: radial-gradient(circle at center, var(--glow-trade) 0%, transparent 70%); opacity: 0.1;"></div>
+                    <div style="position: relative; z-index: 1;">
+                        <div style="font-size: 1rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase; letter-spacing: 1px; margin-bottom: var(--space-3);">
+                            LTV/CAC
+                        </div>
+                        <div style="font-size: 3.5rem; font-family: 'Orbitron', sans-serif; font-weight: 900; color: var(--neon-market-green); text-shadow: 0 0 20px var(--glow-green);">
+                            2.86x
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Affiliate Dashboard Grid -->
+            <div id="monthly-dashboard-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: var(--space-6); max-width: 1600px; margin: 0 auto;">
+                <!-- Affiliate cards will be dynamically generated here -->
             </div>
         </section>
     </div>
@@ -4563,6 +4599,125 @@
             }).join('');
         }
 
+        // ===== Monthly Rankings Data & Rendering =====
+
+        const monthlyData = [
+            {rank: 1, name: 'Rb3k', handle: '@rbthreek', avatar: 'R', tweets: 45, referrals: 782, monthlyScore: 827, imgSrc: 'assets/images/affiliates/Rb3k_(rbthreek).jpg', profileUrl: 'https://x.com/rbthreek'},
+            {rank: 2, name: 'N30', handle: '@N30_cryptoo', avatar: 'N30', tweets: 512, referrals: 89, monthlyScore: 601, imgSrc: 'assets/images/affiliates/N30_(n30_cryptoo).jpg', profileUrl: 'https://x.com/N30_cryptoo'},
+            {rank: 3, name: 'DJ', handle: '@nlinker777', avatar: 'DJ', tweets: 428, referrals: 12, monthlyScore: 440, imgSrc: 'assets/images/affiliates/DJ_(nlinker777).jpg', profileUrl: 'https://x.com/NLinker777'},
+            {rank: 4, name: 'Slavicbased', handle: '@basedsnipez', avatar: 'S', tweets: 186, referrals: 245, monthlyScore: 431, imgSrc: 'assets/images/affiliates/Slavicbased_(basedsnipez).jpg', profileUrl: 'https://x.com/basedsnipez'},
+            {rank: 5, name: 'Tyler Kenny', handle: '@thebasedfrogx', avatar: 'T', tweets: 219, referrals: 38, monthlyScore: 257, imgSrc: 'assets/images/affiliates/Tyler_Kenny_(thebasedfrogx).jpg', profileUrl: 'https://x.com/thebasedfrogx'},
+            {rank: 6, name: 'Arindewar', handle: '@arindewar', avatar: 'A', tweets: 147, referrals: 18, monthlyScore: 165, imgSrc: 'assets/images/affiliates/Arindewar_(arindewar).jpg', profileUrl: 'https://x.com/arindewar'},
+            {rank: 7, name: 'mDiBe89', handle: '@tibbiracer', avatar: 'M', tweets: 138, referrals: 5, monthlyScore: 143, imgSrc: 'assets/images/affiliates/mDiBe89_(tibbiracer).jpg', profileUrl: 'https://x.com/tibbiracer'},
+            {rank: 8, name: 'Mj', handle: '@Vanxyrus', avatar: 'V', tweets: 95, referrals: 28, monthlyScore: 123, imgSrc: 'assets/images/affiliates/Mj_(vanxyrus).jpg', profileUrl: 'https://x.com/Vanxyrus'},
+        ];
+
+        function renderMonthlyDashboard() {
+            const grid = document.getElementById('monthly-dashboard-grid');
+            if (!grid) return;
+
+            grid.innerHTML = monthlyData.map(affiliate => {
+                const isTopThree = affiliate.rank <= 3;
+                const borderColor = isTopThree ? 'var(--neon-market-green)' : 'var(--muted-slate)';
+                const glowEffect = isTopThree ? 'box-shadow: 0 0 20px var(--glow-green), 0 4px 12px rgba(0, 0, 0, 0.5);' : 'box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);';
+
+                return `
+                    <div class="monthly-affiliate-card" style="
+                        background: var(--panel-dark);
+                        border: 2px solid ${borderColor};
+                        border-radius: var(--radius-xl);
+                        padding: var(--space-6);
+                        position: relative;
+                        overflow: hidden;
+                        transition: all var(--transition-base);
+                        ${glowEffect}
+                    " onmouseover="this.style.borderColor='var(--neon-market-green)'; this.style.boxShadow='0 0 25px var(--glow-green), 0 6px 16px rgba(0, 0, 0, 0.6)';" onmouseout="this.style.borderColor='${borderColor}'; this.style.boxShadow='${glowEffect}';">
+
+                        <!-- Rank Badge -->
+                        <div style="
+                            position: absolute;
+                            top: var(--space-4);
+                            left: var(--space-4);
+                            width: 40px;
+                            height: 40px;
+                            background: ${isTopThree ? 'var(--neon-market-green)' : 'var(--panel-elevated)'};
+                            border-radius: var(--radius-full);
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-family: 'Orbitron', sans-serif;
+                            font-size: 1.2rem;
+                            font-weight: 900;
+                            color: ${isTopThree ? 'var(--obsidian-navy)' : 'var(--neon-market-green)'};
+                            ${isTopThree ? 'box-shadow: 0 0 15px var(--glow-green);' : ''}
+                        ">
+                            ${affiliate.rank}
+                        </div>
+
+                        <!-- Profile Section -->
+                        <div style="display: flex; align-items: center; gap: var(--space-4); margin-top: var(--space-8); margin-bottom: var(--space-6);">
+                            <!-- Avatar -->
+                            <div style="position: relative; width: 70px; height: 70px; flex-shrink: 0;">
+                                ${affiliate.imgSrc ? `
+                                    <img src="${affiliate.imgSrc}" alt="${affiliate.name}" style="width: 100%; height: 100%; border-radius: var(--radius-lg); object-fit: cover; border: 2px solid var(--electric-mint);" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                    <div style="display: none; width: 100%; height: 100%; background: linear-gradient(135deg, var(--trade-green), var(--electric-mint)); border-radius: var(--radius-lg); align-items: center; justify-content: center; font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 900; color: white;">
+                                        ${affiliate.avatar}
+                                    </div>
+                                ` : `
+                                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, var(--trade-green), var(--electric-mint)); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 900; color: white;">
+                                        ${affiliate.avatar}
+                                    </div>
+                                `}
+                            </div>
+
+                            <!-- Name & Handle -->
+                            <div style="flex: 1; min-width: 0;">
+                                <div style="font-family: 'Inter', sans-serif; font-size: 1.3rem; font-weight: 700; color: white; margin-bottom: var(--space-1); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                    ${affiliate.name}
+                                </div>
+                                <div style="font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 500; color: var(--electric-mint); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                    ${affiliate.handle}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Metrics Grid -->
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); padding-top: var(--space-4); border-top: 1px solid var(--muted-slate);">
+                            <!-- Tweets -->
+                            <div style="text-align: center;">
+                                <div style="font-size: 0.85rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: var(--space-2);">
+                                    Tweets
+                                </div>
+                                <div style="font-family: 'Orbitron', sans-serif; font-size: 1.8rem; font-weight: 700; color: var(--neon-market-green);">
+                                    ${affiliate.tweets}
+                                </div>
+                            </div>
+
+                            <!-- Referrals -->
+                            <div style="text-align: center;">
+                                <div style="font-size: 0.85rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: var(--space-2);">
+                                    Referrals
+                                </div>
+                                <div style="font-family: 'Orbitron', sans-serif; font-size: 1.8rem; font-weight: 700; color: var(--neon-market-green);">
+                                    ${affiliate.referrals}
+                                </div>
+                            </div>
+
+                            <!-- Monthly Score -->
+                            <div style="text-align: center;">
+                                <div style="font-size: 0.85rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: var(--space-2);">
+                                    Score
+                                </div>
+                                <div style="font-family: 'Orbitron', sans-serif; font-size: 1.8rem; font-weight: 700; color: var(--neon-market-green); ${isTopThree ? 'text-shadow: 0 0 10px var(--glow-green);' : ''}">
+                                    ${affiliate.monthlyScore}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
         // ===== Page Switching System =====
 
         function switchPage(pageName) {
@@ -4589,6 +4744,8 @@
             // Load content for specific pages
             if (pageName === 'weekly') {
                 renderWeeklyDashboard();
+            } else if (pageName === 'monthly') {
+                renderMonthlyDashboard();
             } else if (pageName === 'x-profiles') {
                 loadXProfilesPage();
             } else if (pageName === 'twitter-posts') {
