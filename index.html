@@ -2855,112 +2855,50 @@
         }
 
         /* ========================================
-           STICKY TIME PERIOD NAVIGATION HEADER
+           NAVIGATION BUTTON STYLES
            ======================================== */
-        .leaderboard-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: rgba(22, 30, 46, 0.9);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--muted-slate);
-            padding: 16px 0;
-            transform: translateY(-100%);
-            transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
-            will-change: transform;
+        .nav-btn {
+            transition: all 0.3s ease;
         }
 
-        .leaderboard-header.sticky {
-            transform: translateY(0);
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(2, 242, 111, 0.4);
         }
 
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
+        .nav-btn.active {
+            background: var(--neon-market-green) !important;
+            color: #0E111A !important;
+            font-weight: 700 !important;
+            box-shadow: 0 0 20px rgba(2, 242, 111, 0.5);
         }
 
-        .header-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 32px;
+        /* Mobile Navigation */
+        @media (max-width: 1024px) {
+            header nav > div:first-child {
+                font-size: 2rem !important;
+            }
+
+            .nav-btn {
+                padding: 0.6rem 1rem !important;
+                font-size: 1rem !important;
+            }
         }
 
-        .time-period-tabs {
-            display: flex;
-            gap: 12px;
-            flex: 1;
-        }
-
-        .time-period-tab {
-            flex: 1;
-            max-width: 160px;
-            padding: 12px 32px;
-            background: transparent;
-            border: 2px solid var(--neon-market-green);
-            border-radius: 8px;
-            color: #F3F7FA;
-            font-size: 14px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1.2px;
-            cursor: pointer;
-            transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-        }
-
-        .time-period-tab:hover {
-            background: rgba(2, 242, 111, 0.1);
-            box-shadow: 0 0 12px rgba(2, 242, 111, 0.3);
-        }
-
-        .time-period-tab.active {
-            background: var(--neon-market-green);
-            color: #0E111A;
-            font-weight: 700;
-            box-shadow: 0 0 16px rgba(2, 242, 111, 0.4);
-        }
-
-        .header-title {
-            font-size: 18px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: #F3F7FA;
-            white-space: nowrap;
-        }
-
-        /* Mobile Responsive */
         @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 16px;
+            header nav {
+                flex-direction: column !important;
+                padding: 1rem !important;
             }
 
-            .time-period-tabs {
+            header nav > div:last-child {
                 width: 100%;
+                justify-content: center;
             }
 
-            .time-period-tab {
-                max-width: none;
-                padding: 10px 20px;
-                font-size: 12px;
-            }
-        }
-
-        @media (max-width: 400px) {
-            .time-period-tabs {
-                flex-direction: column;
-                gap: 8px;
-            }
-
-            .time-period-tab {
-                width: 100%;
+            .nav-btn {
+                flex: 1;
+                min-width: 140px;
             }
         }
     </style>
@@ -2982,28 +2920,20 @@
                 Altcoinist Affiliates
             </div>
             <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
-                <button class="nav-btn active" onclick="switchPage('home')" data-page="home" style="padding: 0.75rem 1.5rem; background: rgba(2, 242, 111, 0.1); border: 2px solid var(--neon-market-green); border-radius: 8px; color: var(--neon-market-green); cursor: pointer; font-size: 1.2rem; font-weight: 600; transition: all 0.3s; text-transform: uppercase; letter-spacing: 0.5px;">
-                    🏠 Leaderboard
-                </button>
+                <a href="index.html" class="nav-btn active" data-page="alltime" style="padding: 0.75rem 1.5rem; background: var(--neon-market-green); border: 2px solid var(--neon-market-green); border-radius: 8px; color: #0E111A; cursor: pointer; font-size: 1.2rem; font-weight: 700; transition: all 0.3s; text-transform: uppercase; letter-spacing: 0.5px; text-decoration: none; display: inline-block;">
+                    🏆 All-Time Rankings
+                </a>
+                <a href="weekly.html" class="nav-btn" data-page="weekly" style="padding: 0.75rem 1.5rem; background: rgba(2, 242, 111, 0.1); border: 2px solid var(--neon-market-green); border-radius: 8px; color: var(--neon-market-green); cursor: pointer; font-size: 1.2rem; font-weight: 600; transition: all 0.3s; text-transform: uppercase; letter-spacing: 0.5px; text-decoration: none; display: inline-block;">
+                    📊 Weekly Rankings
+                </a>
+                <a href="monthly.html" class="nav-btn" data-page="monthly" style="padding: 0.75rem 1.5rem; background: rgba(2, 242, 111, 0.1); border: 2px solid var(--neon-market-green); border-radius: 8px; color: var(--neon-market-green); cursor: pointer; font-size: 1.2rem; font-weight: 600; transition: all 0.3s; text-transform: uppercase; letter-spacing: 0.5px; text-decoration: none; display: inline-block;">
+                    📈 Monthly Rankings
+                </a>
                 <button class="nav-btn" onclick="switchPage('affiliates')" data-page="affiliates" style="padding: 0.75rem 1.5rem; background: rgba(2, 242, 111, 0.1); border: 2px solid var(--neon-market-green); border-radius: 8px; color: var(--neon-market-green); cursor: pointer; font-size: 1.2rem; font-weight: 600; transition: all 0.3s; text-transform: uppercase; letter-spacing: 0.5px;">
                     🎯 Affiliates
                 </button>
             </div>
         </nav>
-    </header>
-
-    <!-- Sticky Time Period Navigation Header (Shows on Scroll in Leaderboard) -->
-    <header class="leaderboard-header" id="stickyHeader">
-        <div class="header-container">
-            <div class="header-content">
-                <div class="time-period-tabs">
-                    <a href="index.html" class="time-period-tab active">ALL-TIME</a>
-                    <a href="weekly.html" class="time-period-tab">WEEKLY</a>
-                    <a href="monthly.html" class="time-period-tab">MONTHLY</a>
-                </div>
-                <div class="header-title">🏆 Rankings</div>
-            </div>
-        </div>
     </header>
 
     <!-- Mute Button -->
@@ -3507,25 +3437,6 @@
     </div>
 
     <script>
-        // ========================================
-        // STICKY HEADER NAVIGATION
-        // ========================================
-        const stickyHeader = document.getElementById('stickyHeader');
-        let lastScroll = 0;
-
-        window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset;
-
-            if (currentScroll > 200) {
-                stickyHeader.classList.add('sticky');
-            } else {
-                stickyHeader.classList.remove('sticky');
-            }
-
-            lastScroll = currentScroll;
-        });
-
-        // ========================================
         // Web Audio API Sound Engine - Futuristic Cyber Sounds
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         const audioCtx = new AudioContext();
