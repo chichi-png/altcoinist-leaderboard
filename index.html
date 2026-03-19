@@ -2971,8 +2971,6 @@
 
     <!-- Global Cyber Background -->
     <div class="cyber-bg">
-        <div class="bg-grid"></div>
-        <div class="diagonal-lines"></div>
         <div class="ambient-glow glow-1"></div>
         <div class="ambient-glow glow-2"></div>
         <div class="ambient-glow glow-3"></div>
@@ -3278,6 +3276,11 @@
             <div id="weekly-dashboard-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: var(--space-6); max-width: 1600px; margin: 0 auto;">
                 <!-- Affiliate cards will be dynamically generated here -->
             </div>
+
+            <!-- Pagination Controls -->
+            <div id="weekly-pagination" style="display: flex; justify-content: center; align-items: center; gap: var(--space-4); margin-top: var(--space-12); flex-wrap: wrap;">
+                <!-- Pagination buttons will be generated here -->
+            </div>
         </section>
     </div>
     <!-- End Weekly Page -->
@@ -3342,6 +3345,11 @@
             <!-- Affiliate Dashboard Grid -->
             <div id="monthly-dashboard-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: var(--space-6); max-width: 1600px; margin: 0 auto;">
                 <!-- Affiliate cards will be dynamically generated here -->
+            </div>
+
+            <!-- Pagination Controls -->
+            <div id="monthly-pagination" style="display: flex; justify-content: center; align-items: center; gap: var(--space-4); margin-top: var(--space-12); flex-wrap: wrap;">
+                <!-- Pagination buttons will be generated here -->
             </div>
         </section>
     </div>
@@ -4487,6 +4495,9 @@
 
         // ===== Weekly Rankings Data & Rendering =====
 
+        let weeklyCurrentPage = 1;
+        const weeklyItemsPerPage = 12;
+
         const weeklyData = [
             {rank: 1, name: 'Rb3k', handle: '@rbthreek', avatar: 'R', tweets: 12, referrals: 208, weeklyScore: 324, imgSrc: 'assets/images/affiliates/Rb3k_(rbthreek).jpg', profileUrl: 'https://x.com/rbthreek'},
             {rank: 2, name: 'N30', handle: '@N30_cryptoo', avatar: 'N30', tweets: 160, referrals: 22, weeklyScore: 187, imgSrc: 'assets/images/affiliates/N30_(n30_cryptoo).jpg', profileUrl: 'https://x.com/N30_cryptoo'},
@@ -4500,7 +4511,13 @@
             const grid = document.getElementById('weekly-dashboard-grid');
             if (!grid) return;
 
-            grid.innerHTML = weeklyData.map(affiliate => {
+            // Calculate pagination
+            const totalPages = Math.ceil(weeklyData.length / weeklyItemsPerPage);
+            const startIndex = (weeklyCurrentPage - 1) * weeklyItemsPerPage;
+            const endIndex = startIndex + weeklyItemsPerPage;
+            const pageData = weeklyData.slice(startIndex, endIndex);
+
+            grid.innerHTML = pageData.map(affiliate => {
                 const isTopThree = affiliate.rank <= 3;
                 const borderColor = isTopThree ? 'var(--neon-market-green)' : 'var(--muted-slate)';
                 const glowEffect = isTopThree ? 'box-shadow: 0 0 20px var(--glow-green), 0 4px 12px rgba(0, 0, 0, 0.5);' : 'box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);';
@@ -4600,9 +4617,42 @@
                     </div>
                 `;
             }).join('');
+
+            // Render pagination controls
+            const paginationContainer = document.getElementById('weekly-pagination');
+            if (paginationContainer) {
+                paginationContainer.innerHTML = `
+                    <button class="btn" onclick="changeWeeklyPage(${weeklyCurrentPage - 1})" ${weeklyCurrentPage === 1 ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}>
+                        <span>← Previous</span>
+                    </button>
+                    <div style="display: flex; gap: var(--space-2);">
+                        ${Array.from({length: totalPages}, (_, i) => i + 1).map(page => `
+                            <button class="btn" onclick="changeWeeklyPage(${page})" style="${page === weeklyCurrentPage ? 'background: var(--neon-market-green); color: var(--obsidian-navy); font-weight: 700;' : ''} min-width: 50px;">
+                                <span>${page}</span>
+                            </button>
+                        `).join('')}
+                    </div>
+                    <button class="btn" onclick="changeWeeklyPage(${weeklyCurrentPage + 1})" ${weeklyCurrentPage === totalPages ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}>
+                        <span>Next →</span>
+                    </button>
+                `;
+            }
+        }
+
+        function changeWeeklyPage(newPage) {
+            const totalPages = Math.ceil(weeklyData.length / weeklyItemsPerPage);
+            if (newPage < 1 || newPage > totalPages) return;
+
+            weeklyCurrentPage = newPage;
+            renderWeeklyDashboard();
+            playSound('card-click');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         // ===== Monthly Rankings Data & Rendering =====
+
+        let monthlyCurrentPage = 1;
+        const monthlyItemsPerPage = 12;
 
         const monthlyData = [
             {rank: 1, name: 'Rb3k', handle: '@rbthreek', avatar: 'R', tweets: 45, referrals: 782, monthlyScore: 827, imgSrc: 'assets/images/affiliates/Rb3k_(rbthreek).jpg', profileUrl: 'https://x.com/rbthreek'},
@@ -4619,7 +4669,13 @@
             const grid = document.getElementById('monthly-dashboard-grid');
             if (!grid) return;
 
-            grid.innerHTML = monthlyData.map(affiliate => {
+            // Calculate pagination
+            const totalPages = Math.ceil(monthlyData.length / monthlyItemsPerPage);
+            const startIndex = (monthlyCurrentPage - 1) * monthlyItemsPerPage;
+            const endIndex = startIndex + monthlyItemsPerPage;
+            const pageData = monthlyData.slice(startIndex, endIndex);
+
+            grid.innerHTML = pageData.map(affiliate => {
                 const isTopThree = affiliate.rank <= 3;
                 const borderColor = isTopThree ? 'var(--neon-market-green)' : 'var(--muted-slate)';
                 const glowEffect = isTopThree ? 'box-shadow: 0 0 20px var(--glow-green), 0 4px 12px rgba(0, 0, 0, 0.5);' : 'box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);';
@@ -4719,6 +4775,36 @@
                     </div>
                 `;
             }).join('');
+
+            // Render pagination controls
+            const paginationContainer = document.getElementById('monthly-pagination');
+            if (paginationContainer) {
+                paginationContainer.innerHTML = `
+                    <button class="btn" onclick="changeMonthlyPage(${monthlyCurrentPage - 1})" ${monthlyCurrentPage === 1 ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}>
+                        <span>← Previous</span>
+                    </button>
+                    <div style="display: flex; gap: var(--space-2);">
+                        ${Array.from({length: totalPages}, (_, i) => i + 1).map(page => `
+                            <button class="btn" onclick="changeMonthlyPage(${page})" style="${page === monthlyCurrentPage ? 'background: var(--neon-market-green); color: var(--obsidian-navy); font-weight: 700;' : ''} min-width: 50px;">
+                                <span>${page}</span>
+                            </button>
+                        `).join('')}
+                    </div>
+                    <button class="btn" onclick="changeMonthlyPage(${monthlyCurrentPage + 1})" ${monthlyCurrentPage === totalPages ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}>
+                        <span>Next →</span>
+                    </button>
+                `;
+            }
+        }
+
+        function changeMonthlyPage(newPage) {
+            const totalPages = Math.ceil(monthlyData.length / monthlyItemsPerPage);
+            if (newPage < 1 || newPage > totalPages) return;
+
+            monthlyCurrentPage = newPage;
+            renderMonthlyDashboard();
+            playSound('card-click');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         // ===== Page Switching System =====
