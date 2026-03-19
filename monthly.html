@@ -3323,6 +3323,16 @@
                     <span class="popup-stat-value" id="popupTotal">1,487</span>
                 </div>
             </div>
+            <div class="popup-actions" style="display: flex; gap: 1rem; margin-top: 1.5rem; width: 100%;">
+                <a id="popupXButton" href="#" target="_blank" rel="noopener noreferrer" style="flex: 1; padding: 0.75rem 1.5rem; background: linear-gradient(135deg, var(--neon-market-green) 0%, var(--electric-mint) 100%); border: none; border-radius: 8px; color: #0E111A; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 0.5rem; transition: all 0.3s; text-align: center;">
+                    <span style="font-size: 1.2rem;">𝕏</span>
+                    <span>X Profile</span>
+                </a>
+                <a id="popupTelegramButton" href="#" target="_blank" rel="noopener noreferrer" style="flex: 1; padding: 0.75rem 1.5rem; background: rgba(2, 242, 111, 0.1); border: 2px solid var(--neon-market-green); border-radius: 8px; color: var(--neon-market-green); font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 0.5rem; transition: all 0.3s; text-align: center;">
+                    <span style="font-size: 1.2rem;">✈️</span>
+                    <span>Telegram</span>
+                </a>
+            </div>
         </div>
     </div>
 
@@ -4009,7 +4019,8 @@
                 const row = document.createElement('tr');
                 row.onclick = () => showDetail(
                     affiliate.rank, affiliate.name, affiliate.handle, affiliate.avatar,
-                    affiliate.tweets, affiliate.referrals, affiliate.traders, affiliate.total, affiliate.imgSrc
+                    affiliate.tweets, affiliate.referrals, affiliate.traders, affiliate.total, affiliate.imgSrc,
+                    affiliate.profileUrl, affiliate.telegramHandle
                 );
 
                 row.innerHTML = `
@@ -5282,7 +5293,7 @@
         }
 
         // Click card with animations
-        function clickCard(card, rank, name, handle, avatar, tweets, referrals, traders, total, imgSrc) {
+        function clickCard(card, rank, name, handle, avatar, tweets, referrals, traders, total, imgSrc, profileUrl = '', telegramHandle = '') {
             const rect = card.getBoundingClientRect();
 
             // Create ripple effect
@@ -5316,12 +5327,12 @@
 
             // Show detail popup after animation starts
             setTimeout(() => {
-                showDetail(rank, name, handle, avatar, tweets, referrals, traders, total, imgSrc);
+                showDetail(rank, name, handle, avatar, tweets, referrals, traders, total, imgSrc, profileUrl, telegramHandle);
             }, 180);
         }
 
         // Detail popup controls
-        function showDetail(rank, name, handle, avatar, tweets, referrals, traders, total, imgSrc) {
+        function showDetail(rank, name, handle, avatar, tweets, referrals, traders, total, imgSrc, profileUrl = '', telegramHandle = '') {
             const avatarText = document.getElementById('popupAvatarText');
             const avatarImg = document.getElementById('popupAvatarImg');
 
@@ -5344,6 +5355,25 @@
             document.getElementById('popupTraders').textContent = traders.toLocaleString();
             document.getElementById('popupTotal').textContent = total.toLocaleString();
 
+            // Update button links
+            const xButton = document.getElementById('popupXButton');
+            const telegramButton = document.getElementById('popupTelegramButton');
+
+            if (profileUrl) {
+                xButton.href = profileUrl;
+                xButton.style.display = 'flex';
+            } else {
+                xButton.style.display = 'none';
+            }
+
+            if (telegramHandle) {
+                telegramButton.href = `https://t.me/${telegramHandle}`;
+                telegramButton.style.display = 'flex';
+            } else {
+                // Hide telegram button if no handle available
+                telegramButton.style.display = 'none';
+            }
+
             const popup = document.getElementById('detailPopup');
             popup.classList.add('active');
             playSound('popup-open');
@@ -5354,6 +5384,36 @@
             popup.classList.remove('active');
             playSound('popup-close');
         }
+
+        // Set up click handlers for podium cards
+        function setupPodiumClickHandlers() {
+            const podiumCards = document.querySelectorAll('.podium-card');
+            podiumCards.forEach((card, index) => {
+                if (index >= affiliatesData.length) return;
+
+                const affiliate = affiliatesData[index];
+                card.style.cursor = 'pointer';
+                card.onclick = () => {
+                    clickCard(
+                        card,
+                        affiliate.rank,
+                        affiliate.name,
+                        affiliate.handle,
+                        affiliate.avatar,
+                        affiliate.tweets,
+                        affiliate.referrals,
+                        affiliate.traders,
+                        affiliate.total,
+                        affiliate.imgSrc,
+                        affiliate.profileUrl,
+                        affiliate.telegramHandle || ''
+                    );
+                };
+            });
+        }
+
+        // Initialize podium click handlers on page load
+        window.addEventListener('DOMContentLoaded', setupPodiumClickHandlers);
 
         // ESC key to close modals and popups
         document.addEventListener('keydown', (e) => {
