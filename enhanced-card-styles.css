@@ -12,13 +12,13 @@
     --glass-highlight: rgba(255, 255, 255, 0.18);
 
     --brand-gradient: linear-gradient(135deg,
-        rgba(0, 243, 255, 0.15) 0%,
+        rgba(55, 255, 148, 0.15) 0%,
         rgba(16, 185, 129, 0.15) 50%,
-        rgba(20, 184, 166, 0.15) 100%);
+        rgba(12, 236, 154, 0.15) 100%);
 
     --shimmer-gradient: linear-gradient(90deg,
         transparent 0%,
-        rgba(0, 243, 255, 0.15) 50%,
+        rgba(55, 255, 148, 0.15) 50%,
         transparent 100%);
 }
 
@@ -63,7 +63,7 @@
 
     /* Multi-layered shadows for depth */
     box-shadow:
-        0 0 80px rgba(0, 243, 255, 0.25),
+        0 0 80px rgba(55, 255, 148, 0.25),
         0 20px 60px rgba(0, 0, 0, 0.6),
         inset 0 1px 1px rgba(255, 255, 255, 0.1),
         inset 0 -1px 1px rgba(0, 0, 0, 0.5);
@@ -189,9 +189,9 @@
 
     /* Glowing ring effect */
     box-shadow:
-        0 0 60px rgba(0, 243, 255, 0.4),
-        0 0 100px rgba(0, 243, 255, 0.2),
-        inset 0 0 30px rgba(0, 243, 255, 0.1);
+        0 0 60px rgba(55, 255, 148, 0.4),
+        0 0 100px rgba(55, 255, 148, 0.2),
+        inset 0 0 30px rgba(55, 255, 148, 0.1);
 }
 
 /* Rotating ring accent */
@@ -243,7 +243,7 @@
     font-weight: 800;
     font-family: 'DM Sans', sans-serif;
     color: var(--cyan-bright);
-    text-shadow: 0 0 20px rgba(0, 243, 255, 0.8);
+    text-shadow: 0 0 20px rgba(55, 255, 148, 0.8);
     overflow: hidden;
 }
 
@@ -279,7 +279,7 @@
     background-clip: text;
 
     /* Multiple text shadows for depth */
-    filter: drop-shadow(0 0 20px rgba(0, 243, 255, 0.5))
+    filter: drop-shadow(0 0 20px rgba(55, 255, 148, 0.5))
             drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8));
 
     animation: nameEntry 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s backwards;
@@ -294,7 +294,7 @@
     to {
         opacity: 1;
         transform: translateY(0);
-        filter: blur(0px) drop-shadow(0 0 20px rgba(0, 243, 255, 0.5));
+        filter: blur(0px) drop-shadow(0 0 20px rgba(55, 255, 148, 0.5));
     }
 }
 
@@ -303,7 +303,7 @@
     font-family: 'DM Sans', sans-serif;
     font-size: 16px;
     font-weight: 500;
-    color: rgba(0, 243, 255, 0.8);
+    color: rgba(55, 255, 148, 0.8);
     text-align: center;
     margin-bottom: 36px;
     letter-spacing: 0.02em;
@@ -365,10 +365,10 @@
 /* Hover effect on stats */
 .popup-stat:hover {
     background: var(--glass-highlight);
-    border-color: rgba(0, 243, 255, 0.4);
+    border-color: rgba(55, 255, 148, 0.4);
     transform: translateX(8px) scale(1.02);
     box-shadow:
-        0 0 30px rgba(0, 243, 255, 0.2),
+        0 0 30px rgba(55, 255, 148, 0.2),
         inset 0 1px 1px rgba(255, 255, 255, 0.1);
 }
 
@@ -382,7 +382,7 @@
     height: 100%;
     background: linear-gradient(90deg,
         transparent 0%,
-        rgba(0, 243, 255, 0.1) 50%,
+        rgba(55, 255, 148, 0.1) 50%,
         transparent 100%);
     transition: left 0.5s ease;
 }
@@ -412,12 +412,12 @@
 /* Total Stat - Premium Highlight */
 .popup-stat.total {
     background: linear-gradient(135deg,
-        rgba(0, 243, 255, 0.25) 0%,
+        rgba(55, 255, 148, 0.25) 0%,
         rgba(20, 184, 166, 0.25) 50%,
         rgba(16, 185, 129, 0.25) 100%);
     border: 2px solid var(--cyan-bright);
     box-shadow:
-        0 0 40px rgba(0, 243, 255, 0.4),
+        0 0 40px rgba(55, 255, 148, 0.4),
         0 8px 32px rgba(0, 0, 0, 0.4),
         inset 0 1px 1px rgba(255, 255, 255, 0.2);
     padding: 24px 24px;
@@ -427,7 +427,7 @@
 .popup-stat.total:hover {
     transform: translateX(12px) scale(1.03);
     box-shadow:
-        0 0 60px rgba(0, 243, 255, 0.6),
+        0 0 60px rgba(55, 255, 148, 0.6),
         0 12px 48px rgba(0, 0, 0, 0.6),
         inset 0 1px 1px rgba(255, 255, 255, 0.3);
 }
@@ -436,14 +436,14 @@
     color: var(--cyan-bright);
     font-size: 15px;
     font-weight: 700;
-    text-shadow: 0 0 10px rgba(0, 243, 255, 0.8);
+    text-shadow: 0 0 10px rgba(55, 255, 148, 0.8);
 }
 
 .popup-stat.total .popup-stat-value {
     font-size: 36px;
     color: var(--cyan-bright);
     text-shadow:
-        0 0 20px rgba(0, 243, 255, 0.8),
+        0 0 20px rgba(55, 255, 148, 0.8),
         0 2px 8px rgba(0, 0, 0, 0.8);
 }
 
@@ -487,7 +487,7 @@
     background: var(--glass-highlight);
     border-color: var(--cyan-bright);
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0, 243, 255, 0.3);
+    box-shadow: 0 8px 24px rgba(55, 255, 148, 0.3);
 }
 
 .popup-action-btn.primary {
@@ -499,7 +499,7 @@
 }
 
 .popup-action-btn.primary:hover {
-    box-shadow: 0 8px 32px rgba(0, 243, 255, 0.5);
+    box-shadow: 0 8px 32px rgba(55, 255, 148, 0.5);
     transform: translateY(-3px) scale(1.02);
 }
 
@@ -518,7 +518,7 @@
     border-radius: 20px;
     border: 2px solid var(--cyan-bright);
     box-shadow:
-        0 4px 16px rgba(0, 243, 255, 0.5),
+        0 4px 16px rgba(55, 255, 148, 0.5),
         inset 0 1px 1px rgba(255, 255, 255, 0.5);
     text-transform: uppercase;
     letter-spacing: 0.1em;

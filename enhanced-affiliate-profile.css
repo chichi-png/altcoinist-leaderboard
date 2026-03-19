@@ -1,7 +1,7 @@
 /* ============================================
    ENHANCED AFFILIATE PROFILE
    100% Altcoinist Branding Colors
-   Cyan (#00f3ff) + Green (#10b981) + Teal (#14b8a6)
+   Cyan (#37FF94) + Green (#10b981) + Teal (#14b8a6)
    ============================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap');
@@ -13,7 +13,7 @@
     --altcoinist-gray-850: #1C2935;
     --altcoinist-gray-800: #2B2D3C;
     --altcoinist-gray-700: #333333;
-    --altcoinist-cyan: #00f3ff;
+    --altcoinist-cyan: #37FF94;
     --altcoinist-teal: #14b8a6;
     --altcoinist-green: #10b981;
 }
@@ -24,14 +24,14 @@
         rgba(14, 17, 26, 0.98) 0%,
         rgba(22, 30, 46, 0.95) 50%,
         rgba(14, 17, 26, 0.98) 100%) !important;
-    border: 2px solid rgba(0, 243, 255, 0.3) !important;
+    border: 2px solid rgba(55, 255, 148, 0.3) !important;
     border-radius: 32px !important;
     backdrop-filter: blur(40px) !important;
     -webkit-backdrop-filter: blur(40px) !important;
     box-shadow:
-        0 0 80px rgba(0, 243, 255, 0.25),
+        0 0 80px rgba(55, 255, 148, 0.25),
         0 20px 60px rgba(14, 17, 26, 0.8),
-        inset 0 1px 1px rgba(0, 243, 255, 0.1) !important;
+        inset 0 1px 1px rgba(55, 255, 148, 0.1) !important;
     position: relative;
     overflow: hidden;
     animation: profileContainerEntry 0.8s cubic-bezier(0.16, 1, 0.3, 1);
@@ -58,7 +58,7 @@
     border-radius: 32px;
     padding: 2px;
     background: linear-gradient(135deg,
-        rgba(0, 243, 255, 0.4) 0%,
+        rgba(55, 255, 148, 0.4) 0%,
         rgba(20, 184, 166, 0.4) 50%,
         rgba(16, 185, 129, 0.4) 100%);
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -84,7 +84,7 @@
     height: 100%;
     background: linear-gradient(90deg,
         transparent 0%,
-        rgba(0, 243, 255, 0.15) 50%,
+        rgba(55, 255, 148, 0.15) 50%,
         transparent 100%);
     animation: shimmerPass 4s ease-in-out infinite;
     pointer-events: none;
@@ -108,7 +108,7 @@
 #affiliateProfileContent > div > div:first-child {
     height: 250px !important;
     background: linear-gradient(135deg,
-        rgba(0, 243, 255, 0.15) 0%,
+        rgba(55, 255, 148, 0.15) 0%,
         rgba(20, 184, 166, 0.15) 50%,
         rgba(16, 185, 129, 0.15) 100%),
         url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(0,243,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>') !important;
@@ -136,7 +136,7 @@
     width: 100%;
     height: 100%;
     background:
-        radial-gradient(circle at 20% 30%, rgba(0, 243, 255, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 20% 30%, rgba(55, 255, 148, 0.3) 0%, transparent 50%),
         radial-gradient(circle at 80% 70%, rgba(16, 185, 129, 0.3) 0%, transparent 50%);
     animation: particleFloat 8s ease-in-out infinite;
 }
@@ -154,16 +154,16 @@
 
 /* Rank Badge - Cyan gradient */
 #affiliateProfileContent > div > div:first-child > div[style*="top: 15px"] {
-    background: linear-gradient(135deg, #00f3ff, #14b8a6) !important;
+    background: linear-gradient(135deg, #37FF94, #14b8a6) !important;
     color: #0E111A !important;
     padding: 12px 24px !important;
     border-radius: 24px !important;
     font-family: 'Orbitron', sans-serif !important;
     font-size: 1.2rem !important;
     font-weight: 900 !important;
-    border: 2px solid rgba(0, 243, 255, 0.5) !important;
+    border: 2px solid rgba(55, 255, 148, 0.5) !important;
     box-shadow:
-        0 0 30px rgba(0, 243, 255, 0.6),
+        0 0 30px rgba(55, 255, 148, 0.6),
         0 4px 16px rgba(14, 17, 26, 0.6),
         inset 0 1px 1px rgba(255, 255, 255, 0.5) !important;
     animation: rankBadgeEntry 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s backwards;
@@ -186,13 +186,13 @@
     height: 150px !important;
     border: 5px solid #0E111A !important;
     background: linear-gradient(145deg,
-        rgba(0, 243, 255, 0.3),
+        rgba(55, 255, 148, 0.3),
         rgba(16, 185, 129, 0.3)) border-box !important;
     border-radius: 50% !important;
     padding: 5px !important;
     position: relative;
     box-shadow:
-        0 0 60px rgba(0, 243, 255, 0.5),
+        0 0 60px rgba(55, 255, 148, 0.5),
         0 8px 32px rgba(14, 17, 26, 0.8) !important;
     animation: avatarEntry 1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s backwards;
 }
@@ -218,10 +218,10 @@
     border-radius: 50%;
     background: conic-gradient(
         from 0deg,
-        #00f3ff,
+        #37FF94,
         #14b8a6,
         #10b981,
-        #00f3ff
+        #37FF94
     );
     opacity: 0.6;
     animation: ringRotate 4s linear infinite;
@@ -240,13 +240,13 @@
     font-size: 2.5rem !important;
     font-weight: 900 !important;
     background: linear-gradient(135deg,
-        #00f3ff 0%,
+        #37FF94 0%,
         #14b8a6 50%,
         #10b981 100%) !important;
     -webkit-background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
     background-clip: text !important;
-    filter: drop-shadow(0 0 20px rgba(0, 243, 255, 0.5)) !important;
+    filter: drop-shadow(0 0 20px rgba(55, 255, 148, 0.5)) !important;
     animation: nameEntry 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s backwards !important;
     letter-spacing: -0.02em !important;
 }
@@ -260,7 +260,7 @@
     to {
         opacity: 1;
         transform: translateY(0);
-        filter: blur(0px) drop-shadow(0 0 20px rgba(0, 243, 255, 0.5));
+        filter: blur(0px) drop-shadow(0 0 20px rgba(55, 255, 148, 0.5));
     }
 }
 
@@ -269,7 +269,7 @@
     font-family: 'Inter', sans-serif !important;
     font-size: 1.2rem !important;
     font-weight: 600 !important;
-    color: rgba(0, 243, 255, 0.8) !important;
+    color: rgba(55, 255, 148, 0.8) !important;
     animation: handleEntry 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.7s backwards !important;
 }
 
@@ -290,10 +290,10 @@
     font-size: 1.05rem !important;
     line-height: 1.7 !important;
     color: rgba(225, 232, 237, 0.9) !important;
-    background: rgba(0, 243, 255, 0.05) !important;
+    background: rgba(55, 255, 148, 0.05) !important;
     padding: 16px 20px !important;
     border-radius: 16px !important;
-    border: 1px solid rgba(0, 243, 255, 0.15) !important;
+    border: 1px solid rgba(55, 255, 148, 0.15) !important;
     backdrop-filter: blur(10px) !important;
     animation: bioEntry 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.8s backwards !important;
 }
@@ -312,7 +312,7 @@
 /* Location - Cyan */
 #affiliateProfileContent h2 + p + p + p {
     font-size: 1rem !important;
-    color: rgba(0, 243, 255, 0.8) !important;
+    color: rgba(55, 255, 148, 0.8) !important;
     font-weight: 600 !important;
     animation: locationEntry 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.9s backwards !important;
 }
@@ -336,10 +336,10 @@
 
 /* Individual Stat Cards - Glass with cyan tint */
 #affiliateProfileContent div[style*="grid-template-columns"] > div {
-    background: rgba(0, 243, 255, 0.05) !important;
+    background: rgba(55, 255, 148, 0.05) !important;
     backdrop-filter: blur(10px) !important;
     -webkit-backdrop-filter: blur(10px) !important;
-    border: 1px solid rgba(0, 243, 255, 0.2) !important;
+    border: 1px solid rgba(55, 255, 148, 0.2) !important;
     border-radius: 16px !important;
     padding: 20px 16px !important;
     transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
@@ -364,9 +364,9 @@
 #affiliateProfileContent div[style*="grid-template-columns"] > div:nth-child(4) {
     animation-delay: 1.3s;
     background: linear-gradient(135deg,
-        rgba(0, 243, 255, 0.2) 0%,
+        rgba(55, 255, 148, 0.2) 0%,
         rgba(16, 185, 129, 0.2) 100%) !important;
-    border: 2px solid #00f3ff !important;
+    border: 2px solid #37FF94 !important;
 }
 
 @keyframes statCardEntry {
@@ -384,17 +384,17 @@
 
 /* Stat Card Hover */
 #affiliateProfileContent div[style*="grid-template-columns"] > div:hover {
-    background: rgba(0, 243, 255, 0.1) !important;
-    border-color: rgba(0, 243, 255, 0.5) !important;
+    background: rgba(55, 255, 148, 0.1) !important;
+    border-color: rgba(55, 255, 148, 0.5) !important;
     transform: translateY(-5px) scale(1.03) !important;
     box-shadow:
-        0 0 30px rgba(0, 243, 255, 0.3),
+        0 0 30px rgba(55, 255, 148, 0.3),
         0 8px 24px rgba(14, 17, 26, 0.6) !important;
 }
 
 #affiliateProfileContent div[style*="grid-template-columns"] > div:nth-child(4):hover {
     box-shadow:
-        0 0 40px rgba(0, 243, 255, 0.5),
+        0 0 40px rgba(55, 255, 148, 0.5),
         0 12px 32px rgba(14, 17, 26, 0.7) !important;
 }
 
@@ -408,7 +408,7 @@
     height: 100%;
     background: linear-gradient(90deg,
         transparent 0%,
-        rgba(0, 243, 255, 0.2) 50%,
+        rgba(55, 255, 148, 0.2) 50%,
         transparent 100%);
     transition: left 0.5s ease;
 }
@@ -422,14 +422,14 @@
     font-family: 'Orbitron', sans-serif !important;
     font-size: 2rem !important;
     font-weight: 900 !important;
-    color: #00f3ff !important;
-    text-shadow: 0 0 10px rgba(0, 243, 255, 0.6) !important;
+    color: #37FF94 !important;
+    text-shadow: 0 0 10px rgba(55, 255, 148, 0.6) !important;
 }
 
 /* Total stat value - Gradient */
 #affiliateProfileContent div[style*="grid-template-columns"] > div:nth-child(4) > div:first-child {
     font-size: 2.25rem !important;
-    background: linear-gradient(135deg, #00f3ff, #10b981);
+    background: linear-gradient(135deg, #37FF94, #10b981);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -469,9 +469,9 @@
     font-weight: 700 !important;
     padding: 16px 32px !important;
     border-radius: 16px !important;
-    background: linear-gradient(135deg, #00f3ff, #14b8a6) !important;
+    background: linear-gradient(135deg, #37FF94, #14b8a6) !important;
     color: #0E111A !important;
-    box-shadow: 0 4px 16px rgba(0, 243, 255, 0.3) !important;
+    box-shadow: 0 4px 16px rgba(55, 255, 148, 0.3) !important;
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
     position: relative;
     overflow: hidden;
@@ -479,7 +479,7 @@
 
 #affiliateProfileContent a[style*="linear-gradient"]:hover {
     transform: translateY(-4px) scale(1.02) !important;
-    box-shadow: 0 8px 32px rgba(0, 243, 255, 0.5) !important;
+    box-shadow: 0 8px 32px rgba(55, 255, 148, 0.5) !important;
 }
 
 /* Secondary Button - Glass with cyan border */
@@ -489,18 +489,18 @@
     font-weight: 700 !important;
     padding: 16px 32px !important;
     border-radius: 16px !important;
-    background: rgba(0, 243, 255, 0.05) !important;
-    border: 2px solid rgba(0, 243, 255, 0.4) !important;
-    color: #00f3ff !important;
+    background: rgba(55, 255, 148, 0.05) !important;
+    border: 2px solid rgba(55, 255, 148, 0.4) !important;
+    color: #37FF94 !important;
     backdrop-filter: blur(10px) !important;
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 #affiliateProfileContent a[style*="rgba(0, 255, 255, 0.2)"]:hover {
-    background: rgba(0, 243, 255, 0.15) !important;
-    border-color: #00f3ff !important;
+    background: rgba(55, 255, 148, 0.15) !important;
+    border-color: #37FF94 !important;
     transform: translateY(-4px) scale(1.02) !important;
-    box-shadow: 0 8px 24px rgba(0, 243, 255, 0.3) !important;
+    box-shadow: 0 8px 24px rgba(55, 255, 148, 0.3) !important;
 }
 
 /* Button ripple effect */
