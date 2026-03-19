@@ -2913,8 +2913,8 @@
         <div class="ambient-glow glow-3"></div>
     </div>
 
-    <!-- Main Navigation Header (Always Visible) -->
-    <header style="position: fixed; top: 0; left: 0; right: 0; z-index: 10000; background: linear-gradient(180deg, rgba(14, 17, 26, 0.95) 0%, rgba(14, 17, 26, 0.85) 100%); backdrop-filter: blur(10px); border-bottom: 1px solid var(--muted-slate);">
+    <!-- Main Navigation Header (Auto-Hide on Scroll) -->
+    <header id="mainHeader" style="position: fixed; top: 0; left: 0; right: 0; z-index: 10000; background: linear-gradient(180deg, rgba(14, 17, 26, 0.95) 0%, rgba(14, 17, 26, 0.85) 100%); backdrop-filter: blur(10px); border-bottom: 1px solid var(--muted-slate); transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);">
         <nav style="max-width: 1600px; margin: 0 auto; padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; gap: 2rem;">
             <div style="font-size: 2.5rem; font-weight: bold; color: var(--neon-market-green); text-shadow: 0 0 10px var(--neon-market-green); white-space: nowrap; flex-shrink: 0;">
                 Altcoinist Affiliates
@@ -3437,6 +3437,35 @@
     </div>
 
     <script>
+        // ========================================
+        // AUTO-HIDE HEADER ON SCROLL
+        // ========================================
+        const mainHeader = document.getElementById('mainHeader');
+        let lastScrollTop = 0;
+        let scrollThreshold = 100; // Start hiding after 100px scroll
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+            // Don't hide if at top of page
+            if (currentScroll <= scrollThreshold) {
+                mainHeader.style.transform = 'translateY(0)';
+                return;
+            }
+
+            // Scrolling down - hide header
+            if (currentScroll > lastScrollTop) {
+                mainHeader.style.transform = 'translateY(-100%)';
+            }
+            // Scrolling up - show header
+            else {
+                mainHeader.style.transform = 'translateY(0)';
+            }
+
+            lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+        }, { passive: true });
+
+        // ========================================
         // Web Audio API Sound Engine - Futuristic Cyber Sounds
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         const audioCtx = new AudioContext();
