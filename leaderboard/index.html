@@ -2875,15 +2875,15 @@
                 Altcoinist Affiliates
             </div>
             <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
-                <button class="nav-btn active" onclick="switchPage('home')" data-page="home" style="padding: 0.75rem 1.5rem; background: var(--neon-market-green); border: 2px solid var(--neon-market-green); border-radius: 8px; color: #0E111A; cursor: pointer; font-size: 1.2rem; font-weight: 700; transition: all 0.3s; text-transform: uppercase; letter-spacing: 0.5px;">
+                <a href="../leaderboard" class="nav-btn" data-page="leaderboard" style="padding: 0.75rem 1.5rem; background: rgba(2, 242, 111, 0.1); border: 2px solid var(--neon-market-green); border-radius: 8px; color: var(--neon-market-green); cursor: pointer; font-size: 1.2rem; font-weight: 600; transition: all 0.3s; text-transform: uppercase; letter-spacing: 0.5px; text-decoration: none; display: inline-block;">
                     🏆 All-Time Rankings
-                </button>
-                <button class="nav-btn" onclick="switchPage('weekly')" data-page="weekly" style="padding: 0.75rem 1.5rem; background: rgba(2, 242, 111, 0.1); border: 2px solid var(--neon-market-green); border-radius: 8px; color: var(--neon-market-green); cursor: pointer; font-size: 1.2rem; font-weight: 600; transition: all 0.3s; text-transform: uppercase; letter-spacing: 0.5px;">
+                </a>
+                <a href="../weekly" class="nav-btn" data-page="weekly" style="padding: 0.75rem 1.5rem; background: rgba(2, 242, 111, 0.1); border: 2px solid var(--neon-market-green); border-radius: 8px; color: var(--neon-market-green); cursor: pointer; font-size: 1.2rem; font-weight: 600; transition: all 0.3s; text-transform: uppercase; letter-spacing: 0.5px; text-decoration: none; display: inline-block;">
                     📊 Weekly Rankings
-                </button>
-                <button class="nav-btn" onclick="switchPage('monthly')" data-page="monthly" style="padding: 0.75rem 1.5rem; background: rgba(2, 242, 111, 0.1); border: 2px solid var(--neon-market-green); border-radius: 8px; color: var(--neon-market-green); cursor: pointer; font-size: 1.2rem; font-weight: 600; transition: all 0.3s; text-transform: uppercase; letter-spacing: 0.5px;">
+                </a>
+                <a href="../monthly" class="nav-btn" data-page="monthly" style="padding: 0.75rem 1.5rem; background: rgba(2, 242, 111, 0.1); border: 2px solid var(--neon-market-green); border-radius: 8px; color: var(--neon-market-green); cursor: pointer; font-size: 1.2rem; font-weight: 600; transition: all 0.3s; text-transform: uppercase; letter-spacing: 0.5px; text-decoration: none; display: inline-block;">
                     📈 Monthly Rankings
-                </button>
+                </a>
                 <button class="nav-btn" onclick="switchPage('affiliates')" data-page="affiliates" style="padding: 0.75rem 1.5rem; background: rgba(2, 242, 111, 0.1); border: 2px solid var(--neon-market-green); border-radius: 8px; color: var(--neon-market-green); cursor: pointer; font-size: 1.2rem; font-weight: 600; transition: all 0.3s; text-transform: uppercase; letter-spacing: 0.5px;">
                     🎯 Affiliates
                 </button>
@@ -5970,6 +5970,27 @@
                     }, 500);
                 }, 1200); // Show for 1.2 seconds
             }
+
+            // Highlight active page button based on current URL
+            const currentPath = window.location.pathname;
+            const navButtons = document.querySelectorAll('.nav-btn');
+
+            navButtons.forEach(btn => {
+                const btnPage = btn.getAttribute('data-page');
+
+                // Check if current path matches button
+                if ((currentPath.includes('/leaderboard') && btnPage === 'leaderboard') ||
+                    (currentPath.includes('/weekly') && btnPage === 'weekly') ||
+                    (currentPath.includes('/monthly') && btnPage === 'monthly')) {
+
+                    // Add active styling
+                    btn.style.background = 'var(--neon-market-green)';
+                    btn.style.color = '#0E111A';
+                    btn.style.fontWeight = '700';
+                    btn.style.boxShadow = '0 0 20px rgba(2, 242, 111, 0.6)';
+                    btn.classList.add('active');
+                }
+            });
         });
     </script>
 
