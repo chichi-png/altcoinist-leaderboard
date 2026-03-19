@@ -172,6 +172,40 @@
             overflow-x: hidden;
             position: relative;
             scroll-behavior: smooth;
+            animation: page-entrance 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        @keyframes page-entrance {
+            0% {
+                opacity: 0;
+                filter: blur(10px);
+            }
+            100% {
+                opacity: 1;
+                filter: blur(0);
+            }
+        }
+
+        @keyframes init-pulse {
+            0%, 100% {
+                opacity: 0.6;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes init-fade {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            50%, 100% {
+                opacity: 0.8;
+                transform: translateY(0);
+            }
         }
 
         /* Global Cyber Background */
@@ -2810,6 +2844,18 @@
     <link rel="stylesheet" href="enhanced-card-styles.css">
 </head>
 <body>
+    <!-- Command Center Initialization Overlay -->
+    <div id="commandCenterInit" style="position: fixed; inset: 0; background: #0a0e1a; z-index: 100000; display: flex; align-items: center; justify-content: center; opacity: 1; transition: opacity 0.5s ease; pointer-events: none;">
+        <div style="text-align: center;">
+            <div style="font-family: 'Orbitron', sans-serif; font-size: 2rem; color: #02F26F; text-shadow: 0 0 20px rgba(2, 242, 111, 0.8); margin-bottom: 1rem; animation: init-pulse 0.8s ease-in-out;">
+                ◈ COMMAND CENTER INITIALIZED ◈
+            </div>
+            <div style="font-family: 'Inter', sans-serif; font-size: 1rem; color: #0CEC9A; opacity: 0.8; animation: init-fade 0.8s ease-in-out;">
+                ACCESS GRANTED • LOADING AFFILIATE DATA
+            </div>
+        </div>
+    </div>
+
     <!-- Hero Character Background -->
     <div class="hero-background">
         <div class="hero-character"></div>
@@ -5912,6 +5958,19 @@
         console.log('✨ Click Hall of Fame cards for ripple + burst effects');
         console.log('🌐 Full cyber background with hexagons, scan lines & data streams');
         console.log('💎 Top 3: Cyan (1st), Teal (2nd), Electric Blue (3rd)');
+
+        // Command Center Initialization - fade out after page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            const initOverlay = document.getElementById('commandCenterInit');
+            if (initOverlay) {
+                setTimeout(() => {
+                    initOverlay.style.opacity = '0';
+                    setTimeout(() => {
+                        initOverlay.style.display = 'none';
+                    }, 500);
+                }, 1200); // Show for 1.2 seconds
+            }
+        });
     </script>
 
     <!-- Command Center UI System -->
