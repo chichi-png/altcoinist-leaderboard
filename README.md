@@ -4,27 +4,23 @@ Public-facing leaderboard showcasing top-performing Altcoinist affiliates.
 
 ## 🚀 Deployment
 
-**Live Site:** [Deployed on Vercel]
+**Live Site:** https://chichi-png.github.io/altcoinist-leaderboard/
 
-### Deploy to Vercel
+**Repository:** https://github.com/chichi-png/altcoinist-leaderboard
 
-1. Import this repository to Vercel
-2. Framework Preset: **Other** (static HTML)
-3. Root Directory: `./`
-4. Click Deploy
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/chichi-png/altcoinist-leaderboard)
+Deployed automatically via **GitHub Pages** from the `master` branch.
 
 ## 📁 Structure
 
 ```
 altcoinist-leaderboard/
-├── index.html                    # Main leaderboard page
+├── index.html                    # All-time leaderboard
+├── weekly.html                   # Weekly leaderboard
+├── monthly.html                  # Monthly leaderboard
 ├── assets/
 │   └── images/
 │       └── affiliates/           # Affiliate profile pictures
 ├── .gitignore
-├── vercel.json                   # Deployment configuration
 └── README.md
 ```
 
@@ -63,14 +59,14 @@ const affiliatesData = [
 ### Add New Affiliate
 
 1. Add profile picture to `assets/images/affiliates/`
-2. Update `affiliatesData` array in `index.html`
-3. Commit and push - Vercel auto-deploys
+2. Update `affiliatesData` array in `index.html`, `weekly.html`, and `monthly.html`
+3. Commit and push - GitHub Pages auto-deploys
 
 ### Update Stats
 
-1. Edit the `affiliatesData` array in `index.html`
+1. Edit the `affiliatesData` array in the relevant HTML file(s)
 2. Update `tweets`, `referrals`, `traders`, and `total` values
-3. Commit and push
+3. Commit and push - GitHub Pages auto-deploys
 
 ## 🛠️ Tech Stack
 

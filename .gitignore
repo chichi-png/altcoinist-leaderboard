@@ -19,8 +19,8 @@ Thumbs.db
 dist/
 build/
 
-# Vercel
-.vercel
-
 # Brainstorming mockups
 .superpowers/
+
+# Backup files
+*-backup.html
