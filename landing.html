@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Command Center Access - Altcoinist Affiliates</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-market-green: #02F26F;
+            --electric-mint: #0CEC9A;
+            --trade-green: #109863;
+            --deep-emerald: #3EA986;
+            --glow-green: rgba(2, 242, 111, 0.8);
+            --glow-mint: rgba(12, 236, 154, 0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: #0a0e1a;
+            color: #fff;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+        }
+
+        /* ========================================
+           SCI-FI HALLWAY ENVIRONMENT
+           ======================================== */
+
+        .hallway-container {
+            position: fixed;
+            inset: 0;
+            perspective: 1200px;
+            background: linear-gradient(to bottom,
+                #0a0e1a 0%,
+                #0d1117 50%,
+                #0a0e1a 100%);
+        }
+
+        /* Reflective floor */
+        .floor {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(to top,
+                #0a0e1a,
+                #151b28 30%,
+                transparent);
+            opacity: 0.6;
+        }
+
+        .floor-reflection {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: radial-gradient(ellipse at center bottom,
+                rgba(2, 242, 111, 0.1) 0%,
+                transparent 50%);
+        }
+
+        .floor-grid {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background-image:
+                linear-gradient(to right, transparent 49%, rgba(2, 242, 111, 0.1) 50%, transparent 51%),
+                linear-gradient(to top, transparent 49%, rgba(2, 242, 111, 0.1) 50%, transparent 51%);
+            background-size: 60px 60px;
+            opacity: 0.2;
+            transition: opacity 0.5s ease;
+            mask-image: linear-gradient(to top, black 0%, transparent 100%);
+        }
+
+        .scanning ~ .hallway-container .floor-grid {
+            opacity: 0.6;
+            animation: floor-pulse 2s ease-in-out;
+        }
+
+        @keyframes floor-pulse {
+            0%, 100% {
+                background-size: 60px 60px;
+                filter: brightness(1);
+            }
+            50% {
+                background-size: 70px 70px;
+                filter: brightness(1.8);
+            }
+        }
+
+        /* Ceiling panels */
+        .ceiling {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 20%;
+            background: linear-gradient(to bottom,
+                #0d1117,
+                transparent);
+            overflow: hidden;
+        }
+
+        .ceiling-panels {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(to right, transparent 48%, rgba(2, 242, 111, 0.1) 50%, transparent 52%);
+            background-size: 100px 100%;
+            opacity: 0.4;
+            transition: opacity 0.5s ease;
+        }
+
+        /* Ceiling responds to scanning */
+        .scanning ~ .hallway-container .ceiling-panels {
+            opacity: 0.9;
+            animation: ceiling-pulse 2s ease-in-out;
+        }
+
+        @keyframes ceiling-pulse {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.5); }
+        }
+
+        /* Side wall panels */
+        .wall-left,
+        .wall-right {
+            position: absolute;
+            top: 0;
+            width: 15%;
+            height: 100%;
+            background: linear-gradient(to right,
+                #0d1117,
+                transparent);
+            opacity: 0.8;
+        }
+
+        .wall-left {
+            left: 0;
+        }
+
+        .wall-right {
+            right: 0;
+            background: linear-gradient(to left,
+                #0d1117,
+                transparent);
+        }
+
+        /* ========================================
+           MAIN COMMAND CENTER DOOR
+           ======================================== */
+
+        .door-structure {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 1300px;
+            height: 750px;
+            z-index: 10;
+        }
+
+        .door-frame {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background:
+                linear-gradient(to right,
+                    #1a1f2e 0%,
+                    #1c2433 5%,
+                    #151b28 50%,
+                    #1c2433 95%,
+                    #1a1f2e 100%),
+                linear-gradient(to bottom,
+                    #1a1f2e 0%,
+                    #151b28 50%,
+                    #1a1f2e 100%);
+            border: 4px solid #2a3441;
+            border-radius: 35px;
+            box-shadow:
+                0 0 100px rgba(2, 242, 111, 0.4),
+                0 30px 80px rgba(0, 0, 0, 0.9),
+                inset 0 0 80px rgba(0, 0, 0, 0.6),
+                inset 0 0 2px rgba(2, 242, 111, 0.3);
+            overflow: hidden;
+        }
+
+        .door-frame::before {
+            content: '';
+            position: absolute;
+            inset: 8px;
+            border: 2px solid rgba(2, 242, 111, 0.2);
+            border-radius: 28px;
+            pointer-events: none;
+        }
+
+        /* Two door panels that slide apart */
+        .door-panel-left,
+        .door-panel-right {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 42%;
+            height: 80%;
+            background:
+                linear-gradient(to bottom,
+                    #1c2433 0%,
+                    #151b28 50%,
+                    #1c2433 100%);
+            border: 3px solid var(--neon-market-green);
+            box-shadow:
+                0 0 60px var(--glow-green),
+                0 0 100px rgba(2, 242, 111, 0.3),
+                inset 0 0 50px rgba(2, 242, 111, 0.08),
+                inset 0 0 2px rgba(2, 242, 111, 0.5);
+            transition: transform 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        .door-panel-left {
+            left: 4%;
+            border-radius: 25px 10px 10px 25px;
+            border-right: 2px solid var(--neon-market-green);
+        }
+
+        .door-panel-right {
+            right: 4%;
+            border-radius: 10px 25px 25px 10px;
+            border-left: 2px solid var(--neon-market-green);
+        }
+
+        .door-panel-left::before,
+        .door-panel-right::before {
+            content: '';
+            position: absolute;
+            inset: 6px;
+            border: 1px solid rgba(2, 242, 111, 0.3);
+            border-radius: 20px;
+            pointer-events: none;
+        }
+
+        .door-panel-left::before {
+            border-radius: 20px 5px 5px 20px;
+        }
+
+        .door-panel-right::before {
+            border-radius: 5px 20px 20px 5px;
+        }
+
+        /* Glowing screen display */
+        .door-screen {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 88%;
+            height: 92%;
+            background:
+                radial-gradient(ellipse at center,
+                    rgba(2, 242, 111, 0.12) 0%,
+                    transparent 60%),
+                linear-gradient(to bottom,
+                    rgba(2, 242, 111, 0.03),
+                    rgba(12, 236, 154, 0.03));
+            border: 1px solid rgba(2, 242, 111, 0.25);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: inset 0 0 40px rgba(2, 242, 111, 0.05);
+        }
+
+        /* Animated scan lines on screen */
+        .scan-line {
+            position: absolute;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to bottom,
+                transparent,
+                var(--neon-market-green),
+                transparent);
+            box-shadow:
+                0 0 30px var(--glow-green),
+                0 0 50px rgba(2, 242, 111, 0.5);
+            animation: scan-move 5s ease-in-out infinite;
+        }
+
+        @keyframes scan-move {
+            0%, 100% {
+                top: 0%;
+                opacity: 0;
+            }
+            5% { opacity: 0.6; }
+            50% {
+                top: 50%;
+                opacity: 0.9;
+            }
+            95% { opacity: 0.6; }
+            100% {
+                top: 100%;
+                opacity: 0;
+            }
+        }
+
+        /* Door status indicators */
+        .status-lights {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+        }
+
+        .status-light {
+            width: 12px;
+            height: 12px;
+            background: var(--neon-market-green);
+            border-radius: 50%;
+            box-shadow: 0 0 20px var(--glow-green);
+            animation: light-pulse 2s ease-in-out infinite;
+        }
+
+        .status-light:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        .status-light:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes light-pulse {
+            0%, 100% {
+                opacity: 0.5;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+
+        /* Door handle/lock mechanism - CENTERED */
+        .door-lock {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 160px;
+            background:
+                linear-gradient(to right,
+                    #2a3441,
+                    #1c2433,
+                    #2a3441);
+            border: 3px solid var(--electric-mint);
+            border-radius: 12px;
+            box-shadow:
+                0 0 40px var(--glow-mint),
+                0 0 60px rgba(12, 236, 154, 0.3),
+                inset 0 0 30px rgba(0, 0, 0, 0.6),
+                inset 0 0 2px rgba(12, 236, 154, 0.5);
+        }
+
+        .door-lock::before {
+            content: '';
+            position: absolute;
+            inset: 5px;
+            border: 1px solid rgba(12, 236, 154, 0.3);
+            border-radius: 8px;
+            pointer-events: none;
+        }
+
+        .lock-core {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle at 30% 30%,
+                rgba(255, 255, 255, 0.3) 0%,
+                var(--neon-market-green) 20%,
+                var(--electric-mint) 50%,
+                transparent 70%);
+            border: 3px solid var(--neon-market-green);
+            border-radius: 50%;
+            box-shadow:
+                0 0 40px var(--glow-green),
+                0 0 60px rgba(2, 242, 111, 0.5),
+                inset 0 0 20px rgba(255, 255, 255, 0.2);
+            animation: core-rotate 4s linear infinite;
+        }
+
+        .lock-core::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            height: 60%;
+            border: 2px solid var(--electric-mint);
+            border-radius: 50%;
+            opacity: 0.6;
+        }
+
+        @keyframes core-rotate {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+
+
+        /* ========================================
+           HEADER & UI
+           ======================================== */
+
+        .header {
+            position: fixed;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 25;
+            text-align: center;
+        }
+
+        .title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 64px;
+            font-weight: 900;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 14px;
+            text-shadow:
+                0 0 10px var(--neon-market-green),
+                0 0 30px var(--glow-green),
+                0 0 60px var(--glow-mint),
+                0 5px 25px rgba(0, 0, 0, 0.9);
+            -webkit-text-stroke: 2px var(--neon-market-green);
+            margin-bottom: 15px;
+            animation: title-glow 3s ease-in-out infinite;
+        }
+
+        @keyframes title-glow {
+            0%, 100% {
+                text-shadow:
+                    0 0 10px var(--neon-market-green),
+                    0 0 30px var(--glow-green),
+                    0 0 60px var(--glow-mint),
+                    0 5px 25px rgba(0, 0, 0, 0.9);
+            }
+            50% {
+                text-shadow:
+                    0 0 20px var(--neon-market-green),
+                    0 0 50px var(--glow-green),
+                    0 0 100px var(--glow-mint),
+                    0 8px 35px rgba(0, 0, 0, 0.95);
+            }
+        }
+
+        .subtitle {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 22px;
+            font-weight: 600;
+            color: #fff;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            text-shadow:
+                0 0 15px var(--electric-mint),
+                0 0 30px var(--glow-mint);
+            -webkit-text-stroke: 1px var(--electric-mint);
+        }
+
+        /* ========================================
+           ENTER BUTTON
+           ======================================== */
+
+        .enter-container {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 30;
+        }
+
+        .enter-btn {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 26px;
+            font-weight: 700;
+            color: #000;
+            background: linear-gradient(135deg,
+                var(--neon-market-green),
+                var(--electric-mint));
+            padding: 22px 65px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            box-shadow:
+                0 0 60px var(--glow-green),
+                0 15px 40px rgba(0, 0, 0, 0.7);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .enter-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .enter-btn:hover {
+            transform: scale(1.1);
+            box-shadow:
+                0 0 100px var(--glow-green),
+                0 20px 50px rgba(0, 0, 0, 0.8);
+        }
+
+        .enter-btn:hover::before {
+            width: 400px;
+            height: 400px;
+        }
+
+
+        /* ========================================
+           SECURITY SCANNER
+           ======================================== */
+
+        .security-scanner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0;
+        }
+
+        .scanner-beam {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(to bottom,
+                transparent,
+                var(--neon-market-green) 30%,
+                var(--neon-market-green) 70%,
+                transparent);
+            box-shadow:
+                0 0 40px var(--glow-green),
+                0 0 80px rgba(2, 242, 111, 0.6);
+            filter: blur(2px);
+        }
+
+        .scanning .security-scanner {
+            opacity: 1;
+            animation: scanner-activate 0.3s ease-out;
+        }
+
+        .scanning .scanner-beam {
+            animation: scanner-sweep 2s ease-in-out;
+        }
+
+        @keyframes scanner-activate {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes scanner-sweep {
+            0% {
+                top: -10px;
+                opacity: 0;
+            }
+            5% {
+                opacity: 1;
+            }
+            95% {
+                opacity: 1;
+            }
+            100% {
+                top: calc(100% + 10px);
+                opacity: 0;
+            }
+        }
+
+        /* Biometric scan lines that appear during scanning */
+        .bio-scan-lines {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+        }
+
+        .bio-scan-line {
+            position: absolute;
+            left: 10%;
+            width: 80%;
+            height: 2px;
+            background: linear-gradient(to right,
+                transparent,
+                var(--electric-mint),
+                transparent);
+            box-shadow: 0 0 20px var(--glow-mint);
+            opacity: 0;
+        }
+
+        .scanning .bio-scan-lines {
+            opacity: 1;
+        }
+
+        .scanning .bio-scan-line:nth-child(1) {
+            top: 25%;
+            animation: bio-flash 2s 0.3s ease-in-out;
+        }
+
+        .scanning .bio-scan-line:nth-child(2) {
+            top: 40%;
+            animation: bio-flash 2s 0.5s ease-in-out;
+        }
+
+        .scanning .bio-scan-line:nth-child(3) {
+            top: 55%;
+            animation: bio-flash 2s 0.7s ease-in-out;
+        }
+
+        .scanning .bio-scan-line:nth-child(4) {
+            top: 70%;
+            animation: bio-flash 2s 0.9s ease-in-out;
+        }
+
+        @keyframes bio-flash {
+            0%, 100% { opacity: 0; width: 0%; }
+            20% { opacity: 1; width: 80%; }
+            80% { opacity: 1; width: 80%; }
+            100% { opacity: 0; width: 0%; }
+        }
+
+        /* Scanning data readouts */
+        .scan-data {
+            position: absolute;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 11px;
+            color: var(--electric-mint);
+            text-shadow: 0 0 10px var(--glow-mint);
+            opacity: 0;
+            white-space: nowrap;
+        }
+
+        .scanning .scan-data {
+            animation: data-appear 2s ease-in-out;
+        }
+
+        @keyframes data-appear {
+            0%, 100% { opacity: 0; }
+            10%, 90% { opacity: 0.8; }
+        }
+
+        /* Steam/vapor effects when door opens */
+        .door-steam {
+            position: absolute;
+            width: 20px;
+            height: 80px;
+            background: linear-gradient(to top,
+                rgba(2, 242, 111, 0.3),
+                rgba(2, 242, 111, 0.1),
+                transparent);
+            filter: blur(8px);
+            opacity: 0;
+            bottom: 15%;
+        }
+
+        .door-steam-left {
+            left: -5px;
+        }
+
+        .door-steam-right {
+            right: -5px;
+        }
+
+        .opening .door-steam {
+            animation: steam-rise 1.5s ease-out;
+        }
+
+        @keyframes steam-rise {
+            0% {
+                opacity: 0;
+                transform: translateY(0) scaleY(0.5);
+            }
+            30% {
+                opacity: 0.6;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) scaleY(1.5);
+            }
+        }
+
+        /* Holographic display that appears during auth */
+        .holo-display {
+            position: absolute;
+            top: 25%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 150px;
+            border: 2px solid var(--electric-mint);
+            border-radius: 10px;
+            background: linear-gradient(135deg,
+                rgba(2, 242, 111, 0.1),
+                rgba(12, 236, 154, 0.05));
+            box-shadow:
+                0 0 30px rgba(12, 236, 154, 0.3),
+                inset 0 0 20px rgba(2, 242, 111, 0.1);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .scanning .holo-display {
+            animation: holo-appear 2s ease-in-out;
+        }
+
+        @keyframes holo-appear {
+            0%, 100% {
+                opacity: 0;
+                transform: translateX(-50%) scale(0.8);
+            }
+            20%, 80% {
+                opacity: 0.7;
+                transform: translateX(-50%) scale(1);
+            }
+        }
+
+        .holo-line {
+            position: absolute;
+            left: 10%;
+            width: 80%;
+            height: 1px;
+            background: var(--electric-mint);
+            box-shadow: 0 0 5px var(--glow-mint);
+        }
+
+        .holo-line:nth-child(1) { top: 30%; }
+        .holo-line:nth-child(2) { top: 50%; }
+        .holo-line:nth-child(3) { top: 70%; }
+
+        .scanning .holo-line {
+            animation: holo-line-scan 2s ease-in-out;
+        }
+
+        @keyframes holo-line-scan {
+            0%, 100% {
+                width: 0%;
+                opacity: 0;
+            }
+            30%, 70% {
+                width: 80%;
+                opacity: 1;
+            }
+        }
+
+        .scanner-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(to right, transparent 49%, rgba(2, 242, 111, 0.15) 50%, transparent 51%),
+                linear-gradient(to bottom, transparent 49%, rgba(2, 242, 111, 0.15) 50%, transparent 51%);
+            background-size: 30px 30px;
+            opacity: 0;
+        }
+
+        .scanning .scanner-grid {
+            animation: grid-fade 2s ease-in-out;
+        }
+
+        @keyframes grid-fade {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 0.6; }
+        }
+
+        .auth-status {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--neon-market-green);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow:
+                0 0 20px var(--glow-green),
+                0 0 40px var(--glow-mint);
+            opacity: 0;
+            white-space: nowrap;
+        }
+
+        .scanning .auth-status {
+            animation: auth-sequence 2s ease-in-out;
+        }
+
+        @keyframes auth-sequence {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+            20% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+                content: "◈ SCANNING ◈";
+            }
+            50% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            70% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(1.2);
+            }
+        }
+
+        .data-particles {
+            position: absolute;
+            inset: 0;
+        }
+
+        .data-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--neon-market-green);
+            border-radius: 50%;
+            opacity: 0;
+            box-shadow: 0 0 10px var(--glow-green);
+        }
+
+        .scanning .data-particle {
+            animation: particle-scan 2s ease-out infinite;
+        }
+
+        @keyframes particle-scan {
+            0% {
+                opacity: 0;
+                transform: translateY(0) translateX(0);
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(100%) translateX(var(--drift));
+            }
+        }
+
+        /* ========================================
+           DOOR OPENING ANIMATION - COOL & DRAMATIC
+           ======================================== */
+
+        .opening .door-panel-left {
+            animation: slide-left 1.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+        }
+
+        .opening .door-panel-right {
+            animation: slide-right 1.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+        }
+
+        @keyframes slide-left {
+            0% {
+                transform: translateY(-50%) translateX(0);
+                opacity: 1;
+            }
+            60% {
+                transform: translateY(-50%) translateX(-10px);
+            }
+            100% {
+                transform: translateY(-50%) translateX(-400px);
+                opacity: 0;
+            }
+        }
+
+        @keyframes slide-right {
+            0% {
+                transform: translateY(-50%) translateX(0);
+                opacity: 1;
+            }
+            60% {
+                transform: translateY(-50%) translateX(10px);
+            }
+            100% {
+                transform: translateY(-50%) translateX(400px);
+                opacity: 0;
+            }
+        }
+
+        /* Door opening flash effect - MORE DRAMATIC */
+        .opening .door-frame {
+            animation: door-flash 0.5s ease-out;
+        }
+
+        @keyframes door-flash {
+            0% {
+                box-shadow:
+                    0 0 100px rgba(2, 242, 111, 0.4),
+                    0 30px 80px rgba(0, 0, 0, 0.9),
+                    inset 0 0 80px rgba(0, 0, 0, 0.6);
+            }
+            30% {
+                box-shadow:
+                    0 0 300px var(--glow-green),
+                    0 0 400px rgba(2, 242, 111, 0.6),
+                    0 30px 120px rgba(0, 0, 0, 0.95),
+                    inset 0 0 200px rgba(2, 242, 111, 0.4);
+            }
+            100% {
+                box-shadow:
+                    0 0 200px var(--glow-green),
+                    0 30px 100px rgba(0, 0, 0, 0.95),
+                    inset 0 0 120px rgba(2, 242, 111, 0.3);
+            }
+        }
+
+        /* Energy buildup on door panels before opening */
+        .opening .door-panel-left,
+        .opening .door-panel-right {
+            box-shadow:
+                0 0 60px var(--glow-green),
+                0 0 100px rgba(2, 242, 111, 0.3),
+                inset 0 0 50px rgba(2, 242, 111, 0.08),
+                inset 0 0 2px rgba(2, 242, 111, 0.5);
+            animation-delay: 0s;
+        }
+
+        .opening .door-panel-left::before,
+        .opening .door-panel-right::before {
+            animation: border-intensify 0.3s ease-out;
+        }
+
+        @keyframes border-intensify {
+            0% {
+                border-color: rgba(2, 242, 111, 0.3);
+            }
+            50% {
+                border-color: var(--neon-market-green);
+                box-shadow: 0 0 20px var(--glow-green);
+            }
+            100% {
+                border-color: rgba(2, 242, 111, 0.3);
+            }
+        }
+
+        /* Screen intensifies before opening */
+        .opening .door-screen {
+            animation: screen-overload 0.5s ease-out;
+        }
+
+        @keyframes screen-overload {
+            0% {
+                background:
+                    radial-gradient(ellipse at center,
+                        rgba(2, 242, 111, 0.12) 0%,
+                        transparent 60%);
+            }
+            50% {
+                background:
+                    radial-gradient(ellipse at center,
+                        rgba(2, 242, 111, 0.5) 0%,
+                        rgba(12, 236, 154, 0.3) 40%,
+                        transparent 80%);
+            }
+            100% {
+                background:
+                    radial-gradient(ellipse at center,
+                        rgba(2, 242, 111, 0.12) 0%,
+                        transparent 60%);
+            }
+        }
+
+        /* Lock mechanism spins rapidly on opening */
+        .opening .lock-core {
+            animation: core-unlock 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+        }
+
+        @keyframes core-unlock {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg) scale(1);
+            }
+            50% {
+                transform: translate(-50%, -50%) rotate(720deg) scale(1.3);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(1080deg) scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        /* Status lights go crazy */
+        .opening .status-light {
+            animation: light-panic 0.1s ease-in-out infinite;
+        }
+
+        @keyframes light-panic {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.2; }
+        }
+
+        /* ========================================
+           RESPONSIVE
+           ======================================== */
+
+        @media (max-width: 768px) {
+            .door-structure {
+                width: 90vw;
+                max-width: 400px;
+                height: 500px;
+            }
+
+            .title {
+                font-size: 36px;
+                letter-spacing: 6px;
+            }
+
+            .subtitle {
+                font-size: 16px;
+            }
+
+            .enter-btn {
+                font-size: 20px;
+                padding: 18px 45px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hallway Environment -->
+    <div class="hallway-container">
+        <div class="ceiling">
+            <div class="ceiling-panels"></div>
+        </div>
+        <div class="wall-left"></div>
+        <div class="wall-right"></div>
+        <div class="floor">
+            <div class="floor-reflection"></div>
+            <div class="floor-grid"></div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <div class="header">
+        <div class="title">ALTCOINIST</div>
+        <div class="subtitle">◈ Affiliate Command Center ◈</div>
+    </div>
+
+    <!-- Main Command Center Door -->
+    <div class="door-structure" id="door">
+        <div class="door-frame">
+            <!-- Security Scanner Overlay -->
+            <div class="security-scanner" id="scanner">
+                <div class="scanner-beam"></div>
+                <div class="scanner-grid"></div>
+
+                <!-- Biometric scan lines -->
+                <div class="bio-scan-lines">
+                    <div class="bio-scan-line"></div>
+                    <div class="bio-scan-line"></div>
+                    <div class="bio-scan-line"></div>
+                    <div class="bio-scan-line"></div>
+                </div>
+
+                <!-- Scan data readouts -->
+                <div class="scan-data" style="top: 15%; left: 5%;">BIOMETRIC: MATCHED</div>
+                <div class="scan-data" style="top: 35%; right: 5%;">ACCESS LEVEL: VERIFIED</div>
+                <div class="scan-data" style="top: 65%; left: 5%;">CLEARANCE: AFFILIATE</div>
+                <div class="scan-data" style="top: 85%; right: 5%;">AUTHENTICATION: OK</div>
+
+                <!-- Holographic display -->
+                <div class="holo-display">
+                    <div class="holo-line"></div>
+                    <div class="holo-line"></div>
+                    <div class="holo-line"></div>
+                </div>
+
+                <div class="auth-status" id="authStatus">◈ SCANNING ◈</div>
+                <div class="data-particles" id="particles"></div>
+            </div>
+
+            <!-- Left Door Panel -->
+            <div class="door-panel-left">
+                <div class="door-screen">
+                    <div class="scan-line"></div>
+                </div>
+                <div class="door-steam door-steam-left"></div>
+                <div class="door-steam door-steam-left" style="animation-delay: 0.2s; bottom: 25%;"></div>
+                <div class="door-steam door-steam-left" style="animation-delay: 0.4s; bottom: 35%;"></div>
+            </div>
+
+            <!-- Right Door Panel -->
+            <div class="door-panel-right">
+                <div class="door-screen">
+                    <div class="scan-line"></div>
+                </div>
+                <div class="door-steam door-steam-right"></div>
+                <div class="door-steam door-steam-right" style="animation-delay: 0.2s; bottom: 25%;"></div>
+                <div class="door-steam door-steam-right" style="animation-delay: 0.4s; bottom: 35%;"></div>
+            </div>
+
+            <!-- Central Status Lights -->
+            <div class="status-lights">
+                <div class="status-light"></div>
+                <div class="status-light"></div>
+                <div class="status-light"></div>
+            </div>
+
+            <!-- Central Lock Mechanism -->
+            <div class="door-lock">
+                <div class="lock-core"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Enter Button -->
+    <div class="enter-container">
+        <button class="enter-btn" id="enterBtn">
+            ◈ ENTER COMMAND CENTER ◈
+        </button>
+    </div>
+
+    <script>
+        // Generate sci-fi door opening sound
+        function playDoorSound() {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const now = audioContext.currentTime;
+
+            // Create white noise buffer for hiss effect
+            const bufferSize = audioContext.sampleRate * 2;
+            const noiseBuffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+            const output = noiseBuffer.getChannelData(0);
+            for (let i = 0; i < bufferSize; i++) {
+                output[i] = Math.random() * 2 - 1;
+            }
+
+            // Pressurized air release (smooth spaceship hiss)
+            const hiss = audioContext.createBufferSource();
+            hiss.buffer = noiseBuffer;
+            const hissFilter = audioContext.createBiquadFilter();
+            hissFilter.type = 'bandpass';
+            hissFilter.frequency.setValueAtTime(3000, now);
+            hissFilter.frequency.linearRampToValueAtTime(1500, now + 1.5);
+            hissFilter.Q.value = 1;
+
+            const hissGain = audioContext.createGain();
+            hissGain.gain.setValueAtTime(0, now);
+            hissGain.gain.linearRampToValueAtTime(0.12, now + 0.1);
+            hissGain.gain.setValueAtTime(0.12, now + 1.3);
+            hissGain.gain.linearRampToValueAtTime(0, now + 1.8);
+
+            hiss.connect(hissFilter);
+            hissFilter.connect(hissGain);
+            hissGain.connect(audioContext.destination);
+            hiss.start(now);
+            hiss.stop(now + 1.8);
+
+            // Deep smooth rumble (door mechanism)
+            const rumble = audioContext.createOscillator();
+            const rumbleGain = audioContext.createGain();
+            rumble.type = 'sine';
+            rumble.frequency.setValueAtTime(80, now + 0.05);
+            rumble.frequency.linearRampToValueAtTime(60, now + 1.5);
+            rumbleGain.gain.setValueAtTime(0, now + 0.05);
+            rumbleGain.gain.linearRampToValueAtTime(0.08, now + 0.2);
+            rumbleGain.gain.setValueAtTime(0.08, now + 1.3);
+            rumbleGain.gain.linearRampToValueAtTime(0, now + 1.5);
+            rumble.connect(rumbleGain);
+            rumbleGain.connect(audioContext.destination);
+            rumble.start(now + 0.05);
+            rumble.stop(now + 1.5);
+
+            // Subtle ambient tone (atmospheric)
+            const ambient = audioContext.createOscillator();
+            const ambientGain = audioContext.createGain();
+            ambient.type = 'sine';
+            ambient.frequency.setValueAtTime(220, now + 0.1);
+            ambientGain.gain.setValueAtTime(0, now + 0.1);
+            ambientGain.gain.linearRampToValueAtTime(0.04, now + 0.4);
+            ambientGain.gain.setValueAtTime(0.04, now + 1.4);
+            ambientGain.gain.linearRampToValueAtTime(0, now + 1.8);
+            ambient.connect(ambientGain);
+            ambientGain.connect(audioContext.destination);
+            ambient.start(now + 0.1);
+            ambient.stop(now + 1.8);
+
+            // Final seal (soft completion)
+            const seal = audioContext.createOscillator();
+            const sealGain = audioContext.createGain();
+            seal.type = 'sine';
+            seal.frequency.setValueAtTime(400, now + 1.5);
+            seal.frequency.linearRampToValueAtTime(300, now + 1.7);
+            sealGain.gain.setValueAtTime(0.06, now + 1.5);
+            sealGain.gain.linearRampToValueAtTime(0, now + 1.7);
+            seal.connect(sealGain);
+            sealGain.connect(audioContext.destination);
+            seal.start(now + 1.5);
+            seal.stop(now + 1.7);
+        }
+
+        // Generate scanner particles
+        function createScannerParticles() {
+            const container = document.getElementById('particles');
+            const count = 30;
+
+            for (let i = 0; i < count; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'data-particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.setProperty('--drift', (Math.random() - 0.5) * 100 + 'px');
+                particle.style.animationDelay = Math.random() * 2 + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // Scanner sound effect
+        function playScannerSound() {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const now = audioContext.currentTime;
+
+            // Soft activation tone
+            const activate = audioContext.createOscillator();
+            const activateGain = audioContext.createGain();
+            activate.type = 'sine';
+            activate.frequency.setValueAtTime(800, now);
+            activate.frequency.linearRampToValueAtTime(1000, now + 0.15);
+            activateGain.gain.setValueAtTime(0.1, now);
+            activateGain.gain.linearRampToValueAtTime(0, now + 0.15);
+            activate.connect(activateGain);
+            activateGain.connect(audioContext.destination);
+            activate.start(now);
+            activate.stop(now + 0.15);
+
+            // Smooth ambient scanning hum
+            const hum = audioContext.createOscillator();
+            const humGain = audioContext.createGain();
+            hum.type = 'sine';
+            hum.frequency.setValueAtTime(440, now + 0.2);
+            hum.frequency.linearRampToValueAtTime(550, now + 2);
+            humGain.gain.setValueAtTime(0, now + 0.2);
+            humGain.gain.linearRampToValueAtTime(0.06, now + 0.4);
+            humGain.gain.setValueAtTime(0.06, now + 1.8);
+            humGain.gain.linearRampToValueAtTime(0, now + 2);
+            hum.connect(humGain);
+            humGain.connect(audioContext.destination);
+            hum.start(now + 0.2);
+            hum.stop(now + 2);
+
+            // Gentle confirmation chime
+            const chime = audioContext.createOscillator();
+            const chimeGain = audioContext.createGain();
+            chime.type = 'sine';
+            chime.frequency.setValueAtTime(1200, now + 1.8);
+            chimeGain.gain.setValueAtTime(0.08, now + 1.8);
+            chimeGain.gain.linearRampToValueAtTime(0, now + 2.1);
+            chime.connect(chimeGain);
+            chimeGain.connect(audioContext.destination);
+            chime.start(now + 1.8);
+            chime.stop(now + 2.1);
+        }
+
+        // Update authorization status text
+        function updateAuthStatus() {
+            const authStatus = document.getElementById('authStatus');
+
+            setTimeout(() => {
+                authStatus.textContent = '◈ VERIFYING ◈';
+            }, 600);
+
+            setTimeout(() => {
+                authStatus.textContent = '◈ ACCESS GRANTED ◈';
+                authStatus.style.color = 'var(--neon-market-green)';
+            }, 1400);
+        }
+
+        // Door opening with scanner sequence
+        function enterCommandCenter() {
+            const door = document.getElementById('door');
+            const btn = document.getElementById('enterBtn');
+
+            // Hide button
+            btn.style.opacity = '0';
+            btn.style.pointerEvents = 'none';
+
+            // PHASE 1: Scanner activation (2 seconds)
+            door.classList.add('scanning');
+
+            try {
+                playScannerSound();
+            } catch (err) {
+                console.log('Scanner audio failed:', err);
+            }
+
+            updateAuthStatus();
+
+            // PHASE 2: Door opening after scan complete (2.2 seconds after start)
+            setTimeout(() => {
+                door.classList.remove('scanning');
+                door.classList.add('opening');
+
+                try {
+                    playDoorSound();
+                } catch (err) {
+                    console.log('Door audio failed:', err);
+                }
+            }, 2200);
+
+            // PHASE 3: Redirect after everything completes
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 4200);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Create scanner particles
+            createScannerParticles();
+
+            const btn = document.getElementById('enterBtn');
+            btn.addEventListener('click', enterCommandCenter);
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') enterCommandCenter();
+            });
+        });
+    </script>
+</body>
+</html>
