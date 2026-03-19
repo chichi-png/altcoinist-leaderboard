@@ -1652,14 +1652,7 @@
 
         /* Ambient Light Particles (subtle) */
         .light-particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: var(--cyan-bright);
-            border-radius: 50%;
-            opacity: 0;
-            animation: particleFloat 8s ease-in-out infinite;
-            box-shadow: 0 0 10px var(--glow-cyan);
+            display: none;
         }
 
         @keyframes particleFloat {
@@ -3287,11 +3280,7 @@
                 <div class="gallery-spotlight" style="left: 65%; animation-delay: 4.5s;"></div>
                 <div class="gallery-spotlight" style="left: 85%; animation-delay: 2s;"></div>
 
-                <!-- Light Particles -->
-                <div class="light-particle" style="left: 20%; top: 30%; animation-delay: 0s;"></div>
-                <div class="light-particle" style="left: 40%; top: 50%; animation-delay: 2s;"></div>
-                <div class="light-particle" style="left: 60%; top: 40%; animation-delay: 4s;"></div>
-                <div class="light-particle" style="left: 80%; top: 60%; animation-delay: 6s;"></div>
+                <!-- Light Particles removed per user request -->
 
                 <!-- Frame Accents -->
                 <div class="frame-accent" style="width: 90%; height: 90%; top: 5%; left: 5%; animation-delay: 0s;"></div>
