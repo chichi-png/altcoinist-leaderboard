@@ -9,11 +9,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Command Center Color Palette */
-            --mission-cyan: #00F3FF;
-            --tactical-orange: #FF8C00;
-            --alert-amber: #FFB800;
-            --command-green: #02F26F;
+            /* Altcoinist Brand Colors */
+            --neon-market-green: #02F26F;
+            --electric-mint: #0CEC9A;
+            --trade-green: #109863;
+            --deep-emerald: #3EA986;
 
             /* Dark Command Center Base */
             --deep-space: #0A0E1A;
@@ -23,9 +23,9 @@
             --border-dim: #2A3441;
 
             /* Glows */
-            --glow-cyan: rgba(0, 243, 255, 0.6);
-            --glow-orange: rgba(255, 140, 0, 0.7);
-            --glow-amber: rgba(255, 184, 0, 0.6);
+            --glow-green: rgba(2, 242, 111, 0.6);
+            --glow-mint: rgba(12, 236, 154, 0.6);
+            --glow-trade: rgba(16, 152, 99, 0.5);
         }
 
         * {
@@ -63,8 +63,8 @@
                 -45deg,
                 transparent,
                 transparent 2px,
-                rgba(0, 243, 255, 0.02) 2px,
-                rgba(0, 243, 255, 0.02) 4px
+                rgba(2, 242, 111, 0.02) 2px,
+                rgba(2, 242, 111, 0.02) 4px
             );
             animation: scanMove 20s linear infinite;
         }
@@ -79,8 +79,8 @@
             position: absolute;
             inset: 0;
             background-image:
-                linear-gradient(to right, rgba(0, 243, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(0, 243, 255, 0.05) 1px, transparent 1px);
+                linear-gradient(to right, rgba(2, 242, 111, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(2, 242, 111, 0.05) 1px, transparent 1px);
             background-size: 100px 100px;
             opacity: 0.4;
         }
@@ -95,7 +95,7 @@
             background: conic-gradient(
                 from 0deg at 50% 50%,
                 transparent 0deg,
-                rgba(0, 243, 255, 0.15) 30deg,
+                rgba(2, 242, 111, 0.15) 30deg,
                 transparent 60deg
             );
             animation: radarSpin 8s linear infinite;
@@ -113,7 +113,7 @@
             position: absolute;
             width: 3px;
             height: 400px;
-            background: linear-gradient(to bottom, transparent, var(--tactical-orange), transparent);
+            background: linear-gradient(to bottom, transparent, var(--electric-mint), transparent);
             opacity: 0.3;
             filter: blur(2px);
             animation: beamPulse 3s ease-in-out infinite;
@@ -166,7 +166,7 @@
             padding: 2rem;
             background: linear-gradient(135deg, var(--panel-dark) 0%, var(--panel-elevated) 100%);
             border: 2px solid var(--border-dim);
-            border-left: 4px solid var(--tactical-orange);
+            border-left: 4px solid var(--electric-mint);
             clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
             position: relative;
             overflow: hidden;
@@ -179,7 +179,7 @@
             left: 0;
             right: 0;
             height: 1px;
-            background: linear-gradient(90deg, transparent, var(--mission-cyan), transparent);
+            background: linear-gradient(90deg, transparent, var(--neon-market-green), transparent);
             animation: headerScan 3s ease-in-out infinite;
         }
 
@@ -198,7 +198,7 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.15em;
-            background: linear-gradient(135deg, var(--mission-cyan), var(--tactical-orange));
+            background: linear-gradient(135deg, var(--neon-market-green), var(--electric-mint));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -208,7 +208,7 @@
         .mission-subtitle {
             font-family: 'Share Tech Mono', monospace;
             font-size: 0.9rem;
-            color: var(--alert-amber);
+            color: var(--trade-green);
             text-transform: uppercase;
             letter-spacing: 0.2em;
         }
@@ -237,8 +237,8 @@
             font-family: 'Rajdhani', sans-serif;
             font-size: 2rem;
             font-weight: 700;
-            color: var(--mission-cyan);
-            text-shadow: 0 0 20px var(--glow-cyan);
+            color: var(--neon-market-green);
+            text-shadow: 0 0 20px var(--glow-green);
         }
 
         /* ========================================
@@ -274,7 +274,7 @@
             left: -2px;
             right: -2px;
             bottom: -2px;
-            background: linear-gradient(135deg, var(--mission-cyan), var(--tactical-orange));
+            background: linear-gradient(135deg, var(--neon-market-green), var(--electric-mint));
             clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
             opacity: 0;
             transition: opacity 0.3s ease;
@@ -287,8 +287,8 @@
 
         .tactical-panel:hover {
             transform: translateY(-5px);
-            border-color: var(--mission-cyan);
-            box-shadow: 0 10px 40px rgba(0, 243, 255, 0.3);
+            border-color: var(--neon-market-green);
+            box-shadow: 0 10px 40px rgba(2, 242, 111, 0.3);
         }
 
         /* Rank badge - corner cut */
@@ -298,7 +298,7 @@
             left: 0;
             width: 80px;
             height: 80px;
-            background: linear-gradient(135deg, var(--mission-cyan), var(--tactical-orange));
+            background: linear-gradient(135deg, var(--neon-market-green), var(--electric-mint));
             clip-path: polygon(0 0, 100% 0, 0 100%);
             display: flex;
             align-items: flex-start;
@@ -316,25 +316,25 @@
 
         /* Top 3 special styling */
         .tactical-panel.rank-1 .rank-badge {
-            background: linear-gradient(135deg, var(--alert-amber), var(--tactical-orange));
+            background: linear-gradient(135deg, var(--trade-green), var(--electric-mint));
             animation: rank1Glow 2s ease-in-out infinite;
         }
 
         @keyframes rank1Glow {
             0%, 100% {
-                box-shadow: 0 0 20px var(--glow-amber);
+                box-shadow: 0 0 20px var(--glow-trade);
             }
             50% {
-                box-shadow: 0 0 40px var(--glow-amber), 0 0 60px var(--glow-orange);
+                box-shadow: 0 0 40px var(--glow-trade), 0 0 60px var(--glow-mint);
             }
         }
 
         .tactical-panel.rank-2 .rank-badge {
-            background: linear-gradient(135deg, var(--mission-cyan), var(--command-green));
+            background: linear-gradient(135deg, var(--neon-market-green), var(--neon-market-green));
         }
 
         .tactical-panel.rank-3 .rank-badge {
-            background: linear-gradient(135deg, var(--tactical-orange), #FF6600);
+            background: linear-gradient(135deg, var(--electric-mint), #0CEC9A);
         }
 
         /* Panel content */
@@ -354,7 +354,7 @@
             width: 70px;
             height: 70px;
             border-radius: 8px;
-            border: 2px solid var(--mission-cyan);
+            border: 2px solid var(--neon-market-green);
             background: linear-gradient(135deg, var(--panel-elevated), var(--panel-dark));
             display: flex;
             align-items: center;
@@ -362,9 +362,9 @@
             font-family: 'Rajdhani', sans-serif;
             font-size: 2rem;
             font-weight: 700;
-            color: var(--mission-cyan);
+            color: var(--neon-market-green);
             clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-            box-shadow: 0 0 20px var(--glow-cyan);
+            box-shadow: 0 0 20px var(--glow-green);
         }
 
         .affiliate-avatar img {
@@ -390,7 +390,7 @@
         .affiliate-handle {
             font-family: 'Share Tech Mono', monospace;
             font-size: 0.85rem;
-            color: var(--mission-cyan);
+            color: var(--neon-market-green);
             opacity: 0.8;
         }
 
@@ -407,15 +407,15 @@
         .metric-item {
             text-align: center;
             padding: 0.75rem;
-            background: rgba(0, 243, 255, 0.05);
-            border: 1px solid rgba(0, 243, 255, 0.2);
+            background: rgba(2, 242, 111, 0.05);
+            border: 1px solid rgba(2, 242, 111, 0.2);
             clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
             transition: all 0.3s ease;
         }
 
         .metric-item:hover {
-            background: rgba(0, 243, 255, 0.1);
-            border-color: var(--mission-cyan);
+            background: rgba(2, 242, 111, 0.1);
+            border-color: var(--neon-market-green);
             transform: scale(1.05);
         }
 
@@ -432,19 +432,19 @@
             font-family: 'Rajdhani', sans-serif;
             font-size: 1.5rem;
             font-weight: 700;
-            color: var(--mission-cyan);
+            color: var(--neon-market-green);
         }
 
         .metric-item:nth-child(3) {
             grid-column: 1 / -1;
-            background: linear-gradient(135deg, rgba(255, 140, 0, 0.1), rgba(255, 184, 0, 0.1));
-            border-color: var(--tactical-orange);
+            background: linear-gradient(135deg, rgba(12, 236, 154, 0.1), rgba(16, 152, 99, 0.1));
+            border-color: var(--electric-mint);
         }
 
         .metric-item:nth-child(3) .metric-value {
             font-size: 2rem;
-            color: var(--tactical-orange);
-            text-shadow: 0 0 15px var(--glow-orange);
+            color: var(--electric-mint);
+            text-shadow: 0 0 15px var(--glow-mint);
         }
 
         /* ========================================
@@ -457,7 +457,7 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(90deg, var(--mission-cyan), var(--tactical-orange));
+            background: linear-gradient(90deg, var(--neon-market-green), var(--electric-mint));
             transform: scaleX(0);
             transform-origin: left;
             transition: transform 0.6s ease;
@@ -475,8 +475,8 @@
             width: 12px;
             height: 12px;
             border-radius: 50%;
-            background: var(--command-green);
-            box-shadow: 0 0 15px var(--command-green);
+            background: var(--neon-market-green);
+            box-shadow: 0 0 15px var(--neon-market-green);
             animation: indicatorPulse 2s ease-in-out infinite;
         }
 
@@ -580,7 +580,7 @@
             right: -50px;
             width: 2px;
             height: 100px;
-            background: linear-gradient(to bottom, transparent, var(--mission-cyan), transparent);
+            background: linear-gradient(to bottom, transparent, var(--neon-market-green), transparent);
             opacity: 0;
             animation: dataFlow 2s ease-in-out infinite;
         }
