@@ -4,7 +4,7 @@ Public-facing leaderboard showcasing top-performing Altcoinist affiliates.
 
 ## 🚀 Deployment
 
-**Live Site:** https://chichi-png.github.io/altcoinist-leaderboard/
+**Live Site:** https://chichi-png.github.io/altcoinist-leaderboard/leaderboard.html
 
 **Repository:** https://github.com/chichi-png/altcoinist-leaderboard
 
@@ -14,72 +14,65 @@ Deployed automatically via **GitHub Pages** from the `master` branch.
 
 ```
 altcoinist-leaderboard/
-├── index.html                    # All-time leaderboard
-├── weekly.html                   # Weekly leaderboard
-├── monthly.html                  # Monthly leaderboard
+├── leaderboard.html              # Main single-page app (all views)
 ├── assets/
 │   └── images/
-│       └── affiliates/           # Affiliate profile pictures
+│       └── affiliates/           # 35 affiliate profile pictures
+├── functions/                    # Utility functions
 ├── .gitignore
 └── README.md
 ```
 
 ## 🎨 Features
 
+- **Single-Page App** - All views (All-Time, Weekly, Monthly, Affiliates) in one page
+- **Command Center Intro** - Door opening animation on load
 - **Top 3 Podium** - Epic reveal animation for champions
-- **Hall of Fame** - Ranks 4-10 with interactive cards
-- **Full Leaderboard** - Paginated table view (10 per page)
-- **Profile Details** - Click any affiliate to view their stats
+- **Paginated Rankings** - 10 affiliates per page with navigation
+- **Real Profile Pictures** - 35 actual Altcoinist affiliates
 - **Responsive Design** - Works on desktop and mobile
 - **Dark Cyber Theme** - Neon accents and smooth animations
 
 ## 📊 Data Structure
 
-Affiliate data is hardcoded in `index.html` (line ~3530):
-
+### Weekly Rankings
+Located in `leaderboard.html` (~line 4505):
 ```javascript
-const affiliatesData = [
-    {
-        rank: 1,
-        name: 'rbthreek',
-        handle: '@rbthreek',
-        avatar: 'R',
-        tweets: 10,
-        referrals: 195,
-        traders: 98,
-        total: 303,
-        imgSrc: 'assets/images/affiliates/rbthreek.jpg'
-    },
-    // ...
+const weeklyItemsPerPage = 10; // 10 per page
+const weeklyData = [
+    {rank: 1, name: 'Rb3k', handle: '@rbthreek', ...},
+    // ... 35 real affiliates
 ];
 ```
 
-## 🔄 Updating Leaderboard
+### Monthly Rankings
+Located in `leaderboard.html` (~line 4690):
+```javascript
+const monthlyItemsPerPage = 10; // 10 per page
+const monthlyData = [
+    {rank: 1, name: 'Rb3k', handle: '@rbthreek', ...},
+    // ... 35 real affiliates
+];
+```
 
-### Add New Affiliate
+## 🔄 Navigation
+
+- **All-Time Rankings:** Default view on load
+- **Weekly Rankings:** Click "📊 Weekly Rankings" button
+- **Monthly Rankings:** Click "📈 Monthly Rankings" button
+- **Affiliates Directory:** Click "🎯 Affiliates" button
+
+All navigation is handled via JavaScript - no page reloads.
+
+## 🖼️ Adding New Affiliates
 
 1. Add profile picture to `assets/images/affiliates/`
-2. Update `affiliatesData` array in `index.html`, `weekly.html`, and `monthly.html`
-3. Commit and push - GitHub Pages auto-deploys
+2. Update `weeklyData` and `monthlyData` arrays in `leaderboard.html`
+3. Commit and push to trigger GitHub Pages deployment
 
-### Update Stats
+## 📝 Notes
 
-1. Edit the `affiliatesData` array in the relevant HTML file(s)
-2. Update `tweets`, `referrals`, `traders`, and `total` values
-3. Commit and push - GitHub Pages auto-deploys
-
-## 🛠️ Tech Stack
-
-- Pure HTML/CSS/JavaScript (no build step)
-- CSS Grid & Flexbox for layouts
-- CSS Custom Properties for theming
-- Intersection Observer for animations
-- Web Audio API for sound effects
-
-## 📝 License
-
-Proprietary - Altcoinist Team
-
----
-
-**Maintained by:** ChiChi (@CHICHI_0785)
+- **35 affiliates total** (as of 2026-03-20)
+- **Pagination:** 10 per page = 4 pages (10, 10, 10, 5)
+- **Made-up numbers:** Performance data is currently demo data
+- **Single source:** All code in `leaderboard.html` for easy maintenance
