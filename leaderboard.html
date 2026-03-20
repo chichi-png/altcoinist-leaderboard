@@ -2824,6 +2824,125 @@
                 flex: 1;
                 min-width: 140px;
             }
+
+            /* Fix grids for mobile - override minmax values */
+            #weekly-dashboard-grid,
+            #monthly-dashboard-grid {
+                grid-template-columns: 1fr !important;
+                padding: 0 var(--space-4);
+            }
+
+            /* Ensure all grids stack on mobile */
+            [style*="grid-template-columns: repeat(auto-fill, minmax(380px"] {
+                grid-template-columns: 1fr !important;
+            }
+
+            [style*="grid-template-columns: repeat(auto-fill, minmax(400px"] {
+                grid-template-columns: 1fr !important;
+            }
+
+            [style*="grid-template-columns: repeat(auto-fit, minmax(300px"] {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        @media (max-width: 640px) {
+            /* Fix all grids to single column on small mobile */
+            #weekly-dashboard-grid,
+            #monthly-dashboard-grid,
+            .hall-grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            /* Ensure summary stats stack properly */
+            [style*="grid-template-columns: repeat(auto-fit, minmax(250px"] {
+                grid-template-columns: 1fr !important;
+            }
+
+            /* Add horizontal scroll for tables */
+            .leaderboard-table-container {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            /* Better touch targets */
+            .btn,
+            .nav-btn {
+                min-height: 44px;
+                min-width: 44px;
+            }
+
+            /* Reduce horizontal padding on mobile */
+            section {
+                padding-left: var(--space-4) !important;
+                padding-right: var(--space-4) !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            /* Extra small devices - ensure everything stacks */
+            [style*="grid-template-columns"] {
+                grid-template-columns: 1fr !important;
+            }
+
+            /* Smaller font sizes for very small screens */
+            .hall-name,
+            .affiliate-name {
+                font-size: 1.1rem !important;
+            }
+
+            /* Better spacing on tiny screens */
+            .hall-card,
+            .podium-card {
+                padding: var(--space-4) !important;
+            }
+        }
+
+        /* Landscape orientation support */
+        @media (max-width: 768px) and (orientation: landscape) {
+            /* Reduce vertical padding in landscape */
+            .podium {
+                gap: 2rem !important;
+            }
+
+            section {
+                padding-top: var(--space-6) !important;
+                padding-bottom: var(--space-6) !important;
+            }
+
+            /* Compact header in landscape */
+            header nav {
+                padding: 0.75rem !important;
+            }
+
+            .nav-btn {
+                padding: 0.5rem 0.75rem !important;
+                font-size: 0.9rem !important;
+            }
+        }
+
+        /* Rotation hint for small landscape screens */
+        @media (max-width: 640px) and (orientation: landscape) {
+            body::after {
+                content: "↻ Rotate for better view";
+                position: fixed;
+                bottom: var(--space-4);
+                right: var(--space-4);
+                background: var(--neon-market-green);
+                color: var(--obsidian-navy);
+                padding: var(--space-2) var(--space-4);
+                border-radius: var(--radius-lg);
+                font-size: 0.85rem;
+                font-weight: 600;
+                z-index: 99999;
+                animation: pulse 2s ease-in-out infinite;
+                pointer-events: none;
+            }
+
+            @keyframes pulse {
+                0%, 100% { opacity: 0.8; }
+                50% { opacity: 1; }
+            }
         }
     </style>
 
