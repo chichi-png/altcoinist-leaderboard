@@ -4,7 +4,7 @@ Public-facing leaderboard showcasing top-performing Altcoinist affiliates.
 
 ## 🚀 Deployment
 
-**Live Site:** https://chichi-png.github.io/altcoinist-leaderboard/leaderboard.html
+**Live Site:** https://chichi-png.github.io/altcoinist-leaderboard/
 
 **Repository:** https://github.com/chichi-png/altcoinist-leaderboard
 
@@ -14,6 +14,7 @@ Deployed automatically via **GitHub Pages** from the `master` branch.
 
 ```
 altcoinist-leaderboard/
+├── index.html                    # ⚠️ IMPORTANT: Door entrance page (DO NOT DELETE!)
 ├── leaderboard.html              # Main single-page app (all views)
 ├── assets/
 │   └── images/
@@ -23,10 +24,14 @@ altcoinist-leaderboard/
 └── README.md
 ```
 
+**⚠️ CRITICAL FILES - DO NOT DELETE:**
+- `index.html` - Landing page with door animation and "ACCESS GRANTED" screen
+- `leaderboard.html` - Main leaderboard application
+
 ## 🎨 Features
 
+- **🚪 Command Center Entrance** - Immersive door animation with security scanner (index.html)
 - **Single-Page App** - All views (All-Time, Weekly, Monthly, Affiliates) in one page
-- **Command Center Intro** - Door opening animation on load
 - **Top 3 Podium** - Epic reveal animation for champions
 - **Paginated Rankings** - 10 affiliates per page with navigation
 - **Real Profile Pictures** - 35 actual Altcoinist affiliates
