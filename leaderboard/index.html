@@ -4380,15 +4380,39 @@
         // ===== Weekly Rankings Data & Rendering =====
 
         let weeklyCurrentPage = 1;
-        const weeklyItemsPerPage = 12;
+        const weeklyItemsPerPage = 100; // Show all affiliates on one page
 
         const weeklyData = [
-            {rank: 1, name: 'Rb3k', handle: '@rbthreek', avatar: 'R', tweets: 12, referrals: 208, weeklyScore: 324, imgSrc: 'assets/images/affiliates/Rb3k_(rbthreek).jpg', profileUrl: 'https://x.com/rbthreek'},
-            {rank: 2, name: 'N30', handle: '@N30_cryptoo', avatar: 'N30', tweets: 160, referrals: 22, weeklyScore: 187, imgSrc: 'assets/images/affiliates/N30_(n30_cryptoo).jpg', profileUrl: 'https://x.com/N30_cryptoo'},
+            {rank: 1, name: 'Rb3k', handle: '@rbthreek', avatar: 'R', tweets: 12, referrals: 208, weeklyScore: 220, imgSrc: 'assets/images/affiliates/Rb3k_(rbthreek).jpg', profileUrl: 'https://x.com/rbthreek'},
+            {rank: 2, name: 'N30', handle: '@N30_cryptoo', avatar: 'N30', tweets: 160, referrals: 22, weeklyScore: 182, imgSrc: 'assets/images/affiliates/N30_(n30_cryptoo).jpg', profileUrl: 'https://x.com/N30_cryptoo'},
             {rank: 3, name: 'DJ', handle: '@nlinker777', avatar: 'DJ', tweets: 139, referrals: 0, weeklyScore: 139, imgSrc: 'assets/images/affiliates/DJ_(nlinker777).jpg', profileUrl: 'https://x.com/NLinker777'},
-            {rank: 4, name: 'Affiliate 4', handle: '@affiliate4', avatar: 'AF', tweets: 95, referrals: 12, weeklyScore: 107, imgSrc: '', profileUrl: 'https://x.com/affiliate4'},
-            {rank: 5, name: 'Affiliate 5', handle: '@affiliate5', avatar: 'AF', tweets: 78, referrals: 8, weeklyScore: 86, imgSrc: '', profileUrl: 'https://x.com/affiliate5'},
-            {rank: 6, name: 'Affiliate 6', handle: '@affiliate6', avatar: 'AF', tweets: 62, referrals: 5, weeklyScore: 67, imgSrc: '', profileUrl: 'https://x.com/affiliate6'},
+            {rank: 4, name: 'Slavicbased', handle: '@basedsnipez', avatar: 'S', tweets: 95, referrals: 12, weeklyScore: 107, imgSrc: '', profileUrl: 'https://x.com/basedsnipez'},
+            {rank: 5, name: 'Tyler Kenny', handle: '@thebasedfrogx', avatar: 'T', tweets: 78, referrals: 8, weeklyScore: 86, imgSrc: '', profileUrl: 'https://x.com/thebasedfrogx'},
+            {rank: 6, name: 'Arindewar', handle: '@arindewar', avatar: 'A', tweets: 62, referrals: 15, weeklyScore: 77, imgSrc: '', profileUrl: 'https://x.com/arindewar'},
+            {rank: 7, name: 'mDiBe89', handle: '@tibbiracer', avatar: 'M', tweets: 58, referrals: 9, weeklyScore: 67, imgSrc: '', profileUrl: 'https://x.com/tibbiracer'},
+            {rank: 8, name: 'Mj', handle: '@Vanxyrus', avatar: 'V', tweets: 45, referrals: 18, weeklyScore: 63, imgSrc: '', profileUrl: 'https://x.com/Vanxyrus'},
+            {rank: 9, name: 'CryptoWhale', handle: '@cryptowhale_', avatar: 'CW', tweets: 42, referrals: 14, weeklyScore: 56, imgSrc: '', profileUrl: 'https://x.com/cryptowhale_'},
+            {rank: 10, name: 'MoonHunter', handle: '@moonhunter', avatar: 'MH', tweets: 38, referrals: 11, weeklyScore: 49, imgSrc: '', profileUrl: 'https://x.com/moonhunter'},
+            {rank: 11, name: 'DegenKing', handle: '@degenking', avatar: 'DK', tweets: 35, referrals: 10, weeklyScore: 45, imgSrc: '', profileUrl: 'https://x.com/degenking'},
+            {rank: 12, name: 'AlphaSeeker', handle: '@alphaseeker', avatar: 'AS', tweets: 32, referrals: 12, weeklyScore: 44, imgSrc: '', profileUrl: 'https://x.com/alphaseeker'},
+            {rank: 13, name: 'ChartMaster', handle: '@chartmaster', avatar: 'CM', tweets: 30, referrals: 9, weeklyScore: 39, imgSrc: '', profileUrl: 'https://x.com/chartmaster'},
+            {rank: 14, name: 'TokenSniper', handle: '@tokensniper', avatar: 'TS', tweets: 28, referrals: 8, weeklyScore: 36, imgSrc: '', profileUrl: 'https://x.com/tokensniper'},
+            {rank: 15, name: 'GemFinder', handle: '@gemfinder', avatar: 'GF', tweets: 25, referrals: 10, weeklyScore: 35, imgSrc: '', profileUrl: 'https://x.com/gemfinder'},
+            {rank: 16, name: 'PumpChaser', handle: '@pumpchaser', avatar: 'PC', tweets: 24, referrals: 7, weeklyScore: 31, imgSrc: '', profileUrl: 'https://x.com/pumpchaser'},
+            {rank: 17, name: 'DexTrader', handle: '@dextrader', avatar: 'DT', tweets: 22, referrals: 6, weeklyScore: 28, imgSrc: '', profileUrl: 'https://x.com/dextrader'},
+            {rank: 18, name: 'SolanaMaxi', handle: '@solanamaxi', avatar: 'SM', tweets: 20, referrals: 5, weeklyScore: 25, imgSrc: '', profileUrl: 'https://x.com/solanamaxi'},
+            {rank: 19, name: 'NFTCollector', handle: '@nftcollector', avatar: 'NC', tweets: 18, referrals: 6, weeklyScore: 24, imgSrc: '', profileUrl: 'https://x.com/nftcollector'},
+            {rank: 20, name: 'MemeKing', handle: '@memeking', avatar: 'MK', tweets: 17, referrals: 4, weeklyScore: 21, imgSrc: '', profileUrl: 'https://x.com/memeking'},
+            {rank: 21, name: 'LowCapLord', handle: '@lowcaplord', avatar: 'LC', tweets: 15, referrals: 5, weeklyScore: 20, imgSrc: '', profileUrl: 'https://x.com/lowcaplord'},
+            {rank: 22, name: 'WhaleWatcher', handle: '@whalewatcher', avatar: 'WW', tweets: 14, referrals: 3, weeklyScore: 17, imgSrc: '', profileUrl: 'https://x.com/whalewatcher'},
+            {rank: 23, name: 'DeFiDegen', handle: '@defidegen', avatar: 'DD', tweets: 12, referrals: 4, weeklyScore: 16, imgSrc: '', profileUrl: 'https://x.com/defidegen'},
+            {rank: 24, name: 'ApeLeader', handle: '@apeleader', avatar: 'AL', tweets: 11, referrals: 3, weeklyScore: 14, imgSrc: '', profileUrl: 'https://x.com/apeleader'},
+            {rank: 25, name: 'RugPuller', handle: '@rugpuller', avatar: 'RP', tweets: 10, referrals: 2, weeklyScore: 12, imgSrc: '', profileUrl: 'https://x.com/rugpuller'},
+            {rank: 26, name: 'BagHolder', handle: '@bagholder', avatar: 'BH', tweets: 9, referrals: 2, weeklyScore: 11, imgSrc: '', profileUrl: 'https://x.com/bagholder'},
+            {rank: 27, name: 'DiamondHands', handle: '@diamondhands', avatar: 'DH', tweets: 8, referrals: 1, weeklyScore: 9, imgSrc: '', profileUrl: 'https://x.com/diamondhands'},
+            {rank: 28, name: 'FOMO_Trader', handle: '@fomotrader', avatar: 'FT', tweets: 7, referrals: 1, weeklyScore: 8, imgSrc: '', profileUrl: 'https://x.com/fomotrader'},
+            {rank: 29, name: 'HODL_Master', handle: '@hodlmaster', avatar: 'HM', tweets: 6, referrals: 1, weeklyScore: 7, imgSrc: '', profileUrl: 'https://x.com/hodlmaster'},
+            {rank: 30, name: 'SmartMoney', handle: '@smartmoney', avatar: 'SM', tweets: 5, referrals: 1, weeklyScore: 6, imgSrc: '', profileUrl: 'https://x.com/smartmoney'},
         ];
 
         function renderWeeklyDashboard() {
@@ -4536,7 +4560,7 @@
         // ===== Monthly Rankings Data & Rendering =====
 
         let monthlyCurrentPage = 1;
-        const monthlyItemsPerPage = 12;
+        const monthlyItemsPerPage = 100; // Show all affiliates on one page
 
         const monthlyData = [
             {rank: 1, name: 'Rb3k', handle: '@rbthreek', avatar: 'R', tweets: 45, referrals: 782, monthlyScore: 827, imgSrc: 'assets/images/affiliates/Rb3k_(rbthreek).jpg', profileUrl: 'https://x.com/rbthreek'},
@@ -4547,6 +4571,28 @@
             {rank: 6, name: 'Arindewar', handle: '@arindewar', avatar: 'A', tweets: 147, referrals: 18, monthlyScore: 165, imgSrc: 'assets/images/affiliates/Arindewar_(arindewar).jpg', profileUrl: 'https://x.com/arindewar'},
             {rank: 7, name: 'mDiBe89', handle: '@tibbiracer', avatar: 'M', tweets: 138, referrals: 5, monthlyScore: 143, imgSrc: 'assets/images/affiliates/mDiBe89_(tibbiracer).jpg', profileUrl: 'https://x.com/tibbiracer'},
             {rank: 8, name: 'Mj', handle: '@Vanxyrus', avatar: 'V', tweets: 95, referrals: 28, monthlyScore: 123, imgSrc: 'assets/images/affiliates/Mj_(vanxyrus).jpg', profileUrl: 'https://x.com/Vanxyrus'},
+            {rank: 9, name: 'CryptoWhale', handle: '@cryptowhale_', avatar: 'CW', tweets: 185, referrals: 52, monthlyScore: 237, imgSrc: '', profileUrl: 'https://x.com/cryptowhale_'},
+            {rank: 10, name: 'MoonHunter', handle: '@moonhunter', avatar: 'MH', tweets: 162, referrals: 48, monthlyScore: 210, imgSrc: '', profileUrl: 'https://x.com/moonhunter'},
+            {rank: 11, name: 'DegenKing', handle: '@degenking', avatar: 'DK', tweets: 154, referrals: 42, monthlyScore: 196, imgSrc: '', profileUrl: 'https://x.com/degenking'},
+            {rank: 12, name: 'AlphaSeeker', handle: '@alphaseeker', avatar: 'AS', tweets: 148, referrals: 38, monthlyScore: 186, imgSrc: '', profileUrl: 'https://x.com/alphaseeker'},
+            {rank: 13, name: 'ChartMaster', handle: '@chartmaster', avatar: 'CM', tweets: 135, referrals: 35, monthlyScore: 170, imgSrc: '', profileUrl: 'https://x.com/chartmaster'},
+            {rank: 14, name: 'TokenSniper', handle: '@tokensniper', avatar: 'TS', tweets: 128, referrals: 32, monthlyScore: 160, imgSrc: '', profileUrl: 'https://x.com/tokensniper'},
+            {rank: 15, name: 'GemFinder', handle: '@gemfinder', avatar: 'GF', tweets: 122, referrals: 30, monthlyScore: 152, imgSrc: '', profileUrl: 'https://x.com/gemfinder'},
+            {rank: 16, name: 'PumpChaser', handle: '@pumpchaser', avatar: 'PC', tweets: 115, referrals: 28, monthlyScore: 143, imgSrc: '', profileUrl: 'https://x.com/pumpchaser'},
+            {rank: 17, name: 'DexTrader', handle: '@dextrader', avatar: 'DT', tweets: 108, referrals: 25, monthlyScore: 133, imgSrc: '', profileUrl: 'https://x.com/dextrader'},
+            {rank: 18, name: 'SolanaMaxi', handle: '@solanamaxi', avatar: 'SM', tweets: 102, referrals: 22, monthlyScore: 124, imgSrc: '', profileUrl: 'https://x.com/solanamaxi'},
+            {rank: 19, name: 'NFTCollector', handle: '@nftcollector', avatar: 'NC', tweets: 95, referrals: 20, monthlyScore: 115, imgSrc: '', profileUrl: 'https://x.com/nftcollector'},
+            {rank: 20, name: 'MemeKing', handle: '@memeking', avatar: 'MK', tweets: 88, referrals: 18, monthlyScore: 106, imgSrc: '', profileUrl: 'https://x.com/memeking'},
+            {rank: 21, name: 'LowCapLord', handle: '@lowcaplord', avatar: 'LC', tweets: 82, referrals: 16, monthlyScore: 98, imgSrc: '', profileUrl: 'https://x.com/lowcaplord'},
+            {rank: 22, name: 'WhaleWatcher', handle: '@whalewatcher', avatar: 'WW', tweets: 75, referrals: 15, monthlyScore: 90, imgSrc: '', profileUrl: 'https://x.com/whalewatcher'},
+            {rank: 23, name: 'DeFiDegen', handle: '@defidegen', avatar: 'DD', tweets: 68, referrals: 14, monthlyScore: 82, imgSrc: '', profileUrl: 'https://x.com/defidegen'},
+            {rank: 24, name: 'ApeLeader', handle: '@apeleader', avatar: 'AL', tweets: 62, referrals: 12, monthlyScore: 74, imgSrc: '', profileUrl: 'https://x.com/apeleader'},
+            {rank: 25, name: 'RugPuller', handle: '@rugpuller', avatar: 'RP', tweets: 55, referrals: 10, monthlyScore: 65, imgSrc: '', profileUrl: 'https://x.com/rugpuller'},
+            {rank: 26, name: 'BagHolder', handle: '@bagholder', avatar: 'BH', tweets: 48, referrals: 9, monthlyScore: 57, imgSrc: '', profileUrl: 'https://x.com/bagholder'},
+            {rank: 27, name: 'DiamondHands', handle: '@diamondhands', avatar: 'DH', tweets: 42, referrals: 8, monthlyScore: 50, imgSrc: '', profileUrl: 'https://x.com/diamondhands'},
+            {rank: 28, name: 'FOMO_Trader', handle: '@fomotrader', avatar: 'FT', tweets: 35, referrals: 7, monthlyScore: 42, imgSrc: '', profileUrl: 'https://x.com/fomotrader'},
+            {rank: 29, name: 'HODL_Master', handle: '@hodlmaster', avatar: 'HM', tweets: 28, referrals: 6, monthlyScore: 34, imgSrc: '', profileUrl: 'https://x.com/hodlmaster'},
+            {rank: 30, name: 'SmartMoney', handle: '@smartmoney', avatar: 'SM', tweets: 22, referrals: 5, monthlyScore: 27, imgSrc: '', profileUrl: 'https://x.com/smartmoney'},
         ];
 
         function renderMonthlyDashboard() {
