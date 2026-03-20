@@ -3,32 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monthly Rankings - Altcoinist Leaderboard</title>
+    <title>Affiliate Leaderboard - Altcoinist</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
-        /* Design Tokens - Altcoinist Brand (Updated 2026-03-19) */
+        /* Design Tokens - Altcoinist Brand (Updated 2026-03-20) */
         :root {
-            /* PRIMARY BRAND COLORS (Altcoinist Green Palette) */
-            --neon-market-green: #02F26F;     /* Primary accent - replaces cyan */
-            --electric-mint: #0CEC9A;         /* Secondary accent - replaces teal */
-            --trade-green: #109863;           /* Tertiary accent - replaces blue */
-            --deep-emerald: #3EA986;          /* Supporting green */
+            /* PRIMARY BRAND COLORS (Altcoinist Mint Green Palette) */
+            --neon-market-green: #37FF94;     /* Primary mint green brand color */
+            --electric-mint: #0CEC9A;         /* Secondary mint accent */
+            --trade-green: #10b981;           /* Tertiary green */
+            --green-tertiary: #34d399;        /* Light green accent */
 
-            /* LEGACY ALIASES (for backward compatibility during migration) */
-            --green-primary: #02F26F;         /* → neon-market-green */
+            /* LEGACY ALIASES (for backward compatibility) */
+            --cyan-bright: #37FF94;           /* → neon-market-green */
+            --cyan-light: #6BFFAD;            /* Light mint for text */
+            --teal-bright: #0CEC9A;           /* → electric-mint */
+            --green: #10b981;                 /* → trade-green */
+            --deep-emerald: #3EA986;          /* Supporting teal */
+            --green-primary: #37FF94;         /* → neon-market-green */
             --green-secondary: #0CEC9A;       /* → electric-mint */
-            --green-tertiary: #aeffd3;        /* Keep for light accents */
-            --cyan-bright: #02F26F;           /* → Use neon-market-green */
-            --cyan: #02F26F;                  /* → Use neon-market-green */
-            --cyan-dark: #0CEC9A;             /* → Use electric-mint */
-            --teal-bright: #0CEC9A;           /* → Use electric-mint */
-            --teal: #0CEC9A;                  /* → Use electric-mint */
-            --teal-dark: #109863;             /* → Use trade-green */
-            --blue-electric: #109863;         /* → Use trade-green */
-            --blue-bright: #0CEC9A;           /* → Use electric-mint */
-            --blue-light: #109863;            /* → Use trade-green */
+            --cyan: #37FF94;                  /* → neon-market-green */
+            --cyan-dark: #0CEC9A;             /* → electric-mint */
+            --teal: #0CEC9A;                  /* → electric-mint */
+            --teal-dark: #10b981;             /* → trade-green */
+            --blue-electric: #37FF94;         /* → neon-market-green */
+            --blue-bright: #0CEC9A;           /* → electric-mint */
+            --blue-light: #10b981;            /* → trade-green */
 
             /* BACKGROUNDS (Updated to Altcoinist Dark Navy Palette) */
             --obsidian-navy: #0E111A;         /* Page background (replaces #0a0a0a) */
@@ -46,15 +48,15 @@
             --gray-700: #333333;              /* Keep for borders */
             --gray-600: #404040;              /* Keep for inactive states */
 
-            /* GLOWS (Updated to Green Palette) */
-            --glow-green: rgba(2, 242, 111, 0.6);      /* Primary glow */
-            --glow-mint: rgba(12, 236, 154, 0.5);      /* Secondary glow */
-            --glow-trade: rgba(16, 152, 99, 0.5);      /* Tertiary glow */
+            /* GLOWS (Updated to Altcoinist Mint Green Palette) */
+            --glow-green: rgba(55, 255, 148, 0.6);     /* Primary mint green glow */
+            --glow-mint: rgba(12, 236, 154, 0.5);      /* Secondary mint glow */
+            --glow-trade: rgba(16, 185, 129, 0.5);     /* Tertiary green glow */
 
             /* LEGACY GLOW ALIASES */
-            --glow-cyan: rgba(2, 242, 111, 0.6);       /* → glow-green */
+            --glow-cyan: rgba(55, 255, 148, 0.6);      /* → glow-green */
             --glow-teal: rgba(12, 236, 154, 0.5);      /* → glow-mint */
-            --glow-blue: rgba(16, 152, 99, 0.5);       /* → glow-trade */
+            --glow-blue: rgba(55, 255, 148, 0.6);      /* → glow-green */
 
             /* Shadows */
             --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.6);
@@ -100,13 +102,10 @@
         .podium-card,
         .hall-card,
         .stat-card,
-        .neon-streak,
         .particle,
         .gallery-spotlight,
         .modal-content,
-        .detail-popup,
-        .hall-scanner,
-        .body-scanner {
+        .detail-popup {
             will-change: transform, opacity;
             transform: translateZ(0);
             backface-visibility: hidden;
@@ -145,7 +144,6 @@
         }
 
         /* Pause background animations when modals are open for better performance */
-        body:has(.modal.active) .landing .neon-streak,
         body:has(.modal.active) .cyber-grid,
         body:has(.modal.active) .podium .particle {
             animation-play-state: paused;
@@ -174,6 +172,40 @@
             overflow-x: hidden;
             position: relative;
             scroll-behavior: smooth;
+            animation: page-entrance 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        @keyframes page-entrance {
+            0% {
+                opacity: 0;
+                filter: blur(10px);
+            }
+            100% {
+                opacity: 1;
+                filter: blur(0);
+            }
+        }
+
+        @keyframes init-pulse {
+            0%, 100% {
+                opacity: 0.6;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes init-fade {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            50%, 100% {
+                opacity: 0.8;
+                transform: translateY(0);
+            }
         }
 
         /* Global Cyber Background */
@@ -442,33 +474,6 @@
         }
 
         /* Neon Streaks (Landing Page) */
-        .landing .neon-streak {
-            position: absolute;
-            width: 2px;
-            height: 150px;
-            background: linear-gradient(180deg, transparent, var(--cyan-bright), transparent);
-            opacity: 0;
-            animation: streakFall linear infinite;
-            box-shadow: 0 0 10px var(--glow-cyan);
-            pointer-events: none;
-        }
-
-        @keyframes streakFall {
-            0% {
-                top: -150px;
-                opacity: 0;
-            }
-            20% {
-                opacity: 1;
-            }
-            80% {
-                opacity: 0.6;
-            }
-            100% {
-                top: 100vh;
-                opacity: 0;
-            }
-        }
 
         /* Top 3 Podium */
         .podium {
@@ -1650,7 +1655,7 @@
             }
         }
 
-        /* Ambient Light Particles (subtle) */
+        /* Ambient Light Particles (disabled per user request) */
         .light-particle {
             display: none;
         }
@@ -1795,137 +1800,6 @@
             }
         }
 
-        /* Slow Body Scanner (Full Leaderboard) */
-        .body-scanner {
-            position: absolute;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg,
-                transparent 0%,
-                rgba(0, 243, 255, 0.3) 20%,
-                rgba(0, 243, 255, 0.8) 50%,
-                rgba(0, 243, 255, 0.3) 80%,
-                transparent 100%);
-            box-shadow:
-                0 0 20px rgba(0, 243, 255, 0.8),
-                0 0 40px rgba(0, 243, 255, 0.4),
-                0 2px 60px rgba(0, 243, 255, 0.6);
-            animation: scanSlow 12s linear infinite;
-            pointer-events: none;
-            z-index: 10;
-        }
-
-        .body-scanner::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            right: 0;
-            height: 80px;
-            background: linear-gradient(180deg,
-                rgba(0, 243, 255, 0.15) 0%,
-                rgba(0, 243, 255, 0.05) 50%,
-                transparent 100%);
-            filter: blur(20px);
-            transform: translateY(-40px);
-        }
-
-        .body-scanner::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            right: 0;
-            height: 80px;
-            background: linear-gradient(180deg,
-                transparent 0%,
-                rgba(0, 243, 255, 0.05) 50%,
-                rgba(0, 243, 255, 0.15) 100%);
-            filter: blur(20px);
-            transform: translateY(4px);
-        }
-
-        @keyframes scanSlow {
-            0% {
-                top: 0;
-                opacity: 0;
-            }
-            5% {
-                opacity: 1;
-            }
-            95% {
-                opacity: 1;
-            }
-            100% {
-                top: 100%;
-                opacity: 0;
-            }
-        }
-
-        /* Hall of Fame Scanner - Slower and more dramatic */
-        .hall-scanner {
-            position: absolute;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg,
-                transparent 0%,
-                rgba(218, 165, 32, 0.3) 20%,
-                rgba(218, 165, 32, 0.9) 50%,
-                rgba(218, 165, 32, 0.3) 80%,
-                transparent 100%);
-            box-shadow:
-                0 0 30px rgba(218, 165, 32, 0.9),
-                0 0 60px rgba(218, 165, 32, 0.5),
-                0 2px 80px rgba(218, 165, 32, 0.7);
-            animation: hallScan 25s ease-in-out infinite;
-            pointer-events: none;
-            z-index: 15;
-        }
-
-        .hall-scanner::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            right: 0;
-            height: 100px;
-            background: linear-gradient(180deg,
-                rgba(218, 165, 32, 0.2) 0%,
-                rgba(218, 165, 32, 0.08) 50%,
-                transparent 100%);
-            filter: blur(25px);
-            transform: translateY(-50px);
-        }
-
-        .hall-scanner::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            right: 0;
-            height: 100px;
-            background: linear-gradient(180deg,
-                transparent 0%,
-                rgba(218, 165, 32, 0.08) 50%,
-                rgba(218, 165, 32, 0.2) 100%);
-            filter: blur(25px);
-            transform: translateY(3px);
-        }
-
-        @keyframes hallScan {
-            0% {
-                top: 0;
-                opacity: 0;
-            }
-            3% {
-                opacity: 1;
-            }
-            97% {
-                opacity: 1;
-            }
-            100% {
-                top: 100%;
-                opacity: 0;
-            }
-        }
 
         /* Close Button */
         .close-btn {
@@ -2952,8 +2826,29 @@
             }
         }
     </style>
+
+    <!-- Command Center Visual Enhancements -->
+    <link rel="stylesheet" href="command-center-enhancements.css">
+
+    <!-- Enhanced Affiliate Profile Styles -->
+    <link rel="stylesheet" href="enhanced-affiliate-profile.css">
+
+    <!-- Enhanced Detail Card Styles -->
+    <link rel="stylesheet" href="enhanced-card-styles.css">
 </head>
 <body>
+    <!-- Command Center Initialization Overlay -->
+    <div id="commandCenterInit" style="position: fixed; inset: 0; background: #0a0e1a; z-index: 100000; display: flex; align-items: center; justify-content: center; opacity: 1; transition: opacity 0.5s ease; pointer-events: none;">
+        <div style="text-align: center;">
+            <div style="font-family: 'Orbitron', sans-serif; font-size: 2rem; color: #02F26F; text-shadow: 0 0 20px rgba(2, 242, 111, 0.8); margin-bottom: 1rem; animation: init-pulse 0.8s ease-in-out;">
+                ◈ COMMAND CENTER INITIALIZED ◈
+            </div>
+            <div style="font-family: 'Inter', sans-serif; font-size: 1rem; color: #0CEC9A; opacity: 0.8; animation: init-fade 0.8s ease-in-out;">
+                ACCESS GRANTED • LOADING AFFILIATE DATA
+            </div>
+        </div>
+    </div>
+
     <!-- Hero Character Background -->
     <div class="hero-background">
         <div class="hero-character"></div>
@@ -2961,8 +2856,6 @@
 
     <!-- Global Cyber Background -->
     <div class="cyber-bg">
-        <div class="bg-grid"></div>
-        <div class="diagonal-lines"></div>
         <div class="ambient-glow glow-1"></div>
         <div class="ambient-glow glow-2"></div>
         <div class="ambient-glow glow-3"></div>
@@ -3207,6 +3100,152 @@
     </div>
     <!-- End Home Page -->
 
+    <!-- Weekly Rankings Page -->
+    <div id="weekly-page" class="page-container">
+        <button class="back-btn" onclick="switchPage('home')" aria-label="Back to home">
+            <span>← Back</span>
+        </button>
+        <section style="padding: var(--space-10) var(--space-6); position: relative; z-index: 2;">
+            <!-- Header -->
+            <div style="text-align: center; margin-bottom: var(--space-12);">
+                <h1 style="font-size: 3.5rem; font-family: 'Orbitron', sans-serif; font-weight: 900; color: var(--neon-market-green); text-shadow: 0 0 30px var(--glow-green); margin-bottom: var(--space-4);">
+                    📊 Weekly Rankings
+                </h1>
+                <div style="display: inline-block; padding: var(--space-3) var(--space-6); background: rgba(2, 242, 111, 0.1); border: 2px solid var(--neon-market-green); border-radius: var(--radius-lg); margin-bottom: var(--space-8);">
+                    <span style="font-size: 1.2rem; font-weight: 600; color: var(--electric-mint); font-family: 'Inter', sans-serif;">
+                        Week 12 (Mar 17-23, 2026)
+                    </span>
+                </div>
+            </div>
+
+            <!-- Summary Stats Row -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-6); max-width: 1400px; margin: 0 auto var(--space-12);">
+                <!-- Active Affiliates -->
+                <div style="background: var(--panel-dark); border: 2px solid var(--muted-slate); border-radius: var(--radius-xl); padding: var(--space-8); text-align: center; position: relative; overflow: hidden;">
+                    <div style="position: absolute; inset: 0; background: radial-gradient(circle at center, var(--glow-green) 0%, transparent 70%); opacity: 0.1;"></div>
+                    <div style="position: relative; z-index: 1;">
+                        <div style="font-size: 1rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase; letter-spacing: 1px; margin-bottom: var(--space-3);">
+                            Active Affiliates
+                        </div>
+                        <div style="font-size: 3.5rem; font-family: 'Orbitron', sans-serif; font-weight: 900; color: var(--neon-market-green); text-shadow: 0 0 20px var(--glow-green);">
+                            47
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total Referrals -->
+                <div style="background: var(--panel-dark); border: 2px solid var(--muted-slate); border-radius: var(--radius-xl); padding: var(--space-8); text-align: center; position: relative; overflow: hidden;">
+                    <div style="position: absolute; inset: 0; background: radial-gradient(circle at center, var(--glow-mint) 0%, transparent 70%); opacity: 0.1;"></div>
+                    <div style="position: relative; z-index: 1;">
+                        <div style="font-size: 1rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase; letter-spacing: 1px; margin-bottom: var(--space-3);">
+                            Total Referrals
+                        </div>
+                        <div style="font-size: 3.5rem; font-family: 'Orbitron', sans-serif; font-weight: 900; color: var(--neon-market-green); text-shadow: 0 0 20px var(--glow-green);">
+                            892
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LTV/CAC -->
+                <div style="background: var(--panel-dark); border: 2px solid var(--muted-slate); border-radius: var(--radius-xl); padding: var(--space-8); text-align: center; position: relative; overflow: hidden;">
+                    <div style="position: absolute; inset: 0; background: radial-gradient(circle at center, var(--glow-trade) 0%, transparent 70%); opacity: 0.1;"></div>
+                    <div style="position: relative; z-index: 1;">
+                        <div style="font-size: 1rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase; letter-spacing: 1px; margin-bottom: var(--space-3);">
+                            LTV/CAC
+                        </div>
+                        <div style="font-size: 3.5rem; font-family: 'Orbitron', sans-serif; font-weight: 900; color: var(--neon-market-green); text-shadow: 0 0 20px var(--glow-green);">
+                            2.86x
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Affiliate Dashboard Grid -->
+            <div id="weekly-dashboard-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: var(--space-6); max-width: 1600px; margin: 0 auto;">
+                <!-- Affiliate cards will be dynamically generated here -->
+            </div>
+
+            <!-- Pagination Controls -->
+            <div id="weekly-pagination" style="display: flex; justify-content: center; align-items: center; gap: var(--space-4); margin-top: var(--space-12); flex-wrap: wrap;">
+                <!-- Pagination buttons will be generated here -->
+            </div>
+        </section>
+    </div>
+    <!-- End Weekly Page -->
+
+    <!-- Monthly Rankings Page -->
+    <div id="monthly-page" class="page-container">
+        <button class="back-btn" onclick="switchPage('home')" aria-label="Back to home">
+            <span>← Back</span>
+        </button>
+        <section style="padding: var(--space-10) var(--space-6); position: relative; z-index: 2;">
+            <!-- Header -->
+            <div style="text-align: center; margin-bottom: var(--space-12);">
+                <h1 style="font-size: 3.5rem; font-family: 'Orbitron', sans-serif; font-weight: 900; color: var(--neon-market-green); text-shadow: 0 0 30px var(--glow-green); margin-bottom: var(--space-4);">
+                    📈 Monthly Rankings
+                </h1>
+                <div style="display: inline-block; padding: var(--space-3) var(--space-6); background: rgba(2, 242, 111, 0.1); border: 2px solid var(--neon-market-green); border-radius: var(--radius-lg); margin-bottom: var(--space-8);">
+                    <span style="font-size: 1.2rem; font-weight: 600; color: var(--electric-mint); font-family: 'Inter', sans-serif;">
+                        March 2026
+                    </span>
+                </div>
+            </div>
+
+            <!-- Summary Stats Row -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-6); max-width: 1400px; margin: 0 auto var(--space-12);">
+                <!-- Active Affiliates -->
+                <div style="background: var(--panel-dark); border: 2px solid var(--muted-slate); border-radius: var(--radius-xl); padding: var(--space-8); text-align: center; position: relative; overflow: hidden;">
+                    <div style="position: absolute; inset: 0; background: radial-gradient(circle at center, var(--glow-green) 0%, transparent 70%); opacity: 0.1;"></div>
+                    <div style="position: relative; z-index: 1;">
+                        <div style="font-size: 1rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase; letter-spacing: 1px; margin-bottom: var(--space-3);">
+                            Active Affiliates
+                        </div>
+                        <div style="font-size: 3.5rem; font-family: 'Orbitron', sans-serif; font-weight: 900; color: var(--neon-market-green); text-shadow: 0 0 20px var(--glow-green);">
+                            47
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total Referrals -->
+                <div style="background: var(--panel-dark); border: 2px solid var(--muted-slate); border-radius: var(--radius-xl); padding: var(--space-8); text-align: center; position: relative; overflow: hidden;">
+                    <div style="position: absolute; inset: 0; background: radial-gradient(circle at center, var(--glow-mint) 0%, transparent 70%); opacity: 0.1;"></div>
+                    <div style="position: relative; z-index: 1;">
+                        <div style="font-size: 1rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase; letter-spacing: 1px; margin-bottom: var(--space-3);">
+                            Total Referrals
+                        </div>
+                        <div style="font-size: 3.5rem; font-family: 'Orbitron', sans-serif; font-weight: 900; color: var(--neon-market-green); text-shadow: 0 0 20px var(--glow-green);">
+                            3,247
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LTV/CAC -->
+                <div style="background: var(--panel-dark); border: 2px solid var(--muted-slate); border-radius: var(--radius-xl); padding: var(--space-8); text-align: center; position: relative; overflow: hidden;">
+                    <div style="position: absolute; inset: 0; background: radial-gradient(circle at center, var(--glow-trade) 0%, transparent 70%); opacity: 0.1;"></div>
+                    <div style="position: relative; z-index: 1;">
+                        <div style="font-size: 1rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase; letter-spacing: 1px; margin-bottom: var(--space-3);">
+                            LTV/CAC
+                        </div>
+                        <div style="font-size: 3.5rem; font-family: 'Orbitron', sans-serif; font-weight: 900; color: var(--neon-market-green); text-shadow: 0 0 20px var(--glow-green);">
+                            2.86x
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Affiliate Dashboard Grid -->
+            <div id="monthly-dashboard-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: var(--space-6); max-width: 1600px; margin: 0 auto;">
+                <!-- Affiliate cards will be dynamically generated here -->
+            </div>
+
+            <!-- Pagination Controls -->
+            <div id="monthly-pagination" style="display: flex; justify-content: center; align-items: center; gap: var(--space-4); margin-top: var(--space-12); flex-wrap: wrap;">
+                <!-- Pagination buttons will be generated here -->
+            </div>
+        </section>
+    </div>
+    <!-- End Monthly Page -->
+
     <!-- Twitter Posts Page -->
     <div id="twitter-posts-page" class="page-container">
         <section style="padding: var(--space-10) var(--space-6); position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center;">
@@ -3244,6 +3283,9 @@
 
     <!-- Affiliates Directory Page -->
     <div id="affiliates-page" class="page-container">
+        <button class="back-btn" onclick="switchPage('home')" aria-label="Back to home">
+            <span>← Back</span>
+        </button>
         <section style="padding: var(--space-10) var(--space-6); position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center;">
             <h1 style="font-size: 3rem; margin-bottom: var(--space-4); color: var(--cyan-bright); text-shadow: 0 0 20px var(--cyan-bright);">
                 🎯 Affiliates Directory
@@ -3286,9 +3328,6 @@
                 <div class="frame-accent" style="width: 90%; height: 90%; top: 5%; left: 5%; animation-delay: 0s;"></div>
                 <div class="frame-accent" style="width: 85%; height: 85%; top: 7.5%; left: 7.5%; animation-delay: 2s;"></div>
             </div>
-
-            <!-- Hall of Fame Scanner -->
-            <div class="hall-scanner"></div>
 
             <button class="close-btn" onclick="closeModal('hallModal')" aria-label="Close">×</button>
             <button class="back-btn" onclick="closeModal('hallModal')" aria-label="Back">
@@ -3532,9 +3571,6 @@
                 <div class="trophy-orb" style="top: 40%; right: 20%; animation-delay: 2s;"></div>
                 <div class="trophy-orb" style="bottom: 30%; left: 25%; animation-delay: 4s;"></div>
             </div>
-
-            <!-- Slow Body Scanner -->
-            <div class="body-scanner"></div>
 
             <button class="close-btn" onclick="closeModal('leaderboardModal')" aria-label="Close">×</button>
             <button class="back-btn" onclick="closeModal('leaderboardModal')" aria-label="Back">
@@ -4038,7 +4074,10 @@
             {rank: 37, name: 'Nouyarao', handle: '@sentientom', avatar: 'N', tweets: 0, referrals: 0, traders: 0, total: 0, imgSrc: 'assets/images/affiliates/Nouyarao_(sentientom).jpg', profileUrl: 'https://x.com/sentientom', bio: 'Sentient being | Altcoinist partner | Conscious crypto trading 🤖', location: 'AI Realm'},
             {rank: 38, name: 'Poorad', handle: '@pooorad', avatar: 'P', tweets: 0, referrals: 0, traders: 0, total: 0, imgSrc: 'assets/images/affiliates/poorad_(pooorad).jpg', profileUrl: 'https://x.com/Pooorad', bio: 'Building wealth from scratch | Altcoinist partner | Rags to riches 📈', location: 'Moon Mission'},
             {rank: 39, name: 'Kapo', handle: '@kapothegoat01', avatar: 'K', tweets: 0, referrals: 0, traders: 0, total: 0, imgSrc: 'assets/images/affiliates/kapo_(kapothegoat01).jpg', profileUrl: 'https://x.com/KAPOTHEGOAT01', bio: 'GOAT trader | Altcoinist affiliate | Greatest of all trades 🐐', location: 'Top of the Mountain'},
-            {rank: 40, name: 'Thegarderner', handle: '@thegardener777', avatar: 'TG', tweets: 0, referrals: 2, traders: 1, total: 3, imgSrc: '', profileUrl: 'https://x.com/thegardener777', bio: 'Cultivating crypto gains | Altcoinist affiliate | Growing wealth gardens 🌱', location: 'The Garden'}
+            {rank: 40, name: 'Thegarderner', handle: '@thegardener777', avatar: 'TG', tweets: 0, referrals: 2, traders: 1, total: 3, imgSrc: 'assets/images/affiliates/thegardener777.jpg', profileUrl: 'https://x.com/thegardener777', bio: 'Cultivating crypto gains | Altcoinist affiliate | Growing wealth gardens 🌱', location: 'The Garden'},
+            {rank: 41, name: 'Chainriffs', handle: '@Chainriffs', avatar: 'CR', tweets: 0, referrals: 0, traders: 0, total: 0, imgSrc: 'assets/images/affiliates/Chainriffs.jpg', profileUrl: 'https://x.com/Chainriffs', bio: 'Creating crypto melodies | Altcoinist affiliate | Riffing on blockchain tech 🎸', location: 'Sound Wave'},
+            {rank: 42, name: 'LyvoCrypto', handle: '@LyvoCrypto', avatar: 'LC', tweets: 0, referrals: 0, traders: 0, total: 0, imgSrc: 'assets/images/affiliates/LyvoCrypto.jpg', profileUrl: 'https://x.com/LyvoCrypto', bio: 'Crypto enthusiast | Altcoinist affiliate | Living the crypto life 💎', location: 'Crypto World'},
+            {rank: 43, name: 'RN03', handle: '@_RN03xx_', avatar: 'RN', tweets: 0, referrals: 0, traders: 0, total: 0, imgSrc: 'assets/images/affiliates/_RN03xx_.jpg', profileUrl: 'https://x.com/_RN03xx_', bio: 'Crypto trader | Altcoinist affiliate | RN03 protocol 🚀', location: 'Protocol Layer'}
         ];
 
         let currentPage = 1;
@@ -4338,6 +4377,320 @@
             }
         }
 
+        // ===== Weekly Rankings Data & Rendering =====
+
+        let weeklyCurrentPage = 1;
+        const weeklyItemsPerPage = 12;
+
+        const weeklyData = [
+            {rank: 1, name: 'Rb3k', handle: '@rbthreek', avatar: 'R', tweets: 12, referrals: 208, weeklyScore: 324, imgSrc: 'assets/images/affiliates/Rb3k_(rbthreek).jpg', profileUrl: 'https://x.com/rbthreek'},
+            {rank: 2, name: 'N30', handle: '@N30_cryptoo', avatar: 'N30', tweets: 160, referrals: 22, weeklyScore: 187, imgSrc: 'assets/images/affiliates/N30_(n30_cryptoo).jpg', profileUrl: 'https://x.com/N30_cryptoo'},
+            {rank: 3, name: 'DJ', handle: '@nlinker777', avatar: 'DJ', tweets: 139, referrals: 0, weeklyScore: 139, imgSrc: 'assets/images/affiliates/DJ_(nlinker777).jpg', profileUrl: 'https://x.com/NLinker777'},
+            {rank: 4, name: 'Affiliate 4', handle: '@affiliate4', avatar: 'AF', tweets: 95, referrals: 12, weeklyScore: 107, imgSrc: '', profileUrl: 'https://x.com/affiliate4'},
+            {rank: 5, name: 'Affiliate 5', handle: '@affiliate5', avatar: 'AF', tweets: 78, referrals: 8, weeklyScore: 86, imgSrc: '', profileUrl: 'https://x.com/affiliate5'},
+            {rank: 6, name: 'Affiliate 6', handle: '@affiliate6', avatar: 'AF', tweets: 62, referrals: 5, weeklyScore: 67, imgSrc: '', profileUrl: 'https://x.com/affiliate6'},
+        ];
+
+        function renderWeeklyDashboard() {
+            const grid = document.getElementById('weekly-dashboard-grid');
+            if (!grid) return;
+
+            // Calculate pagination
+            const totalPages = Math.ceil(weeklyData.length / weeklyItemsPerPage);
+            const startIndex = (weeklyCurrentPage - 1) * weeklyItemsPerPage;
+            const endIndex = startIndex + weeklyItemsPerPage;
+            const pageData = weeklyData.slice(startIndex, endIndex);
+
+            grid.innerHTML = pageData.map(affiliate => {
+                const isTopThree = affiliate.rank <= 3;
+                const borderColor = isTopThree ? 'var(--neon-market-green)' : 'var(--muted-slate)';
+                const glowEffect = isTopThree ? 'box-shadow: 0 0 20px var(--glow-green), 0 4px 12px rgba(0, 0, 0, 0.5);' : 'box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);';
+
+                return `
+                    <div class="weekly-affiliate-card" style="
+                        background: var(--panel-dark);
+                        border: 2px solid ${borderColor};
+                        border-radius: var(--radius-xl);
+                        padding: var(--space-6);
+                        position: relative;
+                        overflow: hidden;
+                        transition: all var(--transition-base);
+                        ${glowEffect}
+                    " onmouseover="this.style.borderColor='var(--neon-market-green)'; this.style.boxShadow='0 0 25px var(--glow-green), 0 6px 16px rgba(0, 0, 0, 0.6)';" onmouseout="this.style.borderColor='${borderColor}'; this.style.boxShadow='${glowEffect}';">
+
+                        <!-- Rank Badge -->
+                        <div style="
+                            position: absolute;
+                            top: var(--space-4);
+                            left: var(--space-4);
+                            width: 40px;
+                            height: 40px;
+                            background: ${isTopThree ? 'var(--neon-market-green)' : 'var(--panel-elevated)'};
+                            border-radius: var(--radius-full);
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-family: 'Orbitron', sans-serif;
+                            font-size: 1.2rem;
+                            font-weight: 900;
+                            color: ${isTopThree ? 'var(--obsidian-navy)' : 'var(--neon-market-green)'};
+                            ${isTopThree ? 'box-shadow: 0 0 15px var(--glow-green);' : ''}
+                        ">
+                            ${affiliate.rank}
+                        </div>
+
+                        <!-- Profile Section -->
+                        <div style="display: flex; align-items: center; gap: var(--space-4); margin-top: var(--space-8); margin-bottom: var(--space-6);">
+                            <!-- Avatar -->
+                            <div style="position: relative; width: 70px; height: 70px; flex-shrink: 0;">
+                                ${affiliate.imgSrc ? `
+                                    <img src="${affiliate.imgSrc}" alt="${affiliate.name}" style="width: 100%; height: 100%; border-radius: var(--radius-lg); object-fit: cover; border: 2px solid var(--electric-mint);" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                    <div style="display: none; width: 100%; height: 100%; background: linear-gradient(135deg, var(--trade-green), var(--electric-mint)); border-radius: var(--radius-lg); align-items: center; justify-content: center; font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 900; color: white;">
+                                        ${affiliate.avatar}
+                                    </div>
+                                ` : `
+                                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, var(--trade-green), var(--electric-mint)); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 900; color: white;">
+                                        ${affiliate.avatar}
+                                    </div>
+                                `}
+                            </div>
+
+                            <!-- Name & Handle -->
+                            <div style="flex: 1; min-width: 0;">
+                                <div style="font-family: 'Inter', sans-serif; font-size: 1.3rem; font-weight: 700; color: white; margin-bottom: var(--space-1); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                    ${affiliate.name}
+                                </div>
+                                <div style="font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 500; color: var(--electric-mint); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                    ${affiliate.handle}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Metrics Grid -->
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); padding-top: var(--space-4); border-top: 1px solid var(--muted-slate);">
+                            <!-- Tweets -->
+                            <div style="text-align: center;">
+                                <div style="font-size: 0.85rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: var(--space-2);">
+                                    Tweets
+                                </div>
+                                <div style="font-family: 'Orbitron', sans-serif; font-size: 1.8rem; font-weight: 700; color: var(--neon-market-green);">
+                                    ${affiliate.tweets}
+                                </div>
+                            </div>
+
+                            <!-- Referrals -->
+                            <div style="text-align: center;">
+                                <div style="font-size: 0.85rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: var(--space-2);">
+                                    Referrals
+                                </div>
+                                <div style="font-family: 'Orbitron', sans-serif; font-size: 1.8rem; font-weight: 700; color: var(--neon-market-green);">
+                                    ${affiliate.referrals}
+                                </div>
+                            </div>
+
+                            <!-- Weekly Score -->
+                            <div style="text-align: center;">
+                                <div style="font-size: 0.85rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: var(--space-2);">
+                                    Score
+                                </div>
+                                <div style="font-family: 'Orbitron', sans-serif; font-size: 1.8rem; font-weight: 700; color: var(--neon-market-green); ${isTopThree ? 'text-shadow: 0 0 10px var(--glow-green);' : ''}">
+                                    ${affiliate.weeklyScore}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Render pagination controls
+            const paginationContainer = document.getElementById('weekly-pagination');
+            if (paginationContainer) {
+                paginationContainer.innerHTML = `
+                    <button class="btn" onclick="changeWeeklyPage(${weeklyCurrentPage - 1})" ${weeklyCurrentPage === 1 ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}>
+                        <span>← Previous</span>
+                    </button>
+                    <div style="display: flex; gap: var(--space-2);">
+                        ${Array.from({length: totalPages}, (_, i) => i + 1).map(page => `
+                            <button class="btn" onclick="changeWeeklyPage(${page})" style="${page === weeklyCurrentPage ? 'background: var(--neon-market-green); color: var(--obsidian-navy); font-weight: 700;' : ''} min-width: 50px;">
+                                <span>${page}</span>
+                            </button>
+                        `).join('')}
+                    </div>
+                    <button class="btn" onclick="changeWeeklyPage(${weeklyCurrentPage + 1})" ${weeklyCurrentPage === totalPages ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}>
+                        <span>Next →</span>
+                    </button>
+                `;
+            }
+        }
+
+        function changeWeeklyPage(newPage) {
+            const totalPages = Math.ceil(weeklyData.length / weeklyItemsPerPage);
+            if (newPage < 1 || newPage > totalPages) return;
+
+            weeklyCurrentPage = newPage;
+            renderWeeklyDashboard();
+            playSound('card-click');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ===== Monthly Rankings Data & Rendering =====
+
+        let monthlyCurrentPage = 1;
+        const monthlyItemsPerPage = 12;
+
+        const monthlyData = [
+            {rank: 1, name: 'Rb3k', handle: '@rbthreek', avatar: 'R', tweets: 45, referrals: 782, monthlyScore: 827, imgSrc: 'assets/images/affiliates/Rb3k_(rbthreek).jpg', profileUrl: 'https://x.com/rbthreek'},
+            {rank: 2, name: 'N30', handle: '@N30_cryptoo', avatar: 'N30', tweets: 512, referrals: 89, monthlyScore: 601, imgSrc: 'assets/images/affiliates/N30_(n30_cryptoo).jpg', profileUrl: 'https://x.com/N30_cryptoo'},
+            {rank: 3, name: 'DJ', handle: '@nlinker777', avatar: 'DJ', tweets: 428, referrals: 12, monthlyScore: 440, imgSrc: 'assets/images/affiliates/DJ_(nlinker777).jpg', profileUrl: 'https://x.com/NLinker777'},
+            {rank: 4, name: 'Slavicbased', handle: '@basedsnipez', avatar: 'S', tweets: 186, referrals: 245, monthlyScore: 431, imgSrc: 'assets/images/affiliates/Slavicbased_(basedsnipez).jpg', profileUrl: 'https://x.com/basedsnipez'},
+            {rank: 5, name: 'Tyler Kenny', handle: '@thebasedfrogx', avatar: 'T', tweets: 219, referrals: 38, monthlyScore: 257, imgSrc: 'assets/images/affiliates/Tyler_Kenny_(thebasedfrogx).jpg', profileUrl: 'https://x.com/thebasedfrogx'},
+            {rank: 6, name: 'Arindewar', handle: '@arindewar', avatar: 'A', tweets: 147, referrals: 18, monthlyScore: 165, imgSrc: 'assets/images/affiliates/Arindewar_(arindewar).jpg', profileUrl: 'https://x.com/arindewar'},
+            {rank: 7, name: 'mDiBe89', handle: '@tibbiracer', avatar: 'M', tweets: 138, referrals: 5, monthlyScore: 143, imgSrc: 'assets/images/affiliates/mDiBe89_(tibbiracer).jpg', profileUrl: 'https://x.com/tibbiracer'},
+            {rank: 8, name: 'Mj', handle: '@Vanxyrus', avatar: 'V', tweets: 95, referrals: 28, monthlyScore: 123, imgSrc: 'assets/images/affiliates/Mj_(vanxyrus).jpg', profileUrl: 'https://x.com/Vanxyrus'},
+        ];
+
+        function renderMonthlyDashboard() {
+            const grid = document.getElementById('monthly-dashboard-grid');
+            if (!grid) return;
+
+            // Calculate pagination
+            const totalPages = Math.ceil(monthlyData.length / monthlyItemsPerPage);
+            const startIndex = (monthlyCurrentPage - 1) * monthlyItemsPerPage;
+            const endIndex = startIndex + monthlyItemsPerPage;
+            const pageData = monthlyData.slice(startIndex, endIndex);
+
+            grid.innerHTML = pageData.map(affiliate => {
+                const isTopThree = affiliate.rank <= 3;
+                const borderColor = isTopThree ? 'var(--neon-market-green)' : 'var(--muted-slate)';
+                const glowEffect = isTopThree ? 'box-shadow: 0 0 20px var(--glow-green), 0 4px 12px rgba(0, 0, 0, 0.5);' : 'box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);';
+
+                return `
+                    <div class="monthly-affiliate-card" style="
+                        background: var(--panel-dark);
+                        border: 2px solid ${borderColor};
+                        border-radius: var(--radius-xl);
+                        padding: var(--space-6);
+                        position: relative;
+                        overflow: hidden;
+                        transition: all var(--transition-base);
+                        ${glowEffect}
+                    " onmouseover="this.style.borderColor='var(--neon-market-green)'; this.style.boxShadow='0 0 25px var(--glow-green), 0 6px 16px rgba(0, 0, 0, 0.6)';" onmouseout="this.style.borderColor='${borderColor}'; this.style.boxShadow='${glowEffect}';">
+
+                        <!-- Rank Badge -->
+                        <div style="
+                            position: absolute;
+                            top: var(--space-4);
+                            left: var(--space-4);
+                            width: 40px;
+                            height: 40px;
+                            background: ${isTopThree ? 'var(--neon-market-green)' : 'var(--panel-elevated)'};
+                            border-radius: var(--radius-full);
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-family: 'Orbitron', sans-serif;
+                            font-size: 1.2rem;
+                            font-weight: 900;
+                            color: ${isTopThree ? 'var(--obsidian-navy)' : 'var(--neon-market-green)'};
+                            ${isTopThree ? 'box-shadow: 0 0 15px var(--glow-green);' : ''}
+                        ">
+                            ${affiliate.rank}
+                        </div>
+
+                        <!-- Profile Section -->
+                        <div style="display: flex; align-items: center; gap: var(--space-4); margin-top: var(--space-8); margin-bottom: var(--space-6);">
+                            <!-- Avatar -->
+                            <div style="position: relative; width: 70px; height: 70px; flex-shrink: 0;">
+                                ${affiliate.imgSrc ? `
+                                    <img src="${affiliate.imgSrc}" alt="${affiliate.name}" style="width: 100%; height: 100%; border-radius: var(--radius-lg); object-fit: cover; border: 2px solid var(--electric-mint);" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                    <div style="display: none; width: 100%; height: 100%; background: linear-gradient(135deg, var(--trade-green), var(--electric-mint)); border-radius: var(--radius-lg); align-items: center; justify-content: center; font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 900; color: white;">
+                                        ${affiliate.avatar}
+                                    </div>
+                                ` : `
+                                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, var(--trade-green), var(--electric-mint)); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 900; color: white;">
+                                        ${affiliate.avatar}
+                                    </div>
+                                `}
+                            </div>
+
+                            <!-- Name & Handle -->
+                            <div style="flex: 1; min-width: 0;">
+                                <div style="font-family: 'Inter', sans-serif; font-size: 1.3rem; font-weight: 700; color: white; margin-bottom: var(--space-1); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                    ${affiliate.name}
+                                </div>
+                                <div style="font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 500; color: var(--electric-mint); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                    ${affiliate.handle}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Metrics Grid -->
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); padding-top: var(--space-4); border-top: 1px solid var(--muted-slate);">
+                            <!-- Tweets -->
+                            <div style="text-align: center;">
+                                <div style="font-size: 0.85rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: var(--space-2);">
+                                    Tweets
+                                </div>
+                                <div style="font-family: 'Orbitron', sans-serif; font-size: 1.8rem; font-weight: 700; color: var(--neon-market-green);">
+                                    ${affiliate.tweets}
+                                </div>
+                            </div>
+
+                            <!-- Referrals -->
+                            <div style="text-align: center;">
+                                <div style="font-size: 0.85rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: var(--space-2);">
+                                    Referrals
+                                </div>
+                                <div style="font-family: 'Orbitron', sans-serif; font-size: 1.8rem; font-weight: 700; color: var(--neon-market-green);">
+                                    ${affiliate.referrals}
+                                </div>
+                            </div>
+
+                            <!-- Monthly Score -->
+                            <div style="text-align: center;">
+                                <div style="font-size: 0.85rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: var(--space-2);">
+                                    Score
+                                </div>
+                                <div style="font-family: 'Orbitron', sans-serif; font-size: 1.8rem; font-weight: 700; color: var(--neon-market-green); ${isTopThree ? 'text-shadow: 0 0 10px var(--glow-green);' : ''}">
+                                    ${affiliate.monthlyScore}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Render pagination controls
+            const paginationContainer = document.getElementById('monthly-pagination');
+            if (paginationContainer) {
+                paginationContainer.innerHTML = `
+                    <button class="btn" onclick="changeMonthlyPage(${monthlyCurrentPage - 1})" ${monthlyCurrentPage === 1 ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}>
+                        <span>← Previous</span>
+                    </button>
+                    <div style="display: flex; gap: var(--space-2);">
+                        ${Array.from({length: totalPages}, (_, i) => i + 1).map(page => `
+                            <button class="btn" onclick="changeMonthlyPage(${page})" style="${page === monthlyCurrentPage ? 'background: var(--neon-market-green); color: var(--obsidian-navy); font-weight: 700;' : ''} min-width: 50px;">
+                                <span>${page}</span>
+                            </button>
+                        `).join('')}
+                    </div>
+                    <button class="btn" onclick="changeMonthlyPage(${monthlyCurrentPage + 1})" ${monthlyCurrentPage === totalPages ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}>
+                        <span>Next →</span>
+                    </button>
+                `;
+            }
+        }
+
+        function changeMonthlyPage(newPage) {
+            const totalPages = Math.ceil(monthlyData.length / monthlyItemsPerPage);
+            if (newPage < 1 || newPage > totalPages) return;
+
+            monthlyCurrentPage = newPage;
+            renderMonthlyDashboard();
+            playSound('card-click');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
         // ===== Page Switching System =====
 
         function switchPage(pageName) {
@@ -4362,7 +4715,11 @@
             }
 
             // Load content for specific pages
-            if (pageName === 'x-profiles') {
+            if (pageName === 'weekly') {
+                renderWeeklyDashboard();
+            } else if (pageName === 'monthly') {
+                renderMonthlyDashboard();
+            } else if (pageName === 'x-profiles') {
                 loadXProfilesPage();
             } else if (pageName === 'twitter-posts') {
                 loadTwitterPostsPage();
@@ -5591,8 +5948,19 @@
         console.log('🌐 Full cyber background with hexagons, scan lines & data streams');
         console.log('💎 Top 3: Cyan (1st), Teal (2nd), Electric Blue (3rd)');
 
-        // Highlight active page button based on current URL
+        // Command Center Initialization - fade out after page loads
         window.addEventListener('DOMContentLoaded', () => {
+            const initOverlay = document.getElementById('commandCenterInit');
+            if (initOverlay) {
+                setTimeout(() => {
+                    initOverlay.style.opacity = '0';
+                    setTimeout(() => {
+                        initOverlay.style.display = 'none';
+                    }, 500);
+                }, 1200); // Show for 1.2 seconds
+            }
+
+            // Highlight active page button based on current URL
             const currentPath = window.location.pathname;
             const navButtons = document.querySelectorAll('.nav-btn');
 
@@ -5615,5 +5983,8 @@
             });
         });
     </script>
+
+    <!-- Command Center UI System -->
+    <script src="command-center-ui.js"></script>
 </body>
 </html>
