@@ -6135,8 +6135,8 @@
             navButtons.forEach(btn => {
                 const btnPage = btn.getAttribute('data-page');
 
-                // Check if current path matches button
-                if ((currentPath.includes('/leaderboard') && btnPage === 'leaderboard') ||
+                // Check if current path matches button (home page is the default leaderboard)
+                if ((currentPath.includes('/leaderboard') && (btnPage === 'home' || btnPage === 'leaderboard')) ||
                     (currentPath.includes('/weekly') && btnPage === 'weekly') ||
                     (currentPath.includes('/monthly') && btnPage === 'monthly') ||
                     (currentPath.includes('/affiliates') && btnPage === 'affiliates')) {
