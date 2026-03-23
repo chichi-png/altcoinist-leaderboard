@@ -2802,8 +2802,12 @@
 
         /* Mobile Navigation */
         @media (max-width: 1024px) {
-            header nav > div:first-child {
+            header nav > div:first-child a {
                 font-size: 2rem !important;
+            }
+
+            #lastUpdated {
+                font-size: 0.75rem !important;
             }
 
             .nav-btn {
@@ -2816,6 +2820,19 @@
             header nav {
                 flex-direction: column !important;
                 padding: 1rem !important;
+            }
+
+            header nav > div:first-child {
+                align-items: center;
+                text-align: center;
+            }
+
+            header nav > div:first-child a {
+                font-size: 1.8rem !important;
+            }
+
+            #lastUpdated {
+                font-size: 0.7rem !important;
             }
 
             header nav > div:last-child {
@@ -2886,6 +2903,16 @@
             /* Extra small devices - ensure everything stacks */
             [style*="grid-template-columns"] {
                 grid-template-columns: 1fr !important;
+            }
+
+            /* Compact header on very small screens */
+            header nav > div:first-child a {
+                font-size: 1.5rem !important;
+            }
+
+            #lastUpdated {
+                font-size: 0.65rem !important;
+                letter-spacing: 0.3px;
             }
 
             /* Smaller font sizes for very small screens */
