@@ -1730,7 +1730,7 @@
 
         // ===== DEMO DATA (will be replaced by API calls) =====
 
-        const DEMO_WEEKLY_DATA = [
+        window.DEMO_WEEKLY_DATA = [
             {rank: 1, name: 'Rb3k', handle: '@rbthreek', avatar: 'R', tweets: 245, referrals: 89, weeklyScore: 334, imgSrc: 'assets/images/affiliates/Rb3k_(rbthreek).jpg', profileUrl: 'https://x.com/rbthreek'},
             {rank: 2, name: 'N30', handle: '@N30_cryptoo', avatar: 'N', tweets: 198, referrals: 76, weeklyScore: 274, imgSrc: 'assets/images/affiliates/N30_(n30_cryptoo).jpg', profileUrl: 'https://x.com/N30_cryptoo'},
             {rank: 3, name: 'DJ', handle: '@nlinker777', avatar: 'D', tweets: 187, referrals: 65, weeklyScore: 252, imgSrc: 'assets/images/affiliates/DJ_(nlinker777).jpg', profileUrl: 'https://x.com/NLinker777'},
@@ -1770,14 +1770,14 @@
 
         // Weekly data is currently hardcoded as DEMO_WEEKLY_DATA
         // To switch to API: set DataConfig.mode = 'api' and call await DataService.fetchWeeklyRankings()
-        let weeklyData = DEMO_WEEKLY_DATA;
+        window.weeklyData = window.DEMO_WEEKLY_DATA;
 
-        let weeklyCurrentPage = 1;
-        const weeklyItemsPerPage = 10;
+        window.weeklyCurrentPage = 1;
+        window.weeklyItemsPerPage = 10;
 
         // Filtered data for search functionality
-        let filteredWeeklyData = [];
-        let filteredMonthlyData = [];
+        window.filteredWeeklyData = [];
+        window.filteredMonthlyData = [];
 
         // Sort weekly affiliates
         function sortWeeklyAffiliates() {
@@ -2158,10 +2158,10 @@
 
         // ===== Monthly Rankings Data & Rendering =====
 
-        let monthlyCurrentPage = 1;
-        const monthlyItemsPerPage = 10; // Show 10 affiliates per page
+        window.monthlyCurrentPage = 1;
+        window.monthlyItemsPerPage = 10; // Show 10 affiliates per page
 
-        const DEMO_MONTHLY_DATA = [
+        window.DEMO_MONTHLY_DATA = [
             {rank: 1, name: 'Rb3k', handle: '@rbthreek', avatar: 'R', tweets: 892, referrals: 342, monthlyScore: 1234, imgSrc: 'assets/images/affiliates/Rb3k_(rbthreek).jpg', profileUrl: 'https://x.com/rbthreek'},
             {rank: 2, name: 'N30', handle: '@N30_cryptoo', avatar: 'N', tweets: 756, referrals: 298, monthlyScore: 1054, imgSrc: 'assets/images/affiliates/N30_(n30_cryptoo).jpg', profileUrl: 'https://x.com/N30_cryptoo'},
             {rank: 3, name: 'DJ', handle: '@nlinker777', avatar: 'D', tweets: 689, referrals: 267, monthlyScore: 956, imgSrc: 'assets/images/affiliates/DJ_(nlinker777).jpg', profileUrl: 'https://x.com/NLinker777'},
@@ -2201,7 +2201,7 @@
 
         // Monthly data is currently hardcoded as DEMO_MONTHLY_DATA
         // To switch to API: set DataConfig.mode = 'api' and call await DataService.fetchMonthlyRankings()
-        let monthlyData = DEMO_MONTHLY_DATA;
+        window.monthlyData = window.DEMO_MONTHLY_DATA;
 
         function renderMonthlyDashboard() {
             const grid = document.getElementById('monthly-dashboard-grid');
@@ -3748,63 +3748,6 @@
         console.log('🌐 Full cyber background with hexagons, scan lines & data streams');
         console.log('💎 Top 3: Cyan (1st), Teal (2nd), Electric Blue (3rd)');
 
-        // Command Center Initialization - fade out after page loads
-        window.addEventListener('DOMContentLoaded', () => {
-            // Initialize filtered data arrays
-            filteredWeeklyData = weeklyData;
-            filteredMonthlyData = monthlyData;
-
-            const initOverlay = document.getElementById('commandCenterInit');
-            if (initOverlay) {
-                setTimeout(() => {
-                    initOverlay.style.opacity = '0';
-                    setTimeout(() => {
-                        initOverlay.style.display = 'none';
-                    }, 500);
-                }, 1200); // Show for 1.2 seconds
-            }
-
-            // Update timestamp
-            const updateTimestamp = () => {
-                const now = new Date();
-                const options = {
-                    month: 'short',
-                    day: 'numeric',
-                    year: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    hour12: true
-                };
-                const formatted = now.toLocaleString('en-US', options);
-                const timestampEl = document.getElementById('updateTimestamp');
-                if (timestampEl) {
-                    timestampEl.textContent = formatted;
-                }
-            };
-            updateTimestamp();
-
-            // Highlight active page button based on current URL
-            const currentPath = window.location.pathname;
-            const navButtons = document.querySelectorAll('.nav-btn');
-
-            navButtons.forEach(btn => {
-                const btnPage = btn.getAttribute('data-page');
-
-                // Check if current path matches button (home page is the default leaderboard)
-                if ((currentPath.includes('/leaderboard') && (btnPage === 'home' || btnPage === 'leaderboard')) ||
-                    (currentPath.includes('/weekly') && btnPage === 'weekly') ||
-                    (currentPath.includes('/monthly') && btnPage === 'monthly') ||
-                    (currentPath.includes('/affiliates') && btnPage === 'affiliates')) {
-
-                    // Add active styling
-                    btn.style.background = 'var(--neon-market-green)';
-                    btn.style.color = '#0E111A';
-                    btn.style.fontWeight = '700';
-                    btn.style.boxShadow = '0 0 20px rgba(2, 242, 111, 0.6)';
-                    btn.classList.add('active');
-                }
-            });
-        });
     </script>
 
     <!-- Footer with Last Updated Timestamp -->

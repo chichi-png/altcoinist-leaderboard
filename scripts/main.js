@@ -1,14 +1,5 @@
 // ===== GLOBAL STATE AND INITIALIZATION =====
-
-// Pagination settings
-window.weeklyCurrentPage = 1;
-window.weeklyItemsPerPage = 10;
-window.monthlyCurrentPage = 1;
-window.monthlyItemsPerPage = 10;
-
-// Filtered data for search functionality
-window.filteredWeeklyData = [];
-window.filteredMonthlyData = [];
+// Note: Global variables are initialized in the inline script before this file loads
 
 // Initialize on DOM ready
 window.addEventListener('DOMContentLoaded', () => {
