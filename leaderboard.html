@@ -3325,6 +3325,32 @@
                 </div>
             </div>
 
+            <!-- Search Bar -->
+            <div style="max-width: 600px; margin: 0 auto var(--space-8);">
+                <div style="position: relative;">
+                    <input
+                        type="text"
+                        id="weekly-search"
+                        placeholder="🔍 Search by name or handle..."
+                        oninput="filterWeeklyAffiliates()"
+                        style="
+                            width: 100%;
+                            padding: var(--space-4) var(--space-6) var(--space-4) var(--space-12);
+                            background: var(--panel-dark);
+                            border: 2px solid var(--muted-slate);
+                            border-radius: var(--radius-lg);
+                            color: white;
+                            font-size: 1.1rem;
+                            font-family: 'Inter', sans-serif;
+                            transition: all 0.3s;
+                            box-shadow: 0 0 0 rgba(2, 242, 111, 0);
+                        "
+                        onfocus="this.style.borderColor='var(--neon-market-green)'; this.style.boxShadow='0 0 15px var(--glow-green)';"
+                        onblur="this.style.borderColor='var(--muted-slate)'; this.style.boxShadow='0 0 0 rgba(2, 242, 111, 0)';"
+                    >
+                </div>
+            </div>
+
             <!-- Affiliate Dashboard Grid -->
             <div id="weekly-dashboard-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: var(--space-6); max-width: 1600px; margin: 0 auto;">
                 <!-- Affiliate cards will be dynamically generated here -->
@@ -3395,6 +3421,32 @@
                             2.86x
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <!-- Search Bar -->
+            <div style="max-width: 600px; margin: 0 auto var(--space-8);">
+                <div style="position: relative;">
+                    <input
+                        type="text"
+                        id="monthly-search"
+                        placeholder="🔍 Search by name or handle..."
+                        oninput="filterMonthlyAffiliates()"
+                        style="
+                            width: 100%;
+                            padding: var(--space-4) var(--space-6) var(--space-4) var(--space-12);
+                            background: var(--panel-dark);
+                            border: 2px solid var(--muted-slate);
+                            border-radius: var(--radius-lg);
+                            color: white;
+                            font-size: 1.1rem;
+                            font-family: 'Inter', sans-serif;
+                            transition: all 0.3s;
+                            box-shadow: 0 0 0 rgba(2, 242, 111, 0);
+                        "
+                        onfocus="this.style.borderColor='var(--neon-market-green)'; this.style.boxShadow='0 0 15px var(--glow-green)';"
+                        onblur="this.style.borderColor='var(--muted-slate)'; this.style.boxShadow='0 0 0 rgba(2, 242, 111, 0)';"
+                    >
                 </div>
             </div>
 
@@ -4585,6 +4637,52 @@
             {rank: 35, name: 'Alf', handle: '@alfy11116', avatar: 'A', tweets: 15, referrals: 2, weeklyScore: 17, imgSrc: 'assets/images/affiliates/Alf_(alfy11116).jpg', profileUrl: 'https://x.com/alfy11116'},
         ];
 
+        // Filtered data for search functionality
+        let filteredWeeklyData = [];
+        let filteredMonthlyData = [];
+
+        // Filter weekly affiliates based on search input
+        function filterWeeklyAffiliates() {
+            const searchInput = document.getElementById('weekly-search');
+            if (!searchInput) return;
+
+            const searchTerm = searchInput.value.toLowerCase().trim();
+
+            if (searchTerm === '') {
+                filteredWeeklyData = weeklyData;
+            } else {
+                filteredWeeklyData = weeklyData.filter(affiliate => {
+                    const name = (affiliate.name || '').toLowerCase();
+                    const handle = (affiliate.handle || '').toLowerCase();
+                    return name.includes(searchTerm) || handle.includes(searchTerm);
+                });
+            }
+
+            weeklyCurrentPage = 1; // Reset to first page
+            renderWeeklyDashboard();
+        }
+
+        // Filter monthly affiliates based on search input
+        function filterMonthlyAffiliates() {
+            const searchInput = document.getElementById('monthly-search');
+            if (!searchInput) return;
+
+            const searchTerm = searchInput.value.toLowerCase().trim();
+
+            if (searchTerm === '') {
+                filteredMonthlyData = monthlyData;
+            } else {
+                filteredMonthlyData = monthlyData.filter(affiliate => {
+                    const name = (affiliate.name || '').toLowerCase();
+                    const handle = (affiliate.handle || '').toLowerCase();
+                    return name.includes(searchTerm) || handle.includes(searchTerm);
+                });
+            }
+
+            monthlyCurrentPage = 1; // Reset to first page
+            renderMonthlyDashboard();
+        }
+
         // Calculate achievement badges for an affiliate
         function getBadges(affiliate) {
             const badges = [];
@@ -4621,11 +4719,27 @@
             const grid = document.getElementById('weekly-dashboard-grid');
             if (!grid) return;
 
+            // Use filtered data if available, otherwise use full data
+            const dataToUse = filteredWeeklyData.length > 0 ? filteredWeeklyData : weeklyData;
+
             // Calculate pagination
-            const totalPages = Math.ceil(weeklyData.length / weeklyItemsPerPage);
+            const totalPages = Math.ceil(dataToUse.length / weeklyItemsPerPage);
             const startIndex = (weeklyCurrentPage - 1) * weeklyItemsPerPage;
             const endIndex = startIndex + weeklyItemsPerPage;
-            const pageData = weeklyData.slice(startIndex, endIndex);
+            const pageData = dataToUse.slice(startIndex, endIndex);
+
+            // Show "no results" message if search returned nothing
+            if (dataToUse.length === 0) {
+                grid.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: var(--space-12); color: var(--electric-mint);">
+                        <div style="font-size: 3rem; margin-bottom: var(--space-4);">🔍</div>
+                        <div style="font-size: 1.5rem; font-weight: 600;">No affiliates found</div>
+                        <div style="font-size: 1rem; margin-top: var(--space-2); opacity: 0.7;">Try a different search term</div>
+                    </div>
+                `;
+                document.getElementById('weekly-pagination').innerHTML = '';
+                return;
+            }
 
             grid.innerHTML = pageData.map(affiliate => {
                 const isTopThree = affiliate.rank <= 3;
@@ -4832,11 +4946,27 @@
             const grid = document.getElementById('monthly-dashboard-grid');
             if (!grid) return;
 
+            // Use filtered data if available, otherwise use full data
+            const dataToUse = filteredMonthlyData.length > 0 ? filteredMonthlyData : monthlyData;
+
             // Calculate pagination
-            const totalPages = Math.ceil(monthlyData.length / monthlyItemsPerPage);
+            const totalPages = Math.ceil(dataToUse.length / monthlyItemsPerPage);
             const startIndex = (monthlyCurrentPage - 1) * monthlyItemsPerPage;
             const endIndex = startIndex + monthlyItemsPerPage;
-            const pageData = monthlyData.slice(startIndex, endIndex);
+            const pageData = dataToUse.slice(startIndex, endIndex);
+
+            // Show "no results" message if search returned nothing
+            if (dataToUse.length === 0) {
+                grid.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: var(--space-12); color: var(--electric-mint);">
+                        <div style="font-size: 3rem; margin-bottom: var(--space-4);">🔍</div>
+                        <div style="font-size: 1.5rem; font-weight: 600;">No affiliates found</div>
+                        <div style="font-size: 1rem; margin-top: var(--space-2); opacity: 0.7;">Try a different search term</div>
+                    </div>
+                `;
+                document.getElementById('monthly-pagination').innerHTML = '';
+                return;
+            }
 
             grid.innerHTML = pageData.map(affiliate => {
                 const isTopThree = affiliate.rank <= 3;
@@ -6359,6 +6489,10 @@
 
         // Command Center Initialization - fade out after page loads
         window.addEventListener('DOMContentLoaded', () => {
+            // Initialize filtered data arrays
+            filteredWeeklyData = weeklyData;
+            filteredMonthlyData = monthlyData;
+
             const initOverlay = document.getElementById('commandCenterInit');
             if (initOverlay) {
                 setTimeout(() => {
