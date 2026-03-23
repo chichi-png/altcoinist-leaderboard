@@ -4,6 +4,7 @@
 window.closeModal = function(modalId) {
     const modal = document.getElementById(modalId);
     modal.classList.remove('active');
+    modal.style.display = 'none'; // Clear inline style set by openAffiliateModal
     document.body.style.overflow = 'auto';
     if (typeof playSound === 'function') {
         playSound('modal-close');
