@@ -2961,4 +2961,68 @@ body {
         50% { opacity: 1; }
     }
 }
+
+/* ========================================
+   MOBILE OPTIMIZATIONS (Added 2026-03-23)
+   ======================================== */
+
+/* Tablet and below - compact header */
+@media (max-width: 768px) {
+    /* Smaller logo on mobile */
+    header nav a img {
+        height: 42px !important;
+        margin-left: 0 !important;
+    }
+
+    /* More compact header padding */
+    header nav {
+        padding: 1rem 1.5rem !important;
+        gap: 1rem !important;
+    }
+
+    /* Ensure content is visible below header */
+    .page-container {
+        padding-top: 200px !important;
+    }
+
+    body {
+        padding-top: 0 !important;
+    }
+}
+
+/* Small mobile - even more compact */
+@media (max-width: 480px) {
+    /* Tiny logo on small mobile */
+    header nav a img {
+        height: 36px !important;
+    }
+
+    /* Super compact header */
+    header nav {
+        padding: 0.75rem 1rem !important;
+        gap: 0.75rem !important;
+    }
+
+    /* Smaller buttons */
+    .nav-btn {
+        font-size: 0.85rem !important;
+        padding: 0.6rem 1rem !important;
+    }
+
+    /* Adjust page padding for smaller header */
+    .page-container {
+        padding-top: 190px !important;
+    }
+}
+
+/* Large phones in portrait */
+@media (min-width: 481px) and (max-width: 640px) {
+    header nav a img {
+        height: 40px !important;
+    }
+
+    .page-container {
+        padding-top: 195px !important;
+    }
+}
     </style>
