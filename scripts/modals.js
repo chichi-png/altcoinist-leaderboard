@@ -1,7 +1,7 @@
 // ===== MODAL FUNCTIONALITY =====
 
 // Close modal
-function closeModal(modalId) {
+window.closeModal = function(modalId) {
     const modal = document.getElementById(modalId);
     modal.classList.remove('active');
     document.body.style.overflow = 'auto';
@@ -21,14 +21,14 @@ function closeModal(modalId) {
 }
 
 // Close modal when clicking backdrop
-function closeModalOnBackdrop(event, modalId) {
+window.closeModalOnBackdrop = function(event, modalId) {
     if (event.target === event.currentTarget) {
         closeModal(modalId);
     }
 }
 
 // Open affiliate profile modal with expanded info
-function openAffiliateModal(affiliate) {
+window.openAffiliateModal = function(affiliate) {
     const modal = document.getElementById('profileModal');
     const content = document.getElementById('profileModalContent');
 

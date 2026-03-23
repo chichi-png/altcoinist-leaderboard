@@ -1,7 +1,7 @@
 // ===== DASHBOARD RENDERING =====
 
 // Render weekly affiliates dashboard with pagination
-function renderWeeklyDashboard() {
+window.renderWeeklyDashboard = function() {
     const grid = document.getElementById('weekly-dashboard-grid');
     if (!grid) return;
 
@@ -175,7 +175,7 @@ function renderWeeklyDashboard() {
     }
 }
 
-function changeWeeklyPage(newPage) {
+window.changeWeeklyPage = function(newPage) {
     const totalPages = Math.ceil(window.weeklyData.length / window.weeklyItemsPerPage);
     if (newPage < 1 || newPage > totalPages) return;
 
@@ -188,7 +188,7 @@ function changeWeeklyPage(newPage) {
 }
 
 // Render monthly affiliates dashboard with pagination
-function renderMonthlyDashboard() {
+window.renderMonthlyDashboard = function() {
     const grid = document.getElementById('monthly-dashboard-grid');
     if (!grid) return;
 
@@ -362,7 +362,7 @@ function renderMonthlyDashboard() {
     }
 }
 
-function changeMonthlyPage(newPage) {
+window.changeMonthlyPage = function(newPage) {
     const totalPages = Math.ceil(window.monthlyData.length / window.monthlyItemsPerPage);
     if (newPage < 1 || newPage > totalPages) return;
 

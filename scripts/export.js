@@ -1,14 +1,14 @@
 // ===== CSV EXPORT FUNCTIONALITY =====
 
 // Export weekly rankings to CSV
-function exportWeeklyToCSV() {
+window.exportWeeklyToCSV = function() {
     const dataToExport = window.filteredWeeklyData.length > 0 ? window.filteredWeeklyData : window.weeklyData;
     const csvContent = convertToCSV(dataToExport, 'weekly');
     downloadCSV(csvContent, 'altcoinist-weekly-rankings.csv');
 }
 
 // Export monthly rankings to CSV
-function exportMonthlyToCSV() {
+window.exportMonthlyToCSV = function() {
     const dataToExport = window.filteredMonthlyData.length > 0 ? window.filteredMonthlyData : window.monthlyData;
     const csvContent = convertToCSV(dataToExport, 'monthly');
     downloadCSV(csvContent, 'altcoinist-monthly-rankings.csv');

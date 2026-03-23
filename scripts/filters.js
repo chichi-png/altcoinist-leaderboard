@@ -1,7 +1,7 @@
 // ===== SEARCH AND SORT FUNCTIONALITY =====
 
 // Sort weekly affiliates
-function sortWeeklyAffiliates() {
+window.sortWeeklyAffiliates = function() {
     const sortBy = document.getElementById('weekly-sort').value;
     const dataToSort = window.filteredWeeklyData.length > 0 ? window.filteredWeeklyData : window.weeklyData;
 
@@ -34,7 +34,7 @@ function sortWeeklyAffiliates() {
 }
 
 // Sort monthly affiliates
-function sortMonthlyAffiliates() {
+window.sortMonthlyAffiliates = function() {
     const sortBy = document.getElementById('monthly-sort').value;
     const dataToSort = window.filteredMonthlyData.length > 0 ? window.filteredMonthlyData : window.monthlyData;
 
@@ -67,7 +67,7 @@ function sortMonthlyAffiliates() {
 }
 
 // Filter weekly affiliates based on search input
-function filterWeeklyAffiliates() {
+window.filterWeeklyAffiliates = function() {
     const searchInput = document.getElementById('weekly-search');
     if (!searchInput) return;
 
@@ -88,7 +88,7 @@ function filterWeeklyAffiliates() {
 }
 
 // Filter monthly affiliates based on search input
-function filterMonthlyAffiliates() {
+window.filterMonthlyAffiliates = function() {
     const searchInput = document.getElementById('monthly-search');
     if (!searchInput) return;
 

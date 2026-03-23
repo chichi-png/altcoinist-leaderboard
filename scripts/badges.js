@@ -1,7 +1,7 @@
 // ===== ACHIEVEMENT BADGES =====
 // Calculate achievement badges for an affiliate based on performance metrics
 
-function getBadges(affiliate) {
+window.getBadges = function getBadges(affiliate) {
     const badges = [];
 
     // Rank-based badges
