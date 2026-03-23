@@ -1405,7 +1405,7 @@
                     </td>
                     <td class="table-stat">${affiliate.tweets}</td>
                     <td class="table-stat">${affiliate.referrals}</td>
-                    <td class="table-stat">${affiliate.traders}</td>
+                    <td class="table-stat">${affiliate.traders || 0}</td>
                     <td class="table-stat">${affiliate.total}</td>
                 `;
 
@@ -3547,7 +3547,7 @@
             document.getElementById('popupHandle').textContent = handle;
             document.getElementById('popupTweets').textContent = tweets.toLocaleString();
             document.getElementById('popupReferrals').textContent = referrals.toLocaleString();
-            document.getElementById('popupTraders').textContent = traders.toLocaleString();
+            document.getElementById('popupTraders').textContent = (traders || 0).toLocaleString();
             document.getElementById('popupTotal').textContent = total.toLocaleString();
 
             // Update button links - X Profile button removed, use directory instead
