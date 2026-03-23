@@ -4612,12 +4612,72 @@
             }
         }
 
-        // ===== Weekly Rankings Data & Rendering =====
+        // ===== DATA SERVICE LAYER =====
+        // This layer abstracts data fetching to make it easy to swap between demo data and real API calls
 
-        let weeklyCurrentPage = 1;
-        const weeklyItemsPerPage = 10; // Show 10 affiliates per page
+        const DataConfig = {
+            // Set to 'demo' for hardcoded data, 'api' for real API calls
+            mode: 'demo',
 
-        const weeklyData = [
+            // API endpoints (ready for PostHog integration)
+            endpoints: {
+                weekly: '/api/affiliates/weekly',
+                monthly: '/api/affiliates/monthly',
+                allTime: '/api/affiliates/all-time'
+            },
+
+            // PostHog configuration (add your credentials here when ready)
+            posthog: {
+                projectId: null,  // Add PostHog project ID
+                apiKey: null      // Add PostHog API key
+            }
+        };
+
+        const DataService = {
+            // Fetch weekly rankings
+            async fetchWeeklyRankings() {
+                if (DataConfig.mode === 'api') {
+                    // TODO: Replace with actual API call when PostHog is ready
+                    // Example:
+                    // const response = await fetch(DataConfig.endpoints.weekly);
+                    // return await response.json();
+                    console.log('API mode: Would fetch from', DataConfig.endpoints.weekly);
+                    return DEMO_WEEKLY_DATA;
+                }
+                return DEMO_WEEKLY_DATA;
+            },
+
+            // Fetch monthly rankings
+            async fetchMonthlyRankings() {
+                if (DataConfig.mode === 'api') {
+                    // TODO: Replace with actual API call when PostHog is ready
+                    console.log('API mode: Would fetch from', DataConfig.endpoints.monthly);
+                    return DEMO_MONTHLY_DATA;
+                }
+                return DEMO_MONTHLY_DATA;
+            },
+
+            // Transform PostHog data to leaderboard format (ready for integration)
+            transformPostHogData(rawData) {
+                // TODO: Implement transformation logic when PostHog structure is known
+                // Example transformation:
+                // return rawData.map((item, index) => ({
+                //     rank: index + 1,
+                //     name: item.user_name,
+                //     handle: item.twitter_handle,
+                //     tweets: item.tweet_count,
+                //     referrals: item.referral_count,
+                //     weeklyScore: item.score,
+                //     imgSrc: item.avatar_url,
+                //     profileUrl: item.profile_url
+                // }));
+                return rawData;
+            }
+        };
+
+        // ===== DEMO DATA (will be replaced by API calls) =====
+
+        const DEMO_WEEKLY_DATA = [
             {rank: 1, name: 'Rb3k', handle: '@rbthreek', avatar: 'R', tweets: 245, referrals: 89, weeklyScore: 334, imgSrc: 'assets/images/affiliates/Rb3k_(rbthreek).jpg', profileUrl: 'https://x.com/rbthreek'},
             {rank: 2, name: 'N30', handle: '@N30_cryptoo', avatar: 'N', tweets: 198, referrals: 76, weeklyScore: 274, imgSrc: 'assets/images/affiliates/N30_(n30_cryptoo).jpg', profileUrl: 'https://x.com/N30_cryptoo'},
             {rank: 3, name: 'DJ', handle: '@nlinker777', avatar: 'D', tweets: 187, referrals: 65, weeklyScore: 252, imgSrc: 'assets/images/affiliates/DJ_(nlinker777).jpg', profileUrl: 'https://x.com/NLinker777'},
@@ -4654,6 +4714,13 @@
             {rank: 34, name: '3Dmax', handle: '@3dmax_virtuals', avatar: '3', tweets: 16, referrals: 2, weeklyScore: 18, imgSrc: 'assets/images/affiliates/3Dmax_(3dmax_virtuals).jpg', profileUrl: 'https://x.com/3dmax_virtuals'},
             {rank: 35, name: 'Alf', handle: '@alfy11116', avatar: 'A', tweets: 15, referrals: 2, weeklyScore: 17, imgSrc: 'assets/images/affiliates/Alf_(alfy11116).jpg', profileUrl: 'https://x.com/alfy11116'},
         ];
+
+        // Weekly data is currently hardcoded as DEMO_WEEKLY_DATA
+        // To switch to API: set DataConfig.mode = 'api' and call await DataService.fetchWeeklyRankings()
+        let weeklyData = DEMO_WEEKLY_DATA;
+
+        let weeklyCurrentPage = 1;
+        const weeklyItemsPerPage = 10;
 
         // Filtered data for search functionality
         let filteredWeeklyData = [];
@@ -4975,7 +5042,7 @@
         let monthlyCurrentPage = 1;
         const monthlyItemsPerPage = 10; // Show 10 affiliates per page
 
-        const monthlyData = [
+        const DEMO_MONTHLY_DATA = [
             {rank: 1, name: 'Rb3k', handle: '@rbthreek', avatar: 'R', tweets: 892, referrals: 342, monthlyScore: 1234, imgSrc: 'assets/images/affiliates/Rb3k_(rbthreek).jpg', profileUrl: 'https://x.com/rbthreek'},
             {rank: 2, name: 'N30', handle: '@N30_cryptoo', avatar: 'N', tweets: 756, referrals: 298, monthlyScore: 1054, imgSrc: 'assets/images/affiliates/N30_(n30_cryptoo).jpg', profileUrl: 'https://x.com/N30_cryptoo'},
             {rank: 3, name: 'DJ', handle: '@nlinker777', avatar: 'D', tweets: 689, referrals: 267, monthlyScore: 956, imgSrc: 'assets/images/affiliates/DJ_(nlinker777).jpg', profileUrl: 'https://x.com/NLinker777'},
@@ -5012,6 +5079,10 @@
             {rank: 34, name: '3Dmax', handle: '@3dmax_virtuals', avatar: '3', tweets: 43, referrals: 11, monthlyScore: 54, imgSrc: 'assets/images/affiliates/3Dmax_(3dmax_virtuals).jpg', profileUrl: 'https://x.com/3dmax_virtuals'},
             {rank: 35, name: 'Alf', handle: '@alfy11116', avatar: 'A', tweets: 38, referrals: 9, monthlyScore: 47, imgSrc: 'assets/images/affiliates/Alf_(alfy11116).jpg', profileUrl: 'https://x.com/alfy11116'},
         ];
+
+        // Monthly data is currently hardcoded as DEMO_MONTHLY_DATA
+        // To switch to API: set DataConfig.mode = 'api' and call await DataService.fetchMonthlyRankings()
+        let monthlyData = DEMO_MONTHLY_DATA;
 
         function renderMonthlyDashboard() {
             const grid = document.getElementById('monthly-dashboard-grid');
