@@ -4574,6 +4574,38 @@
             {rank: 35, name: 'Alf', handle: '@alfy11116', avatar: 'A', tweets: 15, referrals: 2, weeklyScore: 17, imgSrc: 'assets/images/affiliates/Alf_(alfy11116).jpg', profileUrl: 'https://x.com/alfy11116'},
         ];
 
+        // Calculate achievement badges for an affiliate
+        function getBadges(affiliate) {
+            const badges = [];
+
+            // Rank-based badges
+            if (affiliate.rank === 1) badges.push({icon: '👑', text: 'Champion', color: '#FFD700'});
+            else if (affiliate.rank === 2) badges.push({icon: '🥈', text: 'Runner-Up', color: '#C0C0C0'});
+            else if (affiliate.rank === 3) badges.push({icon: '🥉', text: 'Bronze', color: '#CD7F32'});
+
+            // Performance badges
+            const tweetCount = affiliate.tweets || 0;
+            const referralCount = affiliate.referrals || 0;
+            const score = affiliate.weeklyScore || affiliate.monthlyScore || 0;
+
+            if (tweetCount >= 150) badges.push({icon: '📢', text: 'Tweet Machine', color: '#02F26F'});
+            if (referralCount >= 50) badges.push({icon: '🔥', text: 'Top Recruiter', color: '#FF4500'});
+            if (score >= 250) badges.push({icon: '⚡', text: 'Power User', color: '#00D9FF'});
+
+            // Balanced performance (similar tweets and referrals)
+            const ratio = Math.abs(tweetCount - referralCount) / Math.max(tweetCount, referralCount, 1);
+            if (ratio < 0.3 && tweetCount > 20 && referralCount > 20) {
+                badges.push({icon: '🎯', text: 'Balanced', color: '#9B59B6'});
+            }
+
+            // Rising star (mid-rank but high activity)
+            if (affiliate.rank > 3 && affiliate.rank <= 10 && score >= 150) {
+                badges.push({icon: '🚀', text: 'Rising Star', color: '#E91E63'});
+            }
+
+            return badges;
+        }
+
         function renderWeeklyDashboard() {
             const grid = document.getElementById('weekly-dashboard-grid');
             if (!grid) return;
@@ -4681,6 +4713,31 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Achievement Badges -->
+                        ${getBadges(affiliate).length > 0 ? `
+                            <div style="display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-4); padding-top: var(--space-4); border-top: 1px solid var(--muted-slate);">
+                                ${getBadges(affiliate).map(badge => `
+                                    <div style="
+                                        display: inline-flex;
+                                        align-items: center;
+                                        gap: 0.3rem;
+                                        padding: 0.35rem 0.75rem;
+                                        background: linear-gradient(135deg, rgba(2, 242, 111, 0.1), rgba(2, 242, 111, 0.05));
+                                        border: 1px solid ${badge.color};
+                                        border-radius: var(--radius-lg);
+                                        font-size: 0.75rem;
+                                        font-weight: 600;
+                                        color: ${badge.color};
+                                        box-shadow: 0 0 10px ${badge.color}33;
+                                        transition: all 0.2s;
+                                    " onmouseover="this.style.boxShadow='0 0 15px ${badge.color}66'; this.style.transform='scale(1.05)';" onmouseout="this.style.boxShadow='0 0 10px ${badge.color}33'; this.style.transform='scale(1)';">
+                                        <span style="font-size: 1rem;">${badge.icon}</span>
+                                        <span style="text-transform: uppercase; letter-spacing: 0.5px;">${badge.text}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        ` : ''}
                     </div>
                 `;
             }).join('');
@@ -4866,6 +4923,31 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Achievement Badges -->
+                        ${getBadges(affiliate).length > 0 ? `
+                            <div style="display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-4); padding-top: var(--space-4); border-top: 1px solid var(--muted-slate);">
+                                ${getBadges(affiliate).map(badge => `
+                                    <div style="
+                                        display: inline-flex;
+                                        align-items: center;
+                                        gap: 0.3rem;
+                                        padding: 0.35rem 0.75rem;
+                                        background: linear-gradient(135deg, rgba(2, 242, 111, 0.1), rgba(2, 242, 111, 0.05));
+                                        border: 1px solid ${badge.color};
+                                        border-radius: var(--radius-lg);
+                                        font-size: 0.75rem;
+                                        font-weight: 600;
+                                        color: ${badge.color};
+                                        box-shadow: 0 0 10px ${badge.color}33;
+                                        transition: all 0.2s;
+                                    " onmouseover="this.style.boxShadow='0 0 15px ${badge.color}66'; this.style.transform='scale(1.05)';" onmouseout="this.style.boxShadow='0 0 10px ${badge.color}33'; this.style.transform='scale(1)';">
+                                        <span style="font-size: 1rem;">${badge.icon}</span>
+                                        <span style="text-transform: uppercase; letter-spacing: 0.5px;">${badge.text}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        ` : ''}
                     </div>
                 `;
             }).join('');
