@@ -2964,10 +2964,28 @@ body {
 
 /* ========================================
    MOBILE OPTIMIZATIONS (Added 2026-03-23)
+   PERFORMANCE & VISIBILITY FIXES
    ======================================== */
 
-/* Tablet and below - compact header */
+/* Tablet and below - compact header + performance */
 @media (max-width: 768px) {
+    /* PERFORMANCE: Disable expensive effects on mobile */
+    *,
+    *::before,
+    *::after {
+        backdrop-filter: none !important;
+        filter: none !important;
+        animation: none !important;
+        transition: none !important;
+    }
+
+    /* Re-enable only essential transitions for buttons */
+    .nav-btn,
+    .back-btn,
+    .btn {
+        transition: background-color 0.2s ease, color 0.2s ease !important;
+    }
+
     /* Smaller logo on mobile */
     header nav a img {
         height: 42px !important;
@@ -2980,13 +2998,135 @@ body {
         gap: 1rem !important;
     }
 
+    /* CRITICAL: Fix back button visibility - move below header */
+    .back-btn {
+        top: 160px !important;
+        left: 16px !important;
+        font-size: 1rem !important;
+        padding: 0.6rem 1.2rem !important;
+        backdrop-filter: none !important;
+        background: rgba(2, 242, 111, 0.95) !important;
+        color: #0E111A !important;
+        border: none !important;
+        box-shadow: 0 2px 8px rgba(2, 242, 111, 0.3) !important;
+        z-index: 10002 !important;
+    }
+
     /* Ensure content is visible below header */
     .page-container {
-        padding-top: 200px !important;
+        padding-top: 150px !important;
     }
 
     body {
         padding-top: 0 !important;
+    }
+
+    /* PODIUM: Make top 3 visible and stack vertically */
+    .podium {
+        flex-direction: column !important;
+        gap: 2rem !important;
+        padding: 2rem 1rem !important;
+        align-items: center !important;
+    }
+
+    .podium-card {
+        width: 90% !important;
+        max-width: 350px !important;
+        margin: 0 auto !important;
+    }
+
+    /* Compact podium elements */
+    .platform-stack {
+        width: 180px !important;
+        height: 180px !important;
+    }
+
+    .avatar-circle {
+        width: 120px !important;
+        height: 120px !important;
+        font-size: 2.5rem !important;
+    }
+
+    .rank-1 .avatar-circle {
+        width: 140px !important;
+        height: 140px !important;
+    }
+
+    .affiliate-name {
+        font-size: 1.3rem !important;
+    }
+
+    .affiliate-handle {
+        font-size: 0.95rem !important;
+    }
+
+    /* HALL OF FAME: More compact cards */
+    .hall-card {
+        padding: 1rem !important;
+        min-height: auto !important;
+    }
+
+    .hall-avatar {
+        width: 100px !important;
+        height: 100px !important;
+        font-size: 2rem !important;
+        margin-bottom: 0.75rem !important;
+    }
+
+    .hall-name {
+        font-size: 1.1rem !important;
+        margin-bottom: 0.25rem !important;
+    }
+
+    .hall-handle {
+        font-size: 0.85rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+
+    .hall-total {
+        font-size: 1.8rem !important;
+        margin-top: 0.5rem !important;
+    }
+
+    /* DIRECTORY: Show more affiliates per page */
+    .hall-grid {
+        gap: 1rem !important;
+    }
+
+    /* Landing title optimization */
+    .landing-title {
+        font-size: 2rem !important;
+        margin-bottom: 2rem !important;
+        margin-top: 1rem !important;
+    }
+
+    .landing {
+        padding: 2rem 1rem !important;
+        min-height: auto !important;
+    }
+
+    /* Remove expensive spotlight effects */
+    .spotlight {
+        display: none !important;
+    }
+
+    .light-beam,
+    .sparkles {
+        display: none !important;
+    }
+
+    /* Simplify shadows for performance */
+    * {
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    /* Re-add minimal essential shadows */
+    .hall-card,
+    .podium-card,
+    .nav-btn,
+    .back-btn {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
     }
 }
 
@@ -3011,7 +3151,35 @@ body {
 
     /* Adjust page padding for smaller header */
     .page-container {
-        padding-top: 190px !important;
+        padding-top: 140px !important;
+    }
+
+    /* Back button position for smaller header */
+    .back-btn {
+        top: 150px !important;
+    }
+
+    /* Even more compact hall cards */
+    .hall-avatar {
+        width: 90px !important;
+        height: 90px !important;
+        font-size: 1.8rem !important;
+    }
+
+    .hall-total {
+        font-size: 1.5rem !important;
+    }
+
+    /* Smaller podium */
+    .platform-stack {
+        width: 150px !important;
+        height: 150px !important;
+    }
+
+    .avatar-circle {
+        width: 100px !important;
+        height: 100px !important;
+        font-size: 2rem !important;
     }
 }
 
@@ -3022,7 +3190,11 @@ body {
     }
 
     .page-container {
-        padding-top: 195px !important;
+        padding-top: 145px !important;
+    }
+
+    .back-btn {
+        top: 155px !important;
     }
 }
     </style>
