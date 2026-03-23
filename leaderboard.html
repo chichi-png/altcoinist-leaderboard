@@ -3551,16 +3551,12 @@
             document.getElementById('popupTraders').textContent = traders.toLocaleString();
             document.getElementById('popupTotal').textContent = total.toLocaleString();
 
-            // Update button links
+            // Update button links - X Profile button removed, use directory instead
             const xButton = document.getElementById('popupXButton');
             const telegramButton = document.getElementById('popupTelegramButton');
 
-            if (profileUrl) {
-                xButton.href = profileUrl;
-                xButton.style.display = 'flex';
-            } else {
-                xButton.style.display = 'none';
-            }
+            // Always hide X button - users should use directory for profiles
+            xButton.style.display = 'none';
 
             if (telegramHandle) {
                 telegramButton.href = `https://t.me/${telegramHandle}`;
