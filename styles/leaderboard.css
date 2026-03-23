@@ -3087,6 +3087,8 @@ body {
         width: 90% !important;
         max-width: 350px !important;
         margin: 0 auto !important;
+        opacity: 1 !important;
+        transform: none !important;
     }
 
     /* Compact podium elements */
@@ -3114,10 +3116,20 @@ body {
         font-size: 0.95rem !important;
     }
 
-    /* HALL OF FAME: More compact cards */
+    /* HALL OF FAME: More compact cards + FIX VISIBILITY */
     .hall-card {
         padding: 1rem !important;
         min-height: auto !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    /* Ensure hall cards in modal and containers are visible */
+    #hallModal .hall-card,
+    #twitterPostsContainer .hall-card,
+    #xProfilesContainer .hall-card {
+        opacity: 1 !important;
+        transform: scale(1) !important;
     }
 
     .hall-avatar {
