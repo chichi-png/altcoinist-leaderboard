@@ -3195,12 +3195,17 @@ body {
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
     }
 
-    /* Modal improvements for mobile */
-    .modal {
+    /* Modal improvements for mobile - ONLY when active */
+    .modal.active {
         padding: 1rem !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
+    }
+
+    /* Ensure modal is hidden when not active */
+    .modal:not(.active) {
+        display: none !important;
     }
 
     .modal-content {
