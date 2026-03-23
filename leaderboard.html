@@ -3018,13 +3018,9 @@
                     <div style="position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(2, 242, 111, 0.1) 0%, transparent 70%); opacity: 0.5; pointer-events: none;"></div>
                     <img src="assets/images/altcoinist-logo.jpg" alt="Altcoinist" loading="lazy" style="height: 55px; width: auto; filter: brightness(1) drop-shadow(0 0 10px rgba(2, 242, 111, 0.4)); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; z-index: 1; border-radius: 6px; margin-right: 0.75rem;">
                     <div style="position: relative; z-index: 1;">
-                        <span style="font-size: 1.8rem; font-weight: 800; color: var(--neon-market-green); text-shadow: 0 0 10px var(--glow-green); font-family: 'Orbitron', sans-serif; letter-spacing: 0.5px;">Altcoinist</span>
-                        <span style="font-size: 1.8rem; font-weight: 600; color: rgba(2, 242, 111, 0.8); margin-left: 0.5rem; font-family: 'Inter', sans-serif;">Affiliates</span>
+                        <span style="font-size: 1.8rem; font-weight: 600; color: rgba(2, 242, 111, 0.9); font-family: 'Inter', sans-serif; text-shadow: 0 0 10px var(--glow-green);">Affiliates</span>
                     </div>
                 </a>
-                <div id="lastUpdated" style="font-size: 0.85rem; color: rgba(2, 242, 111, 0.6); font-family: 'Courier New', monospace; letter-spacing: 0.5px;">
-                    <span style="opacity: 0.8;">⚡</span> Last Updated: <span id="updateTimestamp">Loading...</span>
-                </div>
             </div>
             <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
                 <a href="javascript:void(0)" onclick="switchPage('home'); return false;" class="nav-btn" data-page="home" style="padding: 0.75rem 1.5rem; background: rgba(2, 242, 111, 0.1); border: 2px solid var(--neon-market-green); border-radius: 8px; color: var(--neon-market-green); cursor: pointer; font-size: 1.2rem; font-weight: 600; transition: all 0.3s; text-transform: uppercase; letter-spacing: 0.5px; text-decoration: none; display: inline-block;">
@@ -6774,6 +6770,13 @@
             });
         });
     </script>
+
+    <!-- Footer with Last Updated Timestamp -->
+    <footer style="background: linear-gradient(180deg, transparent 0%, rgba(14, 17, 26, 0.8) 50%, rgba(14, 17, 26, 0.95) 100%); backdrop-filter: blur(10px); border-top: 1px solid var(--muted-slate); padding: 2rem; text-align: center; margin-top: 4rem;">
+        <div id="lastUpdated" style="font-size: 0.85rem; color: rgba(2, 242, 111, 0.6); font-family: 'Courier New', monospace; letter-spacing: 0.5px;">
+            <span style="opacity: 0.8;">⚡</span> Last Updated: <span id="updateTimestamp">Loading...</span>
+        </div>
+    </footer>
 
     <!-- Command Center UI System -->
     <script src="command-center-ui.js"></script>
