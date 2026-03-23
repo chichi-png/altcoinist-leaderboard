@@ -2998,18 +2998,22 @@ body {
         gap: 1rem !important;
     }
 
-    /* CRITICAL: Fix back button visibility - move below header */
+    /* CRITICAL: Fix back button visibility - position in header */
     .back-btn {
-        top: 160px !important;
-        left: 16px !important;
-        font-size: 1rem !important;
-        padding: 0.6rem 1.2rem !important;
+        position: fixed !important;
+        top: 16px !important;
+        right: 16px !important;
+        left: auto !important;
+        font-size: 0.85rem !important;
+        padding: 0.5rem 1rem !important;
         backdrop-filter: none !important;
         background: rgba(2, 242, 111, 0.95) !important;
         color: #0E111A !important;
         border: none !important;
-        box-shadow: 0 2px 8px rgba(2, 242, 111, 0.3) !important;
-        z-index: 10002 !important;
+        border-radius: 8px !important;
+        box-shadow: 0 2px 8px rgba(2, 242, 111, 0.4) !important;
+        z-index: 10003 !important;
+        font-weight: 700 !important;
     }
 
     /* Ensure content is visible below header */
@@ -3154,9 +3158,12 @@ body {
         padding-top: 140px !important;
     }
 
-    /* Back button position for smaller header */
+    /* Back button stays in top-right on small screens */
     .back-btn {
-        top: 150px !important;
+        top: 12px !important;
+        right: 12px !important;
+        font-size: 0.8rem !important;
+        padding: 0.4rem 0.8rem !important;
     }
 
     /* Even more compact hall cards */
@@ -3194,7 +3201,8 @@ body {
     }
 
     .back-btn {
-        top: 155px !important;
+        top: 14px !important;
+        right: 14px !important;
     }
 }
     </style>
