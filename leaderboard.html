@@ -3480,16 +3480,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Social Links -->
-                ${affiliate.profileUrl ? `
-                    <div style="margin-top: var(--space-6); text-align: center;">
-                        <a href="${affiliate.profileUrl}" target="_blank" rel="noopener noreferrer" class="btn" style="display: inline-flex; align-items: center; gap: var(--space-2); padding: var(--space-4) var(--space-6); background: var(--neon-market-green); color: var(--obsidian-navy); border-radius: var(--radius-lg); font-weight: 600; text-decoration: none; transition: all 0.3s; font-size: 1rem;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 20px var(--glow-green)';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
-                            <span style="font-size: 1.2rem;">𝕏</span>
-                            <span>View X Profile</span>
-                        </a>
-                    </div>
-                ` : ''}
             `;
 
             modal.style.display = 'flex';
