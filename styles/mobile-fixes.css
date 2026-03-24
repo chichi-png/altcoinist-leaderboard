@@ -522,3 +522,23 @@
         font-size: 1rem;
     }
 }
+
+/* ============================================
+   NUCLEAR OPTION - Force Desktop Grid Layout
+   Maximum specificity override for desktop
+   ============================================ */
+
+/* For screens 641px and wider - desktop grid layout */
+@media (min-width: 641px) {
+    #hallModal .hall-grid,
+    .modal#hallModal .hall-grid,
+    div.modal#hallModal div.hall-grid {
+        display: grid !important;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+        gap: 2rem !important;
+    }
+
+    #hallModal .hall-card {
+        width: auto !important;
+    }
+}

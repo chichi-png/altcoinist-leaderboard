@@ -2834,16 +2834,9 @@ body {
         padding: 0 var(--space-4);
     }
 
-    /* Ensure all grids stack on mobile */
-    [style*="grid-template-columns: repeat(auto-fill, minmax(380px"] {
-        grid-template-columns: 1fr !important;
-    }
-
-    [style*="grid-template-columns: repeat(auto-fill, minmax(400px"] {
-        grid-template-columns: 1fr !important;
-    }
-
-    [style*="grid-template-columns: repeat(auto-fit, minmax(300px"] {
+    /* Ensure dashboard grids stack on mobile (specific selectors only) */
+    #weekly-dashboard-grid [style*="grid-template-columns"],
+    #monthly-dashboard-grid [style*="grid-template-columns"] {
         grid-template-columns: 1fr !important;
     }
 }
