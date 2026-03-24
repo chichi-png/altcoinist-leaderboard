@@ -175,12 +175,6 @@
         padding: 1rem;
     }
 
-    /* REMOVED .hall-grid from mobile block - it was conflicting with desktop overrides */
-
-    .hall-card {
-        width: 100%;
-    }
-
     /* ========================================
        FIX 7: FULL LEADERBOARD MOBILE VIEW
        ======================================== */
@@ -459,16 +453,7 @@
         padding: 2rem !important;
     }
 
-    /* HALL OF FAME - Desktop Grid Layout */
-    .hall-grid {
-        display: grid !important;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
-        gap: var(--space-8) !important;
-    }
-
-    .hall-card {
-        width: auto !important;
-    }
+    /* HALL OF FAME - Now using inline styles in HTML */
 
     /* FULL LEADERBOARD - Desktop Table Layout */
     .leaderboard-table {
@@ -525,76 +510,6 @@
    ============================================ */
 
 /* ============================================
-   ULTRA AGGRESSIVE OVERRIDES
-   Applied at multiple breakpoints to catch all desktops
+   REMOVED ALL HALL-GRID OVERRIDES
+   Now using inline styles in HTML for hall-grid
    ============================================ */
-
-/* Smallest tablets and up (481px+) */
-@media (min-width: 481px) {
-    #hallModal .hall-grid {
-        display: grid !important;
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 1.5rem !important;
-    }
-}
-
-/* Standard tablets and up (641px+) */
-@media (min-width: 641px) {
-    /* HALL OF FAME - Force grid layout */
-    #hallModal .hall-grid,
-    .modal#hallModal .hall-grid,
-    div.modal#hallModal div.hall-grid {
-        display: grid !important;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
-        gap: 2rem !important;
-    }
-
-    #hallModal .hall-card {
-        width: auto !important;
-    }
-
-    /* LEADERBOARD TABLE - Ensure rows are clickable */
-    .leaderboard-table tbody tr,
-    table.leaderboard-table tbody tr {
-        cursor: pointer !important;
-        pointer-events: auto !important;
-        touch-action: manipulation !important;
-    }
-
-    .leaderboard-table tbody tr *,
-    table.leaderboard-table tbody tr * {
-        pointer-events: none !important;
-    }
-
-    /* PROFILE MODAL - Ensure it displays properly */
-    #profileModal {
-        pointer-events: auto !important;
-        z-index: var(--z-modal) !important;
-    }
-
-    #profileModal.active,
-    #profileModal[style*="display: flex"] {
-        display: flex !important;
-    }
-}
-
-/* Large tablets and small laptops (769px+) */
-@media (min-width: 769px) {
-    #hallModal .hall-grid {
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)) !important;
-    }
-}
-
-/* Desktop screens (1025px+) */
-@media (min-width: 1025px) {
-    #hallModal .hall-grid {
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)) !important;
-    }
-}
-
-/* Large desktop screens (1441px+) */
-@media (min-width: 1441px) {
-    #hallModal .hall-grid {
-        grid-template-columns: repeat(4, 1fr) !important;
-    }
-}
