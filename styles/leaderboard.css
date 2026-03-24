@@ -2569,11 +2569,6 @@ body {
         order: 3;
     }
 
-    .hall-grid {
-        grid-template-columns: 1fr;
-        gap: var(--space-6);
-    }
-
     .leaderboard-table {
         font-size: 0.9rem;
     }
