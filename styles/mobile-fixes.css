@@ -447,19 +447,44 @@
    Ensures mobile fixes don't leak into desktop
    ============================================ */
 
+/* ============================================
+   DESKTOP PROTECTION (min-width: 769px)
+   Ensures mobile fixes don't leak into desktop
+   CRITICAL: These rules override mobile styles
+   ============================================ */
+
 @media (min-width: 769px) {
 
     /* Restore desktop modal sizing */
     #hallModal .modal-content,
     #leaderboardModal .modal-content {
-        width: auto;
-        max-width: 90vw;
+        width: auto !important;
+        max-width: 90vw !important;
+        padding: 2rem !important;
     }
 
+    /* HALL OF FAME - Desktop Grid Layout */
     .hall-grid {
-        display: grid;
+        display: grid !important;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
-        gap: var(--space-8);
+        gap: var(--space-8) !important;
+    }
+
+    .hall-card {
+        width: auto !important;
+    }
+
+    /* FULL LEADERBOARD - Desktop Table Layout */
+    .leaderboard-table {
+        display: table !important;
+        width: 100% !important;
+    }
+
+    .leaderboard-grid,
+    .rankings-container {
+        display: grid !important;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
+        gap: 1rem !important;
     }
 
     /* Restore desktop z-index */
@@ -473,6 +498,11 @@
 
     .close-btn {
         z-index: var(--z-modal-close);
+        min-width: 40px !important;
+        min-height: 40px !important;
+        width: 40px !important;
+        height: 40px !important;
+        font-size: 1.75rem !important;
     }
 
     /* Restore desktop backdrop-filter */
@@ -480,5 +510,15 @@
     header {
         backdrop-filter: inherit;
         -webkit-backdrop-filter: inherit;
+    }
+
+    /* Restore desktop button sizes */
+    button,
+    .btn,
+    .nav-btn {
+        min-height: auto;
+        min-width: auto;
+        padding: 0.75rem 1.25rem;
+        font-size: 1rem;
     }
 }
