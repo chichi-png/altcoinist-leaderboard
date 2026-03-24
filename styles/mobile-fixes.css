@@ -164,6 +164,7 @@
 
     /* ========================================
        FIX 6: HALL OF FAME MOBILE VIEW
+       NOTE: Only applies to screens 768px and SMALLER
        ======================================== */
 
     #hallModal .modal-content {
@@ -174,12 +175,7 @@
         padding: 1rem;
     }
 
-    .hall-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 1rem;
-        padding: 1rem;
-    }
+    /* REMOVED .hall-grid from mobile block - it was conflicting with desktop overrides */
 
     .hall-card {
         width: 100%;
@@ -528,7 +524,21 @@
    Maximum specificity override for desktop
    ============================================ */
 
-/* For screens 641px and wider - desktop grid layout */
+/* ============================================
+   ULTRA AGGRESSIVE OVERRIDES
+   Applied at multiple breakpoints to catch all desktops
+   ============================================ */
+
+/* Smallest tablets and up (481px+) */
+@media (min-width: 481px) {
+    #hallModal .hall-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1.5rem !important;
+    }
+}
+
+/* Standard tablets and up (641px+) */
 @media (min-width: 641px) {
     /* HALL OF FAME - Force grid layout */
     #hallModal .hall-grid,
@@ -565,5 +575,26 @@
     #profileModal.active,
     #profileModal[style*="display: flex"] {
         display: flex !important;
+    }
+}
+
+/* Large tablets and small laptops (769px+) */
+@media (min-width: 769px) {
+    #hallModal .hall-grid {
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)) !important;
+    }
+}
+
+/* Desktop screens (1025px+) */
+@media (min-width: 1025px) {
+    #hallModal .hall-grid {
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)) !important;
+    }
+}
+
+/* Large desktop screens (1441px+) */
+@media (min-width: 1441px) {
+    #hallModal .hall-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
     }
 }
