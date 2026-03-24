@@ -1,0 +1,80 @@
+/* ============================================
+   DESKTOP FORCE OVERRIDES
+   Loaded LAST to guarantee desktop layouts
+   Created: 2026-03-24
+   ============================================ */
+
+/* Apply to ALL screens wider than 600px */
+@media (min-width: 601px) {
+
+    /* HALL OF FAME - Force multi-column grid */
+    #hallModal .hall-grid,
+    .modal .hall-grid,
+    div.hall-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 2rem !important;
+        padding: 1rem !important;
+    }
+
+    #hallModal .hall-card,
+    .hall-grid .hall-card {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    /* FULL LEADERBOARD - Force table layout */
+    #leaderboardModal .leaderboard-table,
+    .modal .leaderboard-table,
+    table.leaderboard-table {
+        display: table !important;
+        width: 100% !important;
+        table-layout: auto !important;
+    }
+
+    #leaderboardModal .modal-content {
+        width: 90vw !important;
+        max-width: 1200px !important;
+        padding: 2rem !important;
+    }
+
+    /* Ensure table rows are clickable */
+    .leaderboard-table tbody tr {
+        cursor: pointer !important;
+        pointer-events: auto !important;
+    }
+
+    .leaderboard-table tbody tr * {
+        pointer-events: none !important;
+    }
+
+    /* Profile modal */
+    #profileModal {
+        pointer-events: auto !important;
+        z-index: 10000 !important;
+    }
+}
+
+/* Wider screens - 3 columns */
+@media (min-width: 900px) {
+    #hallModal .hall-grid,
+    .modal .hall-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+}
+
+/* Large screens - 4 columns */
+@media (min-width: 1200px) {
+    #hallModal .hall-grid,
+    .modal .hall-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+    }
+}
+
+/* Very large screens - 5 columns */
+@media (min-width: 1600px) {
+    #hallModal .hall-grid,
+    .modal .hall-grid {
+        grid-template-columns: repeat(5, 1fr) !important;
+    }
+}
