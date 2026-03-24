@@ -530,6 +530,7 @@
 
 /* For screens 641px and wider - desktop grid layout */
 @media (min-width: 641px) {
+    /* HALL OF FAME - Force grid layout */
     #hallModal .hall-grid,
     .modal#hallModal .hall-grid,
     div.modal#hallModal div.hall-grid {
@@ -540,5 +541,29 @@
 
     #hallModal .hall-card {
         width: auto !important;
+    }
+
+    /* LEADERBOARD TABLE - Ensure rows are clickable */
+    .leaderboard-table tbody tr,
+    table.leaderboard-table tbody tr {
+        cursor: pointer !important;
+        pointer-events: auto !important;
+        touch-action: manipulation !important;
+    }
+
+    .leaderboard-table tbody tr *,
+    table.leaderboard-table tbody tr * {
+        pointer-events: none !important;
+    }
+
+    /* PROFILE MODAL - Ensure it displays properly */
+    #profileModal {
+        pointer-events: auto !important;
+        z-index: var(--z-modal) !important;
+    }
+
+    #profileModal.active,
+    #profileModal[style*="display: flex"] {
+        display: flex !important;
     }
 }
