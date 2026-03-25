@@ -25,16 +25,36 @@
     <link rel="stylesheet" href="styles/mobile-fixes.css">
 
     <style>
-        /* Remove scrolling from entire site */
+        /* Remove scrolling from entire site - aggressive override */
+        html {
+            overflow: hidden !important;
+            height: 100vh !important;
+        }
+
         body {
             height: 100vh !important;
+            max-height: 100vh !important;
             overflow: hidden !important;
-            padding-top: 0 !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        /* Hide scrollbars completely */
+        body::-webkit-scrollbar {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+        }
+
+        html {
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
         }
 
         /* Fix home page scrolling - should fit on one screen */
         #home-page {
             height: 100vh !important;
+            max-height: 100vh !important;
             min-height: unset !important;
             overflow: hidden !important;
             padding-top: 0 !important;
@@ -43,13 +63,34 @@
         #home-page .landing {
             min-height: 100vh;
             height: 100vh;
+            max-height: 100vh;
+            overflow: hidden;
         }
 
         /* All-time page needs scroll for table content */
         #alltime-page {
             height: 100vh !important;
+            max-height: 100vh !important;
             overflow-y: auto !important;
             padding-top: 90px !important;
+        }
+
+        /* Hide scrollbar on all-time page but keep functionality */
+        #alltime-page::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #alltime-page::-webkit-scrollbar-track {
+            background: rgba(2, 242, 111, 0.05);
+        }
+
+        #alltime-page::-webkit-scrollbar-thumb {
+            background: rgba(2, 242, 111, 0.3);
+            border-radius: 4px;
+        }
+
+        #alltime-page::-webkit-scrollbar-thumb:hover {
+            background: rgba(2, 242, 111, 0.5);
         }
 
         /* All-Time Rankings Table Animations */
