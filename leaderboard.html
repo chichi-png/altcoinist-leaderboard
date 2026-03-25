@@ -25,6 +25,19 @@
     <link rel="stylesheet" href="styles/mobile-fixes.css">
 
     <style>
+        /* Fix home page scrolling - should fit on one screen */
+        #home-page {
+            height: 100vh !important;
+            min-height: unset !important;
+            overflow: hidden !important;
+            padding-top: 0 !important;
+        }
+
+        #home-page .landing {
+            min-height: 100vh;
+            height: 100vh;
+        }
+
         /* All-Time Rankings Table Animations */
         @keyframes slideInUp {
             from {
