@@ -630,9 +630,9 @@
                 </div>
             </div>
 
-            <!-- Affiliate Dashboard Grid -->
-            <div id="weekly-dashboard-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: var(--space-6); max-width: 1600px; margin: 0 auto;">
-                <!-- Affiliate cards will be dynamically generated here -->
+            <!-- Affiliate Rankings List -->
+            <div id="weekly-dashboard-grid" style="max-width: 1200px; margin: 0 auto;">
+                <!-- Affiliate list items will be dynamically generated here -->
             </div>
 
             <!-- Pagination Controls -->
@@ -2555,7 +2555,7 @@
             // Show "no results" message if search returned nothing
             if (dataToUse.length === 0) {
                 grid.innerHTML = `
-                    <div style="grid-column: 1 / -1; text-align: center; padding: var(--space-12); color: var(--electric-mint);">
+                    <div style="text-align: center; padding: var(--space-12); color: var(--electric-mint);">
                         <div style="font-size: 3rem; margin-bottom: var(--space-4);">🔍</div>
                         <div style="font-size: 1.5rem; font-weight: 600;">No affiliates found</div>
                         <div style="font-size: 1rem; margin-top: var(--space-2); opacity: 0.7;">Try a different search term</div>
@@ -2565,129 +2565,89 @@
                 return;
             }
 
-            grid.innerHTML = pageData.map(affiliate => {
+            grid.innerHTML = pageData.map((affiliate, index) => {
                 const isTopThree = affiliate.rank <= 3;
-                const borderColor = isTopThree ? 'var(--neon-market-green)' : 'var(--muted-slate)';
-                const glowEffect = isTopThree ? 'box-shadow: 0 0 20px var(--glow-green), 0 4px 12px rgba(0, 0, 0, 0.5);' : 'box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);';
 
                 return `
-                    <div class="weekly-affiliate-card" style="
-                        background: var(--panel-dark);
-                        border: 2px solid ${borderColor};
-                        border-radius: var(--radius-xl);
-                        padding: var(--space-6);
-                        position: relative;
-                        overflow: hidden;
-                        transition: all var(--transition-base);
-                        ${glowEffect}
+                    <div class="weekly-rank-item" style="
+                        display: flex;
+                        align-items: center;
+                        gap: var(--space-6);
+                        padding: var(--space-6) var(--space-8);
+                        background: rgba(2, 242, 111, 0.02);
+                        border-bottom: 2px solid rgba(2, 242, 111, 0.1);
+                        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
                         cursor: pointer;
-                    " onmouseover="this.style.borderColor='var(--neon-market-green)'; this.style.boxShadow='0 0 25px var(--glow-green), 0 6px 16px rgba(0, 0, 0, 0.6)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.borderColor='${borderColor}'; this.style.boxShadow='${glowEffect}'; this.style.transform='translateY(0)';" onclick='openAffiliateModal(${JSON.stringify(affiliate).replace(/'/g, "&apos;")})'>
+                        animation: slideInUp 0.5s ease-out ${index * 0.05}s both;
+                    " onmouseover="this.style.background='rgba(2, 242, 111, 0.08)'; this.style.borderColor='var(--neon-market-green)'; this.style.transform='translateX(8px)'; this.style.boxShadow='0 4px 20px rgba(2, 242, 111, 0.2)';" onmouseout="this.style.background='rgba(2, 242, 111, 0.02)'; this.style.borderColor='rgba(2, 242, 111, 0.1)'; this.style.transform='translateX(0)'; this.style.boxShadow='none';">
 
-                        <!-- Rank Badge -->
-                        <div style="
-                            position: absolute;
-                            top: var(--space-4);
-                            left: var(--space-4);
-                            width: 40px;
-                            height: 40px;
-                            background: ${isTopThree ? 'var(--neon-market-green)' : 'var(--panel-elevated)'};
-                            border-radius: var(--radius-full);
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            font-family: 'Orbitron', sans-serif;
-                            font-size: 1.2rem;
-                            font-weight: 900;
-                            color: ${isTopThree ? 'var(--obsidian-navy)' : 'var(--neon-market-green)'};
-                            ${isTopThree ? 'box-shadow: 0 0 15px var(--glow-green);' : ''}
-                        ">
-                            ${affiliate.rank}
+                        <!-- Left: Rank Badge -->
+                        <div style="display: flex; align-items: center; gap: var(--space-4); min-width: 120px;">
+                            <!-- Trophy Icon for Top 3 -->
+                            ${isTopThree ? `
+                                <div style="font-size: 2rem; filter: drop-shadow(0 0 10px rgba(2, 242, 111, 0.6));">🏆</div>
+                            ` : ''}
+
+                            <!-- Rank Number -->
+                            <div style="
+                                width: 60px;
+                                height: 60px;
+                                background: ${isTopThree ? 'var(--neon-market-green)' : 'rgba(2, 242, 111, 0.15)'};
+                                border: 2px solid var(--neon-market-green);
+                                border-radius: var(--radius-full);
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                font-family: 'Orbitron', sans-serif;
+                                font-size: 1.8rem;
+                                font-weight: 900;
+                                color: ${isTopThree ? 'var(--obsidian-navy)' : 'var(--neon-market-green)'};
+                                ${isTopThree ? 'box-shadow: 0 0 20px rgba(2, 242, 111, 0.6);' : ''}
+                                transition: all 0.3s;
+                            ">
+                                #${affiliate.rank}
+                            </div>
                         </div>
 
-                        <!-- Profile Section -->
-                        <div style="display: flex; align-items: center; gap: var(--space-4); margin-top: var(--space-8); margin-bottom: var(--space-6);">
+                        <!-- Middle: Name + Score -->
+                        <div style="flex: 1; min-width: 0;">
+                            <div style="font-family: 'Inter', sans-serif; font-size: 1.8rem; font-weight: 700; color: white; margin-bottom: var(--space-2);">
+                                ${affiliate.name}
+                            </div>
+                            <div style="font-family: 'Inter', sans-serif; font-size: 1.1rem; font-weight: 500; color: var(--electric-mint); margin-bottom: var(--space-3);">
+                                ${affiliate.handle}
+                            </div>
+                            <div style="font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 700; color: #d4af37;">
+                                ${affiliate.weeklyScore} <span style="font-size: 1rem; color: rgba(255, 255, 255, 0.5);">pts.</span>
+                            </div>
+                        </div>
+
+                        <!-- Right: Avatar -->
+                        <div style="position: relative; width: 90px; height: 90px; flex-shrink: 0;">
+                            <!-- Decorative Frame -->
+                            <div style="
+                                position: absolute;
+                                inset: -8px;
+                                border: 3px solid var(--neon-market-green);
+                                border-radius: var(--radius-full);
+                                ${isTopThree ? 'box-shadow: 0 0 25px rgba(2, 242, 111, 0.5);' : ''}
+                                animation: ${isTopThree ? 'pulseGlow 2s infinite' : 'none'};
+                            "></div>
+
                             <!-- Avatar -->
-                            <div style="position: relative; width: 70px; height: 70px; flex-shrink: 0;">
-                                ${affiliate.imgSrc ? `
-                                    <img src="${affiliate.imgSrc}" alt="${affiliate.name}" loading="lazy" style="width: 100%; height: 100%; border-radius: var(--radius-lg); object-fit: cover; border: 2px solid var(--electric-mint);" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                                    <div style="display: none; width: 100%; height: 100%; background: linear-gradient(135deg, var(--trade-green), var(--electric-mint)); border-radius: var(--radius-lg); align-items: center; justify-content: center; font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 900; color: white;">
-                                        ${affiliate.avatar}
-                                    </div>
-                                ` : `
-                                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, var(--trade-green), var(--electric-mint)); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 900; color: white;">
-                                        ${affiliate.avatar}
-                                    </div>
-                                `}
-                            </div>
-
-                            <!-- Name & Handle -->
-                            <div style="flex: 1; min-width: 0;">
-                                <div style="font-family: 'Inter', sans-serif; font-size: 1.3rem; font-weight: 700; color: white; margin-bottom: var(--space-1); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                    ${affiliate.name}
+                            ${affiliate.imgSrc ? `
+                                <img src="${affiliate.imgSrc}" alt="${affiliate.name}" loading="lazy"
+                                     style="width: 100%; height: 100%; border-radius: var(--radius-full); object-fit: cover; border: 3px solid rgba(2, 242, 111, 0.3); position: relative; z-index: 1;"
+                                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div style="display: none; width: 100%; height: 100%; background: linear-gradient(135deg, var(--trade-green), var(--electric-mint)); border-radius: var(--radius-full); align-items: center; justify-content: center; font-family: 'Orbitron', sans-serif; font-size: 2rem; font-weight: 900; color: white; position: relative; z-index: 1;">
+                                    ${affiliate.avatar}
                                 </div>
-                                <div style="font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 500; color: var(--electric-mint); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                    ${affiliate.handle}
+                            ` : `
+                                <div style="width: 100%; height: 100%; background: linear-gradient(135deg, var(--trade-green), var(--electric-mint)); border-radius: var(--radius-full); display: flex; align-items: center; justify-content: center; font-family: 'Orbitron', sans-serif; font-size: 2rem; font-weight: 900; color: white; position: relative; z-index: 1;">
+                                    ${affiliate.avatar}
                                 </div>
-                            </div>
+                            `}
                         </div>
-
-                        <!-- Metrics Grid -->
-                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); padding-top: var(--space-4); border-top: 1px solid var(--muted-slate);">
-                            <!-- Tweets -->
-                            <div style="text-align: center;">
-                                <div style="font-size: 0.85rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: var(--space-2);">
-                                    Tweets
-                                </div>
-                                <div style="font-family: 'Orbitron', sans-serif; font-size: 1.8rem; font-weight: 700; color: var(--neon-market-green);">
-                                    ${affiliate.tweets}
-                                </div>
-                            </div>
-
-                            <!-- Referrals -->
-                            <div style="text-align: center;">
-                                <div style="font-size: 0.85rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: var(--space-2);">
-                                    Referrals
-                                </div>
-                                <div style="font-family: 'Orbitron', sans-serif; font-size: 1.8rem; font-weight: 700; color: var(--neon-market-green);">
-                                    ${affiliate.referrals}
-                                </div>
-                            </div>
-
-                            <!-- Weekly Score -->
-                            <div style="text-align: center;">
-                                <div style="font-size: 0.85rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: var(--space-2);">
-                                    Score
-                                </div>
-                                <div style="font-family: 'Orbitron', sans-serif; font-size: 1.8rem; font-weight: 700; color: var(--neon-market-green); ${isTopThree ? 'text-shadow: 0 0 10px var(--glow-green);' : ''}">
-                                    ${affiliate.weeklyScore}
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Achievement Badges -->
-                        ${getBadges(affiliate).length > 0 ? `
-                            <div style="display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-4); padding-top: var(--space-4); border-top: 1px solid var(--muted-slate);">
-                                ${getBadges(affiliate).map(badge => `
-                                    <div style="
-                                        display: inline-flex;
-                                        align-items: center;
-                                        gap: 0.3rem;
-                                        padding: 0.35rem 0.75rem;
-                                        background: linear-gradient(135deg, rgba(2, 242, 111, 0.1), rgba(2, 242, 111, 0.05));
-                                        border: 1px solid ${badge.color};
-                                        border-radius: var(--radius-lg);
-                                        font-size: 0.75rem;
-                                        font-weight: 600;
-                                        color: ${badge.color};
-                                        box-shadow: 0 0 10px ${badge.color}33;
-                                        transition: all 0.2s;
-                                    " onmouseover="this.style.boxShadow='0 0 15px ${badge.color}66'; this.style.transform='scale(1.05)';" onmouseout="this.style.boxShadow='0 0 10px ${badge.color}33'; this.style.transform='scale(1)';">
-                                        <span style="font-size: 1rem;">${badge.icon}</span>
-                                        <span style="text-transform: uppercase; letter-spacing: 0.5px;">${badge.text}</span>
-                                    </div>
-                                `).join('')}
-                            </div>
-                        ` : ''}
                     </div>
                 `;
             }).join('');
