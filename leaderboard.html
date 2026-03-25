@@ -71,6 +71,18 @@
             border-bottom: 1px solid var(--neon-market-green) !important;
         }
 
+        /* Active expanded row */
+        .leaderboard-row.active {
+            background: rgba(2, 242, 111, 0.12) !important;
+            border-bottom: 2px solid var(--neon-market-green) !important;
+        }
+
+        .leaderboard-row.active .rank-badge {
+            background: var(--neon-market-green) !important;
+            color: var(--obsidian-navy) !important;
+            box-shadow: 0 0 25px rgba(2, 242, 111, 0.6);
+        }
+
         /* Rank badge hover */
         .leaderboard-row:hover .rank-badge {
             background: var(--neon-market-green) !important;
@@ -2165,8 +2177,14 @@
 
             // Render table rows with cohesive styling and animations
             tbody.innerHTML = pageData.map((affiliate, index) => {
+                // Calculate percentages for progress bars
+                const maxTotal = Math.max(...affiliatesData.map(a => a.total));
+                const tweetsPercent = Math.round((affiliate.tweets / affiliate.total) * 100);
+                const referralsPercent = Math.round((affiliate.referrals / affiliate.total) * 100);
+                const tradersPercent = Math.round((affiliate.traders / affiliate.total) * 100);
+
                 return `
-                    <tr class="leaderboard-row"
+                    <tr class="leaderboard-row" data-rank="${affiliate.rank}"
                         style="
                             border-bottom: 1px solid rgba(2, 242, 111, 0.15);
                             background: transparent;
@@ -2174,7 +2192,7 @@
                             position: relative;
                             animation: slideInUp 0.5s ease-out ${index * 0.05}s both;
                         "
-                        onclick='openAffiliateProfileModal(${affiliate.rank - 1})'>
+                        onclick='toggleAffiliateStats(${affiliate.rank})'>
 
                         <!-- Rank -->
                         <td style="padding: var(--space-4) var(--space-6);">
@@ -2255,6 +2273,69 @@
                             </div>
                         </td>
                     </tr>
+
+                    <!-- Expandable Stats Row -->
+                    <tr class="stats-detail-row" data-rank="${affiliate.rank}" style="display: none; border-bottom: 1px solid rgba(2, 242, 111, 0.15);">
+                        <td colspan="6" style="padding: 0;">
+                            <div class="stats-detail-content" style="
+                                padding: var(--space-8) var(--space-10);
+                                background: linear-gradient(135deg, rgba(2, 242, 111, 0.05), rgba(2, 242, 111, 0.02));
+                                border-top: 2px solid var(--neon-market-green);
+                                max-height: 0;
+                                overflow: hidden;
+                                transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                            ">
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-6);">
+
+                                    <!-- Tweets Breakdown -->
+                                    <div style="background: rgba(2, 242, 111, 0.05); padding: var(--space-6); border-radius: var(--radius-lg); border: 1px solid rgba(2, 242, 111, 0.2);">
+                                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-3);">
+                                            <span style="font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; color: rgba(255, 255, 255, 0.7);">TWEETS</span>
+                                            <span style="font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 900; color: var(--neon-market-green);">${affiliate.tweets}</span>
+                                        </div>
+                                        <div style="height: 8px; background: rgba(2, 242, 111, 0.1); border-radius: 4px; overflow: hidden;">
+                                            <div style="height: 100%; width: ${tweetsPercent}%; background: linear-gradient(90deg, var(--neon-market-green), var(--electric-mint)); transition: width 0.6s ease;"></div>
+                                        </div>
+                                        <div style="margin-top: var(--space-2); font-family: 'Inter', sans-serif; font-size: 0.85rem; color: rgba(255, 255, 255, 0.5);">${tweetsPercent}% of total score</div>
+                                    </div>
+
+                                    <!-- Referrals Breakdown -->
+                                    <div style="background: rgba(2, 242, 111, 0.05); padding: var(--space-6); border-radius: var(--radius-lg); border: 1px solid rgba(2, 242, 111, 0.2);">
+                                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-3);">
+                                            <span style="font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; color: rgba(255, 255, 255, 0.7);">REFERRALS</span>
+                                            <span style="font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 900; color: var(--neon-market-green);">${affiliate.referrals}</span>
+                                        </div>
+                                        <div style="height: 8px; background: rgba(2, 242, 111, 0.1); border-radius: 4px; overflow: hidden;">
+                                            <div style="height: 100%; width: ${referralsPercent}%; background: linear-gradient(90deg, var(--neon-market-green), var(--electric-mint)); transition: width 0.6s ease;"></div>
+                                        </div>
+                                        <div style="margin-top: var(--space-2); font-family: 'Inter', sans-serif; font-size: 0.85rem; color: rgba(255, 255, 255, 0.5);">${referralsPercent}% of total score</div>
+                                    </div>
+
+                                    <!-- Traders Breakdown -->
+                                    <div style="background: rgba(2, 242, 111, 0.05); padding: var(--space-6); border-radius: var(--radius-lg); border: 1px solid rgba(2, 242, 111, 0.2);">
+                                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-3);">
+                                            <span style="font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; color: rgba(255, 255, 255, 0.7);">TRADERS</span>
+                                            <span style="font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 900; color: var(--neon-market-green);">${affiliate.traders}</span>
+                                        </div>
+                                        <div style="height: 8px; background: rgba(2, 242, 111, 0.1); border-radius: 4px; overflow: hidden;">
+                                            <div style="height: 100%; width: ${tradersPercent}%; background: linear-gradient(90deg, var(--neon-market-green), var(--electric-mint)); transition: width 0.6s ease;"></div>
+                                        </div>
+                                        <div style="margin-top: var(--space-2); font-family: 'Inter', sans-serif; font-size: 0.85rem; color: rgba(255, 255, 255, 0.5);">${tradersPercent}% of total score</div>
+                                    </div>
+
+                                </div>
+
+                                <!-- Total Score Summary -->
+                                <div style="margin-top: var(--space-6); padding: var(--space-6); background: rgba(2, 242, 111, 0.08); border-radius: var(--radius-lg); border: 2px solid var(--neon-market-green); text-align: center;">
+                                    <div style="font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; color: rgba(255, 255, 255, 0.7); margin-bottom: var(--space-2);">TOTAL SCORE</div>
+                                    <div style="font-family: 'Orbitron', sans-serif; font-size: 3rem; font-weight: 900; color: var(--neon-market-green); text-shadow: 0 0 20px rgba(2, 242, 111, 0.5);">${affiliate.total}</div>
+                                    <div style="margin-top: var(--space-3); font-family: 'Inter', sans-serif; font-size: 0.9rem; color: rgba(255, 255, 255, 0.6);">
+                                        Rank #${affiliate.rank} of ${affiliatesData.length}
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
                 `;
             }).join('');
 
@@ -2307,6 +2388,45 @@
                     el.textContent = Math.floor(current);
                 }, duration / steps);
             });
+        }
+
+        // Toggle affiliate stats expansion
+        function toggleAffiliateStats(rank) {
+            const detailRow = document.querySelector(`.stats-detail-row[data-rank="${rank}"]`);
+            const mainRow = document.querySelector(`.leaderboard-row[data-rank="${rank}"]`);
+
+            if (!detailRow || !mainRow) return;
+
+            const content = detailRow.querySelector('.stats-detail-content');
+            const isExpanded = detailRow.style.display !== 'none';
+
+            // Close all other expanded rows first
+            document.querySelectorAll('.stats-detail-row').forEach(row => {
+                if (row !== detailRow) {
+                    row.style.display = 'none';
+                    const otherContent = row.querySelector('.stats-detail-content');
+                    if (otherContent) otherContent.style.maxHeight = '0';
+                }
+            });
+
+            // Remove active state from all rows
+            document.querySelectorAll('.leaderboard-row').forEach(row => {
+                row.classList.remove('active');
+            });
+
+            // Toggle current row
+            if (isExpanded) {
+                content.style.maxHeight = '0';
+                setTimeout(() => {
+                    detailRow.style.display = 'none';
+                }, 400);
+            } else {
+                detailRow.style.display = 'table-row';
+                mainRow.classList.add('active');
+                setTimeout(() => {
+                    content.style.maxHeight = '500px';
+                }, 10);
+            }
         }
 
         function changeAlltimePage(newPage) {
