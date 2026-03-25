@@ -56,7 +56,7 @@
                 <img src="assets/images/altcoinist-logo.png" alt="Altcoinist" loading="lazy" style="height: 58px; width: auto; display: block; margin-left: 1rem; transition: all 0.3s ease;">
             </a>
             <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
-                <a href="javascript:void(0)" onclick="switchPage('home'); return false;" class="nav-btn" data-page="home" style="padding: 0.75rem 1.5rem; background: rgba(2, 242, 111, 0.1); border: 2px solid var(--neon-market-green); border-radius: 8px; color: var(--neon-market-green); cursor: pointer; font-size: 1.2rem; font-weight: 600; transition: all 0.3s; text-transform: uppercase; letter-spacing: 0.5px; text-decoration: none; display: inline-block;">
+                <a href="javascript:void(0)" onclick="switchPage('alltime'); return false;" class="nav-btn" data-page="alltime" style="padding: 0.75rem 1.5rem; background: rgba(2, 242, 111, 0.1); border: 2px solid var(--neon-market-green); border-radius: 8px; color: var(--neon-market-green); cursor: pointer; font-size: 1.2rem; font-weight: 600; transition: all 0.3s; text-transform: uppercase; letter-spacing: 0.5px; text-decoration: none; display: inline-block;">
                     🏆 All-Time Rankings
                 </a>
                 <a href="javascript:void(0)" onclick="switchPage('weekly'); return false;" class="nav-btn" data-page="weekly" style="padding: 0.75rem 1.5rem; background: rgba(2, 242, 111, 0.1); border: 2px solid var(--neon-market-green); border-radius: 8px; color: var(--neon-market-green); cursor: pointer; font-size: 1.2rem; font-weight: 600; transition: all 0.3s; text-transform: uppercase; letter-spacing: 0.5px; text-decoration: none; display: inline-block;">
@@ -289,6 +289,70 @@
     </section>
     </div>
     <!-- End Home Page -->
+
+    <!-- All-Time Rankings Page -->
+    <div id="alltime-page" class="page-container">
+        <button class="back-btn" onclick="switchPage('home')" aria-label="Back to home">
+            <span>← Back</span>
+        </button>
+        <section style="padding: var(--space-10) var(--space-6); position: relative; z-index: 2;">
+            <!-- Header -->
+            <div style="text-align: center; margin-bottom: var(--space-12);">
+                <h1 style="font-size: 3.5rem; font-family: 'Orbitron', sans-serif; font-weight: 900; color: var(--neon-market-green); text-shadow: 0 0 30px var(--glow-green); margin-bottom: var(--space-4);">
+                    🏆 All-Time Rankings
+                </h1>
+                <div style="display: inline-block; padding: var(--space-3) var(--space-6); background: rgba(2, 242, 111, 0.1); border: 2px solid var(--neon-market-green); border-radius: var(--radius-lg); margin-bottom: var(--space-8);">
+                    <span style="font-size: 1.2rem; font-weight: 600; color: var(--electric-mint); font-family: 'Inter', sans-serif;">
+                        All 43 Affiliates Ranked by Total Score
+                    </span>
+                </div>
+            </div>
+
+            <!-- Search and Sort Bar -->
+            <div style="max-width: 800px; margin: 0 auto var(--space-8);">
+                <div style="display: flex; gap: var(--space-4); align-items: center; flex-wrap: wrap;">
+                    <!-- Search Input -->
+                    <div style="flex: 1; min-width: 300px;">
+                        <input
+                            type="text"
+                            id="alltime-search"
+                            placeholder="🔍 Search by name or handle..."
+                            oninput="filterAlltimeAffiliates()"
+                            style="
+                                width: 100%;
+                                padding: var(--space-4) var(--space-6) var(--space-4) var(--space-12);
+                                background: var(--panel-dark);
+                                border: 2px solid var(--muted-slate);
+                                border-radius: var(--radius-lg);
+                                color: white;
+                                font-size: 1.1rem;
+                                font-family: 'Inter', sans-serif;
+                                transition: all 0.3s;
+                                box-shadow: 0 0 0 rgba(2, 242, 111, 0);
+                            "
+                            onfocus="this.style.borderColor='var(--neon-market-green)'; this.style.boxShadow='0 0 15px var(--glow-green)';"
+                            onblur="this.style.borderColor='var(--muted-slate)'; this.style.boxShadow='0 0 0 rgba(2, 242, 111, 0)';"
+                        >
+                    </div>
+
+                    <!-- Sort Dropdown -->
+                    <select id="alltime-sort" onchange="sortAlltimeAffiliates()" style="padding: var(--space-4) var(--space-6); background: var(--panel-dark); border: 2px solid var(--muted-slate); border-radius: var(--radius-lg); color: var(--neon-market-green); cursor: pointer; font-size: 1rem; font-weight: 600; transition: all 0.3s; font-family: 'Inter', sans-serif;" onfocus="this.style.borderColor='var(--neon-market-green)'; this.style.boxShadow='0 0 15px var(--glow-green)';" onblur="this.style.borderColor='var(--muted-slate)'; this.style.boxShadow='none';">
+                        <option value="rank">🏆 Rank</option>
+                        <option value="total">⚡ Total Score</option>
+                        <option value="tweets">📢 Tweets</option>
+                        <option value="referrals">👥 Referrals</option>
+                        <option value="traders">💼 Traders</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Affiliate Dashboard Grid -->
+            <div id="alltime-dashboard-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: var(--space-6); max-width: 1600px; margin: 0 auto;">
+                <!-- Affiliate cards will be dynamically generated here -->
+            </div>
+        </section>
+    </div>
+    <!-- End All-Time Rankings Page -->
 
     <!-- Weekly Rankings Page -->
     <div id="weekly-page" class="page-container">
@@ -1958,6 +2022,194 @@
             return badges;
         }
 
+        // ===== All-Time Rankings Data & Rendering =====
+
+        window.alltimeCurrentPage = 1;
+        window.alltimeItemsPerPage = 12; // Show 12 affiliates per page
+        window.filteredAlltimeData = [];
+
+        function renderAlltimeDashboard() {
+            const grid = document.getElementById('alltime-dashboard-grid');
+            if (!grid) return;
+
+            // Use filtered data if available, otherwise use full data
+            const dataToUse = filteredAlltimeData.length > 0 ? filteredAlltimeData : affiliatesData;
+
+            // Calculate pagination
+            const totalPages = Math.ceil(dataToUse.length / alltimeItemsPerPage);
+            const startIndex = (alltimeCurrentPage - 1) * alltimeItemsPerPage;
+            const endIndex = startIndex + alltimeItemsPerPage;
+            const pageData = dataToUse.slice(startIndex, endIndex);
+
+            // Show "no results" message if search returned nothing
+            if (dataToUse.length === 0) {
+                grid.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: var(--space-12); color: var(--electric-mint);">
+                        <div style="font-size: 3rem; margin-bottom: var(--space-4);">🔍</div>
+                        <div style="font-size: 1.5rem; font-weight: 600;">No affiliates found</div>
+                        <div style="font-size: 1rem; margin-top: var(--space-2); opacity: 0.7;">Try a different search term</div>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = pageData.map(affiliate => {
+                const isTopThree = affiliate.rank <= 3;
+                const borderColor = isTopThree ? 'var(--neon-market-green)' : 'var(--muted-slate)';
+                const glowEffect = isTopThree ? 'box-shadow: 0 0 20px var(--glow-green), 0 4px 12px rgba(0, 0, 0, 0.5);' : 'box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);';
+
+                return `
+                    <div class="alltime-affiliate-card" style="
+                        background: var(--panel-dark);
+                        border: 2px solid ${borderColor};
+                        border-radius: var(--radius-xl);
+                        padding: var(--space-6);
+                        position: relative;
+                        overflow: hidden;
+                        transition: all var(--transition-base);
+                        ${glowEffect}
+                        cursor: pointer;
+                    " onmouseover="this.style.borderColor='var(--neon-market-green)'; this.style.boxShadow='0 0 25px var(--glow-green), 0 6px 16px rgba(0, 0, 0, 0.6)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.borderColor='${borderColor}'; this.style.boxShadow='${glowEffect}'; this.style.transform='translateY(0)';" onclick='openAffiliateProfileModal(${affiliate.rank - 1})'>
+
+                        <!-- Rank Badge -->
+                        <div style="
+                            position: absolute;
+                            top: var(--space-4);
+                            left: var(--space-4);
+                            width: 40px;
+                            height: 40px;
+                            background: ${isTopThree ? 'var(--neon-market-green)' : 'var(--panel-elevated)'};
+                            border-radius: var(--radius-full);
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-family: 'Orbitron', sans-serif;
+                            font-size: 1.2rem;
+                            font-weight: 900;
+                            color: ${isTopThree ? 'var(--obsidian-navy)' : 'var(--neon-market-green)'};
+                            ${isTopThree ? 'box-shadow: 0 0 15px var(--glow-green);' : ''}
+                        ">
+                            ${affiliate.rank}
+                        </div>
+
+                        <!-- Profile Section -->
+                        <div style="display: flex; align-items: center; gap: var(--space-4); margin-top: var(--space-8); margin-bottom: var(--space-6);">
+                            <!-- Avatar -->
+                            <div style="position: relative; width: 70px; height: 70px; flex-shrink: 0;">
+                                ${affiliate.imgSrc ? `
+                                    <img src="${affiliate.imgSrc}" alt="${affiliate.name}" loading="lazy" style="width: 100%; height: 100%; border-radius: var(--radius-lg); object-fit: cover; border: 2px solid var(--electric-mint);" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                    <div style="display: none; width: 100%; height: 100%; background: linear-gradient(135deg, var(--trade-green), var(--electric-mint)); border-radius: var(--radius-lg); align-items: center; justify-content: center; font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 900; color: white;">
+                                        ${affiliate.avatar}
+                                    </div>
+                                ` : `
+                                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, var(--trade-green), var(--electric-mint)); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 900; color: white;">
+                                        ${affiliate.avatar}
+                                    </div>
+                                `}
+                            </div>
+
+                            <!-- Name & Handle -->
+                            <div style="flex: 1; min-width: 0;">
+                                <div style="font-family: 'Inter', sans-serif; font-size: 1.3rem; font-weight: 700; color: white; margin-bottom: var(--space-1); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                    ${affiliate.name}
+                                </div>
+                                <div style="font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 500; color: var(--electric-mint); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                    ${affiliate.handle}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Metrics Grid -->
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-3); padding-top: var(--space-4); border-top: 1px solid var(--muted-slate);">
+                            <!-- Tweets -->
+                            <div style="text-align: center;">
+                                <div style="font-size: 0.75rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: var(--space-2);">
+                                    Tweets
+                                </div>
+                                <div style="font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--neon-market-green);">
+                                    ${affiliate.tweets}
+                                </div>
+                            </div>
+
+                            <!-- Referrals -->
+                            <div style="text-align: center;">
+                                <div style="font-size: 0.75rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: var(--space-2);">
+                                    Referrals
+                                </div>
+                                <div style="font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--neon-market-green);">
+                                    ${affiliate.referrals}
+                                </div>
+                            </div>
+
+                            <!-- Traders -->
+                            <div style="text-align: center;">
+                                <div style="font-size: 0.75rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: var(--space-2);">
+                                    Traders
+                                </div>
+                                <div style="font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--neon-market-green);">
+                                    ${affiliate.traders}
+                                </div>
+                            </div>
+
+                            <!-- Total Score -->
+                            <div style="text-align: center;">
+                                <div style="font-size: 0.75rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: var(--space-2);">
+                                    Total
+                                </div>
+                                <div style="font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--neon-market-green); ${isTopThree ? 'text-shadow: 0 0 10px var(--glow-green);' : ''}">
+                                    ${affiliate.total}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function filterAlltimeAffiliates() {
+            const searchTerm = document.getElementById('alltime-search').value.toLowerCase().trim();
+
+            if (!searchTerm) {
+                filteredAlltimeData = [];
+                alltimeCurrentPage = 1;
+                renderAlltimeDashboard();
+                return;
+            }
+
+            filteredAlltimeData = affiliatesData.filter(affiliate =>
+                affiliate.name.toLowerCase().includes(searchTerm) ||
+                affiliate.handle.toLowerCase().includes(searchTerm)
+            );
+
+            alltimeCurrentPage = 1;
+            renderAlltimeDashboard();
+        }
+
+        function sortAlltimeAffiliates() {
+            const sortField = document.getElementById('alltime-sort').value;
+
+            let dataToSort = filteredAlltimeData.length > 0 ? [...filteredAlltimeData] : [...affiliatesData];
+
+            dataToSort.sort((a, b) => {
+                if (sortField === 'rank') return a.rank - b.rank;
+                if (sortField === 'total') return b.total - a.total;
+                if (sortField === 'tweets') return b.tweets - a.tweets;
+                if (sortField === 'referrals') return b.referrals - a.referrals;
+                if (sortField === 'traders') return b.traders - a.traders;
+                return 0;
+            });
+
+            if (filteredAlltimeData.length > 0) {
+                filteredAlltimeData = dataToSort;
+            } else {
+                filteredAlltimeData = dataToSort;
+            }
+
+            alltimeCurrentPage = 1;
+            renderAlltimeDashboard();
+            playSound('card-click');
+        }
+
         function renderWeeklyDashboard() {
             const grid = document.getElementById('weekly-dashboard-grid');
             if (!grid) return;
@@ -2407,7 +2659,9 @@
             }
 
             // Load content for specific pages
-            if (pageName === 'weekly') {
+            if (pageName === 'alltime') {
+                renderAlltimeDashboard();
+            } else if (pageName === 'weekly') {
                 renderWeeklyDashboard();
             } else if (pageName === 'monthly') {
                 renderMonthlyDashboard();
