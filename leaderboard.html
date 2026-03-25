@@ -25,6 +25,13 @@
     <link rel="stylesheet" href="styles/mobile-fixes.css">
 
     <style>
+        /* Remove scrolling from entire site */
+        body {
+            height: 100vh !important;
+            overflow: hidden !important;
+            padding-top: 0 !important;
+        }
+
         /* Fix home page scrolling - should fit on one screen */
         #home-page {
             height: 100vh !important;
@@ -36,6 +43,13 @@
         #home-page .landing {
             min-height: 100vh;
             height: 100vh;
+        }
+
+        /* All-time page needs scroll for table content */
+        #alltime-page {
+            height: 100vh !important;
+            overflow-y: auto !important;
+            padding-top: 90px !important;
         }
 
         /* All-Time Rankings Table Animations */
