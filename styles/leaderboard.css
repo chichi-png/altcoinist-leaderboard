@@ -3281,4 +3281,51 @@ body {
         right: 14px !important;
     }
 }
-    </style>
+
+/* ============================================
+   DESKTOP GRID FIX - FORCE PROPER LAYOUT
+   Ensures Hall of Fame and Leaderboard display correctly on PC
+   ============================================ */
+
+@media (min-width: 769px) {
+    /* Force Hall of Fame grid layout on desktop */
+    .hall-grid {
+        display: grid !important;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
+        gap: 2rem !important;
+        padding: 2rem !important;
+    }
+
+    /* Ensure hall cards display properly */
+    .hall-card {
+        width: 100% !important;
+        max-width: none !important;
+    }
+
+    /* Force Full Leaderboard table layout */
+    .leaderboard-grid,
+    .rankings-container {
+        display: block !important;
+    }
+
+    /* Ensure leaderboard items are visible */
+    .leaderboard-item,
+    .ranking-item {
+        display: flex !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        color: var(--cyan-bright) !important;
+    }
+
+    /* Force table rows to display */
+    .leaderboard-table tbody tr {
+        display: table-row !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+
+    .leaderboard-table tbody td {
+        color: var(--cyan-bright) !important;
+        opacity: 1 !important;
+    }
+}
