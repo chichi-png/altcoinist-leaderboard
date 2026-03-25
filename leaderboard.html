@@ -23,6 +23,80 @@
 
     <!-- Mobile Fixes - Critical touch/tap issues -->
     <link rel="stylesheet" href="styles/mobile-fixes.css">
+
+    <style>
+        /* All-Time Rankings Table Animations */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(2, 242, 111, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 35px rgba(2, 242, 111, 0.6);
+            }
+        }
+
+        /* Row hover effects */
+        .leaderboard-row {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .leaderboard-row:hover {
+            background: rgba(2, 242, 111, 0.08) !important;
+            transform: scale(1.02);
+            box-shadow: 0 4px 20px rgba(2, 242, 111, 0.2);
+            border-bottom: 1px solid var(--neon-market-green) !important;
+        }
+
+        /* Rank badge hover */
+        .leaderboard-row:hover .rank-badge {
+            background: var(--neon-market-green) !important;
+            color: var(--obsidian-navy) !important;
+            transform: scale(1.15) rotate(5deg);
+            box-shadow: 0 0 25px rgba(2, 242, 111, 0.6);
+        }
+
+        /* Avatar hover */
+        .leaderboard-row:hover .avatar-wrapper {
+            transform: scale(1.1);
+        }
+
+        .leaderboard-row:hover .avatar-wrapper img,
+        .leaderboard-row:hover .avatar-wrapper > div {
+            border-color: var(--neon-market-green) !important;
+            box-shadow: 0 0 20px rgba(2, 242, 111, 0.4);
+        }
+
+        /* Stat numbers hover */
+        .leaderboard-row:hover .stat-number {
+            transform: scale(1.1);
+            text-shadow: 0 0 15px rgba(2, 242, 111, 0.6);
+        }
+
+        .leaderboard-row:hover .stat-total {
+            transform: scale(1.15);
+            text-shadow: 0 0 20px rgba(2, 242, 111, 0.8);
+        }
+
+        /* Smooth transitions for all elements */
+        .rank-badge,
+        .avatar-wrapper,
+        .avatar-wrapper img,
+        .avatar-wrapper > div,
+        .stat-number {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
 </head>
 <body>
     <!-- Command Center Initialization Overlay -->
@@ -2076,25 +2150,26 @@
                 return;
             }
 
-            // Render table rows
-            tbody.innerHTML = pageData.map(affiliate => {
-                const isTopThree = affiliate.rank <= 3;
-                const rowBg = isTopThree ? 'rgba(2, 242, 111, 0.05)' : 'transparent';
-                const rankBg = isTopThree ? 'var(--neon-market-green)' : 'rgba(2, 242, 111, 0.1)';
-                const rankColor = isTopThree ? 'var(--obsidian-navy)' : 'var(--neon-market-green)';
-
+            // Render table rows with cohesive styling and animations
+            tbody.innerHTML = pageData.map((affiliate, index) => {
                 return `
-                    <tr style="border-bottom: 1px solid var(--muted-slate); background: ${rowBg}; transition: all 0.2s; cursor: pointer;"
-                        onmouseover="this.style.background='rgba(2, 242, 111, 0.1)'"
-                        onmouseout="this.style.background='${rowBg}'"
+                    <tr class="leaderboard-row"
+                        style="
+                            border-bottom: 1px solid rgba(2, 242, 111, 0.15);
+                            background: transparent;
+                            cursor: pointer;
+                            position: relative;
+                            animation: slideInUp 0.5s ease-out ${index * 0.05}s both;
+                        "
                         onclick='openAffiliateProfileModal(${affiliate.rank - 1})'>
 
                         <!-- Rank -->
                         <td style="padding: var(--space-4) var(--space-6);">
-                            <div style="
+                            <div class="rank-badge" style="
                                 width: 40px;
                                 height: 40px;
-                                background: ${rankBg};
+                                background: rgba(2, 242, 111, 0.15);
+                                border: 2px solid var(--neon-market-green);
                                 border-radius: var(--radius-full);
                                 display: flex;
                                 align-items: center;
@@ -2102,8 +2177,8 @@
                                 font-family: 'Orbitron', sans-serif;
                                 font-size: 1.1rem;
                                 font-weight: 900;
-                                color: ${rankColor};
-                                ${isTopThree ? 'box-shadow: 0 0 15px var(--glow-green);' : ''}
+                                color: var(--neon-market-green);
+                                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
                             ">
                                 ${affiliate.rank}
                             </div>
@@ -2113,9 +2188,11 @@
                         <td style="padding: var(--space-4) var(--space-6);">
                             <div style="display: flex; align-items: center; gap: var(--space-4);">
                                 <!-- Avatar -->
-                                <div style="width: 50px; height: 50px; flex-shrink: 0;">
+                                <div class="avatar-wrapper" style="width: 50px; height: 50px; flex-shrink: 0; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);">
                                     ${affiliate.imgSrc ? `
-                                        <img src="${affiliate.imgSrc}" alt="${affiliate.name}" loading="lazy" style="width: 100%; height: 100%; border-radius: var(--radius-lg); object-fit: cover; border: 2px solid var(--electric-mint);" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                        <img src="${affiliate.imgSrc}" alt="${affiliate.name}" loading="lazy"
+                                             style="width: 100%; height: 100%; border-radius: var(--radius-lg); object-fit: cover; border: 2px solid var(--electric-mint); transition: border-color 0.3s;"
+                                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                                         <div style="display: none; width: 100%; height: 100%; background: linear-gradient(135deg, var(--trade-green), var(--electric-mint)); border-radius: var(--radius-lg); align-items: center; justify-content: center; font-family: 'Orbitron', sans-serif; font-size: 1.2rem; font-weight: 900; color: white;">
                                             ${affiliate.avatar}
                                         </div>
@@ -2127,10 +2204,10 @@
                                 </div>
                                 <!-- Name & Handle -->
                                 <div>
-                                    <div style="font-family: 'Inter', sans-serif; font-size: 1.1rem; font-weight: 700; color: white; margin-bottom: 0.25rem;">
+                                    <div style="font-family: 'Inter', sans-serif; font-size: 1.1rem; font-weight: 700; color: white; margin-bottom: 0.25rem; transition: color 0.3s;">
                                         ${affiliate.name}
                                     </div>
-                                    <div style="font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 500; color: var(--electric-mint);">
+                                    <div style="font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 500; color: var(--electric-mint); transition: color 0.3s;">
                                         ${affiliate.handle}
                                     </div>
                                 </div>
@@ -2139,28 +2216,28 @@
 
                         <!-- Tweets -->
                         <td style="padding: var(--space-4) var(--space-6); text-align: center;">
-                            <div style="font-family: 'Orbitron', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--neon-market-green);">
+                            <div class="stat-number" data-value="${affiliate.tweets}" style="font-family: 'Orbitron', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--neon-market-green); transition: all 0.3s;">
                                 ${affiliate.tweets}
                             </div>
                         </td>
 
                         <!-- Referrals -->
                         <td style="padding: var(--space-4) var(--space-6); text-align: center;">
-                            <div style="font-family: 'Orbitron', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--neon-market-green);">
+                            <div class="stat-number" data-value="${affiliate.referrals}" style="font-family: 'Orbitron', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--neon-market-green); transition: all 0.3s;">
                                 ${affiliate.referrals}
                             </div>
                         </td>
 
                         <!-- Traders -->
                         <td style="padding: var(--space-4) var(--space-6); text-align: center;">
-                            <div style="font-family: 'Orbitron', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--neon-market-green);">
+                            <div class="stat-number" data-value="${affiliate.traders}" style="font-family: 'Orbitron', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--neon-market-green); transition: all 0.3s;">
                                 ${affiliate.traders}
                             </div>
                         </td>
 
                         <!-- Total -->
                         <td style="padding: var(--space-4) var(--space-6); text-align: center;">
-                            <div style="font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 900; color: var(--neon-market-green); ${isTopThree ? 'text-shadow: 0 0 10px var(--glow-green);' : ''}">
+                            <div class="stat-number stat-total" data-value="${affiliate.total}" style="font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 900; color: var(--neon-market-green); transition: all 0.3s;">
                                 ${affiliate.total}
                             </div>
                         </td>
@@ -2191,6 +2268,32 @@
             } else if (pagination) {
                 pagination.innerHTML = '';
             }
+
+            // Animate numbers on load
+            setTimeout(() => animateLeaderboardNumbers(), 100);
+        }
+
+        // Animate counter numbers
+        function animateLeaderboardNumbers() {
+            const numbers = document.querySelectorAll('.stat-number');
+            numbers.forEach((el, index) => {
+                const target = parseInt(el.getAttribute('data-value'));
+                const duration = 1000; // 1 second
+                const steps = 30;
+                const increment = target / steps;
+                let current = 0;
+                let step = 0;
+
+                const timer = setInterval(() => {
+                    step++;
+                    current += increment;
+                    if (step >= steps) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    el.textContent = Math.floor(current);
+                }, duration / steps);
+            });
         }
 
         function changeAlltimePage(newPage) {
