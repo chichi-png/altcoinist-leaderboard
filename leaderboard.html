@@ -303,11 +303,11 @@
                     <p class="affiliate-handle">@rbthreek</p>
                     <div class="stats-compact">
                         <div class="stat-item">
-                            <span class="stat-label">Tweets</span>
+                            <span class="stat-label">Tweet Score</span>
                             <span class="stat-value">12</span>
                         </div>
                         <div class="stat-item">
-                            <span class="stat-label">Referrals</span>
+                            <span class="stat-label">Bot Activity Score</span>
                             <span class="stat-value">208</span>
                         </div>
                         <div class="stat-item total">
@@ -364,11 +364,11 @@
                     <p class="affiliate-handle">@N30_cryptoo</p>
                     <div class="stats-compact">
                         <div class="stat-item">
-                            <span class="stat-label">Tweets</span>
+                            <span class="stat-label">Tweet Score</span>
                             <span class="stat-value">160</span>
                         </div>
                         <div class="stat-item">
-                            <span class="stat-label">Referrals</span>
+                            <span class="stat-label">Bot Activity Score</span>
                             <span class="stat-value">22</span>
                         </div>
                         <div class="stat-item total">
@@ -425,11 +425,11 @@
                     <p class="affiliate-handle">@nlinker777</p>
                     <div class="stats-compact">
                         <div class="stat-item">
-                            <span class="stat-label">Tweets</span>
+                            <span class="stat-label">Tweet Score</span>
                             <span class="stat-value">139</span>
                         </div>
                         <div class="stat-item">
-                            <span class="stat-label">Referrals</span>
+                            <span class="stat-label">Bot Activity Score</span>
                             <span class="stat-value">0</span>
                         </div>
                         <div class="stat-item total">
@@ -457,7 +457,7 @@
                 </h1>
                 <div style="display: inline-block; padding: var(--space-3) var(--space-6); background: rgba(2, 242, 111, 0.1); border: 2px solid var(--neon-market-green); border-radius: var(--radius-lg); margin-bottom: var(--space-8);">
                     <span style="font-size: 1.2rem; font-weight: 600; color: var(--electric-mint); font-family: 'Inter', sans-serif;">
-                        All 43 Affiliates Ranked by Total Score
+                        All 41 Affiliates Ranked by Total
                     </span>
                 </div>
             </div>
@@ -492,10 +492,9 @@
                     <!-- Sort Dropdown -->
                     <select id="alltime-sort" onchange="sortAlltimeAffiliates()" style="padding: var(--space-4) var(--space-6); background: var(--panel-dark); border: 2px solid var(--muted-slate); border-radius: var(--radius-lg); color: var(--neon-market-green); cursor: pointer; font-size: 1rem; font-weight: 600; transition: all 0.3s; font-family: 'Inter', sans-serif;" onfocus="this.style.borderColor='var(--neon-market-green)'; this.style.boxShadow='0 0 15px var(--glow-green)';" onblur="this.style.borderColor='var(--muted-slate)'; this.style.boxShadow='none';">
                         <option value="rank">🏆 Rank</option>
-                        <option value="total">⚡ Total Score</option>
-                        <option value="tweets">📢 Tweets</option>
-                        <option value="referrals">👥 Referrals</option>
-                        <option value="traders">💼 Traders</option>
+                        <option value="total">🌙 Total</option>
+                        <option value="tweets">📢 Tweet Score</option>
+                        <option value="referrals">🚀 Bot Activity Score</option>
                     </select>
                 </div>
             </div>
@@ -507,9 +506,8 @@
                         <tr style="background: rgba(2, 242, 111, 0.1); border-bottom: 2px solid var(--neon-market-green);">
                             <th style="padding: var(--space-4) var(--space-6); text-align: left; font-family: 'Orbitron', sans-serif; font-size: 0.9rem; font-weight: 700; color: var(--neon-market-green); text-transform: uppercase; letter-spacing: 1px;">Rank</th>
                             <th style="padding: var(--space-4) var(--space-6); text-align: left; font-family: 'Orbitron', sans-serif; font-size: 0.9rem; font-weight: 700; color: var(--neon-market-green); text-transform: uppercase; letter-spacing: 1px;">Affiliate</th>
-                            <th style="padding: var(--space-4) var(--space-6); text-align: center; font-family: 'Orbitron', sans-serif; font-size: 0.9rem; font-weight: 700; color: var(--neon-market-green); text-transform: uppercase; letter-spacing: 1px;">Tweets</th>
-                            <th style="padding: var(--space-4) var(--space-6); text-align: center; font-family: 'Orbitron', sans-serif; font-size: 0.9rem; font-weight: 700; color: var(--neon-market-green); text-transform: uppercase; letter-spacing: 1px;">Referrals</th>
-                            <th style="padding: var(--space-4) var(--space-6); text-align: center; font-family: 'Orbitron', sans-serif; font-size: 0.9rem; font-weight: 700; color: var(--neon-market-green); text-transform: uppercase; letter-spacing: 1px;">Traders</th>
+                            <th style="padding: var(--space-4) var(--space-6); text-align: center; font-family: 'Orbitron', sans-serif; font-size: 0.9rem; font-weight: 700; color: var(--neon-market-green); text-transform: uppercase; letter-spacing: 1px;">Tweet Score</th>
+                            <th style="padding: var(--space-4) var(--space-6); text-align: center; font-family: 'Orbitron', sans-serif; font-size: 0.9rem; font-weight: 700; color: var(--neon-market-green); text-transform: uppercase; letter-spacing: 1px;">Bot Activity Score</th>
                             <th style="padding: var(--space-4) var(--space-6); text-align: center; font-family: 'Orbitron', sans-serif; font-size: 0.9rem; font-weight: 700; color: var(--neon-market-green); text-transform: uppercase; letter-spacing: 1px;">Total</th>
                         </tr>
                     </thead>
@@ -597,12 +595,12 @@
                     </div>
                 </div>
 
-                <!-- Total Referrals -->
+                <!-- Total Bot Activity -->
                 <div style="background: var(--panel-dark); border: 2px solid var(--muted-slate); border-radius: var(--radius-xl); padding: var(--space-8); text-align: center; position: relative; overflow: hidden;">
                     <div style="position: absolute; inset: 0; background: radial-gradient(circle at center, var(--glow-mint) 0%, transparent 70%); opacity: 0.1;"></div>
                     <div style="position: relative; z-index: 1;">
                         <div style="font-size: 1rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase; letter-spacing: 1px; margin-bottom: var(--space-3);">
-                            Total Referrals
+                            Total Bot Activity
                         </div>
                         <div style="font-size: 3.5rem; font-family: 'Orbitron', sans-serif; font-weight: 900; color: var(--neon-market-green); text-shadow: 0 0 20px var(--glow-green);">
                             3,247
@@ -654,8 +652,8 @@
                     <!-- Sort Dropdown -->
                     <select id="monthly-sort" onchange="sortMonthlyAffiliates()" style="padding: var(--space-4) var(--space-6); background: var(--panel-dark); border: 2px solid var(--muted-slate); border-radius: var(--radius-lg); color: var(--neon-market-green); cursor: pointer; font-size: 1rem; font-weight: 600; transition: all 0.3s; font-family: 'Inter', sans-serif;" onfocus="this.style.borderColor='var(--neon-market-green)'; this.style.boxShadow='0 0 15px var(--glow-green)';" onblur="this.style.borderColor='var(--muted-slate)'; this.style.boxShadow='none';">
                         <option value="rank">🏆 Rank</option>
-                        <option value="tweets">📢 Tweets</option>
-                        <option value="referrals">👥 Referrals</option>
+                        <option value="tweets">📢 Tweet Score</option>
+                        <option value="referrals">🚀 Bot Activity Score</option>
                         <option value="score">⚡ Score</option>
                     </select>
 
@@ -877,16 +875,12 @@
             <p class="popup-handle" id="popupHandle">@Akkadai_</p>
             <div class="popup-stats">
                 <div class="popup-stat">
-                    <span class="popup-stat-label">Tweets</span>
+                    <span class="popup-stat-label">Tweet Score</span>
                     <span class="popup-stat-value" id="popupTweets">623</span>
                 </div>
                 <div class="popup-stat">
-                    <span class="popup-stat-label">Referrals</span>
+                    <span class="popup-stat-label">Bot Activity Score</span>
                     <span class="popup-stat-value" id="popupReferrals">864</span>
-                </div>
-                <div class="popup-stat">
-                    <span class="popup-stat-label">Traders</span>
-                    <span class="popup-stat-value" id="popupTraders">76</span>
                 </div>
                 <div class="popup-stat total">
                     <span class="popup-stat-label">Total</span>
@@ -1019,9 +1013,8 @@
                     <tr>
                         <th>Rank</th>
                         <th>Affiliate</th>
-                        <th>Tweets</th>
-                        <th>Referrals</th>
-                        <th>Traders</th>
+                        <th>Tweet Score</th>
+                        <th>Bot Activity Score</th>
                         <th>Total</th>
                     </tr>
                 </thead>
@@ -2053,7 +2046,7 @@
         // Convert affiliate data to CSV format
         function convertToCSV(data, type) {
             const scoreLabel = type === 'weekly' ? 'Weekly Score' : 'Monthly Score';
-            const headers = ['Rank', 'Name', 'Handle', 'Tweets', 'Referrals', scoreLabel];
+            const headers = ['Rank', 'Name', 'Handle', 'Tweet Score', 'Bot Activity Score', scoreLabel];
             const rows = data.map(affiliate => [
                 affiliate.rank,
                 `"${affiliate.name}"`,
@@ -2240,13 +2233,6 @@
                             </div>
                         </td>
 
-                        <!-- Traders -->
-                        <td style="padding: var(--space-4) var(--space-6); text-align: center;">
-                            <div class="stat-number" data-value="${affiliate.traders}" style="font-family: 'Orbitron', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--neon-market-green); transition: all 0.3s;">
-                                ${affiliate.traders}
-                            </div>
-                        </td>
-
                         <!-- Total -->
                         <td style="padding: var(--space-4) var(--space-6); text-align: center;">
                             <div class="stat-number stat-total" data-value="${affiliate.total}" style="font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 900; color: var(--neon-market-green); transition: all 0.3s;">
@@ -2271,7 +2257,7 @@
                                     <!-- Tweets Breakdown -->
                                     <div style="background: rgba(2, 242, 111, 0.05); padding: var(--space-6); border-radius: var(--radius-lg); border: 1px solid rgba(2, 242, 111, 0.2);">
                                         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-3);">
-                                            <span style="font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; color: rgba(255, 255, 255, 0.7);">TWEETS</span>
+                                            <span style="font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; color: rgba(255, 255, 255, 0.7);">SIGNAL SCORE</span>
                                             <span style="font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 900; color: var(--neon-market-green);">${affiliate.tweets}</span>
                                         </div>
                                         <div style="height: 8px; background: rgba(2, 242, 111, 0.1); border-radius: 4px; overflow: hidden;">
@@ -2283,7 +2269,7 @@
                                     <!-- Referrals Breakdown -->
                                     <div style="background: rgba(2, 242, 111, 0.05); padding: var(--space-6); border-radius: var(--radius-lg); border: 1px solid rgba(2, 242, 111, 0.2);">
                                         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-3);">
-                                            <span style="font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; color: rgba(255, 255, 255, 0.7);">REFERRALS</span>
+                                            <span style="font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; color: rgba(255, 255, 255, 0.7);">ROCKET FUEL</span>
                                             <span style="font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 900; color: var(--neon-market-green);">${affiliate.referrals}</span>
                                         </div>
                                         <div style="height: 8px; background: rgba(2, 242, 111, 0.1); border-radius: 4px; overflow: hidden;">
@@ -2292,23 +2278,11 @@
                                         <div style="margin-top: var(--space-2); font-family: 'Inter', sans-serif; font-size: 0.85rem; color: rgba(255, 255, 255, 0.5);">${referralsPercent}% of total score</div>
                                     </div>
 
-                                    <!-- Traders Breakdown -->
-                                    <div style="background: rgba(2, 242, 111, 0.05); padding: var(--space-6); border-radius: var(--radius-lg); border: 1px solid rgba(2, 242, 111, 0.2);">
-                                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-3);">
-                                            <span style="font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; color: rgba(255, 255, 255, 0.7);">TRADERS</span>
-                                            <span style="font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 900; color: var(--neon-market-green);">${affiliate.traders}</span>
-                                        </div>
-                                        <div style="height: 8px; background: rgba(2, 242, 111, 0.1); border-radius: 4px; overflow: hidden;">
-                                            <div style="height: 100%; width: ${tradersPercent}%; background: linear-gradient(90deg, var(--neon-market-green), var(--electric-mint)); transition: width 0.6s ease;"></div>
-                                        </div>
-                                        <div style="margin-top: var(--space-2); font-family: 'Inter', sans-serif; font-size: 0.85rem; color: rgba(255, 255, 255, 0.5);">${tradersPercent}% of total score</div>
-                                    </div>
-
                                 </div>
 
-                                <!-- Total Score Summary -->
+                                <!-- Total Summary -->
                                 <div style="margin-top: var(--space-6); padding: var(--space-6); background: rgba(2, 242, 111, 0.08); border-radius: var(--radius-lg); border: 2px solid var(--neon-market-green); text-align: center;">
-                                    <div style="font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; color: rgba(255, 255, 255, 0.7); margin-bottom: var(--space-2);">TOTAL SCORE</div>
+                                    <div style="font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; color: rgba(255, 255, 255, 0.7); margin-bottom: var(--space-2);">MOON SCORE</div>
                                     <div style="font-family: 'Orbitron', sans-serif; font-size: 3rem; font-weight: 900; color: var(--neon-market-green); text-shadow: 0 0 20px rgba(2, 242, 111, 0.5);">${affiliate.total}</div>
                                     <div style="margin-top: var(--space-3); font-family: 'Inter', sans-serif; font-size: 0.9rem; color: rgba(255, 255, 255, 0.6);">
                                         Rank #${affiliate.rank} of ${affiliatesData.length}
@@ -2499,8 +2473,8 @@
                         <tr style="background: rgba(2, 242, 111, 0.1); border-bottom: 2px solid var(--neon-market-green);">
                             <th style="padding: var(--space-4); text-align: left; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase;">Rank</th>
                             <th style="padding: var(--space-4); text-align: left; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase;">Affiliate</th>
-                            <th style="padding: var(--space-4); text-align: center; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase;">Tweets</th>
-                            <th style="padding: var(--space-4); text-align: center; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase;">Referrals</th>
+                            <th style="padding: var(--space-4); text-align: center; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase;">Tweet Score</th>
+                            <th style="padding: var(--space-4); text-align: center; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase;">Bot Activity Score</th>
                             <th style="padding: var(--space-4); text-align: center; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase;">Score</th>
                         </tr>
                     </thead>
@@ -3287,15 +3261,11 @@
                         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
                             <div style="text-align: center; padding: 1rem; background: rgba(0, 255, 255, 0.1); border-radius: 12px; border: 1px solid var(--cyan-bright);">
                                 <div style="font-size: 1.5rem; color: var(--cyan-bright); font-weight: bold;">${affiliate.tweets || 0}</div>
-                                <div style="font-size: 0.85rem; color: var(--teal); margin-top: 0.25rem;">Tweets</div>
+                                <div style="font-size: 0.85rem; color: var(--teal); margin-top: 0.25rem;">Tweet Score</div>
                             </div>
                             <div style="text-align: center; padding: 1rem; background: rgba(0, 255, 255, 0.1); border-radius: 12px; border: 1px solid var(--cyan-bright);">
                                 <div style="font-size: 1.5rem; color: var(--cyan-bright); font-weight: bold;">${affiliate.referrals || 0}</div>
-                                <div style="font-size: 0.85rem; color: var(--teal); margin-top: 0.25rem;">Referrals</div>
-                            </div>
-                            <div style="text-align: center; padding: 1rem; background: rgba(0, 255, 255, 0.1); border-radius: 12px; border: 1px solid var(--cyan-bright);">
-                                <div style="font-size: 1.5rem; color: var(--cyan-bright); font-weight: bold;">${affiliate.traders || 0}</div>
-                                <div style="font-size: 0.85rem; color: var(--teal); margin-top: 0.25rem;">Traders</div>
+                                <div style="font-size: 0.85rem; color: var(--teal); margin-top: 0.25rem;">Bot Activity Score</div>
                             </div>
                             <div style="text-align: center; padding: 1rem; background: rgba(0, 255, 255, 0.1); border-radius: 12px; border: 1px solid var(--cyan-bright);">
                                 <div style="font-size: 1.5rem; color: var(--cyan-bright); font-weight: bold;">${affiliate.total || 0}</div>
@@ -3722,11 +3692,11 @@
                                 <div style="font-size: 1.5rem; color: var(--cyan-bright); font-weight: bold;">#${affiliate.rank}</div>
                             </div>
                             <div style="background: rgba(0, 255, 255, 0.1); padding: var(--space-3) var(--space-5); border-radius: 12px;">
-                                <div style="font-size: 0.85rem; color: var(--teal); margin-bottom: 4px;">Referrals</div>
+                                <div style="font-size: 0.85rem; color: var(--teal); margin-bottom: 4px;">Bot Activity Score</div>
                                 <div style="font-size: 1.5rem; color: var(--cyan-bright); font-weight: bold;">${affiliate.referrals}</div>
                             </div>
                             <div style="background: rgba(0, 255, 255, 0.1); padding: var(--space-3) var(--space-5); border-radius: 12px;">
-                                <div style="font-size: 0.85rem; color: var(--teal); margin-bottom: 4px;">Tweets</div>
+                                <div style="font-size: 0.85rem; color: var(--teal); margin-bottom: 4px;">Tweet Score</div>
                                 <div style="font-size: 1.5rem; color: var(--cyan-bright); font-weight: bold;">${affiliate.tweets}</div>
                             </div>
                             <div style="background: rgba(0, 255, 255, 0.1); padding: var(--space-3) var(--space-5); border-radius: 12px;">
@@ -4016,7 +3986,6 @@
             document.getElementById('popupHandle').textContent = handle;
             document.getElementById('popupTweets').textContent = tweets.toLocaleString();
             document.getElementById('popupReferrals').textContent = referrals.toLocaleString();
-            document.getElementById('popupTraders').textContent = (traders || 0).toLocaleString();
             document.getElementById('popupTotal').textContent = total.toLocaleString();
 
             // Update button links - X Profile button removed, use directory instead

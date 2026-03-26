@@ -77,7 +77,7 @@ All navigation is handled via JavaScript - no page reloads.
 
 ## 📝 Notes
 
-- **35 affiliates total** (as of 2026-03-20)
+- **41 affiliates total** (as of 2026-03-26)
 - **Pagination:** 10 per page = 4 pages (10, 10, 10, 5)
 - **Made-up numbers:** Performance data is currently demo data
 - **Single source:** All code in `leaderboard.html` for easy maintenance
