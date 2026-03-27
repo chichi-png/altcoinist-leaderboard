@@ -1512,8 +1512,8 @@
                 const row = document.createElement('tr');
                 row.onclick = () => showDetail(
                     affiliate.rank, affiliate.name, affiliate.handle, affiliate.avatar,
-                    affiliate.tweets, affiliate.referrals, affiliate.traders, affiliate.total, affiliate.imgSrc,
-                    affiliate.profileUrl, affiliate.telegramHandle
+                    affiliate.tweetScore, affiliate.botActivityScore, affiliate.traders, affiliate.total, affiliate.imgSrc,
+                    affiliate.profileUrl, affiliate.tgHandle
                 );
 
                 row.innerHTML = `
@@ -1533,8 +1533,8 @@
                             </div>
                         </div>
                     </td>
-                    <td class="table-stat">${affiliate.tweets}</td>
-                    <td class="table-stat">${affiliate.referrals}</td>
+                    <td class="table-stat">${affiliate.tweetScore}</td>
+                    <td class="table-stat">${affiliate.botActivityScore}</td>
                     <td class="table-stat">${affiliate.traders || 0}</td>
                     <td class="table-stat">${affiliate.total}</td>
                 `;
@@ -3888,7 +3888,7 @@
         }
 
         // Click card with animations
-        function clickCard(card, rank, name, handle, avatar, tweets, referrals, traders, total, imgSrc, profileUrl = '', telegramHandle = '') {
+        function clickCard(card, rank, name, handle, avatar, tweetScore, botActivityScore, traders, total, imgSrc, profileUrl = '', telegramHandle = '') {
             const rect = card.getBoundingClientRect();
 
             // Create ripple effect
@@ -3922,12 +3922,12 @@
 
             // Show detail popup after animation starts
             setTimeout(() => {
-                showDetail(rank, name, handle, avatar, tweets, referrals, traders, total, imgSrc, profileUrl, telegramHandle);
+                showDetail(rank, name, handle, avatar, tweetScore, botActivityScore, traders, total, imgSrc, profileUrl, telegramHandle);
             }, 180);
         }
 
         // Detail popup controls
-        function showDetail(rank, name, handle, avatar, tweets, referrals, traders, total, imgSrc, profileUrl = '', telegramHandle = '') {
+        function showDetail(rank, name, handle, avatar, tweetScore, botActivityScore, traders, total, imgSrc, profileUrl = '', telegramHandle = '') {
             const avatarText = document.getElementById('popupAvatarText');
             const avatarImg = document.getElementById('popupAvatarImg');
 
@@ -3945,8 +3945,8 @@
 
             document.getElementById('popupName').textContent = name;
             document.getElementById('popupHandle').textContent = handle;
-            document.getElementById('popupTweets').textContent = tweets.toLocaleString();
-            document.getElementById('popupReferrals').textContent = referrals.toLocaleString();
+            document.getElementById('popupTweets').textContent = tweetScore.toLocaleString();
+            document.getElementById('popupReferrals').textContent = botActivityScore.toLocaleString();
             document.getElementById('popupTotal').textContent = total.toLocaleString();
 
             // Update button links - X Profile button removed, use directory instead
@@ -3990,13 +3990,13 @@
                         affiliate.name,
                         affiliate.handle,
                         affiliate.avatar,
-                        affiliate.tweets,
-                        affiliate.referrals,
+                        affiliate.tweetScore,
+                        affiliate.botActivityScore,
                         affiliate.traders,
                         affiliate.total,
                         affiliate.imgSrc,
                         affiliate.profileUrl,
-                        affiliate.telegramHandle || ''
+                        affiliate.tgHandle || ''
                     );
                 };
             });
