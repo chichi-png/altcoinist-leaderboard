@@ -2127,9 +2127,9 @@
             tbody.innerHTML = pageData.map((affiliate, index) => {
                 // Calculate percentages for progress bars
                 const maxTotal = Math.max(...affiliatesData.map(a => a.total));
-                const tweetsPercent = Math.round((affiliate.tweets / affiliate.total) * 100);
-                const referralsPercent = Math.round((affiliate.referrals / affiliate.total) * 100);
-                const tradersPercent = Math.round((affiliate.traders / affiliate.total) * 100);
+                const tweetsPercent = Math.round((affiliate.tweetScore / affiliate.total) * 100);
+                const referralsPercent = Math.round((affiliate.botActivityScore / affiliate.total) * 100);
+                const tradersPercent = 0; // Not used in current data structure
 
                 return `
                     <tr class="leaderboard-row" data-rank="${affiliate.rank}"
@@ -2193,17 +2193,17 @@
                             </div>
                         </td>
 
-                        <!-- Tweets -->
+                        <!-- Tweet Score -->
                         <td style="padding: var(--space-4) var(--space-6); text-align: center;">
-                            <div class="stat-number" data-value="${affiliate.tweets}" style="font-family: 'Orbitron', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--neon-market-green); transition: all 0.3s;">
-                                ${affiliate.tweets}
+                            <div class="stat-number" data-value="${affiliate.tweetScore}" style="font-family: 'Orbitron', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--neon-market-green); transition: all 0.3s;">
+                                ${affiliate.tweetScore}
                             </div>
                         </td>
 
-                        <!-- Referrals -->
+                        <!-- Bot Activity Score -->
                         <td style="padding: var(--space-4) var(--space-6); text-align: center;">
-                            <div class="stat-number" data-value="${affiliate.referrals}" style="font-family: 'Orbitron', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--neon-market-green); transition: all 0.3s;">
-                                ${affiliate.referrals}
+                            <div class="stat-number" data-value="${affiliate.botActivityScore}" style="font-family: 'Orbitron', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--neon-market-green); transition: all 0.3s;">
+                                ${affiliate.botActivityScore}
                             </div>
                         </td>
 
@@ -2228,11 +2228,11 @@
                             ">
                                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-6);">
 
-                                    <!-- Tweets Breakdown -->
+                                    <!-- Tweet Score Breakdown -->
                                     <div style="background: rgba(2, 242, 111, 0.05); padding: var(--space-6); border-radius: var(--radius-lg); border: 1px solid rgba(2, 242, 111, 0.2);">
                                         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-3);">
-                                            <span style="font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; color: rgba(255, 255, 255, 0.7);">SIGNAL SCORE</span>
-                                            <span style="font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 900; color: var(--neon-market-green);">${affiliate.tweets}</span>
+                                            <span style="font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; color: rgba(255, 255, 255, 0.7);">TWEET SCORE</span>
+                                            <span style="font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 900; color: var(--neon-market-green);">${affiliate.tweetScore}</span>
                                         </div>
                                         <div style="height: 8px; background: rgba(2, 242, 111, 0.1); border-radius: 4px; overflow: hidden;">
                                             <div style="height: 100%; width: ${tweetsPercent}%; background: linear-gradient(90deg, var(--neon-market-green), var(--electric-mint)); transition: width 0.6s ease;"></div>
@@ -2240,11 +2240,11 @@
                                         <div style="margin-top: var(--space-2); font-family: 'Inter', sans-serif; font-size: 0.85rem; color: rgba(255, 255, 255, 0.5);">${tweetsPercent}% of total score</div>
                                     </div>
 
-                                    <!-- Referrals Breakdown -->
+                                    <!-- Bot Activity Score Breakdown -->
                                     <div style="background: rgba(2, 242, 111, 0.05); padding: var(--space-6); border-radius: var(--radius-lg); border: 1px solid rgba(2, 242, 111, 0.2);">
                                         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-3);">
-                                            <span style="font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; color: rgba(255, 255, 255, 0.7);">ROCKET FUEL</span>
-                                            <span style="font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 900; color: var(--neon-market-green);">${affiliate.referrals}</span>
+                                            <span style="font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; color: rgba(255, 255, 255, 0.7);">BOT ACTIVITY SCORE</span>
+                                            <span style="font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 900; color: var(--neon-market-green);">${affiliate.botActivityScore}</span>
                                         </div>
                                         <div style="height: 8px; background: rgba(2, 242, 111, 0.1); border-radius: 4px; overflow: hidden;">
                                             <div style="height: 100%; width: ${referralsPercent}%; background: linear-gradient(90deg, var(--neon-market-green), var(--electric-mint)); transition: width 0.6s ease;"></div>
@@ -2396,7 +2396,7 @@
             dataToSort.sort((a, b) => {
                 if (sortField === 'rank') return a.rank - b.rank;
                 if (sortField === 'total') return b.total - a.total;
-                if (sortField === 'tweets') return b.tweets - a.tweets;
+                if (sortField === 'tweets') return b.tweetScore - a.tweetScore;
                 if (sortField === 'referrals') return b.referrals - a.referrals;
                 if (sortField === 'traders') return b.traders - a.traders;
                 return 0;
