@@ -26,3 +26,6 @@ build/
 *-backup.html
 
 *.backup
+
+# Debug output
+leaderboard-data-output.json
