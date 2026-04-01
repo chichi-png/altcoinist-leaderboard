@@ -90,18 +90,18 @@ window.openAffiliateModal = function(affiliate) {
             <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4);">
                 <div style="text-align: center;">
                     <div style="font-size: 0.85rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: var(--space-2);">
-                        Tweets
+                        Tweet Score
                     </div>
                     <div style="font-family: 'Orbitron', sans-serif; font-size: 2.2rem; font-weight: 700; color: var(--neon-market-green); ${isTopThree ? 'text-shadow: 0 0 10px var(--glow-green);' : ''}">
-                        ${affiliate.tweets || 0}
+                        ${affiliate.tweetScore || 0}
                     </div>
                 </div>
                 <div style="text-align: center;">
                     <div style="font-size: 0.85rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: var(--space-2);">
-                        Referrals
+                        Bot Activity
                     </div>
                     <div style="font-family: 'Orbitron', sans-serif; font-size: 2.2rem; font-weight: 700; color: var(--neon-market-green); ${isTopThree ? 'text-shadow: 0 0 10px var(--glow-green);' : ''}">
-                        ${affiliate.referrals || 0}
+                        ${affiliate.botActivityScore || 0}
                     </div>
                 </div>
                 <div style="text-align: center;">

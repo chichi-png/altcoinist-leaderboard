@@ -16,15 +16,15 @@ window.exportMonthlyToCSV = function() {
 
 // Convert affiliate data to CSV format
 function convertToCSV(data, type) {
-    const scoreLabel = type === 'weekly' ? 'Weekly Score' : 'Monthly Score';
-    const headers = ['Rank', 'Name', 'Handle', 'Tweets', 'Referrals', scoreLabel];
+    const scoreLabel = 'Total Score';
+    const headers = ['Rank', 'Name', 'Handle', 'Tweet Score', 'Bot Activity', scoreLabel];
     const rows = data.map(affiliate => [
         affiliate.rank,
         `"${affiliate.name}"`,
         affiliate.handle,
-        affiliate.tweets || 0,
-        affiliate.referrals || 0,
-        affiliate.weeklyScore || affiliate.monthlyScore || 0
+        affiliate.tweetScore || 0,
+        affiliate.botActivityScore || 0,
+        affiliate.total || 0
     ]);
 
     const csvRows = [

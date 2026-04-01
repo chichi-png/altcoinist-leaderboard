@@ -10,9 +10,9 @@ window.getBadges = function getBadges(affiliate) {
     else if (affiliate.rank === 3) badges.push({icon: '🥉', text: 'Bronze', color: '#CD7F32'});
 
     // Performance badges
-    const tweetCount = affiliate.tweets || 0;
-    const referralCount = affiliate.referrals || 0;
-    const score = affiliate.weeklyScore || affiliate.monthlyScore || 0;
+    const tweetCount = affiliate.tweetScore || 0;
+    const referralCount = affiliate.botActivityScore || 0;
+    const score = affiliate.total || 0;
 
     if (tweetCount >= 150) badges.push({icon: '📢', text: 'Tweet Machine', color: '#02F26F'});
     if (referralCount >= 50) badges.push({icon: '🔥', text: 'Top Recruiter', color: '#FF4500'});

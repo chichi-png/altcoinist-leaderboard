@@ -12,13 +12,13 @@ window.sortWeeklyAffiliates = function() {
             sorted.sort((a, b) => a.rank - b.rank);
             break;
         case 'tweets':
-            sorted.sort((a, b) => (b.tweets || 0) - (a.tweets || 0));
+            sorted.sort((a, b) => (b.tweetScore || 0) - (a.tweetScore || 0));
             break;
         case 'referrals':
-            sorted.sort((a, b) => (b.referrals || 0) - (a.referrals || 0));
+            sorted.sort((a, b) => (b.botActivityScore || 0) - (a.botActivityScore || 0));
             break;
         case 'score':
-            sorted.sort((a, b) => (b.weeklyScore || 0) - (a.weeklyScore || 0));
+            sorted.sort((a, b) => (b.total || 0) - (a.total || 0));
             break;
     }
 
@@ -45,13 +45,13 @@ window.sortMonthlyAffiliates = function() {
             sorted.sort((a, b) => a.rank - b.rank);
             break;
         case 'tweets':
-            sorted.sort((a, b) => (b.tweets || 0) - (a.tweets || 0));
+            sorted.sort((a, b) => (b.tweetScore || 0) - (a.tweetScore || 0));
             break;
         case 'referrals':
-            sorted.sort((a, b) => (b.referrals || 0) - (a.referrals || 0));
+            sorted.sort((a, b) => (b.botActivityScore || 0) - (a.botActivityScore || 0));
             break;
         case 'score':
-            sorted.sort((a, b) => (b.monthlyScore || 0) - (a.monthlyScore || 0));
+            sorted.sort((a, b) => (b.total || 0) - (a.total || 0));
             break;
     }
 
