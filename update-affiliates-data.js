@@ -29,7 +29,6 @@ const csvData = [
     {name: 'Agori', xHandle: '@sentientom', tgHandle: '@Nouyarao', xUrl: 'https://x.com/sentientom'},
     {name: 'Debankindad', xHandle: '@DebankinDad', tgHandle: 'DebankinDad', xUrl: 'https://x.com/DebankinDad'},
     {name: 'MD!3e', xHandle: '@tibbiracer', tgHandle: '@mDiBe89', xUrl: 'https://x.com/tibbiracer'},
-    {name: 'Slavic', xHandle: '@basedsnipez', tgHandle: '@slavicbased', xUrl: 'https://x.com/basedsnipez'},
     {name: '3DMax', xHandle: '@3DMax_Virtuals', tgHandle: '@oO_3Dmax', xUrl: 'https://x.com/3DMax_Virtuals'},
     {name: 'Arindewar', xHandle: '@arindewar', tgHandle: '@arrieindewarrie', xUrl: 'https://x.com/arindewar'},
     {name: 'Math', xHandle: '@mathburn666', tgHandle: '@mathburn666', xUrl: 'https://x.com/mathburn666'},
