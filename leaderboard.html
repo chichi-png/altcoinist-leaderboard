@@ -1648,8 +1648,8 @@
                 imgSrc: affiliate.imgSrc,
                 avatar: affiliate.avatar,
                 rank: affiliate.rank,
-                referrals: affiliate.referrals,
-                tweets: affiliate.tweets
+                referrals: affiliate.botActivityScore,
+                tweets: affiliate.tweetScore
             }));
 
             xProfilesCurrentPage = 1;
@@ -2833,8 +2833,8 @@
                     imgSrc: affiliate.imgSrc,
                     avatar: affiliate.avatar,
                     rank: affiliate.rank,
-                    referrals: affiliate.referrals,
-                    tweets: affiliate.tweets
+                    referrals: affiliate.botActivityScore,
+                    tweets: affiliate.tweetScore
                 }));
                 xProfilesCurrentPage = 1;
             }
@@ -3035,7 +3035,7 @@
                     handle: affiliate.handle.replace('@', '').toLowerCase(),
                     displayHandle: affiliate.handle,
                     apiTweets: [],
-                    tweetCount: affiliate.tweets || 0
+                    tweetCount: affiliate.tweetScore || 0
                 }));
 
                 // Calculate pagination
@@ -3205,11 +3205,11 @@
                         <!-- Stats grid -->
                         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
                             <div style="text-align: center; padding: 1rem; background: rgba(0, 255, 255, 0.1); border-radius: 12px; border: 1px solid var(--cyan-bright);">
-                                <div style="font-size: 1.5rem; color: var(--cyan-bright); font-weight: bold;">${affiliate.tweets || 0}</div>
+                                <div style="font-size: 1.5rem; color: var(--cyan-bright); font-weight: bold;">${affiliate.tweetScore || 0}</div>
                                 <div style="font-size: 0.85rem; color: var(--teal); margin-top: 0.25rem;">Tweet Score</div>
                             </div>
                             <div style="text-align: center; padding: 1rem; background: rgba(0, 255, 255, 0.1); border-radius: 12px; border: 1px solid var(--cyan-bright);">
-                                <div style="font-size: 1.5rem; color: var(--cyan-bright); font-weight: bold;">${affiliate.referrals || 0}</div>
+                                <div style="font-size: 1.5rem; color: var(--cyan-bright); font-weight: bold;">${affiliate.botActivityScore || 0}</div>
                                 <div style="font-size: 0.85rem; color: var(--teal); margin-top: 0.25rem;">Bot Activity Score</div>
                             </div>
                             <div style="text-align: center; padding: 1rem; background: rgba(0, 255, 255, 0.1); border-radius: 12px; border: 1px solid var(--cyan-bright);">
@@ -3275,7 +3275,7 @@
                 location: 'Global',
                 website: 'altcoinist.com',
                 joinedDate: 'October 2023',
-                postsCount: affiliate.tweets,
+                postsCount: affiliate.tweetScore,
                 followingCount: Math.floor(Math.random() * 500) + 100,
                 followersCount: Math.floor(Math.random() * 2000) + 500,
                 verified: affiliate.rank <= 10
@@ -3638,11 +3638,11 @@
                             </div>
                             <div style="background: rgba(0, 255, 255, 0.1); padding: var(--space-3) var(--space-5); border-radius: 12px;">
                                 <div style="font-size: 0.85rem; color: var(--teal); margin-bottom: 4px;">Bot Activity Score</div>
-                                <div style="font-size: 1.5rem; color: var(--cyan-bright); font-weight: bold;">${affiliate.referrals}</div>
+                                <div style="font-size: 1.5rem; color: var(--cyan-bright); font-weight: bold;">${affiliate.botActivityScore}</div>
                             </div>
                             <div style="background: rgba(0, 255, 255, 0.1); padding: var(--space-3) var(--space-5); border-radius: 12px;">
                                 <div style="font-size: 0.85rem; color: var(--teal); margin-bottom: 4px;">Tweet Score</div>
-                                <div style="font-size: 1.5rem; color: var(--cyan-bright); font-weight: bold;">${affiliate.tweets}</div>
+                                <div style="font-size: 1.5rem; color: var(--cyan-bright); font-weight: bold;">${affiliate.tweetScore}</div>
                             </div>
                             <div style="background: rgba(0, 255, 255, 0.1); padding: var(--space-3) var(--space-5); border-radius: 12px;">
                                 <div style="font-size: 0.85rem; color: var(--teal); margin-bottom: 4px;">Total</div>
@@ -3839,23 +3839,23 @@
                     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4);">
                         <div style="text-align: center;">
                             <div style="font-size: 0.85rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: var(--space-2);">
-                                Tweets
+                                Tweet Score
                             </div>
                             <div style="font-family: 'Orbitron', sans-serif; font-size: 2.2rem; font-weight: 700; color: var(--neon-market-green); ${isTopThree ? 'text-shadow: 0 0 10px var(--glow-green);' : ''}">
-                                ${affiliate.tweets || 0}
+                                ${affiliate.tweetScore || 0}
                             </div>
                         </div>
                         <div style="text-align: center;">
                             <div style="font-size: 0.85rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: var(--space-2);">
-                                Referrals
+                                Bot Activity
                             </div>
                             <div style="font-family: 'Orbitron', sans-serif; font-size: 2.2rem; font-weight: 700; color: var(--neon-market-green); ${isTopThree ? 'text-shadow: 0 0 10px var(--glow-green);' : ''}">
-                                ${affiliate.referrals || 0}
+                                ${affiliate.botActivityScore || 0}
                             </div>
                         </div>
                         <div style="text-align: center;">
                             <div style="font-size: 0.85rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: var(--space-2);">
-                                Score
+                                Total
                             </div>
                             <div style="font-family: 'Orbitron', sans-serif; font-size: 2.2rem; font-weight: 700; color: var(--neon-market-green); ${isTopThree ? 'text-shadow: 0 0 10px var(--glow-green);' : ''}">
                                 ${affiliate.total || 0}
