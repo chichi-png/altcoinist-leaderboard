@@ -40,25 +40,29 @@ altcoinist-leaderboard/
 
 ## 📊 Data Structure
 
-### Weekly Rankings
-Located in `leaderboard.html` (~line 4505):
+All rankings use the same data structure with correct field names:
+
 ```javascript
-const weeklyItemsPerPage = 10; // 10 per page
-const weeklyData = [
-    {rank: 1, name: 'Rb3k', handle: '@rbthreek', ...},
-    // ... 35 real affiliates
-];
+{
+    rank: 1,
+    name: 'rb3k',
+    handle: '@rbthreek',
+    avatar: 'RB',
+    tweetScore: 60,           // Tweet performance score
+    botActivityScore: 3770,   // Bot activity score
+    total: 3830,              // Total score (sum of above)
+    imgSrc: 'assets/images/affiliates/rbthreek.jpg',
+    profileUrl: 'https://x.com/rbthreek',
+    tgHandle: '@rbthreek'
+}
 ```
 
-### Monthly Rankings
-Located in `leaderboard.html` (~line 4690):
-```javascript
-const monthlyItemsPerPage = 10; // 10 per page
-const monthlyData = [
-    {rank: 1, name: 'Rb3k', handle: '@rbthreek', ...},
-    // ... 35 real affiliates
-];
-```
+**Data Location:**
+- All-Time: `window.affiliatesData` (~line 1465)
+- Weekly: `window.DEMO_WEEKLY_DATA` (~line 1857)
+- Monthly: `window.DEMO_MONTHLY_DATA` (~line 2575)
+
+**Sync Data:** Use `sync-leaderboard-data.py` to pull current scores from Notion databases
 
 ## 🔄 Navigation
 
@@ -77,7 +81,7 @@ All navigation is handled via JavaScript - no page reloads.
 
 ## 📝 Notes
 
-- **41 affiliates total** (as of 2026-03-26)
-- **Pagination:** 10 per page = 4 pages (10, 10, 10, 5)
-- **Made-up numbers:** Performance data is currently demo data
-- **Single source:** All code in `leaderboard.html` for easy maintenance
+- **40 affiliates total** (as of 2026-04-01)
+- **Pagination:** 10 per page = 4 pages (10, 10, 10, 10)
+- **Data Source:** Real scores from Notion (Tweet Scores + Bot Activity Scores databases)
+- **Modular:** Code split into external JS/CSS files for maintainability
