@@ -1,0 +1,10 @@
+{
+  "rewrites": [
+    {
+      "source": "/leaderboard",
+      "destination": "/leaderboard.html"
+    }
+  ],
+  "cleanUrls": true,
+  "trailingSlash": false
+}
