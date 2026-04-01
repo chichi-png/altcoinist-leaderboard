@@ -34,9 +34,9 @@ window.renderWeeklyDashboard = function() {
                 <tr style="background: rgba(2, 242, 111, 0.1); border-bottom: 2px solid var(--neon-market-green);">
                     <th style="padding: var(--space-4); text-align: left; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase;">Rank</th>
                     <th style="padding: var(--space-4); text-align: left; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase;">Affiliate</th>
-                    <th style="padding: var(--space-4); text-align: center; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase;">Tweets</th>
-                    <th style="padding: var(--space-4); text-align: center; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase;">Referrals</th>
-                    <th style="padding: var(--space-4); text-align: center; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase;">Score</th>
+                    <th style="padding: var(--space-4); text-align: center; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase;">Tweet Score</th>
+                    <th style="padding: var(--space-4); text-align: center; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase;">Bot Activity</th>
+                    <th style="padding: var(--space-4); text-align: center; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase;">Total</th>
                 </tr>
             </thead>
             <tbody>
@@ -97,24 +97,24 @@ window.renderWeeklyDashboard = function() {
                             </div>
                         </td>
 
-                        <!-- Tweets -->
+                        <!-- Tweet Score -->
                         <td style="padding: var(--space-4) var(--space-6); text-align: center;">
                             <div class="stat-number" style="font-family: 'Orbitron', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--neon-market-green); transition: all 0.3s;">
-                                ${affiliate.tweets}
+                                ${affiliate.tweetScore || 0}
                             </div>
                         </td>
 
-                        <!-- Referrals -->
+                        <!-- Bot Activity -->
                         <td style="padding: var(--space-4) var(--space-6); text-align: center;">
                             <div class="stat-number" style="font-family: 'Orbitron', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--neon-market-green); transition: all 0.3s;">
-                                ${affiliate.referrals}
+                                ${affiliate.botActivityScore || 0}
                             </div>
                         </td>
 
-                        <!-- Score -->
+                        <!-- Total -->
                         <td style="padding: var(--space-4) var(--space-6); text-align: center;">
                             <div class="stat-number stat-total" style="font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 900; color: var(--neon-market-green); transition: all 0.3s;">
-                                ${affiliate.weeklyScore}
+                                ${affiliate.total || 0}
                             </div>
                         </td>
                     </tr>
@@ -251,33 +251,33 @@ window.renderMonthlyDashboard = function() {
 
                 <!-- Metrics Grid -->
                 <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); padding-top: var(--space-4); border-top: 1px solid var(--muted-slate);">
-                    <!-- Tweets -->
+                    <!-- Tweet Score -->
                     <div style="text-align: center;">
                         <div style="font-size: 0.85rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: var(--space-2);">
-                            Tweets
+                            Tweet Score
                         </div>
                         <div style="font-family: 'Orbitron', sans-serif; font-size: 1.8rem; font-weight: 700; color: var(--neon-market-green);">
-                            ${affiliate.tweets}
+                            ${affiliate.tweetScore || 0}
                         </div>
                     </div>
 
-                    <!-- Referrals -->
+                    <!-- Bot Activity -->
                     <div style="text-align: center;">
                         <div style="font-size: 0.85rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: var(--space-2);">
-                            Referrals
+                            Bot Activity
                         </div>
                         <div style="font-family: 'Orbitron', sans-serif; font-size: 1.8rem; font-weight: 700; color: var(--neon-market-green);">
-                            ${affiliate.referrals}
+                            ${affiliate.botActivityScore || 0}
                         </div>
                     </div>
 
-                    <!-- Monthly Score -->
+                    <!-- Total -->
                     <div style="text-align: center;">
                         <div style="font-size: 0.85rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: var(--space-2);">
-                            Score
+                            Total
                         </div>
                         <div style="font-family: 'Orbitron', sans-serif; font-size: 1.8rem; font-weight: 700; color: var(--neon-market-green); ${isTopThree ? 'text-shadow: 0 0 10px var(--glow-green);' : ''}">
-                            ${affiliate.monthlyScore}
+                            ${affiliate.total || 0}
                         </div>
                     </div>
                 </div>
