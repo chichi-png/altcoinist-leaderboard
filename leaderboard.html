@@ -176,6 +176,227 @@
         .stat-number {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
+        /* ========================================
+           RESPONSIVE SIZING FOR ALL LEADERBOARDS
+           ======================================== */
+
+        /* TABLET: 768px - 1024px */
+        @media (max-width: 1024px) and (min-width: 768px) {
+            /* Table Headers */
+            table th {
+                font-size: 0.8rem !important;
+                padding: 12px 16px !important;
+            }
+
+            /* Table Data Cells */
+            table td {
+                padding: 12px 16px !important;
+            }
+
+            /* Rank Badges */
+            .rank-badge {
+                width: 35px !important;
+                height: 35px !important;
+                font-size: 1rem !important;
+            }
+
+            /* Avatars */
+            .avatar-wrapper {
+                width: 40px !important;
+                height: 40px !important;
+            }
+
+            .avatar-wrapper img,
+            .avatar-wrapper > div {
+                font-size: 1rem !important;
+            }
+
+            /* Affiliate Name & Handle */
+            table td div[style*="font-size: 1.1rem"] {
+                font-size: 0.95rem !important;
+            }
+
+            table td div[style*="font-size: 0.9rem"] {
+                font-size: 0.8rem !important;
+            }
+
+            /* Stat Numbers */
+            .stat-number {
+                font-size: 1.1rem !important;
+            }
+
+            .stat-total {
+                font-size: 1.3rem !important;
+            }
+
+            /* Buttons */
+            .btn {
+                padding: 10px 20px !important;
+                font-size: 0.9rem !important;
+            }
+
+            .back-btn {
+                padding: 10px 20px !important;
+                font-size: 0.9rem !important;
+            }
+
+            /* Page Headers */
+            h1 {
+                font-size: 1.8rem !important;
+            }
+
+            h2 {
+                font-size: 1.4rem !important;
+            }
+        }
+
+        /* MOBILE: < 768px */
+        @media (max-width: 767px) {
+            /* Make tables horizontally scrollable on mobile */
+            #weekly-dashboard-grid,
+            #monthly-dashboard-grid,
+            #alltime-page > section > div:has(table) {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            /* Table Headers */
+            table th {
+                font-size: 0.75rem !important;
+                padding: 8px 12px !important;
+                white-space: nowrap;
+            }
+
+            /* Table Data Cells */
+            table td {
+                padding: 8px 12px !important;
+            }
+
+            /* Rank Badges */
+            .rank-badge {
+                width: 30px !important;
+                height: 30px !important;
+                font-size: 0.9rem !important;
+            }
+
+            /* Avatars */
+            .avatar-wrapper {
+                width: 35px !important;
+                height: 35px !important;
+            }
+
+            .avatar-wrapper img,
+            .avatar-wrapper > div {
+                font-size: 0.9rem !important;
+            }
+
+            /* Affiliate Name & Handle */
+            table td div[style*="font-size: 1.1rem"] {
+                font-size: 0.9rem !important;
+            }
+
+            table td div[style*="font-size: 0.9rem"] {
+                font-size: 0.75rem !important;
+            }
+
+            /* Stat Numbers */
+            .stat-number {
+                font-size: 1rem !important;
+            }
+
+            .stat-total {
+                font-size: 1.1rem !important;
+            }
+
+            /* Buttons */
+            .btn {
+                padding: 8px 16px !important;
+                font-size: 0.85rem !important;
+                min-width: 40px !important;
+            }
+
+            .back-btn {
+                padding: 8px 16px !important;
+                font-size: 0.85rem !important;
+            }
+
+            /* Back button - show only arrow on mobile */
+            .back-btn span {
+                font-size: 1.2rem;
+            }
+
+            /* Page Headers */
+            h1 {
+                font-size: 1.4rem !important;
+            }
+
+            h2 {
+                font-size: 1.1rem !important;
+            }
+
+            /* Pagination - Stack vertically on mobile */
+            #weekly-pagination,
+            #monthly-pagination,
+            #alltime-pagination {
+                flex-direction: column !important;
+                gap: 12px !important;
+            }
+
+            #weekly-pagination > div,
+            #monthly-pagination > div,
+            #alltime-pagination > div {
+                justify-content: center !important;
+            }
+
+            /* Search and Filter Controls - Stack on mobile */
+            div[style*="display: flex; gap: var(--space-4); align-items: center"] {
+                flex-direction: column !important;
+                align-items: stretch !important;
+            }
+
+            /* Input fields full width on mobile */
+            input[type="text"],
+            select {
+                width: 100% !important;
+            }
+        }
+
+        /* EXTRA SMALL MOBILE: < 480px */
+        @media (max-width: 479px) {
+            /* Further reduce sizes for very small screens */
+            table th {
+                font-size: 0.7rem !important;
+                padding: 6px 8px !important;
+            }
+
+            table td {
+                padding: 6px 8px !important;
+            }
+
+            .rank-badge {
+                width: 28px !important;
+                height: 28px !important;
+                font-size: 0.85rem !important;
+            }
+
+            .avatar-wrapper {
+                width: 32px !important;
+                height: 32px !important;
+            }
+
+            .stat-number {
+                font-size: 0.95rem !important;
+            }
+
+            .stat-total {
+                font-size: 1rem !important;
+            }
+
+            h1 {
+                font-size: 1.2rem !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -618,9 +839,9 @@
                 </div>
             </div>
 
-            <!-- Affiliate Dashboard Grid -->
-            <div id="monthly-dashboard-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: var(--space-6); max-width: 1600px; margin: 0 auto;">
-                <!-- Affiliate cards will be dynamically generated here -->
+            <!-- Affiliate Rankings List -->
+            <div id="monthly-dashboard-grid" style="max-width: 1200px; margin: 0 auto;">
+                <!-- Affiliate list items will be dynamically generated here -->
             </div>
 
             <!-- Pagination Controls -->
@@ -1794,18 +2015,18 @@
         // ===== DEMO DATA (will be replaced by API calls) =====
 
         window.DEMO_WEEKLY_DATA = [
-    {rank: 1, name: 'rb3k', handle: '@rbthreek', avatar: 'RB', tweetScore: 0, botActivityScore: 172, total: 172, imgSrc: 'assets/images/affiliates/rbthreek.jpg', profileUrl: 'https://x.com/rbthreek', tgHandle: '@rbthreek'},
-    {rank: 2, name: 'N30', handle: '@N30_cryptoo', avatar: 'N3', tweetScore: 7, botActivityScore: 136, total: 144, imgSrc: 'assets/images/affiliates/N30_cryptoo.jpg', profileUrl: 'https://x.com/N30_cryptoo', tgHandle: '@N30_CRYPTO'},
-    {rank: 3, name: 'MJ', handle: '@Vanxyrus', avatar: 'MJ', tweetScore: 32, botActivityScore: 64, total: 96, imgSrc: 'assets/images/affiliates/Vanxyrus.jpg', profileUrl: 'https://x.com/Vanxyrus', tgHandle: '@Vanxyrus'},
-    {rank: 4, name: 'Flynn', handle: '@Flynn_howitt', avatar: 'FL', tweetScore: 91, botActivityScore: 0, total: 91, imgSrc: 'assets/images/affiliates/Flynn_howitt.jpg', profileUrl: 'https://x.com/Flynn_howitt', tgHandle: '@Flynn180'},
-    {rank: 5, name: 'Vince', handle: '@Chainriffs', avatar: 'VI', tweetScore: 81, botActivityScore: 0, total: 81, imgSrc: 'assets/images/affiliates/Chainriffs.jpg', profileUrl: 'https://x.com/Chainriffs', tgHandle: '@Chainriffss'},
-    {rank: 6, name: 'Techy', handle: '@techy0x', avatar: 'TE', tweetScore: 13, botActivityScore: 47, total: 60, imgSrc: 'assets/images/affiliates/techy0x.jpg', profileUrl: 'https://x.com/techy0x', tgHandle: '@techy0x'},
-    {rank: 7, name: 'LC', handle: '@mrLCguy', avatar: 'LC', tweetScore: 0, botActivityScore: 29, total: 29, imgSrc: 'assets/images/affiliates/mrLCguy.jpg', profileUrl: 'https://x.com/mrlcguy', tgHandle: '@cryptocchio0'},
-    {rank: 8, name: 'Arindewar', handle: '@arindewar', avatar: 'AR', tweetScore: 28, botActivityScore: 0, total: 28, imgSrc: 'assets/images/affiliates/arindewar.jpg', profileUrl: 'https://x.com/arindewar', tgHandle: '@arrieindewarrie'},
-    {rank: 9, name: 'thegardener', handle: '@thegardener777', avatar: 'TH', tweetScore: 0, botActivityScore: 26, total: 26, imgSrc: 'assets/images/affiliates/thegardener777.jpg', profileUrl: 'https://x.com/thegardener777', tgHandle: '@thegardener777'},
-    {rank: 10, name: 'chiron', handle: '@chironchain', avatar: 'CH', tweetScore: 0, botActivityScore: 21, total: 21, imgSrc: 'assets/images/affiliates/chironchain.jpg', profileUrl: 'https://x.com/chironchain', tgHandle: '@chironthetrader'},
-    {rank: 11, name: 'neolawyer 1', handle: '@Neolawyer1', avatar: 'NE', tweetScore: 0, botActivityScore: 20, total: 20, imgSrc: 'assets/images/affiliates/Neolawyer1.jpg', profileUrl: 'https://x.com/Neolawyer1', tgHandle: '@Neolawyer'},
-    {rank: 12, name: 'Tyler Kenney', handle: '@thebasedfrogx', avatar: 'TY', tweetScore: 0, botActivityScore: 4, total: 4, imgSrc: 'assets/images/affiliates/thebasedfrogx.jpg', profileUrl: 'https://x.com/thebasedfrogx', tgHandle: '@thebasedfrog'},
+    {rank: 1, name: 'rb3k', handle: '@rbthreek', avatar: 'RB', tweetScore: 0, botActivityScore: 172.59, total: 172.59, imgSrc: 'assets/images/affiliates/rbthreek.jpg', profileUrl: 'https://x.com/rbthreek', tgHandle: '@rbthreek'},
+    {rank: 2, name: 'MJ', handle: '@Vanxyrus', avatar: 'MJ', tweetScore: 0, botActivityScore: 64.02, total: 64.02, imgSrc: 'assets/images/affiliates/Vanxyrus.jpg', profileUrl: 'https://x.com/Vanxyrus', tgHandle: '@Vanxyrus'},
+    {rank: 3, name: 'Techy', handle: '@techy0x', avatar: 'TE', tweetScore: 0, botActivityScore: 47.21, total: 47.21, imgSrc: 'assets/images/affiliates/techy0x.jpg', profileUrl: 'https://x.com/techy0x', tgHandle: '@techy0x'},
+    {rank: 4, name: 'Arindewar', handle: '@arindewar', avatar: 'AR', tweetScore: 28.5, botActivityScore: 0, total: 28.5, imgSrc: 'assets/images/affiliates/arindewar.jpg', profileUrl: 'https://x.com/arindewar', tgHandle: '@arrieindewarrie'},
+    {rank: 5, name: 'thegardener', handle: '@thegardener777', avatar: 'TH', tweetScore: 0, botActivityScore: 26.38, total: 26.38, imgSrc: 'assets/images/affiliates/thegardener777.jpg', profileUrl: 'https://x.com/thegardener777', tgHandle: '@thegardener777'},
+    {rank: 6, name: 'chiron', handle: '@chironchain', avatar: 'CH', tweetScore: 0.0, botActivityScore: 21.0, total: 21.0, imgSrc: 'assets/images/affiliates/chironchain.jpg', profileUrl: 'https://x.com/chironchain', tgHandle: '@chironthetrader'},
+    {rank: 7, name: 'N30', handle: '@N30_cryptoo', avatar: 'N3', tweetScore: 0, botActivityScore: 0, total: 0, imgSrc: 'assets/images/affiliates/N30_cryptoo.jpg', profileUrl: 'https://x.com/N30_cryptoo', tgHandle: '@N30_CRYPTO'},
+    {rank: 8, name: 'Flynn', handle: '@Flynn_howitt', avatar: 'FL', tweetScore: 0, botActivityScore: 0, total: 0, imgSrc: 'assets/images/affiliates/Flynn_howitt.jpg', profileUrl: 'https://x.com/Flynn_howitt', tgHandle: '@Flynn180'},
+    {rank: 9, name: 'Vince', handle: '@Chainriffs', avatar: 'VI', tweetScore: 0, botActivityScore: 0, total: 0, imgSrc: 'assets/images/affiliates/Chainriffs.jpg', profileUrl: 'https://x.com/Chainriffs', tgHandle: '@Chainriffss'},
+    {rank: 10, name: 'LC', handle: '@mrLCguy', avatar: 'LC', tweetScore: 0, botActivityScore: 0, total: 0, imgSrc: 'assets/images/affiliates/mrLCguy.jpg', profileUrl: 'https://x.com/mrlcguy', tgHandle: '@cryptocchio0'},
+    {rank: 11, name: 'neolawyer 1', handle: '@Neolawyer1', avatar: 'NE', tweetScore: 0, botActivityScore: 0, total: 0, imgSrc: 'assets/images/affiliates/Neolawyer1.jpg', profileUrl: 'https://x.com/Neolawyer1', tgHandle: '@Neolawyer'},
+    {rank: 12, name: 'Tyler Kenney', handle: '@thebasedfrogx', avatar: 'TY', tweetScore: 0, botActivityScore: 0, total: 0, imgSrc: 'assets/images/affiliates/thebasedfrogx.jpg', profileUrl: 'https://x.com/thebasedfrogx', tgHandle: '@thebasedfrog'},
     {rank: 13, name: 'Spenny', handle: '@SpennyCrypto', avatar: 'SP', tweetScore: 0, botActivityScore: 0, total: 0, imgSrc: 'assets/images/affiliates/SpennyCrypto.jpg', profileUrl: 'https://x.com/SpennyCrypto', tgHandle: '@spennypretzel'},
     {rank: 14, name: 'Altcoin ALF', handle: '@alfy11116', avatar: 'AL', tweetScore: 0, botActivityScore: 0, total: 0, imgSrc: 'assets/images/affiliates/alfy11116.jpg', profileUrl: 'https://x.com/alfy11116', tgHandle: '@aLfy116'},
     {rank: 15, name: 'Anderson', handle: '@0x7_anderson', avatar: 'AN', tweetScore: 0, botActivityScore: 0, total: 0, imgSrc: 'assets/images/affiliates/0x7_anderson.jpg', profileUrl: 'https://x.com/0x7_anderson', tgHandle: '@tarcioanderson'},
@@ -2511,33 +2732,33 @@
         window.monthlyItemsPerPage = 8; // Show 8 affiliates per page (2 perfect rows of 4)
 
         window.DEMO_MONTHLY_DATA = [
-    {rank: 1, name: 'LC', handle: '@mrLCguy', avatar: 'LC', tweetScore: 0, botActivityScore: 0, total: 0, imgSrc: 'assets/images/affiliates/mrLCguy.jpg', profileUrl: 'https://x.com/mrlcguy', tgHandle: '@cryptocchio0'},
-    {rank: 2, name: 'Tyler Kenney', handle: '@thebasedfrogx', avatar: 'TY', tweetScore: 0, botActivityScore: 0, total: 0, imgSrc: 'assets/images/affiliates/thebasedfrogx.jpg', profileUrl: 'https://x.com/thebasedfrogx', tgHandle: '@thebasedfrog'},
-    {rank: 3, name: 'Spenny', handle: '@SpennyCrypto', avatar: 'SP', tweetScore: 0, botActivityScore: 0, total: 0, imgSrc: 'assets/images/affiliates/SpennyCrypto.jpg', profileUrl: 'https://x.com/SpennyCrypto', tgHandle: '@spennypretzel'},
-    {rank: 4, name: 'Altcoin ALF', handle: '@alfy11116', avatar: 'AL', tweetScore: 0, botActivityScore: 0, total: 0, imgSrc: 'assets/images/affiliates/alfy11116.jpg', profileUrl: 'https://x.com/alfy11116', tgHandle: '@aLfy116'},
-    {rank: 5, name: 'Techy', handle: '@techy0x', avatar: 'TE', tweetScore: 0, botActivityScore: 0, total: 0, imgSrc: 'assets/images/affiliates/techy0x.jpg', profileUrl: 'https://x.com/techy0x', tgHandle: '@techy0x'},
-    {rank: 6, name: 'Anderson', handle: '@0x7_anderson', avatar: 'AN', tweetScore: 0, botActivityScore: 0, total: 0, imgSrc: 'assets/images/affiliates/0x7_anderson.jpg', profileUrl: 'https://x.com/0x7_anderson', tgHandle: '@tarcioanderson'},
-    {rank: 7, name: 'Cryptic Tits', handle: '@cryptic_tits', avatar: 'CR', tweetScore: 0, botActivityScore: 0, total: 0, imgSrc: 'assets/images/affiliates/cryptic_tits.jpg', profileUrl: 'https://x.com/cryptic_tits', tgHandle: '@cryptic_t'},
-    {rank: 8, name: 'rb3k', handle: '@rbthreek', avatar: 'RB', tweetScore: 0, botActivityScore: 0, total: 0, imgSrc: 'assets/images/affiliates/rbthreek.jpg', profileUrl: 'https://x.com/rbthreek', tgHandle: '@rbthreek'},
-    {rank: 9, name: 'Debankindad', handle: '@DebankinDad', avatar: 'DE', tweetScore: 0, botActivityScore: 0, total: 0, imgSrc: 'assets/images/affiliates/DebankinDad.jpg', profileUrl: 'https://x.com/DebankinDad', tgHandle: 'DebankinDad'},
-    {rank: 10, name: 'Vince', handle: '@Chainriffs', avatar: 'VI', tweetScore: 0, botActivityScore: 0, total: 0, imgSrc: 'assets/images/affiliates/Chainriffs.jpg', profileUrl: 'https://x.com/Chainriffs', tgHandle: '@Chainriffss'},
-    {rank: 11, name: 'neolawyer 1', handle: '@Neolawyer1', avatar: 'NE', tweetScore: 0, botActivityScore: 0, total: 0, imgSrc: 'assets/images/affiliates/Neolawyer1.jpg', profileUrl: 'https://x.com/Neolawyer1', tgHandle: '@Neolawyer'},
-    {rank: 12, name: 'Zeus', handle: '@vlagudfsfjr', avatar: 'ZE', tweetScore: 0, botActivityScore: 0, total: 0, imgSrc: 'assets/images/affiliates/vlagudfsfjr.jpg', profileUrl: 'https://x.com/vlagudfsfjr', tgHandle: '@zeus4r'},
-    {rank: 13, name: 'Medbdy', handle: '@medbdy', avatar: 'ME', tweetScore: 0, botActivityScore: 0, total: 0, imgSrc: 'assets/images/affiliates/medbdy.jpg', profileUrl: 'https://x.com/medbdy', tgHandle: '@Medbdy7'},
-    {rank: 14, name: 'N30', handle: '@N30_cryptoo', avatar: 'N3', tweetScore: 0, botActivityScore: 0, total: 0, imgSrc: 'assets/images/affiliates/N30_cryptoo.jpg', profileUrl: 'https://x.com/N30_cryptoo', tgHandle: '@N30_CRYPTO'},
-    {rank: 15, name: 'Born', handle: '@unborninfinite', avatar: 'BO', tweetScore: 0, botActivityScore: 0, total: 0, imgSrc: 'assets/images/affiliates/unborninfinite.jpg', profileUrl: 'https://x.com/unborninfinite', tgHandle: '@veryborny'},
-    {rank: 16, name: 'MD!3e', handle: '@tibbiracer', avatar: 'MD', tweetScore: 0, botActivityScore: 0, total: 0, imgSrc: 'assets/images/affiliates/tibbiracer.jpg', profileUrl: 'https://x.com/tibbiracer', tgHandle: '@mDiBe89'},
-    {rank: 17, name: 'Altcoin Matcha', handle: '@AltcoinMatcha', avatar: 'AL', tweetScore: 0, botActivityScore: 0, total: 0, imgSrc: 'assets/images/affiliates/AltcoinMatcha.jpg', profileUrl: 'https://x.com/AltcoinMatcha', tgHandle: '@AltcoinMatcha'},
-    {rank: 18, name: 'Flynn', handle: '@Flynn_howitt', avatar: 'FL', tweetScore: 0, botActivityScore: 0, total: 0, imgSrc: 'assets/images/affiliates/Flynn_howitt.jpg', profileUrl: 'https://x.com/Flynn_howitt', tgHandle: '@Flynn180'},
-    {rank: 19, name: 'KAPO', handle: '@KAPOTHEGOAT01', avatar: 'KA', tweetScore: 0, botActivityScore: 0, total: 0, imgSrc: 'assets/images/affiliates/KAPOTHEGOAT01.jpg', profileUrl: 'https://x.com/KAPOTHEGOAT01', tgHandle: '@LUCKYL1MG'},
-    {rank: 20, name: 'Arindewar', handle: '@arindewar', avatar: 'AR', tweetScore: 0, botActivityScore: 0, total: 0, imgSrc: 'assets/images/affiliates/arindewar.jpg', profileUrl: 'https://x.com/arindewar', tgHandle: '@arrieindewarrie'},
-    {rank: 21, name: 'MJ', handle: '@Vanxyrus', avatar: 'MJ', tweetScore: 0, botActivityScore: 0, total: 0, imgSrc: 'assets/images/affiliates/Vanxyrus.jpg', profileUrl: 'https://x.com/Vanxyrus', tgHandle: '@Vanxyrus'},
-    {rank: 22, name: 'Premium Mind', handle: '@deepseektetra', avatar: 'PR', tweetScore: 0, botActivityScore: 0, total: 0, imgSrc: 'assets/images/affiliates/deepseektetra.jpg', profileUrl: 'https://x.com/deepseektetra', tgHandle: '@Elohim528'},
-    {rank: 23, name: 'Desp3rad0', handle: '@joebangsjr', avatar: 'DE', tweetScore: 0, botActivityScore: 0, total: 0, imgSrc: 'assets/images/affiliates/joebangsjr.jpg', profileUrl: 'https://x.com/joebangsjr', tgHandle: '@BigHammer'},
-    {rank: 24, name: 'Shake', handle: '@Shake51_', avatar: 'SH', tweetScore: 0, botActivityScore: 0, total: 0, imgSrc: 'assets/images/affiliates/Shake51_.jpg', profileUrl: 'https://x.com/Shake51_', tgHandle: '@Shake51'},
-    {rank: 25, name: 'BasePop', handle: '@KD11201', avatar: 'BA', tweetScore: 0, botActivityScore: 0, total: 0, imgSrc: 'assets/images/affiliates/KD11201.jpg', profileUrl: 'https://x.com/KD11201', tgHandle: '@Kd11201'},
-    {rank: 26, name: 'chiron', handle: '@chironchain', avatar: 'CH', tweetScore: 0, botActivityScore: 0, total: 0, imgSrc: 'assets/images/affiliates/chironchain.jpg', profileUrl: 'https://x.com/chironchain', tgHandle: '@chironthetrader'},
-    {rank: 27, name: 'thegardener', handle: '@thegardener777', avatar: 'TH', tweetScore: 0, botActivityScore: 0, total: 0, imgSrc: 'assets/images/affiliates/thegardener777.jpg', profileUrl: 'https://x.com/thegardener777', tgHandle: '@thegardener777'}
+    {rank: 1, name: 'rb3k', handle: '@rbthreek', avatar: 'RB', tweetScore: 25.99, botActivityScore: 1683.89, total: 1709.88, imgSrc: 'assets/images/affiliates/rbthreek.jpg', profileUrl: 'https://x.com/rbthreek', tgHandle: '@rbthreek'},
+    {rank: 2, name: 'MJ', handle: '@Vanxyrus', avatar: 'MJ', tweetScore: 139.08, botActivityScore: 38.01, total: 177.09, imgSrc: 'assets/images/affiliates/Vanxyrus.jpg', profileUrl: 'https://x.com/Vanxyrus', tgHandle: '@Vanxyrus'},
+    {rank: 3, name: 'N30', handle: '@N30_cryptoo', avatar: 'N3', tweetScore: 101.24, botActivityScore: 0, total: 101.24, imgSrc: 'assets/images/affiliates/N30_cryptoo.jpg', profileUrl: 'https://x.com/N30_cryptoo', tgHandle: '@N30_CRYPTO'},
+    {rank: 4, name: 'Techy', handle: '@techy0x', avatar: 'TE', tweetScore: 15, botActivityScore: 47.21, total: 62.21, imgSrc: 'assets/images/affiliates/techy0x.jpg', profileUrl: 'https://x.com/techy0x', tgHandle: '@techy0x'},
+    {rank: 5, name: 'Spenny', handle: '@SpennyCrypto', avatar: 'SP', tweetScore: 50.48, botActivityScore: 0, total: 50.48, imgSrc: 'assets/images/affiliates/SpennyCrypto.jpg', profileUrl: 'https://x.com/SpennyCrypto', tgHandle: '@spennypretzel'},
+    {rank: 6, name: 'Arindewar', handle: '@arindewar', avatar: 'AR', tweetScore: 46.5, botActivityScore: 0, total: 46.5, imgSrc: 'assets/images/affiliates/arindewar.jpg', profileUrl: 'https://x.com/arindewar', tgHandle: '@arrieindewarrie'},
+    {rank: 7, name: 'Tyler Kenney', handle: '@thebasedfrogx', avatar: 'TY', tweetScore: 39.64, botActivityScore: 0, total: 39.64, imgSrc: 'assets/images/affiliates/thebasedfrogx.jpg', profileUrl: 'https://x.com/thebasedfrogx', tgHandle: '@thebasedfrog'},
+    {rank: 8, name: 'Flynn', handle: '@Flynn_howitt', avatar: 'FL', tweetScore: 31.34, botActivityScore: 0, total: 31.34, imgSrc: 'assets/images/affiliates/Flynn_howitt.jpg', profileUrl: 'https://x.com/Flynn_howitt', tgHandle: '@Flynn180'},
+    {rank: 9, name: 'Vince', handle: '@Chainriffs', avatar: 'VI', tweetScore: 29.42, botActivityScore: 0, total: 29.42, imgSrc: 'assets/images/affiliates/Chainriffs.jpg', profileUrl: 'https://x.com/Chainriffs', tgHandle: '@Chainriffss'},
+    {rank: 10, name: 'Born', handle: '@unborninfinite', avatar: 'BO', tweetScore: 28.24, botActivityScore: 0, total: 28.24, imgSrc: 'assets/images/affiliates/unborninfinite.jpg', profileUrl: 'https://x.com/unborninfinite', tgHandle: '@veryborny'},
+    {rank: 11, name: 'thegardener', handle: '@thegardener777', avatar: 'TH', tweetScore: 0, botActivityScore: 26.38, total: 26.38, imgSrc: 'assets/images/affiliates/thegardener777.jpg', profileUrl: 'https://x.com/thegardener777', tgHandle: '@thegardener777'},
+    {rank: 12, name: 'Desp3rad0', handle: '@joebangsjr', avatar: 'DE', tweetScore: 24.62, botActivityScore: 0, total: 24.62, imgSrc: 'assets/images/affiliates/joebangsjr.jpg', profileUrl: 'https://x.com/joebangsjr', tgHandle: '@BigHammer'},
+    {rank: 13, name: 'KAPO', handle: '@KAPOTHEGOAT01', avatar: 'KA', tweetScore: 24.11, botActivityScore: 0, total: 24.11, imgSrc: 'assets/images/affiliates/KAPOTHEGOAT01.jpg', profileUrl: 'https://x.com/KAPOTHEGOAT01', tgHandle: '@LUCKYL1MG'},
+    {rank: 14, name: 'Premium Mind', handle: '@deepseektetra', avatar: 'PR', tweetScore: 22.73, botActivityScore: 0, total: 22.73, imgSrc: 'assets/images/affiliates/deepseektetra.jpg', profileUrl: 'https://x.com/deepseektetra', tgHandle: '@Elohim528'},
+    {rank: 15, name: 'Debankindad', handle: '@DebankinDad', avatar: 'DE', tweetScore: 19.52, botActivityScore: 0, total: 19.52, imgSrc: 'assets/images/affiliates/DebankinDad.jpg', profileUrl: 'https://x.com/DebankinDad', tgHandle: 'DebankinDad'},
+    {rank: 16, name: 'LC', handle: '@mrLCguy', avatar: 'LC', tweetScore: 15, botActivityScore: 0, total: 15, imgSrc: 'assets/images/affiliates/mrLCguy.jpg', profileUrl: 'https://x.com/mrlcguy', tgHandle: '@cryptocchio0'},
+    {rank: 17, name: 'neolawyer 1', handle: '@Neolawyer1', avatar: 'NE', tweetScore: 15, botActivityScore: 0, total: 15, imgSrc: 'assets/images/affiliates/Neolawyer1.jpg', profileUrl: 'https://x.com/Neolawyer1', tgHandle: '@Neolawyer'},
+    {rank: 18, name: 'Altcoin Matcha', handle: '@AltcoinMatcha', avatar: 'AL', tweetScore: 15, botActivityScore: 0, total: 15, imgSrc: 'assets/images/affiliates/AltcoinMatcha.jpg', profileUrl: 'https://x.com/AltcoinMatcha', tgHandle: '@AltcoinMatcha'},
+    {rank: 19, name: 'Shake', handle: '@Shake51_', avatar: 'SH', tweetScore: 15, botActivityScore: 0, total: 15, imgSrc: 'assets/images/affiliates/Shake51_.jpg', profileUrl: 'https://x.com/Shake51_', tgHandle: '@Shake51'},
+    {rank: 20, name: 'BasePop', handle: '@KD11201', avatar: 'BA', tweetScore: 15, botActivityScore: 0, total: 15, imgSrc: 'assets/images/affiliates/KD11201.jpg', profileUrl: 'https://x.com/KD11201', tgHandle: '@Kd11201'},
+    {rank: 21, name: 'MD!3e', handle: '@tibbiracer', avatar: 'MD', tweetScore: 3.09, botActivityScore: 0, total: 3.09, imgSrc: 'assets/images/affiliates/tibbiracer.jpg', profileUrl: 'https://x.com/tibbiracer', tgHandle: '@mDiBe89'},
+    {rank: 22, name: 'Zeus', handle: '@vlagudfsfjr', avatar: 'ZE', tweetScore: 0.9, botActivityScore: 0, total: 0.9, imgSrc: 'assets/images/affiliates/vlagudfsfjr.jpg', profileUrl: 'https://x.com/vlagudfsfjr', tgHandle: '@zeus4r'},
+    {rank: 23, name: 'Altcoin ALF', handle: '@alfy11116', avatar: 'AL', tweetScore: 0, botActivityScore: 0, total: 0, imgSrc: 'assets/images/affiliates/alfy11116.jpg', profileUrl: 'https://x.com/alfy11116', tgHandle: '@aLfy116'},
+    {rank: 24, name: 'Anderson', handle: '@0x7_anderson', avatar: 'AN', tweetScore: 0, botActivityScore: 0, total: 0, imgSrc: 'assets/images/affiliates/0x7_anderson.jpg', profileUrl: 'https://x.com/0x7_anderson', tgHandle: '@tarcioanderson'},
+    {rank: 25, name: 'Cryptic Tits', handle: '@cryptic_tits', avatar: 'CR', tweetScore: 0, botActivityScore: 0, total: 0, imgSrc: 'assets/images/affiliates/cryptic_tits.jpg', profileUrl: 'https://x.com/cryptic_tits', tgHandle: '@cryptic_t'},
+    {rank: 26, name: 'Medbdy', handle: '@medbdy', avatar: 'ME', tweetScore: 0, botActivityScore: 0, total: 0, imgSrc: 'assets/images/affiliates/medbdy.jpg', profileUrl: 'https://x.com/medbdy', tgHandle: '@Medbdy7'},
+    {rank: 27, name: 'chiron', handle: '@chironchain', avatar: 'CH', tweetScore: 0.0, botActivityScore: 0.0, total: 0.0, imgSrc: 'assets/images/affiliates/chironchain.jpg', profileUrl: 'https://x.com/chironchain', tgHandle: '@chironthetrader'}
 ];
 
         // Monthly data is currently hardcoded as DEMO_MONTHLY_DATA

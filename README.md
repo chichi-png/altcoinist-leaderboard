@@ -62,7 +62,19 @@ All rankings use the same data structure with correct field names:
 - Weekly: `window.DEMO_WEEKLY_DATA` (~line 1857)
 - Monthly: `window.DEMO_MONTHLY_DATA` (~line 2575)
 
-**Sync Data:** Use `sync-leaderboard-data.py` to pull current scores from Notion databases
+**Sync Data:** Run `python sync-leaderboard-data.py` to automatically fetch scores from Notion and update the HTML file
+
+```bash
+cd tools/affiliate-leaderboard
+python sync-leaderboard-data.py
+```
+
+This script:
+- Fetches weekly & monthly scores from Notion (Tweet Scores + Bot Activity databases)
+- Matches scores with affiliates by X handle
+- Automatically updates `leaderboard.html` with real data
+- Preserves all metadata (names, avatars, profile URLs)
+- Re-ranks affiliates by total score
 
 ## 🔄 Navigation
 
