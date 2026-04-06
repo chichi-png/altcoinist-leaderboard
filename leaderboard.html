@@ -403,33 +403,44 @@
            ======================================== */
         @media (max-width: 768px) {
             .podium {
-                transform: scale(0.55) !important;
+                transform: scale(0.40) !important;
                 transform-origin: top center;
-                margin: -2rem auto 0 auto !important;
+                margin: -4rem auto -2rem auto !important;
                 padding: 0 !important;
+                width: 100% !important;
             }
 
             .podium-card {
-                max-width: 95% !important;
-                margin: 0.5rem auto !important;
+                max-width: 98% !important;
+                margin: 0.3rem auto !important;
             }
 
             .landing-title {
-                font-size: 1.6rem !important;
+                font-size: 1.5rem !important;
                 margin-bottom: 0.5rem !important;
                 padding: 0 1rem !important;
             }
 
             #home-page .landing {
-                padding-top: 5rem !important;
+                padding-top: 4rem !important;
                 min-height: 100vh !important;
+                overflow-y: auto !important;
             }
 
             /* Ensure podium cards are visible */
-            .podium-card .rank-1,
-            .podium-card .rank-2,
-            .podium-card .rank-3 {
+            .podium-card.rank-1,
+            .podium-card.rank-2,
+            .podium-card.rank-3 {
                 width: 100% !important;
+                display: block !important;
+            }
+
+            /* Compact podium layout */
+            .podium {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 0 !important;
             }
         }
     </style>
