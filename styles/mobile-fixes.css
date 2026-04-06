@@ -535,6 +535,102 @@
     }
 
     /* ========================================
+       FIX 18: WEEKLY/MONTHLY PAGE SCALING
+       Issue: Pages still too big, pagination hidden
+       Solution: Scale entire page content down, ensure pagination visible
+       ======================================== */
+
+    #weekly-page,
+    #monthly-page {
+        padding-top: 80px !important;
+        padding-bottom: 100px !important;
+        overflow-y: auto !important;
+        min-height: 100vh !important;
+    }
+
+    #weekly-page > section,
+    #monthly-page > section {
+        transform: scale(0.9) !important;
+        transform-origin: top center !important;
+        padding: 1rem 0.5rem !important;
+        width: 111% !important; /* Compensate for scale */
+        margin-left: -5.5% !important; /* Center after scale */
+    }
+
+    /* Make tables more compact */
+    #weekly-page table,
+    #monthly-page table {
+        font-size: 0.85rem !important;
+    }
+
+    #weekly-page table th,
+    #monthly-page table th,
+    #weekly-page table td,
+    #monthly-page table td {
+        padding: 8px 6px !important;
+    }
+
+    /* Force pagination to be at bottom and visible */
+    #weekly-pagination,
+    #monthly-pagination {
+        position: relative !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        background: rgba(10, 14, 26, 0.98) !important;
+        padding: 2rem 0.5rem !important;
+        margin: 2rem 0 0 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1rem !important;
+        z-index: 1000 !important;
+    }
+
+    /* ========================================
+       FIX 19: AFFILIATES DIRECTORY SCALING
+       Issue: Cards too big, pagination not visible
+       Solution: Scale cards down more, fix pagination
+       ======================================== */
+
+    #affiliates-page {
+        padding-top: 80px !important;
+        padding-bottom: 120px !important;
+        overflow-y: auto !important;
+    }
+
+    #affiliates-page .hall-card,
+    #affiliates-page .affiliate-card {
+        transform: scale(0.7) !important;
+        transform-origin: center !important;
+        margin: -1rem auto !important; /* Negative margin to close gaps from scaling */
+    }
+
+    /* Grid layout for affiliate cards */
+    .hall-grid,
+    #affiliatesPageContent {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 0.5rem !important;
+        padding: 0.5rem !important;
+    }
+
+    /* Affiliates pagination - force visibility */
+    #affiliates-page .pagination-controls {
+        position: relative !important;
+        bottom: 0 !important;
+        width: 100% !important;
+        background: rgba(10, 14, 26, 0.98) !important;
+        padding: 2.5rem 1rem !important;
+        margin-top: 2rem !important;
+        z-index: 1000 !important;
+        display: flex !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 1rem !important;
+    }
+
+    /* ========================================
        FIX 17: AFFILIATE DIRECTORY CARDS
        Issue: Cards too big, can't navigate
        Solution: Shrink cards, ensure pagination visible
