@@ -591,7 +591,7 @@
         min-height: 120px !important;
     }
 
-    /* Make pagination buttons very visible */
+    /* Make pagination buttons smaller and compact */
     #weekly-pagination button,
     #monthly-pagination button {
         background: rgba(2, 242, 111, 0.15) !important;
@@ -599,6 +599,30 @@
         color: var(--neon-market-green) !important;
         font-weight: 600 !important;
         box-shadow: 0 0 10px rgba(2, 242, 111, 0.3) !important;
+        min-width: 60px !important;
+        min-height: 40px !important;
+        padding: 0.5rem 0.75rem !important;
+        font-size: 0.85rem !important;
+        margin: 0.25rem !important;
+    }
+
+    /* Make button containers horizontal and compact */
+    #weekly-pagination > div,
+    #monthly-pagination > div {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        gap: 0.5rem !important;
+        justify-content: center !important;
+    }
+
+    /* Reduce overall pagination height */
+    #weekly-pagination,
+    #monthly-pagination {
+        padding: 1.5rem 0.5rem !important;
+        margin: 1.5rem 0 0 0 !important;
+        min-height: auto !important;
+        gap: 1rem !important;
     }
 
     /* ========================================
