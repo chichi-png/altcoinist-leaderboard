@@ -403,22 +403,33 @@
            ======================================== */
         @media (max-width: 768px) {
             .podium {
-                transform: scale(0.75);
+                transform: scale(0.55) !important;
                 transform-origin: top center;
-                margin: 1rem auto;
+                margin: -2rem auto 0 auto !important;
+                padding: 0 !important;
             }
 
             .podium-card {
-                max-width: 90%;
+                max-width: 95% !important;
+                margin: 0.5rem auto !important;
             }
 
             .landing-title {
-                font-size: 1.8rem !important;
-                margin-bottom: 1rem !important;
+                font-size: 1.6rem !important;
+                margin-bottom: 0.5rem !important;
+                padding: 0 1rem !important;
             }
 
             #home-page .landing {
-                padding-top: 6rem;
+                padding-top: 5rem !important;
+                min-height: 100vh !important;
+            }
+
+            /* Ensure podium cards are visible */
+            .podium-card .rank-1,
+            .podium-card .rank-2,
+            .podium-card .rank-3 {
+                width: 100% !important;
             }
         }
     </style>

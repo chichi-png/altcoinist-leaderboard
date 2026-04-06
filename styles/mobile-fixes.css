@@ -473,9 +473,9 @@
     }
 
     /* ========================================
-       FIX 16: PAGINATION VISIBILITY
-       Issue: Pagination controls cut off/hidden
-       Solution: Stack vertically, ensure visibility
+       FIX 16: PAGINATION VISIBILITY (ENHANCED)
+       Issue: Pagination controls cut off/hidden, can't see Next button
+       Solution: Force visibility, add spacing, ensure buttons show
        ======================================== */
 
     #weekly-pagination,
@@ -483,10 +483,14 @@
     #alltime-pagination {
         display: flex !important;
         flex-direction: column !important;
-        gap: 1rem !important;
-        padding: 1.5rem 0.5rem !important;
+        gap: 1.5rem !important;
+        padding: 2rem 1rem 3rem 1rem !important;
         width: 100% !important;
-        margin-top: 1rem !important;
+        margin-top: 2rem !important;
+        margin-bottom: 2rem !important;
+        background: rgba(10, 14, 26, 0.98) !important;
+        position: relative !important;
+        z-index: 100 !important;
     }
 
     #weekly-pagination > div,
@@ -494,7 +498,25 @@
     #alltime-pagination > div {
         flex-wrap: wrap !important;
         justify-content: center !important;
-        gap: 0.5rem !important;
+        gap: 0.75rem !important;
+        width: 100% !important;
+    }
+
+    /* Ensure Previous/Next buttons are visible and large enough */
+    #weekly-pagination button,
+    #monthly-pagination button,
+    #alltime-pagination button {
+        min-width: 80px !important;
+        min-height: 48px !important;
+        padding: 0.75rem 1rem !important;
+        font-size: 0.9rem !important;
+        margin: 0.25rem !important;
+    }
+
+    /* Add clear spacing between table and pagination */
+    #weekly-dashboard-grid,
+    #monthly-dashboard-grid {
+        margin-bottom: 3rem !important;
     }
 
     /* ========================================
