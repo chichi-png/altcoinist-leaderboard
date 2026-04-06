@@ -440,6 +440,92 @@
         padding: 0.4rem 0.6rem !important;
         font-size: 0.8rem !important;
     }
+
+    /* ========================================
+       FIX 15: TABLE COLUMN SIMPLIFICATION
+       Issue: Tweet/Bot Activity columns cut off
+       Solution: Hide columns 3 & 4, show only Rank + Affiliate + Total
+       ======================================== */
+
+    /* Hide Tweet Score column (3rd column) */
+    table th:nth-child(3),
+    table td:nth-child(3) {
+        display: none !important;
+    }
+
+    /* Hide Bot Activity column (4th column) */
+    table th:nth-child(4),
+    table td:nth-child(4) {
+        display: none !important;
+    }
+
+    /* Optimize Total Score column (5th column - now appears as 3rd) */
+    table th:nth-child(5),
+    table td:nth-child(5) {
+        text-align: center !important;
+        padding: 12px 8px !important;
+    }
+
+    /* Make affiliate column wider since we have more space */
+    table th:nth-child(2),
+    table td:nth-child(2) {
+        width: 60% !important;
+    }
+
+    /* ========================================
+       FIX 16: PAGINATION VISIBILITY
+       Issue: Pagination controls cut off/hidden
+       Solution: Stack vertically, ensure visibility
+       ======================================== */
+
+    #weekly-pagination,
+    #monthly-pagination,
+    #alltime-pagination {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1rem !important;
+        padding: 1.5rem 0.5rem !important;
+        width: 100% !important;
+        margin-top: 1rem !important;
+    }
+
+    #weekly-pagination > div,
+    #monthly-pagination > div,
+    #alltime-pagination > div {
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 0.5rem !important;
+    }
+
+    /* ========================================
+       FIX 17: AFFILIATE DIRECTORY CARDS
+       Issue: Cards too big, can't navigate
+       Solution: Shrink cards, ensure pagination visible
+       ======================================== */
+
+    .hall-card,
+    .affiliate-card,
+    #xProfilesPageContent .hall-card {
+        transform: scale(0.85) !important;
+        transform-origin: center !important;
+        margin: 0.5rem auto !important;
+    }
+
+    /* Ensure pagination buttons stay visible and clickable */
+    .pagination-controls,
+    #xProfilesPageContent + div {
+        position: relative !important;
+        z-index: 1000 !important;
+        padding: 2rem 0.5rem !important;
+        margin-top: 1rem !important;
+        background: rgba(10, 14, 26, 0.95) !important;
+    }
+
+    .pagination-controls button {
+        min-width: 44px !important;
+        min-height: 44px !important;
+        touch-action: manipulation !important;
+    }
 }
 
 /* ============================================
