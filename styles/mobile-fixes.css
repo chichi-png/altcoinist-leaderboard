@@ -535,42 +535,45 @@
     }
 
     /* ========================================
-       FIX 18: WEEKLY/MONTHLY PAGE SCALING
-       Issue: Pages still too big, pagination hidden
-       Solution: Scale entire page content down, ensure pagination visible
+       FIX 18: WEEKLY/MONTHLY PAGE SCALING (ENHANCED)
+       Issue: Pagination partially visible or missing
+       Solution: Aggressive bottom padding, fixed pagination position
        ======================================== */
 
     #weekly-page,
     #monthly-page {
         padding-top: 80px !important;
-        padding-bottom: 100px !important;
+        padding-bottom: 200px !important; /* Increased from 100px */
         overflow-y: auto !important;
+        overflow-x: hidden !important;
         min-height: 100vh !important;
+        height: auto !important;
     }
 
     #weekly-page > section,
     #monthly-page > section {
-        transform: scale(0.9) !important;
+        transform: scale(0.85) !important; /* Smaller - was 0.9 */
         transform-origin: top center !important;
-        padding: 1rem 0.5rem !important;
-        width: 111% !important; /* Compensate for scale */
-        margin-left: -5.5% !important; /* Center after scale */
+        padding: 1rem 0.5rem 150px 0.5rem !important; /* Extra bottom padding */
+        width: 118% !important; /* Compensate for 0.85 scale */
+        margin-left: -9% !important; /* Center after scale */
     }
 
     /* Make tables more compact */
     #weekly-page table,
     #monthly-page table {
-        font-size: 0.85rem !important;
+        font-size: 0.8rem !important;
+        margin-bottom: 2rem !important;
     }
 
     #weekly-page table th,
     #monthly-page table th,
     #weekly-page table td,
     #monthly-page table td {
-        padding: 8px 6px !important;
+        padding: 6px 4px !important;
     }
 
-    /* Force pagination to be at bottom and visible */
+    /* CRITICAL: Force pagination to be visible and at bottom */
     #weekly-pagination,
     #monthly-pagination {
         position: relative !important;
@@ -578,13 +581,24 @@
         left: 0 !important;
         right: 0 !important;
         width: 100% !important;
-        background: rgba(10, 14, 26, 0.98) !important;
-        padding: 2rem 0.5rem !important;
-        margin: 2rem 0 0 0 !important;
+        background: linear-gradient(to top, #0a0e1a 80%, transparent) !important;
+        padding: 3rem 1rem !important;
+        margin: 3rem 0 0 0 !important;
         display: flex !important;
         flex-direction: column !important;
-        gap: 1rem !important;
-        z-index: 1000 !important;
+        gap: 1.5rem !important;
+        z-index: 10000 !important;
+        min-height: 120px !important;
+    }
+
+    /* Make pagination buttons very visible */
+    #weekly-pagination button,
+    #monthly-pagination button {
+        background: rgba(2, 242, 111, 0.15) !important;
+        border: 2px solid var(--neon-market-green) !important;
+        color: var(--neon-market-green) !important;
+        font-weight: 600 !important;
+        box-shadow: 0 0 10px rgba(2, 242, 111, 0.3) !important;
     }
 
     /* ========================================
