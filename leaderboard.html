@@ -399,48 +399,38 @@
         }
 
         /* ========================================
-           MOBILE FIX: LANDING PAGE PODIUM
+           MOBILE FIX: LANDING PAGE - SIMPLE TOP 3 LIST
            ======================================== */
         @media (max-width: 768px) {
+            /* Hide fancy podium on mobile */
             .podium {
-                transform: scale(0.40) !important;
-                transform-origin: top center;
-                margin: -4rem auto -2rem auto !important;
-                padding: 0 !important;
-                width: 100% !important;
+                display: none !important;
             }
 
-            .podium-card {
-                max-width: 98% !important;
-                margin: 0.3rem auto !important;
+            /* Show simple mobile list */
+            .mobile-top-3 {
+                display: block !important;
+                padding: 1rem 0.5rem !important;
+                margin-top: 1rem !important;
             }
 
             .landing-title {
-                font-size: 1.5rem !important;
-                margin-bottom: 0.5rem !important;
+                font-size: 1.8rem !important;
+                margin-bottom: 1rem !important;
                 padding: 0 1rem !important;
+                text-align: center !important;
             }
 
             #home-page .landing {
-                padding-top: 4rem !important;
+                padding-top: 6rem !important;
                 min-height: 100vh !important;
                 overflow-y: auto !important;
+                padding-bottom: 2rem !important;
             }
 
-            /* Ensure podium cards are visible */
-            .podium-card.rank-1,
-            .podium-card.rank-2,
-            .podium-card.rank-3 {
-                width: 100% !important;
-                display: block !important;
-            }
-
-            /* Compact podium layout */
-            .podium {
-                display: flex !important;
-                flex-direction: column !important;
-                align-items: center !important;
-                gap: 0 !important;
+            /* Hide spotlights on mobile for performance */
+            .spotlight {
+                display: none !important;
             }
         }
     </style>
@@ -520,6 +510,54 @@
 
         <h1 class="landing-title">Top Performers</h1>
         <!-- Subtitle removed per user request -->
+
+        <!-- Mobile-Only Simple Top 3 List -->
+        <div class="mobile-top-3" style="display: none;">
+            <!-- Rank 1 -->
+            <div class="mobile-rank-card" style="background: linear-gradient(135deg, rgba(2, 242, 111, 0.15), rgba(2, 242, 111, 0.05)); border: 2px solid var(--neon-market-green); border-radius: 16px; padding: 1.5rem; margin: 1rem; position: relative;">
+                <div style="position: absolute; top: -12px; left: 16px; background: var(--neon-market-green); color: #0a0e1a; padding: 6px 16px; border-radius: 20px; font-weight: 900; font-size: 0.9rem;">
+                    🥇 RANK 1
+                </div>
+                <div style="display: flex; align-items: center; gap: 1rem; margin-top: 1rem;">
+                    <img src="assets/images/affiliates/rbthreek.jpg" alt="rb3k" style="width: 70px; height: 70px; border-radius: 50%; border: 3px solid var(--neon-market-green); object-fit: cover;" onerror="this.style.display='none'">
+                    <div style="flex: 1;">
+                        <div style="font-size: 1.3rem; font-weight: 700; color: white; margin-bottom: 0.25rem;">rb3k</div>
+                        <div style="font-size: 1rem; color: var(--electric-mint); margin-bottom: 0.5rem;">@rbthreek</div>
+                        <div style="font-size: 1.5rem; font-weight: 900; color: var(--neon-market-green);">3,958 pts</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rank 2 -->
+            <div class="mobile-rank-card" style="background: linear-gradient(135deg, rgba(2, 242, 111, 0.1), rgba(2, 242, 111, 0.03)); border: 2px solid rgba(2, 242, 111, 0.5); border-radius: 16px; padding: 1.5rem; margin: 1rem; position: relative;">
+                <div style="position: absolute; top: -12px; left: 16px; background: rgba(2, 242, 111, 0.8); color: #0a0e1a; padding: 6px 16px; border-radius: 20px; font-weight: 700; font-size: 0.85rem;">
+                    🥈 RANK 2
+                </div>
+                <div style="display: flex; align-items: center; gap: 1rem; margin-top: 1rem;">
+                    <img src="assets/images/affiliates/N30_cryptoo.jpg" alt="N30" style="width: 60px; height: 60px; border-radius: 50%; border: 2px solid rgba(2, 242, 111, 0.5); object-fit: cover;" onerror="this.style.display='none'">
+                    <div style="flex: 1;">
+                        <div style="font-size: 1.2rem; font-weight: 600; color: white; margin-bottom: 0.25rem;">N30</div>
+                        <div style="font-size: 0.95rem; color: var(--electric-mint); margin-bottom: 0.5rem;">@N30_cryptoo</div>
+                        <div style="font-size: 1.3rem; font-weight: 700; color: var(--neon-market-green);">493 pts</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rank 3 -->
+            <div class="mobile-rank-card" style="background: linear-gradient(135deg, rgba(2, 242, 111, 0.08), rgba(2, 242, 111, 0.02)); border: 2px solid rgba(2, 242, 111, 0.3); border-radius: 16px; padding: 1.5rem; margin: 1rem; position: relative;">
+                <div style="position: absolute; top: -12px; left: 16px; background: rgba(2, 242, 111, 0.6); color: #0a0e1a; padding: 6px 16px; border-radius: 20px; font-weight: 700; font-size: 0.85rem;">
+                    🥉 RANK 3
+                </div>
+                <div style="display: flex; align-items: center; gap: 1rem; margin-top: 1rem;">
+                    <img src="assets/images/affiliates/Vanxyrus.jpg" alt="MJ" style="width: 60px; height: 60px; border-radius: 50%; border: 2px solid rgba(2, 242, 111, 0.3); object-fit: cover;" onerror="this.style.display='none'">
+                    <div style="flex: 1;">
+                        <div style="font-size: 1.2rem; font-weight: 600; color: white; margin-bottom: 0.25rem;">MJ</div>
+                        <div style="font-size: 0.95rem; color: var(--electric-mint); margin-bottom: 0.5rem;">@Vanxyrus</div>
+                        <div style="font-size: 1.3rem; font-weight: 700; color: var(--neon-market-green);">361 pts</div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Top 3 Holographic Pedestals -->
         <div class="podium">
