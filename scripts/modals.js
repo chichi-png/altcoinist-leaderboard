@@ -106,10 +106,10 @@ window.openAffiliateModal = function(affiliate) {
                 </div>
                 <div style="text-align: center;">
                     <div style="font-size: 0.85rem; font-weight: 600; color: var(--electric-mint); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: var(--space-2);">
-                        Score
+                        Total Score
                     </div>
                     <div style="font-family: 'Orbitron', sans-serif; font-size: 2.2rem; font-weight: 700; color: var(--neon-market-green); ${isTopThree ? 'text-shadow: 0 0 10px var(--glow-green);' : ''}">
-                        ${affiliate.weeklyScore || affiliate.monthlyScore || 0}
+                        ${affiliate.total || 0}
                     </div>
                 </div>
             </div>

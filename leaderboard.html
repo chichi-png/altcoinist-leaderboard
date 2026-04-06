@@ -2717,7 +2717,8 @@
         }
 
         function changeWeeklyPage(newPage) {
-            const totalPages = Math.ceil(weeklyData.length / weeklyItemsPerPage);
+            const dataToUse = filteredWeeklyData.length > 0 ? filteredWeeklyData : weeklyData;
+            const totalPages = Math.ceil(dataToUse.length / weeklyItemsPerPage);
             if (newPage < 1 || newPage > totalPages) return;
 
             weeklyCurrentPage = newPage;
@@ -2943,7 +2944,8 @@
         }
 
         function changeMonthlyPage(newPage) {
-            const totalPages = Math.ceil(monthlyData.length / monthlyItemsPerPage);
+            const dataToUse = filteredMonthlyData.length > 0 ? filteredMonthlyData : monthlyData;
+            const totalPages = Math.ceil(dataToUse.length / monthlyItemsPerPage);
             if (newPage < 1 || newPage > totalPages) return;
 
             monthlyCurrentPage = newPage;
