@@ -281,7 +281,6 @@
 
     button,
     .btn,
-    .nav-btn,
     a[onclick] {
         min-height: 44px;
         min-width: 44px;
@@ -290,9 +289,25 @@
         touch-action: manipulation;
     }
 
-    .nav-container {
-        flex-wrap: wrap;
-        gap: 0.5rem;
+    /* Header navigation buttons - smaller on mobile */
+    .nav-btn,
+    header .nav-btn,
+    #mainHeader .nav-btn {
+        min-height: 40px !important;
+        min-width: auto !important;
+        padding: 0.5rem 0.75rem !important;
+        font-size: 0.75rem !important;
+        letter-spacing: 0.3px !important;
+        white-space: nowrap !important;
+    }
+
+    .nav-container,
+    header nav,
+    #mainHeader nav {
+        flex-wrap: wrap !important;
+        gap: 0.4rem !important;
+        justify-content: center !important;
+        padding: 0.75rem 0.5rem !important;
     }
 
     /* ========================================
