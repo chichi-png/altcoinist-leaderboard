@@ -549,28 +549,23 @@
         overflow: visible !important; /* Force visible overflow */
         min-height: 100vh !important;
         height: auto !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important; /* Center content horizontally */
     }
 
     #weekly-page > section,
     #monthly-page > section {
         transform: scale(0.85) !important; /* Smaller - was 0.9 */
         transform-origin: top center !important;
-        padding: 1rem 0 250px 0 !important; /* Massive bottom padding, no side padding */
+        padding: 1rem 0.5rem 250px 0.5rem !important; /* Massive bottom padding */
         width: 118% !important; /* Compensate for 0.85 scale */
-        margin: 0 auto !important; /* Center with auto margins */
-        margin-left: -9% !important; /* Fine-tune center after scale */
+        margin-left: -9% !important; /* Center after scale */
         overflow: visible !important; /* Don't clip pagination */
     }
 
-    /* Make tables more compact and centered */
+    /* Make tables more compact */
     #weekly-page table,
     #monthly-page table {
         font-size: 0.8rem !important;
-        margin: 0 auto 2rem auto !important; /* Center table */
-        width: 100% !important;
+        margin-bottom: 2rem !important;
     }
 
     #weekly-page table th,
@@ -578,24 +573,6 @@
     #weekly-page table td,
     #monthly-page table td {
         padding: 6px 4px !important;
-        text-align: center !important; /* Center content in cells */
-    }
-
-    /* Center rank column */
-    #weekly-page table th:first-child,
-    #monthly-page table th:first-child,
-    #weekly-page table td:first-child,
-    #monthly-page table td:first-child {
-        text-align: center !important;
-    }
-
-    /* Center affiliate name column */
-    #weekly-page table th:nth-child(2),
-    #monthly-page table th:nth-child(2),
-    #weekly-page table td:nth-child(2),
-    #monthly-page table td:nth-child(2) {
-        text-align: left !important;
-        padding-left: 1rem !important;
     }
 
     /* CRITICAL: Force pagination to be visible and at bottom */
