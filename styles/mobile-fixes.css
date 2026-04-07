@@ -543,29 +543,34 @@
     #weekly-page,
     #monthly-page {
         padding-top: 80px !important;
-        padding-bottom: 300px !important; /* Increased to 300px for more space */
+        padding-bottom: 350px !important; /* Increased to 350px for even more space */
         overflow-y: auto !important;
         overflow-x: hidden !important;
         overflow: visible !important; /* Force visible overflow */
         min-height: 100vh !important;
         height: auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important; /* Center content horizontally */
     }
 
     #weekly-page > section,
     #monthly-page > section {
         transform: scale(0.85) !important; /* Smaller - was 0.9 */
         transform-origin: top center !important;
-        padding: 1rem 0.5rem 250px 0.5rem !important; /* Massive bottom padding */
+        padding: 1rem 0 250px 0 !important; /* Massive bottom padding, no side padding */
         width: 118% !important; /* Compensate for 0.85 scale */
-        margin-left: -9% !important; /* Center after scale */
+        margin: 0 auto !important; /* Center with auto margins */
+        margin-left: -9% !important; /* Fine-tune center after scale */
         overflow: visible !important; /* Don't clip pagination */
     }
 
-    /* Make tables more compact */
+    /* Make tables more compact and centered */
     #weekly-page table,
     #monthly-page table {
         font-size: 0.8rem !important;
-        margin-bottom: 2rem !important;
+        margin: 0 auto 2rem auto !important; /* Center table */
+        width: 100% !important;
     }
 
     #weekly-page table th,
@@ -573,6 +578,24 @@
     #weekly-page table td,
     #monthly-page table td {
         padding: 6px 4px !important;
+        text-align: center !important; /* Center content in cells */
+    }
+
+    /* Center rank column */
+    #weekly-page table th:first-child,
+    #monthly-page table th:first-child,
+    #weekly-page table td:first-child,
+    #monthly-page table td:first-child {
+        text-align: center !important;
+    }
+
+    /* Center affiliate name column */
+    #weekly-page table th:nth-child(2),
+    #monthly-page table th:nth-child(2),
+    #weekly-page table td:nth-child(2),
+    #monthly-page table td:nth-child(2) {
+        text-align: left !important;
+        padding-left: 1rem !important;
     }
 
     /* CRITICAL: Force pagination to be visible and at bottom */
@@ -594,7 +617,7 @@
         min-height: 100px !important;
     }
 
-    /* Make pagination buttons smaller and compact */
+    /* Make pagination buttons SMALLER and compact for clear visibility */
     #weekly-pagination button,
     #monthly-pagination button {
         background: rgba(2, 242, 111, 0.15) !important;
@@ -602,11 +625,11 @@
         color: var(--neon-market-green) !important;
         font-weight: 600 !important;
         box-shadow: 0 0 10px rgba(2, 242, 111, 0.3) !important;
-        min-width: 60px !important;
-        min-height: 40px !important;
-        padding: 0.5rem 0.75rem !important;
-        font-size: 0.85rem !important;
-        margin: 0.25rem !important;
+        min-width: 50px !important; /* Reduced from 60px */
+        min-height: 36px !important; /* Reduced from 40px */
+        padding: 0.4rem 0.6rem !important; /* Reduced padding */
+        font-size: 0.75rem !important; /* Reduced from 0.85rem */
+        margin: 0.2rem !important; /* Reduced margin */
         display: inline-block !important;
         visibility: visible !important;
         opacity: 1 !important;
@@ -625,13 +648,14 @@
     /* Reduce overall pagination height but ensure visibility */
     #weekly-pagination,
     #monthly-pagination {
-        padding: 1.5rem 0.5rem !important;
-        margin: 1.5rem 0 0 0 !important;
+        padding: 1rem 0.5rem 2rem 0.5rem !important; /* Extra bottom padding */
+        margin: 2rem 0 0 0 !important; /* More top margin for spacing */
         min-height: auto !important;
-        gap: 1rem !important;
+        gap: 0.75rem !important; /* Reduced gap */
         visibility: visible !important;
         opacity: 1 !important;
         display: flex !important;
+        border-top: 2px solid var(--neon-market-green) !important; /* Thinner border */
     }
 
     /* ========================================
