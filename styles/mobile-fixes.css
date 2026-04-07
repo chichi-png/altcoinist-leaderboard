@@ -706,6 +706,175 @@
         min-height: 44px !important;
         touch-action: manipulation !important;
     }
+
+    /* ========================================
+       FIX 20: VERY SMALL SCREENS (< 480px)
+       Issue: Navigation buttons too long, text wraps awkwardly
+       Solution: Ultra-compact nav buttons, remove "Rankings"
+       ======================================== */
+}
+
+@media (max-width: 480px) {
+    /* Ultra-compact navigation for tiny screens */
+    .nav-btn,
+    header .nav-btn,
+    #mainHeader .nav-btn {
+        font-size: 0.7rem !important;
+        padding: 0.4rem 0.6rem !important;
+        min-width: 70px !important;
+        letter-spacing: 0.2px !important;
+    }
+
+    /* Logo smaller on tiny screens */
+    #mainHeader img {
+        height: 45px !important;
+    }
+
+    /* More compact header */
+    #mainHeader nav {
+        padding: 1rem 0.5rem !important;
+        gap: 0.3rem !important;
+    }
+
+    /* Mobile top 3 cards - more compact */
+    .mobile-rank-card {
+        padding: 1rem !important;
+        margin: 0.75rem !important;
+    }
+
+    .mobile-rank-card img {
+        width: 55px !important;
+        height: 55px !important;
+    }
+
+    .mobile-rank-card > div > div:first-child {
+        font-size: 1.1rem !important;
+    }
+
+    /* Landing title smaller */
+    .landing-title {
+        font-size: 1.5rem !important;
+    }
+
+    /* All-time page adjustments */
+    #alltime-page {
+        padding-top: 75px !important;
+    }
+
+    /* Table text smaller for tiny screens */
+    table {
+        font-size: 0.75rem !important;
+    }
+
+    table th,
+    table td {
+        padding: 8px 4px !important;
+    }
+}
+
+@media (max-width: 375px) {
+    /* Extra tiny screens (iPhone SE, small Android) */
+
+    /* Even more compact navigation */
+    .nav-btn,
+    header .nav-btn,
+    #mainHeader .nav-btn {
+        font-size: 0.65rem !important;
+        padding: 0.35rem 0.5rem !important;
+        min-width: 65px !important;
+    }
+
+    /* Logo even smaller */
+    #mainHeader img {
+        height: 40px !important;
+        margin-left: 0.25rem !important;
+    }
+
+    #mainHeader nav {
+        padding: 0.75rem 0.25rem !important;
+        gap: 0.25rem !important;
+    }
+
+    /* Reduce mobile card margins */
+    .mobile-rank-card {
+        margin: 0.5rem !important;
+        padding: 0.85rem !important;
+    }
+
+    /* Smaller pagination buttons */
+    .pagination-controls button {
+        min-width: 38px !important;
+        min-height: 38px !important;
+        font-size: 0.75rem !important;
+        padding: 0.35rem !important;
+    }
+
+    /* Weekly/monthly pagination even more compact */
+    #weekly-pagination button,
+    #monthly-pagination button {
+        min-width: 55px !important;
+        min-height: 36px !important;
+        font-size: 0.8rem !important;
+    }
+}
+
+/* ============================================
+   DESKTOP PROTECTION (min-width: 769px)
+   Ensures mobile fixes don't leak into desktop
+   ============================================ */
+
+/* ============================================
+   LANDSCAPE MODE OPTIMIZATION
+   ============================================ */
+
+@media (max-width: 768px) and (orientation: landscape) {
+    /* Optimize for landscape mobile (sideways phone) */
+
+    #mainHeader {
+        padding: 0.5rem 0 !important;
+    }
+
+    #mainHeader nav {
+        padding: 0.5rem 1rem !important;
+    }
+
+    #mainHeader img {
+        height: 35px !important;
+    }
+
+    .nav-btn {
+        font-size: 0.65rem !important;
+        padding: 0.4rem 0.6rem !important;
+    }
+
+    /* Home page - reduce vertical spacing */
+    #home-page .landing {
+        padding-top: 4rem !important;
+        padding-bottom: 1rem !important;
+    }
+
+    .landing-title {
+        margin-bottom: 0.5rem !important;
+        font-size: 1.5rem !important;
+    }
+
+    .mobile-rank-card {
+        padding: 1rem !important;
+        margin: 0.5rem !important;
+    }
+
+    /* All-time page - more compact */
+    #alltime-page {
+        padding-top: 60px !important;
+    }
+
+    /* Weekly/monthly - reduce scale slightly */
+    #weekly-page > section,
+    #monthly-page > section {
+        transform: scale(0.75) !important;
+        width: 133% !important;
+        margin-left: -16.5% !important;
+    }
 }
 
 /* ============================================
@@ -745,5 +914,18 @@
     header {
         backdrop-filter: inherit;
         -webkit-backdrop-filter: inherit;
+    }
+
+    /* Ensure desktop navigation is full size */
+    .nav-btn,
+    header .nav-btn,
+    #mainHeader .nav-btn {
+        font-size: inherit !important;
+        padding: inherit !important;
+        min-width: auto !important;
+    }
+
+    #mainHeader img {
+        height: 58px !important;
     }
 }
