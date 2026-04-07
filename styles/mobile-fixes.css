@@ -917,16 +917,24 @@
         -webkit-backdrop-filter: inherit;
     }
 
-    /* Ensure desktop navigation is full size */
+    /* Restore desktop navigation to full size (undo mobile shrinking) */
     .nav-btn,
     header .nav-btn,
     #mainHeader .nav-btn {
-        font-size: inherit !important;
-        padding: inherit !important;
+        font-size: 1.2rem !important;
+        padding: 0.75rem 1.5rem !important;
+        min-height: 44px !important;
         min-width: auto !important;
+        letter-spacing: 0.5px !important;
     }
 
     #mainHeader img {
         height: 58px !important;
+        margin-left: 1rem !important;
+    }
+
+    #mainHeader nav {
+        padding: 1.5rem 2rem !important;
+        gap: 1rem !important;
     }
 }
