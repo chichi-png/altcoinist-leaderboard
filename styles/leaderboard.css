@@ -1,61 +1,88 @@
-/* Design Tokens - Altcoinist Brand (Updated 2026-03-20) */
+/* Design Tokens - Altcoinist Brand (Updated 2026-04-08 - Matched to Main Site) */
 :root {
-    /* PRIMARY BRAND COLORS (Altcoinist Mint Green Palette) */
-    --neon-market-green: #37FF94;     /* Primary mint green brand color */
-    --electric-mint: #0CEC9A;         /* Secondary mint accent */
-    --trade-green: #10b981;           /* Tertiary green */
-    --green-tertiary: #34d399;        /* Light green accent */
+    /* PRIMARY BRAND COLORS (Exact Match to Main Site) */
+    --accent: #38ff93;                /* Primary brand accent */
+    --accent-rgb: 56, 255, 147;       /* RGB values for alpha variations */
+    --neon-market-green: #38ff93;     /* Primary brand color */
+    --brand-300: rgb(109, 255, 179);  /* Light brand */
+    --brand-400: #38ff93;             /* Primary brand */
+    --brand-500: #2adb7a;             /* Medium brand */
+    --brand-600: rgb(31, 184, 98);    /* Dark brand */
+
+    /* SECONDARY ACCENTS (Derived from main palette) */
+    --electric-mint: #2adb7a;         /* Secondary accent */
+    --trade-green: rgb(31, 184, 98);  /* Tertiary green */
+    --green-tertiary: rgb(109, 255, 179); /* Light green accent */
 
     /* LEGACY ALIASES (for backward compatibility) */
-    --cyan-bright: #37FF94;           /* → neon-market-green */
-    --cyan-light: #6BFFAD;            /* Light mint for text */
-    --teal-bright: #0CEC9A;           /* → electric-mint */
-    --green: #10b981;                 /* → trade-green */
-    --deep-emerald: #3EA986;          /* Supporting teal */
-    --green-primary: #37FF94;         /* → neon-market-green */
-    --green-secondary: #0CEC9A;       /* → electric-mint */
-    --cyan: #37FF94;                  /* → neon-market-green */
-    --cyan-dark: #0CEC9A;             /* → electric-mint */
-    --teal: #0CEC9A;                  /* → electric-mint */
-    --teal-dark: #10b981;             /* → trade-green */
-    --blue-electric: #37FF94;         /* → neon-market-green */
-    --blue-bright: #0CEC9A;           /* → electric-mint */
-    --blue-light: #10b981;            /* → trade-green */
+    --cyan-bright: #38ff93;           /* → accent */
+    --cyan-light: rgb(109, 255, 179); /* Light mint for text */
+    --teal-bright: #2adb7a;           /* → electric-mint */
+    --green: rgb(31, 184, 98);        /* → trade-green */
+    --deep-emerald: #2adb7a;          /* Supporting teal */
+    --green-primary: #38ff93;         /* → accent */
+    --green-secondary: #2adb7a;       /* → electric-mint */
+    --cyan: #38ff93;                  /* → accent */
+    --cyan-dark: #2adb7a;             /* → electric-mint */
+    --teal: #2adb7a;                  /* → electric-mint */
+    --teal-dark: rgb(31, 184, 98);    /* → trade-green */
+    --blue-electric: #38ff93;         /* → accent */
+    --blue-bright: #2adb7a;           /* → electric-mint */
+    --blue-light: rgb(31, 184, 98);   /* → trade-green */
 
-    /* BACKGROUNDS (Updated to Altcoinist Dark Navy Palette) */
-    --obsidian-navy: #0E111A;         /* Page background (replaces #0a0a0a) */
-    --midnight-blue: #161B2D;         /* Deep panels */
-    --panel-dark: #161E2E;            /* Card backgrounds (replaces #1a1a1a) */
-    --panel-elevated: #1C2935;        /* Elevated surfaces (replaces #262626) */
-    --muted-slate: #2B2D3C;           /* Borders (replaces #333333) */
+    /* BACKGROUNDS (Exact Match to Main Site) */
+    --bg: #000;                       /* Primary background */
+    --bg-rgb: 0, 0, 0;                /* RGB for alpha variations */
+    --obsidian-navy: #000;            /* Page background */
+    --card-bg: rgba(255, 255, 255, 0.03); /* Card backgrounds */
+    --card-border: rgba(255, 255, 255, 0.06); /* Card borders */
+
+    /* NEUTRAL SCALE (Main Site Palette) */
+    --neutral-300: rgb(212, 212, 212);
+    --neutral-400: rgb(163, 163, 163);
+    --neutral-500: rgb(115, 115, 115);
+    --neutral-600: rgb(82, 82, 82);
+    --neutral-700: rgb(64, 64, 64);
+    --neutral-800: rgb(38, 38, 38);
+    --neutral-900: rgb(23, 23, 23);
 
     /* LEGACY BACKGROUND ALIASES */
-    --black: #0E111A;                 /* → obsidian-navy */
-    --gray-950: #0f0f0f;              /* Keep for special cases */
-    --gray-900: #161E2E;              /* → panel-dark */
-    --gray-850: #1C2935;              /* → panel-elevated */
-    --gray-800: #2B2D3C;              /* → muted-slate */
-    --gray-700: #333333;              /* Keep for borders */
-    --gray-600: #404040;              /* Keep for inactive states */
+    --black: #000;                    /* Pure black */
+    --midnight-blue: rgb(23, 23, 23); /* Deep panels (neutral-900) */
+    --panel-dark: rgb(38, 38, 38);    /* Card backgrounds (neutral-800) */
+    --panel-elevated: rgb(64, 64, 64); /* Elevated surfaces (neutral-700) */
+    --muted-slate: rgb(82, 82, 82);   /* Borders (neutral-600) */
+    --gray-950: #000;
+    --gray-900: rgb(38, 38, 38);
+    --gray-850: rgb(64, 64, 64);
+    --gray-800: rgb(82, 82, 82);
+    --gray-700: rgb(115, 115, 115);
+    --gray-600: rgb(163, 163, 163);
 
-    /* GLOWS (Updated to Altcoinist Mint Green Palette) */
-    --glow-green: rgba(55, 255, 148, 0.6);     /* Primary mint green glow */
-    --glow-mint: rgba(12, 236, 154, 0.5);      /* Secondary mint glow */
-    --glow-trade: rgba(16, 185, 129, 0.5);     /* Tertiary green glow */
+    /* TEXT COLORS (Exact Match to Main Site) */
+    --text-primary: #fff;
+    --text-secondary: rgba(255, 255, 255, 0.55);  /* #ffffff8c */
+    --text-muted: rgba(255, 255, 255, 0.3);       /* #ffffff4d */
+
+    /* GLOWS (Updated to Match Main Site Accent) */
+    --glow-green: rgba(56, 255, 147, 0.6);        /* Primary brand glow */
+    --glow-mint: rgba(42, 219, 122, 0.5);         /* Secondary glow */
+    --glow-trade: rgba(31, 184, 98, 0.5);         /* Tertiary glow */
 
     /* LEGACY GLOW ALIASES */
-    --glow-cyan: rgba(55, 255, 148, 0.6);      /* → glow-green */
-    --glow-teal: rgba(12, 236, 154, 0.5);      /* → glow-mint */
-    --glow-blue: rgba(55, 255, 148, 0.6);      /* → glow-green */
+    --glow-cyan: rgba(56, 255, 147, 0.6);
+    --glow-teal: rgba(42, 219, 122, 0.5);
+    --glow-blue: rgba(56, 255, 147, 0.6);
 
-    /* Shadows */
-    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.6);
-    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
-    --shadow-lg: 0 10px 24px rgba(0, 0, 0, 0.6);
-    --shadow-xl: 0 20px 48px rgba(0, 0, 0, 0.7);
+    /* Shadows (Main Site Patterns) */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    --shadow-xl: 0 0 60px rgba(56, 255, 147, 0.04), 0 20px 60px rgba(0, 0, 0, 0.4);
     --shadow-inner: inset 0 2px 8px rgba(0, 0, 0, 0.4);
+    --shadow-accent: 0 0 8px rgba(56, 255, 147, 0.3);
 
-    /* Spacing */
+    /* Spacing (Main Site Scale) */
     --space-1: 0.25rem;
     --space-2: 0.5rem;
     --space-3: 0.75rem;
@@ -69,19 +96,21 @@
     --space-20: 5rem;
     --space-24: 6rem;
 
-    /* Border Radius */
-    --radius-sm: 0.5rem;
-    --radius-md: 0.75rem;
-    --radius-lg: 1rem;
-    --radius-xl: 1.5rem;
-    --radius-2xl: 2rem;
+    /* Border Radius (Main Site Default: 0.625rem) */
+    --radius: 0.625rem;               /* Main site default */
+    --radius-sm: 0.25rem;
+    --radius-md: 0.625rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+    --radius-2xl: 1.5rem;
+    --radius-3xl: 2rem;
     --radius-full: 9999px;
 
-    /* Transitions */
+    /* Transitions (Main Site Timing) */
     --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-smooth: 400ms cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-slow: 600ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* ========================================
@@ -437,7 +466,7 @@ body {
     opacity: 0.6;
     animation: matrixFall linear infinite;
     pointer-events: none;
-    font-family: 'Courier New', monospace;
+    font-family: 'JetBrains Mono', monospace;
     font-size: 14px;
     color: var(--cyan-bright);
     text-shadow: 0 0 8px var(--glow-cyan);
@@ -865,7 +894,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Space Grotesk', sans-serif;
     font-size: 1.5rem;
     font-weight: 900;
     z-index: 10;
@@ -935,7 +964,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Space Grotesk', sans-serif;
     font-size: 4rem;
     font-weight: 900;
     z-index: 5;
@@ -993,7 +1022,7 @@ body {
 
 /* Affiliate name */
 .affiliate-name {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Space Grotesk', sans-serif;
     font-size: 1.8rem;
     font-weight: 700;
     margin-bottom: 0.3rem;
@@ -1049,7 +1078,7 @@ body {
 }
 
 .stat-value {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Space Grotesk', sans-serif;
     font-size: 1.3rem;
     font-weight: 700;
     color: var(--neon-market-green);
