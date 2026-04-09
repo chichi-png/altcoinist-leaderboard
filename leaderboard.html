@@ -1376,16 +1376,6 @@
             lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
         }, { passive: true });
 
-            document.body.style.overflow = 'hidden';
-// Variant 1 for Hall of Fame
-
-            // Play card reveal sounds as each card appears (matching animation delays)
-            const cardRevealTimes = [2000, 2500, 3000, 3500, 4000, 4500, 5000]; // milliseconds
-            cardRevealTimes.forEach(delay => {
-                
-            });
-        }
-
         // Leaderboard data and pagination state
         const affiliatesData = [
     {rank: 1, name: 'rb3k', handle: '@rbthreek', avatar: 'RB', tweetScore: 112, botActivityScore: 3846, total: 3958, imgSrc: 'assets/images/affiliates/rbthreek.jpg', profileUrl: 'https://x.com/rbthreek', tgHandle: '@rbthreek'},
@@ -3035,8 +3025,7 @@
                         setTimeout(() => {
                             card.style.opacity = '1';
                             card.style.transform = 'scale(1)';
-                            // Only play sound for first card to reduce audio lag
-                            if (i === 0)}, i * 30);
+                        }, i * 30);
                     });
                 }, 100);
 
@@ -3497,8 +3486,7 @@
                 setTimeout(() => {
                     card.style.opacity = '1';
                     card.style.transform = 'scale(1)';
-                    // Only play sound for first card
-                    if (i === 0)}, i * 30); // Reduced from 50ms to 30ms
+                }, i * 30);
             });
         }
 
