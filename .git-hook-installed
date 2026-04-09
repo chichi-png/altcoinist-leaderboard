@@ -1,3 +1,4 @@
 # Auto-push hook installed
 # Hook v2 - fixed paths
 # Hook v3 - absolute paths
+# Hook v4 - git -C approach
