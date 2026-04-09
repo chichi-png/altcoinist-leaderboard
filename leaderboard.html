@@ -562,11 +562,6 @@
         </div>
     </div>
 
-    <!-- Mute Button -->
-    <button class="mute-btn" onclick="toggleMute()" aria-label="Toggle sound">
-        <span id="muteIcon">⚡</span>
-    </button>
-
     <!-- Home Page (Leaderboard) -->
     <div id="home-page" class="page-container active">
         <section class="landing">
@@ -1381,390 +1376,8 @@
             lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
         }, { passive: true });
 
-        // ========================================
-        // Web Audio API Sound Engine - Futuristic Cyber Sounds
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        const audioCtx = new AudioContext();
-        let isMuted = false;
-
-        // Sound Generator Functions with Variations
-        function playSound(soundName, variant = 0) {
-            if (isMuted) return;
-
-            switch(soundName) {
-                case 'button-click':
-                    playDigitalBeep(variant);
-                    break;
-                case 'modal-open':
-                    playWhooshUp(variant);
-                    break;
-                case 'modal-close':
-                    playWhooshDown();
-                    break;
-                case 'card-click':
-                    playLaserZap(variant);
-                    break;
-                case 'hover':
-                    playSubtleBlip(Math.random());
-                    break;
-                case 'popup-open':
-                    playElectronicUp();
-                    break;
-                case 'popup-close':
-                    playElectronicDown();
-                    break;
-                case 'achievement':
-                    playPowerUp();
-                    break;
-            }
-        }
-
-        // Digital Beep with pitch variation
-        function playDigitalBeep(variant = 0) {
-            // Soft robotic acknowledgment tone
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            const filter = audioCtx.createBiquadFilter();
-
-            osc.connect(filter);
-            filter.connect(gain);
-            gain.connect(audioCtx.destination);
-
-            // Vary pitch based on variant - using sine for smooth robotic feel
-            const pitches = [700, 800, 900, 1000, 850];
-            osc.frequency.value = pitches[variant % pitches.length];
-            osc.type = 'sine';
-
-            // Gentle lowpass filter for softer robotic quality
-            filter.type = 'lowpass';
-            filter.frequency.value = 2000;
-            filter.Q.value = 1;
-
-            // Reduced volume for subtle confirmation
-            gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
-
-            osc.start(audioCtx.currentTime);
-            osc.stop(audioCtx.currentTime + 0.1);
-        }
-
-        // Smooth Airlock Whoosh (modal open)
-        function playWhooshUp(variant = 0) {
-            // Simple smooth whoosh - just filtered white noise
-            const noise = audioCtx.createBufferSource();
-            const noiseBuffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.4, audioCtx.sampleRate);
-            const noiseData = noiseBuffer.getChannelData(0);
-            for (let i = 0; i < noiseBuffer.length; i++) {
-                noiseData[i] = Math.random() * 2 - 1;
-            }
-            noise.buffer = noiseBuffer;
-
-            const filter = audioCtx.createBiquadFilter();
-            filter.type = 'lowpass';
-            filter.frequency.setValueAtTime(400, audioCtx.currentTime);
-            filter.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.3);
-            filter.Q.value = 2;
-
-            const gain = audioCtx.createGain();
-            noise.connect(filter);
-            filter.connect(gain);
-            gain.connect(audioCtx.destination);
-
-            gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
-
-            noise.start(audioCtx.currentTime);
-            noise.stop(audioCtx.currentTime + 0.4);
-        }
-
-        // Airlock Seal (modal close) - smooth pneumatic closing
-        function playWhooshDown() {
-            // Smooth mechanical hum for closing
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            const filter = audioCtx.createBiquadFilter();
-
-            osc.connect(filter);
-            filter.connect(gain);
-            gain.connect(audioCtx.destination);
-
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(600, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(180, audioCtx.currentTime + 0.25);
-
-            // Lowpass filter sweep for smooth airlock seal effect
-            filter.type = 'lowpass';
-            filter.frequency.setValueAtTime(1200, audioCtx.currentTime);
-            filter.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.25);
-            filter.Q.value = 1.5;
-
-            // Gentle fade for pneumatic seal
-            gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.25);
-
-            osc.start(audioCtx.currentTime);
-            osc.stop(audioCtx.currentTime + 0.25);
-
-            // Add subtle air release hiss
-            const noise = audioCtx.createBufferSource();
-            const noiseBuffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.15, audioCtx.sampleRate);
-            const noiseData = noiseBuffer.getChannelData(0);
-            for (let i = 0; i < noiseBuffer.length; i++) {
-                noiseData[i] = Math.random() * 2 - 1;
-            }
-            noise.buffer = noiseBuffer;
-
-            const noiseFilter = audioCtx.createBiquadFilter();
-            noiseFilter.type = 'highpass';
-            noiseFilter.frequency.value = 2500;
-
-            const noiseGain = audioCtx.createGain();
-            noise.connect(noiseFilter);
-            noiseFilter.connect(noiseGain);
-            noiseGain.connect(audioCtx.destination);
-
-            noiseGain.gain.setValueAtTime(0.04, audioCtx.currentTime + 0.1);
-            noiseGain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.25);
-
-            noise.start(audioCtx.currentTime + 0.1);
-            noise.stop(audioCtx.currentTime + 0.25);
-        }
-
-        // Soft Data Panel Activation (card clicks) - gentle electronic confirmation
-        function playLaserZap(rank = 1) {
-            // Very soft, high-pitched electronic click - like a touchscreen tap
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            const filter = audioCtx.createBiquadFilter();
-
-            osc.connect(filter);
-            filter.connect(gain);
-            gain.connect(audioCtx.destination);
-
-            osc.type = 'sine';
-
-            // High frequency for soft click (like a digital interface)
-            osc.frequency.setValueAtTime(2400, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(1800, audioCtx.currentTime + 0.04);
-
-            // Gentle lowpass filter
-            filter.type = 'lowpass';
-            filter.frequency.value = 3000;
-            filter.Q.value = 0.5;
-
-            // Very quiet and quick
-            gain.gain.setValueAtTime(0, audioCtx.currentTime);
-            gain.gain.linearRampToValueAtTime(0.03, audioCtx.currentTime + 0.005);
-            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.04);
-
-            osc.start(audioCtx.currentTime);
-            osc.stop(audioCtx.currentTime + 0.04);
-        }
-
-        // Hall of Fame Card Reveal Sound - mechanical scanner lock-on
-        function playCardReveal() {
-            // Soft scanner beep - like a data terminal acknowledgment
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            const filter = audioCtx.createBiquadFilter();
-
-            osc.connect(filter);
-            filter.connect(gain);
-            gain.connect(audioCtx.destination);
-
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(880, audioCtx.currentTime); // A5 note
-
-            filter.type = 'lowpass';
-            filter.frequency.value = 1500;
-            filter.Q.value = 1;
-
-            // Quick soft pulse
-            gain.gain.setValueAtTime(0, audioCtx.currentTime);
-            gain.gain.linearRampToValueAtTime(0.04, audioCtx.currentTime + 0.01);
-            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
-
-            osc.start(audioCtx.currentTime);
-            osc.stop(audioCtx.currentTime + 0.15);
-        }
-
-        // Subtle Blip with random variation (hover)
-        function playSubtleBlip(randomFactor = 0.5) {
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-
-            // Random pitch variation
-            osc.frequency.value = 500 + (randomFactor * 300);
-            osc.type = 'sine';
-            gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
-
-            osc.start(audioCtx.currentTime);
-            osc.stop(audioCtx.currentTime + 0.05);
-        }
-
-        // Data Panel Slide Open (popup open) - soft panel extension
-        function playElectronicUp() {
-            // Gentle sine wave confirmation - no frequency sweep
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            const filter = audioCtx.createBiquadFilter();
-
-            osc.connect(filter);
-            filter.connect(gain);
-            gain.connect(audioCtx.destination);
-
-            osc.type = 'sine';
-            osc.frequency.value = 1200; // Single steady tone
-
-            filter.type = 'lowpass';
-            filter.frequency.value = 2000;
-            filter.Q.value = 0.5;
-
-            // Very soft and quick
-            gain.gain.setValueAtTime(0, audioCtx.currentTime);
-            gain.gain.linearRampToValueAtTime(0.035, audioCtx.currentTime + 0.01);
-            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.06);
-
-            osc.start(audioCtx.currentTime);
-            osc.stop(audioCtx.currentTime + 0.06);
-        }
-
-        // Data Panel Slide Close (popup close) - soft panel retraction
-        function playElectronicDown() {
-            // Gentle sine wave confirmation - slightly lower tone
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            const filter = audioCtx.createBiquadFilter();
-
-            osc.connect(filter);
-            filter.connect(gain);
-            gain.connect(audioCtx.destination);
-
-            osc.type = 'sine';
-            osc.frequency.value = 900; // Single steady tone, lower than open
-
-            filter.type = 'lowpass';
-            filter.frequency.value = 1800;
-            filter.Q.value = 0.5;
-
-            // Very soft and quick
-            gain.gain.setValueAtTime(0, audioCtx.currentTime);
-            gain.gain.linearRampToValueAtTime(0.03, audioCtx.currentTime + 0.01);
-            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.06);
-
-            osc.start(audioCtx.currentTime);
-            osc.stop(audioCtx.currentTime + 0.06);
-        }
-
-        // Gentle Achievement Chime (softer, more pleasant)
-        function playPowerUp() {
-            // First tone - soft and warm
-            const osc1 = audioCtx.createOscillator();
-            const gain1 = audioCtx.createGain();
-
-            osc1.connect(gain1);
-            gain1.connect(audioCtx.destination);
-
-            osc1.type = 'sine';
-            osc1.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
-
-            gain1.gain.setValueAtTime(0, audioCtx.currentTime);
-            gain1.gain.linearRampToValueAtTime(0.06, audioCtx.currentTime + 0.02);
-            gain1.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.6);
-
-            osc1.start(audioCtx.currentTime);
-            osc1.stop(audioCtx.currentTime + 0.6);
-
-            // Second tone - harmonic
-            const osc2 = audioCtx.createOscillator();
-            const gain2 = audioCtx.createGain();
-
-            osc2.connect(gain2);
-            gain2.connect(audioCtx.destination);
-
-            osc2.type = 'sine';
-            osc2.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1); // E5
-
-            gain2.gain.setValueAtTime(0, audioCtx.currentTime + 0.1);
-            gain2.gain.linearRampToValueAtTime(0.05, audioCtx.currentTime + 0.12);
-            gain2.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.7);
-
-            osc2.start(audioCtx.currentTime + 0.1);
-            osc2.stop(audioCtx.currentTime + 0.7);
-        }
-
-        // Victory Fanfare for Podium Reveals (rank-specific)
-        function playVictoryFanfare(rank) {
-            // Base frequency depends on rank (higher for better ranks)
-            const baseFreq = rank === 1 ? 523.25 : (rank === 2 ? 440 : 392); // C5, A4, G4
-            const duration = rank === 1 ? 0.8 : 0.6;
-            const volume = rank === 1 ? 0.08 : 0.06;
-
-            // Main fanfare tone
-            const osc1 = audioCtx.createOscillator();
-            const gain1 = audioCtx.createGain();
-            const filter1 = audioCtx.createBiquadFilter();
-
-            osc1.connect(filter1);
-            filter1.connect(gain1);
-            gain1.connect(audioCtx.destination);
-
-            osc1.type = 'triangle';
-            osc1.frequency.setValueAtTime(baseFreq, audioCtx.currentTime);
-            osc1.frequency.linearRampToValueAtTime(baseFreq * 1.5, audioCtx.currentTime + 0.15);
-
-            filter1.type = 'lowpass';
-            filter1.frequency.setValueAtTime(3000, audioCtx.currentTime);
-            filter1.Q.value = 1;
-
-            gain1.gain.setValueAtTime(0, audioCtx.currentTime);
-            gain1.gain.linearRampToValueAtTime(volume, audioCtx.currentTime + 0.05);
-            gain1.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
-
-            osc1.start(audioCtx.currentTime);
-            osc1.stop(audioCtx.currentTime + duration);
-
-            // Harmonic overlay for rank 1 (extra special)
-            if (rank === 1) {
-                const osc2 = audioCtx.createOscillator();
-                const gain2 = audioCtx.createGain();
-
-                osc2.connect(gain2);
-                gain2.connect(audioCtx.destination);
-
-                osc2.type = 'sine';
-                osc2.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.2); // E5
-
-                gain2.gain.setValueAtTime(0, audioCtx.currentTime + 0.2);
-                gain2.gain.linearRampToValueAtTime(0.06, audioCtx.currentTime + 0.25);
-                gain2.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 1);
-
-                osc2.start(audioCtx.currentTime + 0.2);
-                osc2.stop(audioCtx.currentTime + 1);
-            }
-        }
-
-        // Mute functionality
-        function toggleMute() {
-            isMuted = !isMuted;
-            document.getElementById('muteIcon').textContent = isMuted ? '✕' : '⚡';
-
-            if (!isMuted) {
-                playDigitalBeep(); // Confirmation beep
-            }
-        }
-
-        // Modal controls
-        function openHallOfFame() {
-            const modal = document.getElementById('hallModal');
-            modal.classList.add('active');
             document.body.style.overflow = 'hidden';
-            playSound('modal-open', 1); // Variant 1 for Hall of Fame
-            playSound('achievement');
+// Variant 1 for Hall of Fame
 
             // Play card reveal sounds as each card appears (matching animation delays)
             const cardRevealTimes = [2000, 2500, 3000, 3500, 4000, 4500, 5000]; // milliseconds
@@ -1876,7 +1489,6 @@
             if (newPage >= 1 && newPage <= totalPages) {
                 currentPage = newPage;
                 renderLeaderboardPage();
-                playSound('button-click');
             }
         }
 
@@ -1886,7 +1498,7 @@
             document.body.style.overflow = 'hidden';
             currentPage = 1; // Reset to first page
             renderLeaderboardPage(); // Render the first page
-            playSound('modal-open', 2); // Variant 2 for Full Leaderboard
+// Variant 2 for Full Leaderboard
         }
 
 
@@ -1895,7 +1507,6 @@
             const modal = document.getElementById('twitterModal');
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
-            playSound('modal-open', 1);
 
             const container = document.getElementById('twitterPostsContainer');
 
@@ -1966,7 +1577,6 @@
             const modal = document.getElementById('xProfilesModal');
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
-            playSound('modal-open', 1);
 
             // Prepare profiles data
             xProfilesData = affiliatesData.map(affiliate => ({
@@ -2094,7 +1704,6 @@
 
             xProfilesCurrentPage = newPage;
             renderXProfilesPage();
-            playSound('card-click');
 
             // Scroll to top of modal content
             const modalContent = document.querySelector('#xProfilesModal .modal-content');
@@ -2678,7 +2287,6 @@
 
             alltimeCurrentPage = newPage;
             renderAlltimeDashboard();
-            playSound('card-click');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -2723,7 +2331,6 @@
 
             alltimeCurrentPage = 1;
             renderAlltimeDashboard();
-            playSound('card-click');
         }
 
         function renderWeeklyDashboard() {
@@ -2877,7 +2484,6 @@
 
             weeklyCurrentPage = newPage;
             renderWeeklyDashboard();
-            playSound('card-click');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -3104,7 +2710,6 @@
 
             monthlyCurrentPage = newPage;
             renderMonthlyDashboard();
-            playSound('card-click');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -3148,7 +2753,6 @@
 
             // Scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
-            playSound('modal-open', 1);
         }
 
         function loadXProfilesPage() {
@@ -3280,7 +2884,6 @@
 
             xProfilesCurrentPage = newPage;
             loadXProfilesPage();
-            playSound('card-click');
             window.scrollTo({ top: 200, behavior: 'smooth' });
         }
 
@@ -3464,7 +3067,6 @@
                 affiliatesCurrentPage = newPage;
                 loadAffiliatesPage();
                 window.scrollTo({ top: 200, behavior: 'smooth' });
-                playSound('card-click');
             }
         }
 
@@ -3581,7 +3183,6 @@
             const modal = document.getElementById('affiliateProfileModal');
             modal.classList.remove('active');
             document.body.style.overflow = 'auto';
-            playSound('modal-close');
         }
 
         function showAffiliateXProfile(handle) {
@@ -3742,7 +3343,6 @@
 
             // Scroll to top
             window.scrollTo({ top: 200, behavior: 'smooth' });
-            playSound('modal-open', 1);
         }
 
         function backToAffiliatesGrid() {
@@ -3751,7 +3351,6 @@
             gridView.style.display = 'grid';
             profileView.style.display = 'none';
             window.scrollTo({ top: 200, behavior: 'smooth' });
-            playSound('modal-close');
         }
 
         // ===== Affiliates Directory Functions (DEPRECATED - Old Modal System) =====
@@ -3768,7 +3367,6 @@
             const modal = document.getElementById('affiliatesModal');
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
-            playSound('modal-open', 1);
 
             const container = document.getElementById('affiliatesGridContainer');
 
@@ -3936,7 +3534,6 @@
             document.getElementById('affiliatesModal').classList.remove('active');
             const profileModal = document.getElementById('affiliateProfileModal');
             profileModal.classList.add('active');
-            playSound('modal-open', 1);
 
             // Render profile header
             renderProfileHeader(affiliate);
@@ -4088,7 +3685,6 @@
             modal.classList.remove('active');
             modal.style.display = 'none'; // Clear inline style set by openAffiliateModal
             document.body.style.overflow = 'auto';
-            playSound('modal-close');
 
             // Clean up modal content after animation to prevent memory leaks
             setTimeout(() => {
@@ -4198,7 +3794,6 @@
             modal.style.display = 'flex';
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
-            playSound('modal-open', 2);
         }
 
         // Click card with animations
@@ -4231,8 +3826,6 @@
             }
 
             // Play sounds with rank variation
-            playSound('card-click', rank);
-            playSound('particle-burst');
 
             // Show detail popup after animation starts
             setTimeout(() => {
@@ -4280,13 +3873,11 @@
 
             const popup = document.getElementById('detailPopup');
             popup.classList.add('active');
-            playSound('popup-open');
         }
 
         function closeDetail() {
             const popup = document.getElementById('detailPopup');
             popup.classList.remove('active');
-            playSound('popup-close');
         }
 
         // Set up click handlers for podium cards
@@ -4328,26 +3919,12 @@
             }
         });
 
-        // Add hover sounds using event delegation to prevent memory leaks
-        document.querySelectorAll('.podium-card, .btn, .close-btn, .mute-btn').forEach(el => {
-            el.addEventListener('mouseenter', () => playSound('hover'));
-        });
+        // Sound effects removed per CEO feedback
 
-        // Event delegation for table rows (prevents memory leaks on pagination)
-        const tbody = document.querySelector('.leaderboard-table tbody');
-        if (tbody) {
-            tbody.addEventListener('mouseenter', (e) => {
-                if (e.target.closest('tr')) {
-                    playSound('hover');
-                }
-            }, true); // Use capture phase for proper delegation
-        }
-
-        // Play achievement sound when top 3 section appears
+        // Top 3 section observer
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    playSound('achievement');
                     observer.unobserve(entry.target);
                 }
             });
