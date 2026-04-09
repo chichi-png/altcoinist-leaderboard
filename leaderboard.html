@@ -1382,7 +1382,7 @@
             // Play card reveal sounds as each card appears (matching animation delays)
             const cardRevealTimes = [2000, 2500, 3000, 3500, 4000, 4500, 5000]; // milliseconds
             cardRevealTimes.forEach(delay => {
-                setTimeout(() => playCardReveal(), delay);
+                
             });
         }
 
@@ -1501,7 +1501,6 @@
 // Variant 2 for Full Leaderboard
         }
 
-
         // Twitter Posts modal
         async function openTwitterPosts() {
             const modal = document.getElementById('twitterModal');
@@ -1552,9 +1551,7 @@
                 document.querySelectorAll('#twitterPostsContainer .hall-card').forEach((card, i) => {
                     setTimeout(() => {
                         card.style.opacity = '1';
-                        card.style.transform = 'scale(1)';
-                        playCardReveal();
-                    }, i * 100);
+                        card.style.transform = 'scale(1)';}, i * 100);
                 });
 
             } catch (error) {
@@ -1692,9 +1689,7 @@
             document.querySelectorAll('#xProfilesContainer .hall-card').forEach((card, i) => {
                 setTimeout(() => {
                     card.style.opacity = '1';
-                    card.style.transform = 'scale(1)';
-                    playCardReveal();
-                }, i * 50);
+                    card.style.transform = 'scale(1)';}, i * 50);
             });
         }
 
@@ -1974,9 +1969,7 @@
             link.click();
             document.body.removeChild(link);
 
-            // Play success sound
-            playDigitalBeep();
-        }
+            // Play success sound}
 
         // Calculate achievement badges for an affiliate
         function getBadges(affiliate) {
@@ -2871,9 +2864,7 @@
                 document.querySelectorAll('#xProfilesPageContent .hall-card').forEach((card, i) => {
                     setTimeout(() => {
                         card.style.opacity = '1';
-                        card.style.transform = 'scale(1)';
-                        playCardReveal();
-                    }, i * 50);
+                        card.style.transform = 'scale(1)';}, i * 50);
                 });
             }, 100);
         }
@@ -2935,9 +2926,7 @@
                     document.querySelectorAll('#twitterPostsPageContent .hall-card').forEach((card, i) => {
                         setTimeout(() => {
                             card.style.opacity = '1';
-                            card.style.transform = 'scale(1)';
-                            playCardReveal();
-                        }, i * 50);
+                            card.style.transform = 'scale(1)';}, i * 50);
                     });
                 }, 100);
 
@@ -3047,8 +3036,7 @@
                             card.style.opacity = '1';
                             card.style.transform = 'scale(1)';
                             // Only play sound for first card to reduce audio lag
-                            if (i === 0) playCardReveal();
-                        }, i * 30);
+                            if (i === 0)}, i * 30);
                     });
                 }, 100);
 
@@ -3175,9 +3163,7 @@
 
             // Show the modal
             modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-            playCardReveal();
-        }
+            document.body.style.overflow = 'hidden';}
 
         function closeAffiliateProfileModal() {
             const modal = document.getElementById('affiliateProfileModal');
@@ -3512,8 +3498,7 @@
                     card.style.opacity = '1';
                     card.style.transform = 'scale(1)';
                     // Only play sound for first card
-                    if (i === 0) playCardReveal();
-                }, i * 30); // Reduced from 50ms to 30ms
+                    if (i === 0)}, i * 30); // Reduced from 50ms to 30ms
             });
         }
 
@@ -3663,9 +3648,7 @@
             document.querySelectorAll('#affiliateTweetsContainer .hall-card').forEach((card, i) => {
                 setTimeout(() => {
                     card.style.opacity = '1';
-                    card.style.transform = 'scale(1)';
-                    playCardReveal();
-                }, i * 50);
+                    card.style.transform = 'scale(1)';}, i * 50);
             });
         }
 
@@ -4001,10 +3984,7 @@
                                     }
                                 }
 
-                                // Play soft blip sound for each stat reveal
-                                playSubtleBlip(0.3);
-
-                            }, index * 700); // 700ms delay between each stat (slower)
+                                // Play soft blip sound for each stat reveal}, index * 700); // 700ms delay between each stat (slower)
                         });
 
                         // Play rank-specific victory fanfare after all stats revealed
