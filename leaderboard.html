@@ -562,6 +562,11 @@
         </div>
     </div>
 
+    <!-- Mute Button -->
+    <button class="mute-btn" onclick="toggleMute()" aria-label="Toggle sound">
+        <span id="muteIcon">⚡</span>
+    </button>
+
     <!-- Home Page (Leaderboard) -->
     <div id="home-page" class="page-container active">
         <section class="landing">
@@ -1376,6 +1381,7 @@
             lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
         }, { passive: true });
 
+        // ========================================
         // Leaderboard data and pagination state
         const affiliatesData = [
     {rank: 1, name: 'rb3k', handle: '@rbthreek', avatar: 'RB', tweetScore: 112, botActivityScore: 3846, total: 3958, imgSrc: 'assets/images/affiliates/rbthreek.jpg', profileUrl: 'https://x.com/rbthreek', tgHandle: '@rbthreek'},
@@ -1487,9 +1493,9 @@
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
             currentPage = 1; // Reset to first page
-            renderLeaderboardPage(); // Render the first page
-// Variant 2 for Full Leaderboard
+            renderLeaderboardPage(); // Render the first page // Variant 2 for Full Leaderboard
         }
+
 
         // Twitter Posts modal
         async function openTwitterPosts() {
@@ -1541,7 +1547,9 @@
                 document.querySelectorAll('#twitterPostsContainer .hall-card').forEach((card, i) => {
                     setTimeout(() => {
                         card.style.opacity = '1';
-                        card.style.transform = 'scale(1)';}, i * 100);
+                        card.style.transform = 'scale(1)';
+                        playCardReveal();
+                    }, i * 100);
                 });
 
             } catch (error) {
@@ -1679,7 +1687,9 @@
             document.querySelectorAll('#xProfilesContainer .hall-card').forEach((card, i) => {
                 setTimeout(() => {
                     card.style.opacity = '1';
-                    card.style.transform = 'scale(1)';}, i * 50);
+                    card.style.transform = 'scale(1)';
+                    playCardReveal();
+                }, i * 50);
             });
         }
 
@@ -1959,7 +1969,9 @@
             link.click();
             document.body.removeChild(link);
 
-            // Play success sound}
+            // Play success sound
+            playDigitalBeep();
+        }
 
         // Calculate achievement badges for an affiliate
         function getBadges(affiliate) {
@@ -2854,7 +2866,9 @@
                 document.querySelectorAll('#xProfilesPageContent .hall-card').forEach((card, i) => {
                     setTimeout(() => {
                         card.style.opacity = '1';
-                        card.style.transform = 'scale(1)';}, i * 50);
+                        card.style.transform = 'scale(1)';
+                        playCardReveal();
+                    }, i * 50);
                 });
             }, 100);
         }
@@ -2916,7 +2930,9 @@
                     document.querySelectorAll('#twitterPostsPageContent .hall-card').forEach((card, i) => {
                         setTimeout(() => {
                             card.style.opacity = '1';
-                            card.style.transform = 'scale(1)';}, i * 50);
+                            card.style.transform = 'scale(1)';
+                            playCardReveal();
+                        }, i * 50);
                     });
                 }, 100);
 
@@ -3025,6 +3041,8 @@
                         setTimeout(() => {
                             card.style.opacity = '1';
                             card.style.transform = 'scale(1)';
+                            // Only play sound for first card to reduce audio lag
+                            if (i === 0) playCardReveal();
                         }, i * 30);
                     });
                 }, 100);
@@ -3152,7 +3170,9 @@
 
             // Show the modal
             modal.classList.add('active');
-            document.body.style.overflow = 'hidden';}
+            document.body.style.overflow = 'hidden';
+            playCardReveal();
+        }
 
         function closeAffiliateProfileModal() {
             const modal = document.getElementById('affiliateProfileModal');
@@ -3486,7 +3506,9 @@
                 setTimeout(() => {
                     card.style.opacity = '1';
                     card.style.transform = 'scale(1)';
-                }, i * 30);
+                    // Only play sound for first card
+                    if (i === 0) playCardReveal();
+                }, i * 30); // Reduced from 50ms to 30ms
             });
         }
 
@@ -3636,7 +3658,9 @@
             document.querySelectorAll('#affiliateTweetsContainer .hall-card').forEach((card, i) => {
                 setTimeout(() => {
                     card.style.opacity = '1';
-                    card.style.transform = 'scale(1)';}, i * 50);
+                    card.style.transform = 'scale(1)';
+                    playCardReveal();
+                }, i * 50);
             });
         }
 
@@ -3890,9 +3914,21 @@
             }
         });
 
-        // Sound effects removed per CEO feedback
+        // Add hover sounds using event delegation to prevent memory leaks
+        document.querySelectorAll('.podium-card, .btn, .close-btn, .mute-btn').forEach(el => {
+            el.addEventListener('mouseenter', () =>);
+        });
 
-        // Top 3 section observer
+        // Event delegation for table rows (prevents memory leaks on pagination)
+        const tbody = document.querySelector('.leaderboard-table tbody');
+        if (tbody) {
+            tbody.addEventListener('mouseenter', (e) => {
+                if (e.target.closest('tr')) {
+                }
+            }, true); // Use capture phase for proper delegation
+        }
+
+        // Play achievement sound when top 3 section appears
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -3972,7 +4008,10 @@
                                     }
                                 }
 
-                                // Play soft blip sound for each stat reveal}, index * 700); // 700ms delay between each stat (slower)
+                                // Play soft blip sound for each stat reveal
+                                playSubtleBlip(0.3);
+
+                            }, index * 700); // 700ms delay between each stat (slower)
                         });
 
                         // Play rank-specific victory fanfare after all stats revealed
