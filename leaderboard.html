@@ -563,9 +563,7 @@
     </div>
 
     <!-- Mute Button -->
-    <button class="mute-btn" onclick="toggleMute()" aria-label="Toggle sound">
-        <span id="muteIcon">⚡</span>
-    </button>
+    <!-- mute button removed -->
 
     <!-- Home Page (Leaderboard) -->
     <div id="home-page" class="page-container active">
@@ -1547,7 +1545,7 @@ const container = document.getElementById('twitterPostsContainer');
                     setTimeout(() => {
                         card.style.opacity = '1';
                         card.style.transform = 'scale(1)';
-                        playCardReveal();
+
                     }, i * 100);
                 });
 
@@ -1686,7 +1684,7 @@ const container = document.getElementById('twitterPostsContainer');
                 setTimeout(() => {
                     card.style.opacity = '1';
                     card.style.transform = 'scale(1)';
-                    playCardReveal();
+
                 }, i * 50);
             });
         }
@@ -1965,7 +1963,7 @@ const container = document.getElementById('twitterPostsContainer');
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-            playDigitalBeep();
+
         }
 
         // Calculate achievement badges for an affiliate
@@ -2862,7 +2860,7 @@ window.scrollTo({ top: 0, behavior: 'smooth' });
                     setTimeout(() => {
                         card.style.opacity = '1';
                         card.style.transform = 'scale(1)';
-                        playCardReveal();
+
                     }, i * 50);
                 });
             }, 100);
@@ -2926,7 +2924,7 @@ window.scrollTo({ top: 200, behavior: 'smooth' });
                         setTimeout(() => {
                             card.style.opacity = '1';
                             card.style.transform = 'scale(1)';
-                            playCardReveal();
+
                         }, i * 50);
                     });
                 }, 100);
@@ -3035,7 +3033,7 @@ window.scrollTo({ top: 200, behavior: 'smooth' });
                         setTimeout(() => {
                             card.style.opacity = '1';
                             card.style.transform = 'scale(1)';
-                            if (i === 0) playCardReveal();
+                            
                         }, i * 30);
                     });
                 }, 100);
@@ -3164,7 +3162,7 @@ window.scrollTo({ top: 200, behavior: 'smooth' });
             // Show the modal
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
-            playCardReveal();
+
         }
 
         function closeAffiliateProfileModal() {
@@ -3497,7 +3495,7 @@ const container = document.getElementById('affiliatesGridContainer');
                 setTimeout(() => {
                     card.style.opacity = '1';
                     card.style.transform = 'scale(1)';
-                    if (i === 0) playCardReveal();
+                    
                 }, i * 30); // Reduced from 50ms to 30ms
             });
         }
@@ -3648,7 +3646,7 @@ const container = document.getElementById('affiliatesGridContainer');
                 setTimeout(() => {
                     card.style.opacity = '1';
                     card.style.transform = 'scale(1)';
-                    playCardReveal();
+
                 }, i * 50);
             });
         }
@@ -3900,7 +3898,7 @@ const container = document.getElementById('affiliatesGridContainer');
             }
         });
         document.querySelectorAll('.podium-card, .btn, .close-btn, .mute-btn').forEach(el => {
-            el.addEventListener('mouseenter', () => playSound('hover'));
+            
         });
 
         // Event delegation for table rows (prevents memory leaks on pagination)
