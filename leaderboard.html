@@ -1382,6 +1382,7 @@
         }, { passive: true });
 
         // ========================================
+
         // Leaderboard data and pagination state
         const affiliatesData = [
     {rank: 1, name: 'rb3k', handle: '@rbthreek', avatar: 'RB', tweetScore: 112, botActivityScore: 3846, total: 3958, imgSrc: 'assets/images/affiliates/rbthreek.jpg', profileUrl: 'https://x.com/rbthreek', tgHandle: '@rbthreek'},
@@ -1475,8 +1476,6 @@
             // Update button states
             document.getElementById('prevBtn').disabled = currentPage === 1;
             document.getElementById('nextBtn').disabled = currentPage === totalPages;
-
-            // Re-attach hover sounds to new rows (using event delegation to prevent memory leaks)
             // Event listeners are already attached to tbody via event delegation
         }
 
@@ -1485,7 +1484,7 @@
             if (newPage >= 1 && newPage <= totalPages) {
                 currentPage = newPage;
                 renderLeaderboardPage();
-            }
+}
         }
 
         function openFullLeaderboard() {
@@ -1493,7 +1492,8 @@
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
             currentPage = 1; // Reset to first page
-            renderLeaderboardPage(); // Render the first page // Variant 2 for Full Leaderboard
+            renderLeaderboardPage(); // Render the first page
+// Variant 2 for Full Leaderboard
         }
 
 
@@ -1502,8 +1502,7 @@
             const modal = document.getElementById('twitterModal');
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
-
-            const container = document.getElementById('twitterPostsContainer');
+const container = document.getElementById('twitterPostsContainer');
 
             try {
                 const response = await fetch('/api/twitter-posts');
@@ -1572,8 +1571,7 @@
             const modal = document.getElementById('xProfilesModal');
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
-
-            // Prepare profiles data
+// Prepare profiles data
             xProfilesData = affiliatesData.map(affiliate => ({
                 name: affiliate.name,
                 handle: affiliate.handle,
@@ -1699,8 +1697,7 @@
 
             xProfilesCurrentPage = newPage;
             renderXProfilesPage();
-
-            // Scroll to top of modal content
+// Scroll to top of modal content
             const modalContent = document.querySelector('#xProfilesModal .modal-content');
             if (modalContent) {
                 modalContent.scrollTop = 0;
@@ -1968,8 +1965,6 @@
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-
-            // Play success sound
             playDigitalBeep();
         }
 
@@ -2282,7 +2277,7 @@
 
             alltimeCurrentPage = newPage;
             renderAlltimeDashboard();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function filterAlltimeAffiliates() {
@@ -2326,7 +2321,7 @@
 
             alltimeCurrentPage = 1;
             renderAlltimeDashboard();
-        }
+}
 
         function renderWeeklyDashboard() {
             const grid = document.getElementById('weekly-dashboard-grid');
@@ -2479,7 +2474,7 @@
 
             weeklyCurrentPage = newPage;
             renderWeeklyDashboard();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         // ===== Monthly Rankings Data & Rendering =====
@@ -2705,7 +2700,7 @@
 
             monthlyCurrentPage = newPage;
             renderMonthlyDashboard();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         // ===== Page Switching System =====
@@ -2748,7 +2743,7 @@
 
             // Scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+}
 
         function loadXProfilesPage() {
             const container = document.getElementById('xProfilesPageContent');
@@ -2879,7 +2874,7 @@
 
             xProfilesCurrentPage = newPage;
             loadXProfilesPage();
-            window.scrollTo({ top: 200, behavior: 'smooth' });
+window.scrollTo({ top: 200, behavior: 'smooth' });
         }
 
         async function loadTwitterPostsPage() {
@@ -3037,11 +3032,9 @@
                 setTimeout(() => {
                     const cards = document.querySelectorAll('#affiliatesPageContent .hall-card');
                     cards.forEach((card, i) => {
-                        // Reduce delay from 50ms to 30ms and limit sound effects
                         setTimeout(() => {
                             card.style.opacity = '1';
                             card.style.transform = 'scale(1)';
-                            // Only play sound for first card to reduce audio lag
                             if (i === 0) playCardReveal();
                         }, i * 30);
                     });
@@ -3062,7 +3055,7 @@
                 affiliatesCurrentPage = newPage;
                 loadAffiliatesPage();
                 window.scrollTo({ top: 200, behavior: 'smooth' });
-            }
+}
         }
 
         function openAffiliateProfileModal(index) {
@@ -3178,7 +3171,7 @@
             const modal = document.getElementById('affiliateProfileModal');
             modal.classList.remove('active');
             document.body.style.overflow = 'auto';
-        }
+}
 
         function showAffiliateXProfile(handle) {
             // Find affiliate data
@@ -3338,7 +3331,7 @@
 
             // Scroll to top
             window.scrollTo({ top: 200, behavior: 'smooth' });
-        }
+}
 
         function backToAffiliatesGrid() {
             const gridView = document.getElementById('affiliatesGridView');
@@ -3346,7 +3339,7 @@
             gridView.style.display = 'grid';
             profileView.style.display = 'none';
             window.scrollTo({ top: 200, behavior: 'smooth' });
-        }
+}
 
         // ===== Affiliates Directory Functions (DEPRECATED - Old Modal System) =====
         // NOTE: These functions reference deleted modals and are no longer used
@@ -3362,8 +3355,7 @@
             const modal = document.getElementById('affiliatesModal');
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
-
-            const container = document.getElementById('affiliatesGridContainer');
+const container = document.getElementById('affiliatesGridContainer');
 
             try {
                 // Fetch API data (or use cached)
@@ -3502,11 +3494,9 @@
             // Animate cards - optimized for performance
             const cards = document.querySelectorAll('#affiliatesGridContainer .hall-card');
             cards.forEach((card, i) => {
-                // Reduce delay and limit sound playback
                 setTimeout(() => {
                     card.style.opacity = '1';
                     card.style.transform = 'scale(1)';
-                    // Only play sound for first card
                     if (i === 0) playCardReveal();
                 }, i * 30); // Reduced from 50ms to 30ms
             });
@@ -3529,8 +3519,7 @@
             document.getElementById('affiliatesModal').classList.remove('active');
             const profileModal = document.getElementById('affiliateProfileModal');
             profileModal.classList.add('active');
-
-            // Render profile header
+// Render profile header
             renderProfileHeader(affiliate);
 
             // Render tweet feed
@@ -3680,8 +3669,7 @@
             modal.classList.remove('active');
             modal.style.display = 'none'; // Clear inline style set by openAffiliateModal
             document.body.style.overflow = 'auto';
-
-            // Clean up modal content after animation to prevent memory leaks
+// Clean up modal content after animation to prevent memory leaks
             setTimeout(() => {
                 if (!modal.classList.contains('active')) {
                     // Optional: clear heavy content if modal is closed
@@ -3789,7 +3777,7 @@
             modal.style.display = 'flex';
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
-        }
+}
 
         // Click card with animations
         function clickCard(card, rank, name, handle, avatar, tweetScore, botActivityScore, traders, total, imgSrc, profileUrl = '', telegramHandle = '') {
@@ -3820,9 +3808,7 @@
                 setTimeout(() => particle.remove(), 700);
             }
 
-            // Play sounds with rank variation
-
-            // Show detail popup after animation starts
+// Show detail popup after animation starts
             setTimeout(() => {
                 showDetail(rank, name, handle, avatar, tweetScore, botActivityScore, traders, total, imgSrc, profileUrl, telegramHandle);
             }, 180);
@@ -3868,12 +3854,12 @@
 
             const popup = document.getElementById('detailPopup');
             popup.classList.add('active');
-        }
+}
 
         function closeDetail() {
             const popup = document.getElementById('detailPopup');
             popup.classList.remove('active');
-        }
+}
 
         // Set up click handlers for podium cards
         function setupPodiumClickHandlers() {
@@ -3913,10 +3899,8 @@
                 closeDetail();
             }
         });
-
-        // Add hover sounds using event delegation to prevent memory leaks
         document.querySelectorAll('.podium-card, .btn, .close-btn, .mute-btn').forEach(el => {
-            el.addEventListener('mouseenter', () =>);
+            el.addEventListener('mouseenter', () => playSound('hover'));
         });
 
         // Event delegation for table rows (prevents memory leaks on pagination)
@@ -3924,15 +3908,13 @@
         if (tbody) {
             tbody.addEventListener('mouseenter', (e) => {
                 if (e.target.closest('tr')) {
-                }
+}
             }, true); // Use capture phase for proper delegation
         }
-
-        // Play achievement sound when top 3 section appears
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    observer.unobserve(entry.target);
+observer.unobserve(entry.target);
                 }
             });
         }, { threshold: 0.5 });
@@ -4007,8 +3989,6 @@
                                         }, 300); // Start counting 300ms after row appears
                                     }
                                 }
-
-                                // Play soft blip sound for each stat reveal
                                 playSubtleBlip(0.3);
 
                             }, index * 700); // 700ms delay between each stat (slower)
