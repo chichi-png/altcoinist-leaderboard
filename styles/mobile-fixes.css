@@ -940,6 +940,97 @@
 }
 
 /* ============================================
+   PAGINATION DESIGN - ALL DEVICES
+   Neon aesthetic matching site's design system
+   ============================================ */
+
+/* Clean pagination layout */
+#alltime-pagination,
+#weekly-pagination,
+#monthly-pagination {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.5rem !important;
+    padding: 1.5rem 0.5rem !important;
+    flex-wrap: wrap !important;
+}
+
+/* Style all pagination buttons - match site's neon aesthetic */
+#alltime-pagination button,
+#weekly-pagination button,
+#monthly-pagination button {
+    min-width: 40px !important;
+    min-height: 40px !important;
+    width: 40px !important;
+    height: 40px !important;
+    padding: 0 !important;
+    font-size: 0.9rem !important;
+    font-family: 'Space Grotesk', sans-serif !important;
+    font-weight: 600 !important;
+    border-radius: var(--radius, 0.625rem) !important;
+    background: rgba(56, 255, 147, 0.05) !important;
+    border: 1px solid rgba(56, 255, 147, 0.2) !important;
+    color: var(--neon-market-green) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.3s ease !important;
+    cursor: pointer !important;
+}
+
+/* Hover effect on pagination buttons */
+#alltime-pagination button:hover,
+#weekly-pagination button:hover,
+#monthly-pagination button:hover {
+    background: rgba(56, 255, 147, 0.15) !important;
+    border-color: var(--neon-market-green) !important;
+    box-shadow: 0 0 15px rgba(56, 255, 147, 0.4) !important;
+}
+
+/* Previous/Next buttons - match site style */
+#alltime-pagination button:first-child,
+#alltime-pagination button:last-child,
+#weekly-pagination button:first-child,
+#weekly-pagination button:last-child,
+#monthly-pagination button:first-child,
+#monthly-pagination button:last-child {
+    min-width: auto !important;
+    width: auto !important;
+    padding: 0 1rem !important;
+    font-size: 0.85rem !important;
+    background: rgba(56, 255, 147, 0.08) !important;
+    border: 1px solid rgba(56, 255, 147, 0.3) !important;
+    color: var(--neon-market-green) !important;
+    font-weight: 500 !important;
+}
+
+/* Active/current page button - full neon glow */
+#alltime-pagination button.active,
+#alltime-pagination button[style*="background: var(--neon-market-green)"],
+#alltime-pagination button[style*="background: rgb(56, 255, 147)"],
+#weekly-pagination button.active,
+#weekly-pagination button[style*="background: var(--neon-market-green)"],
+#weekly-pagination button[style*="background: rgb(56, 255, 147)"],
+#monthly-pagination button.active,
+#monthly-pagination button[style*="background: var(--neon-market-green)"],
+#monthly-pagination button[style*="background: rgb(56, 255, 147)"] {
+    background: var(--neon-market-green) !important;
+    color: #000 !important;
+    border-color: var(--neon-market-green) !important;
+    font-weight: 700 !important;
+    box-shadow: 0 0 20px rgba(56, 255, 147, 0.6), 0 0 40px rgba(56, 255, 147, 0.3) !important;
+}
+
+/* Hide page info text (e.g., "Page 1 of 9") */
+#alltime-pagination > div:not(button),
+#weekly-pagination > div:not(button),
+#monthly-pagination > div:not(button) {
+    display: none !important;
+}
+
+/* ============================================
    PORTRAIT MOBILE ONLY - Simple Size Reductions
    For vertical phone screens - very conservative
    ============================================ */
@@ -977,17 +1068,11 @@
         padding: 10px 8px !important;
     }
 
-    /* Clean pagination like inspiration image */
+    /* Mobile-specific pagination adjustments */
     #alltime-pagination,
     #weekly-pagination,
     #monthly-pagination {
-        display: flex !important;
-        flex-direction: row !important;
-        align-items: center !important;
-        justify-content: center !important;
-        gap: 0.5rem !important;
         padding: 1rem 0.5rem !important;
-        flex-wrap: wrap !important;
     }
 
     /* Show only first 5 page number buttons on mobile */
@@ -997,7 +1082,7 @@
         display: none !important;
     }
 
-    /* Style all pagination buttons - match site's neon aesthetic */
+    /* Smaller pagination buttons on mobile - override desktop sizes */
     #alltime-pagination button,
     #weekly-pagination button,
     #monthly-pagination button {
@@ -1005,68 +1090,17 @@
         min-height: 36px !important;
         width: 36px !important;
         height: 36px !important;
-        padding: 0 !important;
         font-size: 0.85rem !important;
-        font-family: 'Space Grotesk', sans-serif !important;
-        font-weight: 600 !important;
-        border-radius: var(--radius, 0.625rem) !important;
-        background: rgba(56, 255, 147, 0.05) !important;
-        border: 1px solid rgba(56, 255, 147, 0.2) !important;
-        color: var(--neon-market-green) !important;
-        display: inline-flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        transition: all 0.3s ease !important;
-        cursor: pointer !important;
     }
 
-    /* Hover effect on pagination buttons */
-    #alltime-pagination button:hover,
-    #weekly-pagination button:hover,
-    #monthly-pagination button:hover {
-        background: rgba(56, 255, 147, 0.15) !important;
-        border-color: var(--neon-market-green) !important;
-        box-shadow: 0 0 15px rgba(56, 255, 147, 0.4) !important;
-    }
-
-    /* Previous/Next buttons - match site style */
+    /* Smaller Previous/Next on mobile */
     #alltime-pagination button:first-child,
     #alltime-pagination button:last-child,
     #weekly-pagination button:first-child,
     #weekly-pagination button:last-child,
     #monthly-pagination button:first-child,
     #monthly-pagination button:last-child {
-        min-width: auto !important;
-        width: auto !important;
         padding: 0 0.75rem !important;
         font-size: 0.8rem !important;
-        background: rgba(56, 255, 147, 0.08) !important;
-        border: 1px solid rgba(56, 255, 147, 0.3) !important;
-        color: var(--neon-market-green) !important;
-        font-weight: 500 !important;
-    }
-
-    /* Active/current page button - full neon glow */
-    #alltime-pagination button.active,
-    #alltime-pagination button[style*="background: var(--neon-market-green)"],
-    #alltime-pagination button[style*="background: rgb(56, 255, 147)"],
-    #weekly-pagination button.active,
-    #weekly-pagination button[style*="background: var(--neon-market-green)"],
-    #weekly-pagination button[style*="background: rgb(56, 255, 147)"],
-    #monthly-pagination button.active,
-    #monthly-pagination button[style*="background: var(--neon-market-green)"],
-    #monthly-pagination button[style*="background: rgb(56, 255, 147)"] {
-        background: var(--neon-market-green) !important;
-        color: #000 !important;
-        border-color: var(--neon-market-green) !important;
-        font-weight: 700 !important;
-        box-shadow: 0 0 20px rgba(56, 255, 147, 0.6), 0 0 40px rgba(56, 255, 147, 0.3) !important;
-    }
-
-    /* Hide page info text (e.g., "Page 1 of 9") if it exists */
-    #alltime-pagination > div:not(button),
-    #weekly-pagination > div:not(button),
-    #monthly-pagination > div:not(button) {
-        display: none !important;
     }
 }
