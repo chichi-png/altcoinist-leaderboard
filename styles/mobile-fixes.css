@@ -1154,6 +1154,21 @@
         transform: none !important;
         width: 100% !important;
         margin-left: 0 !important;
+        padding-bottom: 5rem !important;
+    }
+
+    /* Extra space for weekly/monthly pagination visibility */
+    #weekly-page,
+    #monthly-page {
+        padding-bottom: 5rem !important;
+        min-height: 100vh !important;
+    }
+
+    #weekly-pagination,
+    #monthly-pagination {
+        padding: 2rem 0.5rem 3rem 0.5rem !important;
+        margin-top: 2rem !important;
+        margin-bottom: 3rem !important;
     }
 
     /* Show only first 5 page number buttons on mobile */
