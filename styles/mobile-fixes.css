@@ -1159,14 +1159,16 @@
         min-height: auto !important;
     }
 
-    /* Extra space for weekly/monthly pagination visibility */
+    /* CRITICAL: Enable scrolling on weekly/monthly pages */
     #weekly-page,
     #monthly-page {
         padding-bottom: 8rem !important;
         min-height: 100vh !important;
-        overflow-y: auto !important;
+        max-height: none !important; /* REMOVE max-height limit */
+        height: auto !important; /* Allow page to be taller than viewport */
+        overflow-y: auto !important; /* ENABLE vertical scrolling */
         overflow-x: hidden !important;
-        height: auto !important;
+        -webkit-overflow-scrolling: touch !important; /* Smooth scrolling on iOS */
     }
 
     /* Ensure pagination is visible and not cut off */
