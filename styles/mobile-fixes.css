@@ -1177,7 +1177,24 @@
         visibility: visible !important;
         display: flex !important;
         background: rgba(0, 0, 0, 0.95) !important;
-        border-top: 1px solid rgba(56, 255, 147, 0.2) !important;
+        border-top: 2px solid var(--neon-market-green) !important;
+        min-height: 80px !important;
+        z-index: 100 !important;
+    }
+
+    /* Make pagination buttons highly visible */
+    #weekly-pagination *,
+    #monthly-pagination * {
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    /* Override any display: none on pagination */
+    #weekly-pagination,
+    #monthly-pagination,
+    #weekly-pagination button,
+    #monthly-pagination button {
+        display: flex !important;
     }
 
     /* Make sure the section doesn't clip pagination */
