@@ -1166,9 +1166,28 @@
         min-height: 100vh !important;
         max-height: none !important; /* REMOVE max-height limit */
         height: auto !important; /* Allow page to be taller than viewport */
-        overflow-y: auto !important; /* ENABLE vertical scrolling */
+        overflow-y: scroll !important; /* FORCE scrolling */
         overflow-x: hidden !important;
         -webkit-overflow-scrolling: touch !important; /* Smooth scrolling on iOS */
+        position: relative !important;
+        display: block !important;
+    }
+
+    /* Override body overflow when on weekly/monthly pages */
+    body:has(#weekly-page.active),
+    body:has(#monthly-page.active) {
+        overflow: auto !important;
+        max-height: none !important;
+        height: auto !important;
+    }
+
+    /* Ensure the active page can scroll */
+    #weekly-page.active,
+    #monthly-page.active {
+        overflow-y: scroll !important;
+        overflow-y: overlay !important;
+        display: block !important;
+        position: relative !important;
     }
 
     /* Ensure pagination is visible and not cut off */
