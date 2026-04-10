@@ -947,7 +947,8 @@
 /* Clean pagination layout */
 #alltime-pagination,
 #weekly-pagination,
-#monthly-pagination {
+#monthly-pagination,
+.pagination-controls {
     display: flex !important;
     flex-direction: row !important;
     align-items: center !important;
@@ -960,7 +961,8 @@
 /* Style all pagination buttons - match site's neon aesthetic */
 #alltime-pagination button,
 #weekly-pagination button,
-#monthly-pagination button {
+#monthly-pagination button,
+.pagination-controls button {
     min-width: 40px !important;
     min-height: 40px !important;
     width: 40px !important;
@@ -983,7 +985,8 @@
 /* Hover effect on pagination buttons */
 #alltime-pagination button:hover,
 #weekly-pagination button:hover,
-#monthly-pagination button:hover {
+#monthly-pagination button:hover,
+.pagination-controls button:hover {
     background: rgba(56, 255, 147, 0.15) !important;
     border-color: var(--neon-market-green) !important;
     box-shadow: 0 0 15px rgba(56, 255, 147, 0.4) !important;
@@ -995,7 +998,9 @@
 #weekly-pagination button:first-child,
 #weekly-pagination button:last-child,
 #monthly-pagination button:first-child,
-#monthly-pagination button:last-child {
+#monthly-pagination button:last-child,
+.pagination-controls button:first-child,
+.pagination-controls button:last-child {
     min-width: auto !important;
     width: auto !important;
     padding: 0 1rem !important;
@@ -1015,7 +1020,10 @@
 #weekly-pagination button[style*="background: rgb(56, 255, 147)"],
 #monthly-pagination button.active,
 #monthly-pagination button[style*="background: var(--neon-market-green)"],
-#monthly-pagination button[style*="background: rgb(56, 255, 147)"] {
+#monthly-pagination button[style*="background: rgb(56, 255, 147)"],
+.pagination-controls button.active,
+.pagination-controls button[style*="background: var(--neon-market-green)"],
+.pagination-controls button[style*="background: rgb(56, 255, 147)"] {
     background: var(--neon-market-green) !important;
     color: #000 !important;
     border-color: var(--neon-market-green) !important;
@@ -1026,7 +1034,8 @@
 /* Hide page info text (e.g., "Page 1 of 9") */
 #alltime-pagination > div:not(button),
 #weekly-pagination > div:not(button),
-#monthly-pagination > div:not(button) {
+#monthly-pagination > div:not(button),
+.pagination-controls > div:not(button) {
     display: none !important;
 }
 
