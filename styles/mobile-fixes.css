@@ -1154,7 +1154,9 @@
         transform: none !important;
         width: 100% !important;
         margin-left: 0 !important;
-        padding-bottom: 5rem !important;
+        padding-bottom: 15rem !important; /* MUCH MORE - pagination needs 6rem margins + buffer */
+        overflow: visible !important;
+        min-height: auto !important;
     }
 
     /* Extra space for weekly/monthly pagination visibility */
@@ -1170,9 +1172,9 @@
     /* Ensure pagination is visible and not cut off */
     #weekly-pagination,
     #monthly-pagination {
-        padding: 2rem 0.5rem 4rem 0.5rem !important;
-        margin-top: 3rem !important;
-        margin-bottom: 4rem !important;
+        padding: 2rem 0.5rem 3rem 0.5rem !important;
+        margin-top: 2rem !important;
+        margin-bottom: 2rem !important;
         position: relative !important;
         visibility: visible !important;
         display: flex !important;
