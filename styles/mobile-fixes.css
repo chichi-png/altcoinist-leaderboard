@@ -1131,11 +1131,21 @@
         font-size: 0.75rem !important;
     }
 
-    /* Mobile-specific pagination adjustments */
+    /* Mobile-specific pagination adjustments - prevent cutoff */
     #alltime-pagination,
     #weekly-pagination,
     #monthly-pagination {
-        padding: 1rem 0.5rem !important;
+        padding: 1.5rem 0.5rem 2.5rem 0.5rem !important;
+        margin-top: 1.5rem !important;
+        margin-bottom: 2rem !important;
+        position: relative !important;
+    }
+
+    /* Add bottom padding to ranking pages to ensure pagination is visible */
+    #alltime-page,
+    #weekly-page,
+    #monthly-page {
+        padding-bottom: 3rem !important;
     }
 
     /* Show only first 5 page number buttons on mobile */
