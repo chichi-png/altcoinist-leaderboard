@@ -977,7 +977,7 @@
         padding: 10px 8px !important;
     }
 
-    /* Simplified pagination: Previous Page# Next only */
+    /* Clean pagination like inspiration image */
     #alltime-pagination,
     #weekly-pagination,
     #monthly-pagination {
@@ -985,32 +985,70 @@
         flex-direction: row !important;
         align-items: center !important;
         justify-content: center !important;
-        gap: 0.75rem !important;
+        gap: 0.5rem !important;
         padding: 1rem 0.5rem !important;
+        flex-wrap: wrap !important;
     }
 
-    /* Hide all page number buttons except Previous and Next */
-    #alltime-pagination button:not(:first-child):not(:last-child),
-    #weekly-pagination button:not(:first-child):not(:last-child),
-    #monthly-pagination button:not(:first-child):not(:last-child) {
+    /* Show only first 5 page number buttons on mobile */
+    #alltime-pagination button:nth-child(n+7):not(:last-child),
+    #weekly-pagination button:nth-child(n+7):not(:last-child),
+    #monthly-pagination button:nth-child(n+7):not(:last-child) {
         display: none !important;
     }
 
-    /* Make Previous and Next buttons smaller */
+    /* Style all pagination buttons - clean and minimal */
     #alltime-pagination button,
     #weekly-pagination button,
     #monthly-pagination button {
-        min-width: 80px !important;
+        min-width: 36px !important;
         min-height: 36px !important;
-        padding: 0.5rem 0.75rem !important;
+        width: 36px !important;
+        height: 36px !important;
+        padding: 0 !important;
         font-size: 0.85rem !important;
+        border-radius: 6px !important;
+        background: transparent !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        color: var(--text-primary) !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
     }
 
-    /* Keep page indicator visible and sized appropriately */
-    #alltime-pagination > div,
-    #weekly-pagination > div,
-    #monthly-pagination > div {
-        font-size: 0.85rem !important;
-        white-space: nowrap !important;
+    /* Previous/Next buttons - text style */
+    #alltime-pagination button:first-child,
+    #alltime-pagination button:last-child,
+    #weekly-pagination button:first-child,
+    #weekly-pagination button:last-child,
+    #monthly-pagination button:first-child,
+    #monthly-pagination button:last-child {
+        min-width: auto !important;
+        width: auto !important;
+        padding: 0 0.75rem !important;
+        font-size: 0.8rem !important;
+        border: none !important;
+        background: transparent !important;
+        color: var(--text-secondary) !important;
+    }
+
+    /* Active/current page button - highlighted like inspiration */
+    #alltime-pagination button.active,
+    #alltime-pagination button[style*="background: var(--neon-market-green)"],
+    #weekly-pagination button.active,
+    #weekly-pagination button[style*="background: var(--neon-market-green)"],
+    #monthly-pagination button.active,
+    #monthly-pagination button[style*="background: var(--neon-market-green)"] {
+        background: var(--neon-market-green) !important;
+        color: #000 !important;
+        border-color: var(--neon-market-green) !important;
+        font-weight: 600 !important;
+    }
+
+    /* Hide page info text (e.g., "Page 1 of 9") if it exists */
+    #alltime-pagination > div:not(button),
+    #weekly-pagination > div:not(button),
+    #monthly-pagination > div:not(button) {
+        display: none !important;
     }
 }
