@@ -1148,6 +1148,14 @@
         padding-bottom: 3rem !important;
     }
 
+    /* REMOVE the transform scale on weekly/monthly pages in portrait mode */
+    #weekly-page > section,
+    #monthly-page > section {
+        transform: none !important;
+        width: 100% !important;
+        margin-left: 0 !important;
+    }
+
     /* Show only first 5 page number buttons on mobile */
     #alltime-pagination button:nth-child(n+7):not(:last-child),
     #weekly-pagination button:nth-child(n+7):not(:last-child),
