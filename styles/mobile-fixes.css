@@ -976,4 +976,41 @@
     #alltime-page table td {
         padding: 10px 8px !important;
     }
+
+    /* Simplified pagination: Previous Page# Next only */
+    #alltime-pagination,
+    #weekly-pagination,
+    #monthly-pagination {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 0.75rem !important;
+        padding: 1rem 0.5rem !important;
+    }
+
+    /* Hide all page number buttons except Previous and Next */
+    #alltime-pagination button:not(:first-child):not(:last-child),
+    #weekly-pagination button:not(:first-child):not(:last-child),
+    #monthly-pagination button:not(:first-child):not(:last-child) {
+        display: none !important;
+    }
+
+    /* Make Previous and Next buttons smaller */
+    #alltime-pagination button,
+    #weekly-pagination button,
+    #monthly-pagination button {
+        min-width: 80px !important;
+        min-height: 36px !important;
+        padding: 0.5rem 0.75rem !important;
+        font-size: 0.85rem !important;
+    }
+
+    /* Keep page indicator visible and sized appropriately */
+    #alltime-pagination > div,
+    #weekly-pagination > div,
+    #monthly-pagination > div {
+        font-size: 0.85rem !important;
+        white-space: nowrap !important;
+    }
 }
