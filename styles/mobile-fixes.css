@@ -1160,15 +1160,31 @@
     /* Extra space for weekly/monthly pagination visibility */
     #weekly-page,
     #monthly-page {
-        padding-bottom: 5rem !important;
+        padding-bottom: 8rem !important;
         min-height: 100vh !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        height: auto !important;
     }
 
+    /* Ensure pagination is visible and not cut off */
     #weekly-pagination,
     #monthly-pagination {
-        padding: 2rem 0.5rem 3rem 0.5rem !important;
-        margin-top: 2rem !important;
-        margin-bottom: 3rem !important;
+        padding: 2rem 0.5rem 4rem 0.5rem !important;
+        margin-top: 3rem !important;
+        margin-bottom: 4rem !important;
+        position: relative !important;
+        visibility: visible !important;
+        display: flex !important;
+        background: rgba(0, 0, 0, 0.95) !important;
+        border-top: 1px solid rgba(56, 255, 147, 0.2) !important;
+    }
+
+    /* Make sure the section doesn't clip pagination */
+    #weekly-page > section,
+    #monthly-page > section {
+        overflow: visible !important;
+        margin-bottom: 6rem !important;
     }
 
     /* Show only first 5 page number buttons on mobile */
