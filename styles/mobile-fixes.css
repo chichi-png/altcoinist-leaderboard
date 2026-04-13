@@ -720,56 +720,122 @@
     .nav-btn,
     header .nav-btn,
     #mainHeader .nav-btn {
-        font-size: 0.7rem !important;
-        padding: 0.4rem 0.6rem !important;
-        min-width: 70px !important;
+        font-size: 0.65rem !important;
+        padding: 0.35rem 0.5rem !important;
+        min-width: 65px !important;
         letter-spacing: 0.2px !important;
     }
 
     /* Logo smaller on tiny screens */
     #mainHeader img {
-        height: 45px !important;
+        height: 40px !important;
     }
 
     /* More compact header */
     #mainHeader nav {
-        padding: 1rem 0.5rem !important;
-        gap: 0.3rem !important;
+        padding: 0.75rem 0.35rem !important;
+        gap: 0.25rem !important;
     }
 
     /* Mobile top 3 cards - more compact */
     .mobile-rank-card {
         padding: 1rem !important;
-        margin: 0.75rem !important;
+        margin: 0.5rem auto !important;
+        max-width: 100% !important;
     }
 
     .mobile-rank-card img {
-        width: 55px !important;
-        height: 55px !important;
+        width: 50px !important;
+        height: 50px !important;
     }
 
     .mobile-rank-card > div > div:first-child {
-        font-size: 1.1rem !important;
+        font-size: 1rem !important;
     }
 
     /* Landing title smaller */
     .landing-title {
-        font-size: 1.5rem !important;
+        font-size: 1.6rem !important;
     }
 
     /* All-time page adjustments */
     #alltime-page {
-        padding-top: 75px !important;
+        padding-top: 70px !important;
     }
 
     /* Table text smaller for tiny screens */
     table {
-        font-size: 0.75rem !important;
+        font-size: 0.7rem !important;
     }
 
     table th,
     table td {
-        padding: 8px 4px !important;
+        padding: 6px 3px !important;
+    }
+
+    /* Page titles even smaller on tiny screens */
+    #alltime-page h1,
+    #weekly-page h1,
+    #monthly-page h1,
+    #twitter-posts-page h1,
+    #x-profiles-page h1,
+    #affiliates-page h1 {
+        font-size: 1.5rem !important;
+    }
+
+    /* Paragraphs smaller */
+    #alltime-page p,
+    #weekly-page p,
+    #monthly-page p,
+    #twitter-posts-page p,
+    #x-profiles-page p,
+    #affiliates-page p {
+        font-size: 0.85rem !important;
+    }
+
+    /* Rank badges smaller */
+    .rank-badge {
+        width: 26px !important;
+        height: 26px !important;
+        font-size: 0.7rem !important;
+    }
+
+    /* Back button more compact */
+    .back-btn {
+        padding: 0.4rem 0.75rem !important;
+        font-size: 0.8rem !important;
+        min-height: 36px !important;
+    }
+
+    /* Search inputs smaller */
+    #alltime-search,
+    #weekly-search,
+    #monthly-search,
+    #alltime-sort,
+    #weekly-sort,
+    #monthly-sort {
+        height: 36px !important;
+        font-size: 0.85rem !important;
+        padding: 0.4rem !important;
+    }
+
+    /* Modal content more compact */
+    .modal-content {
+        padding: 1.5rem 0.75rem !important;
+        margin: 1rem auto !important;
+    }
+
+    .modal-title {
+        font-size: 1.3rem !important;
+    }
+
+    /* Close button smaller but still tappable */
+    .close-btn {
+        min-width: 50px !important;
+        min-height: 50px !important;
+        width: 50px !important;
+        height: 50px !important;
+        font-size: 2rem !important;
     }
 }
 
@@ -825,6 +891,42 @@
    ============================================ */
 
 /* ============================================
+   SMOOTH SCROLLING AND PERFORMANCE
+   ============================================ */
+
+@media (max-width: 768px) {
+    /* Enable smooth scrolling on all pages */
+    html,
+    body,
+    .page-container {
+        scroll-behavior: smooth !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+
+    /* Prevent layout shift during scroll */
+    * {
+        -webkit-tap-highlight-color: transparent !important;
+    }
+
+    /* Optimize rendering performance */
+    .page-container,
+    .modal-content,
+    .hall-card,
+    .affiliate-card {
+        will-change: auto !important;
+        transform: translateZ(0) !important;
+    }
+
+    /* Remove expensive animations on mobile */
+    @media (prefers-reduced-motion: reduce) {
+        * {
+            animation: none !important;
+            transition: none !important;
+        }
+    }
+}
+
+/* ============================================
    LANDSCAPE MODE OPTIMIZATION
    ============================================ */
 
@@ -832,49 +934,105 @@
     /* Optimize for landscape mobile (sideways phone) */
 
     #mainHeader {
-        padding: 0.5rem 0 !important;
+        padding: 0.4rem 0 !important;
     }
 
     #mainHeader nav {
-        padding: 0.5rem 1rem !important;
+        padding: 0.4rem 0.75rem !important;
     }
 
     #mainHeader img {
-        height: 35px !important;
+        height: 32px !important;
     }
 
     .nav-btn {
-        font-size: 0.65rem !important;
-        padding: 0.4rem 0.6rem !important;
+        font-size: 0.6rem !important;
+        padding: 0.35rem 0.55rem !important;
     }
 
     /* Home page - reduce vertical spacing */
     #home-page .landing {
-        padding-top: 4rem !important;
-        padding-bottom: 1rem !important;
+        padding-top: 2rem !important;
+        padding-bottom: 0.5rem !important;
     }
 
     .landing-title {
-        margin-bottom: 0.5rem !important;
-        font-size: 1.5rem !important;
+        margin-bottom: 0.75rem !important;
+        font-size: 1.4rem !important;
     }
 
     .mobile-rank-card {
-        padding: 1rem !important;
-        margin: 0.5rem !important;
+        padding: 0.75rem !important;
+        margin: 0.4rem auto !important;
+    }
+
+    .mobile-rank-card img {
+        width: 45px !important;
+        height: 45px !important;
     }
 
     /* All-time page - more compact */
     #alltime-page {
-        padding-top: 60px !important;
+        padding-top: 50px !important;
     }
 
-    /* Weekly/monthly - reduce scale slightly */
+    /* Page titles smaller in landscape */
+    #alltime-page h1,
+    #weekly-page h1,
+    #monthly-page h1,
+    #twitter-posts-page h1,
+    #x-profiles-page h1,
+    #affiliates-page h1 {
+        font-size: 1.4rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+
+    /* Paragraphs more compact */
+    #alltime-page p,
+    #weekly-page p,
+    #monthly-page p,
+    #twitter-posts-page p,
+    #x-profiles-page p,
+    #affiliates-page p {
+        font-size: 0.8rem !important;
+        margin-bottom: 1rem !important;
+    }
+
+    /* Section padding minimal in landscape */
+    #alltime-page section,
+    #weekly-page section,
+    #monthly-page section,
+    #twitter-posts-page section,
+    #x-profiles-page section,
+    #affiliates-page section {
+        padding: 1rem 0.75rem !important;
+    }
+
+    /* Weekly/monthly - no transform in landscape */
     #weekly-page > section,
     #monthly-page > section {
-        transform: scale(0.75) !important;
-        width: 133% !important;
-        margin-left: -16.5% !important;
+        transform: none !important;
+        width: 100% !important;
+        margin-left: 0 !important;
+    }
+
+    /* Tables more compact in landscape */
+    table {
+        font-size: 0.7rem !important;
+    }
+
+    table th,
+    table td {
+        padding: 4px 2px !important;
+    }
+
+    /* Back button smaller in landscape */
+    .back-btn {
+        top: 0.5rem !important;
+        left: 0.5rem !important;
+        padding: 0.35rem 0.65rem !important;
+        font-size: 0.75rem !important;
+        min-height: 32px !important;
     }
 }
 
@@ -1254,5 +1412,392 @@
     #monthly-pagination button:last-child {
         padding: 0 0.75rem !important;
         font-size: 0.8rem !important;
+    }
+
+    /* ========================================
+       FIX 21: PAGE SECTION HEADERS - ALL PAGES
+       Issue: Massive titles (3rem) look bad on mobile
+       Solution: Scale down all page titles and subtitles
+       ======================================== */
+
+    /* All page sections - reduce title sizes */
+    #alltime-page h1,
+    #weekly-page h1,
+    #monthly-page h1,
+    #twitter-posts-page h1,
+    #x-profiles-page h1,
+    #affiliates-page h1 {
+        font-size: 1.75rem !important;
+        margin-bottom: 1rem !important;
+        text-align: center !important;
+    }
+
+    /* Subtitle paragraphs - smaller on mobile */
+    #alltime-page p,
+    #weekly-page p,
+    #monthly-page p,
+    #twitter-posts-page p,
+    #x-profiles-page p,
+    #affiliates-page p {
+        font-size: 0.95rem !important;
+        margin-bottom: 1.5rem !important;
+        padding: 0 1rem !important;
+    }
+
+    /* ========================================
+       FIX 22: PAGE SECTION PADDING
+       Issue: Too much padding (2.5rem) wastes space on mobile
+       Solution: Reduce padding on all page sections
+       ======================================== */
+
+    #alltime-page section,
+    #weekly-page section,
+    #monthly-page section,
+    #twitter-posts-page section,
+    #x-profiles-page section,
+    #affiliates-page section {
+        padding: 1.5rem 1rem !important;
+    }
+
+    /* ========================================
+       FIX 23: TWITTER POSTS PAGE - MOBILE
+       Issue: Large cards, awkward layout on mobile
+       Solution: Single column, compact cards
+       ======================================== */
+
+    #twitter-posts-page #twitterPostsPageContent {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 0.5rem !important;
+    }
+
+    /* Twitter post cards - make them stack nicely */
+    #twitter-posts-page .tweet-card,
+    #twitter-posts-page [class*="post-card"],
+    #twitter-posts-page [class*="tweet"] {
+        margin: 0.75rem 0 !important;
+        padding: 1rem !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    /* ========================================
+       FIX 24: X PROFILES PAGE - MOBILE
+       Issue: Profile cards too large for mobile
+       Solution: Single column, compact profile cards
+       ======================================== */
+
+    #x-profiles-page #xProfilesPageContent {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 0.5rem !important;
+    }
+
+    /* X profile cards - single column grid */
+    #x-profiles-page .hall-grid,
+    #x-profiles-page [class*="grid"],
+    #x-profiles-page [class*="profiles"] {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+        padding: 0.5rem !important;
+    }
+
+    #x-profiles-page .hall-card,
+    #x-profiles-page [class*="profile-card"] {
+        transform: scale(0.95) !important;
+        margin: 0.5rem 0 !important;
+    }
+
+    /* ========================================
+       FIX 25: CONTENT WIDTH OPTIMIZATION
+       Issue: Max-width 1400px is way too wide for mobile
+       Solution: Force 100% width on all content containers
+       ======================================== */
+
+    #twitterPostsPageContent,
+    #xProfilesPageContent,
+    #affiliatesPageContent,
+    #weekly-dashboard-grid,
+    #monthly-dashboard-grid {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    /* ========================================
+       FIX 26: LOADING STATES - MOBILE
+       Issue: Loading indicators too large
+       Solution: Scale down loading animations
+       ======================================== */
+
+    #twitter-posts-page div[style*="font-size: 3rem"],
+    #x-profiles-page div[style*="font-size: 3rem"],
+    #affiliates-page div[style*="font-size: 3rem"] {
+        font-size: 2rem !important;
+    }
+
+    /* ========================================
+       FIX 27: BACK BUTTONS - CONSISTENT
+       Issue: Back buttons inconsistent across pages
+       Solution: Uniform back button styling
+       ======================================== */
+
+    .back-btn {
+        position: fixed !important;
+        top: 1rem !important;
+        left: 1rem !important;
+        z-index: 1000 !important;
+        background: rgba(0, 0, 0, 0.85) !important;
+        border: 2px solid var(--neon-market-green) !important;
+        padding: 0.5rem 1rem !important;
+        font-size: 0.9rem !important;
+        border-radius: 8px !important;
+        min-width: auto !important;
+        min-height: 40px !important;
+    }
+
+    /* ========================================
+       FIX 28: EMOJI SIZE IN HEADINGS
+       Issue: Emoji in headings too large on mobile
+       Solution: Keep emoji proportional to text
+       ======================================== */
+
+    h1 {
+        line-height: 1.3 !important;
+    }
+
+    /* ========================================
+       FIX 29: SECTION SPACING
+       Issue: Too much vertical space between elements
+       Solution: Tighter spacing for mobile
+       ======================================== */
+
+    .page-container section {
+        gap: 1rem !important;
+    }
+
+    .page-container section > * {
+        margin-bottom: 0.75rem !important;
+    }
+
+    /* ========================================
+       FIX 30: WEEKLY/MONTHLY TABLE LAYOUT
+       Issue: Tables cramped and hard to read
+       Solution: Better table formatting for mobile
+       ======================================== */
+
+    #weekly-page table,
+    #monthly-page table {
+        width: 100% !important;
+        font-size: 0.85rem !important;
+        border-collapse: collapse !important;
+    }
+
+    #weekly-page table th,
+    #monthly-page table th {
+        padding: 0.5rem 0.25rem !important;
+        font-size: 0.75rem !important;
+        white-space: nowrap !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+    }
+
+    #weekly-page table td,
+    #monthly-page table td {
+        padding: 0.75rem 0.25rem !important;
+        vertical-align: middle !important;
+    }
+
+    /* Make affiliate name column wider */
+    #weekly-page table td:nth-child(2),
+    #monthly-page table td:nth-child(2) {
+        min-width: 120px !important;
+    }
+
+    /* ========================================
+       FIX 31: SEARCH AND FILTER INPUTS
+       Issue: Search/filter inputs too large on mobile
+       Solution: Compact, touch-friendly inputs
+       ======================================== */
+
+    #alltime-search,
+    #weekly-search,
+    #monthly-search,
+    #alltime-sort,
+    #weekly-sort,
+    #monthly-sort,
+    input[type="search"],
+    select {
+        height: 40px !important;
+        font-size: 0.9rem !important;
+        padding: 0.5rem !important;
+        border-radius: 8px !important;
+        margin: 0.5rem 0 !important;
+    }
+
+    /* Search container - stack vertically on mobile */
+    .search-controls,
+    .filter-controls,
+    [class*="search-container"] {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0.75rem !important;
+        width: 100% !important;
+        margin-bottom: 1.5rem !important;
+    }
+
+    /* ========================================
+       FIX 32: HOME PAGE TOP 3 - MOBILE VIEW
+       Issue: Desktop podium display doesn't work on mobile
+       Solution: Show mobile-friendly cards instead
+       ======================================== */
+
+    /* Hide desktop podium on mobile */
+    .podium {
+        display: none !important;
+    }
+
+    /* Show mobile top 3 cards */
+    .mobile-top-3 {
+        display: block !important;
+        padding: 1rem !important;
+        width: 100% !important;
+    }
+
+    /* Mobile rank cards - already good, just ensure visibility */
+    .mobile-rank-card {
+        display: flex !important;
+        margin: 1rem auto !important;
+        max-width: 500px !important;
+    }
+
+    /* ========================================
+       FIX 33: LANDING PAGE TITLE
+       Issue: "Top Performers" title too large
+       Solution: Scale down for mobile
+       ======================================== */
+
+    .landing-title {
+        font-size: 2rem !important;
+        margin-bottom: 1.5rem !important;
+        padding: 0 1rem !important;
+    }
+
+    /* ========================================
+       FIX 34: NAVIGATION BUTTONS IN HEADER
+       Issue: Nav buttons overlap and wrap awkwardly
+       Solution: More compact, better wrapping
+       ======================================== */
+
+    #mainHeader {
+        padding: 0.75rem 0.5rem !important;
+    }
+
+    #mainHeader nav {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 0.4rem !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+
+    #mainHeader .nav-btn {
+        font-size: 0.7rem !important;
+        padding: 0.4rem 0.7rem !important;
+        min-width: auto !important;
+        white-space: nowrap !important;
+        letter-spacing: 0.3px !important;
+    }
+
+    #mainHeader img {
+        height: 45px !important;
+        margin-right: 0.5rem !important;
+    }
+
+    /* ========================================
+       FIX 35: STAT BADGES AND LABELS
+       Issue: Badge text too small to read
+       Solution: Larger, clearer badges
+       ======================================== */
+
+    .badge,
+    .stat-badge,
+    [class*="badge"] {
+        font-size: 0.75rem !important;
+        padding: 0.35rem 0.7rem !important;
+        border-radius: 6px !important;
+        white-space: nowrap !important;
+    }
+
+    /* ========================================
+       FIX 36: PROFILE MODAL ON MOBILE
+       Issue: Profile modals too large, hard to close
+       Solution: Better modal sizing and close button
+       ======================================== */
+
+    .modal-content {
+        width: 95vw !important;
+        max-width: 95vw !important;
+        margin: 2rem auto !important;
+        padding: 2rem 1rem !important;
+        max-height: 85vh !important;
+        overflow-y: auto !important;
+    }
+
+    /* Modal title smaller */
+    .modal-title {
+        font-size: 1.5rem !important;
+        margin-bottom: 1.5rem !important;
+    }
+
+    /* ========================================
+       FIX 37: AVATAR SIZES ACROSS ALL PAGES
+       Issue: Avatars inconsistent sizes
+       Solution: Uniform avatar sizing
+       ======================================== */
+
+    .avatar-circle,
+    .avatar-wrapper,
+    [class*="avatar"] img {
+        width: 50px !important;
+        height: 50px !important;
+        border-radius: 50% !important;
+        object-fit: cover !important;
+    }
+
+    /* Smaller avatars in tables */
+    table .avatar-circle,
+    table .avatar-wrapper,
+    table [class*="avatar"] img {
+        width: 40px !important;
+        height: 40px !important;
+    }
+
+    /* ========================================
+       FIX 38: SCROLLABLE TABLE CONTAINERS
+       Issue: Wide tables cause horizontal scroll
+       Solution: Horizontal scroll with visual indicator
+       ======================================== */
+
+    .table-container,
+    div:has(> table) {
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        width: 100% !important;
+        margin: 1rem 0 !important;
+    }
+
+    /* Add subtle shadow to indicate scrollability */
+    .table-container::after {
+        content: '' !important;
+        position: absolute !important;
+        top: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        width: 30px !important;
+        background: linear-gradient(to left, rgba(0,0,0,0.3), transparent) !important;
+        pointer-events: none !important;
     }
 }
