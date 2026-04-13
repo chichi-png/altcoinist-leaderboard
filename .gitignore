@@ -29,3 +29,6 @@ build/
 
 # Debug output
 leaderboard-data-output.json
+TEST-LOCAL.html
+test-nav.html
+test_syntax.html
