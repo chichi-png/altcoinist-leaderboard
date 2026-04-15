@@ -85,13 +85,14 @@ function renderPodium() {
 
     const positions = [affiliatesData[0], affiliatesData[1], affiliatesData[2]];
     const ids = ['podium-first', 'podium-second', 'podium-third'];
+    const medals = ['🥇', '🥈', '🥉'];
 
     positions.forEach((affiliate, index) => {
         document.getElementById(ids[index]).innerHTML = `
+            <div class="podium-medal">${medals[index]}</div>
             <img src="${affiliate.avatar}" alt="${affiliate.name}" class="podium-avatar" loading="lazy">
-            <div class="podium-rank">#${index + 1}</div>
             <div class="podium-name">${affiliate.name}</div>
-            <div class="podium-score">${affiliate.total}</div>
+            <div class="podium-handle">${affiliate.handle || affiliate.x_handle || ''}</div>
         `;
     });
 }
