@@ -126,8 +126,8 @@ def build_complete_list(scores_raw, period_name):
         else:
             avatar = f"https://ui-avatars.com/api/?name={name.replace(' ', '+')}&background=0D0D0D&color=38FF93&size=400&bold=true"
 
-        # Use Twitter username as display name (matches avatar), fallback to original name
-        display_name = f"@{twitter_username}" if twitter_username else name
+        # Use Twitter username as display name (without @), fallback to original name
+        display_name = twitter_username if twitter_username else name
 
         affiliates.append({
             'name': display_name,
