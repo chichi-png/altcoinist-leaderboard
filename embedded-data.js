@@ -4,133 +4,157 @@ window.LEADERBOARD_DATA = {
       "name": "Rb3k ",
       "handle": "@rbthreek",
       "avatar": "https://unavatar.io/twitter/rbthreek",
-      "tweetScore": 0,
-      "botActivityScore": 1683.89,
-      "total": 1683.89,
+      "tweetScore": 0.0,
+      "botActivityScore": 121.07,
+      "total": 121.07,
       "profileUrl": "https://x.com/rbthreek",
       "xUrl": "https://x.com/rbthreek",
       "tgHandle": "@rbthreek",
       "rank": 1
     },
     {
-      "name": "Chainriffs",
-      "handle": "@Chainriffs",
-      "avatar": "https://unavatar.io/twitter/Chainriffs",
-      "tweetScore": 120,
-      "botActivityScore": 0,
-      "total": 120,
-      "profileUrl": "https://x.com/Chainriffs",
-      "xUrl": "https://x.com/Chainriffs",
-      "tgHandle": "@Chainriffss",
+      "name": "Chiron \n",
+      "handle": "@chironchain",
+      "avatar": "https://unavatar.io/twitter/chironchain",
+      "tweetScore": 0.0,
+      "botActivityScore": 40.13,
+      "total": 40.13,
+      "profileUrl": "https://x.com/chironchain",
+      "xUrl": "https://x.com/chironchain",
+      "tgHandle": "@chironthetrader",
       "rank": 2
     },
     {
-      "name": "arindewar",
-      "handle": "@arindewar",
-      "avatar": "https://unavatar.io/twitter/arindewar",
-      "tweetScore": 89.15,
-      "botActivityScore": 0,
-      "total": 89.15,
-      "profileUrl": "https://x.com/arindewar",
-      "xUrl": "https://x.com/arindewar",
-      "tgHandle": "@arrieindewarrie",
+      "name": "@KAPOTHEGOAT01\n",
+      "handle": "@KAPOTHEGOAT01",
+      "avatar": "https://unavatar.io/twitter/KAPOTHEGOAT01",
+      "tweetScore": 20.81,
+      "botActivityScore": 0.0,
+      "total": 20.81,
+      "profileUrl": "https://x.com/KAPOTHEGOAT01",
+      "xUrl": "https://x.com/KAPOTHEGOAT01",
+      "tgHandle": "@LUCKYL1MG",
       "rank": 3
     },
     {
-      "name": "Techy0x",
-      "handle": "@techy0x",
-      "avatar": "https://unavatar.io/twitter/techy0x",
-      "tweetScore": 0,
-      "botActivityScore": 47.21,
-      "total": 47.21,
-      "profileUrl": "https://x.com/techy0x",
-      "xUrl": "https://x.com/techy0x",
-      "tgHandle": "@techy0x",
+      "name": "Chainriffs",
+      "handle": "@Chainriffs",
+      "avatar": "https://unavatar.io/twitter/Chainriffs",
+      "tweetScore": 14.43,
+      "botActivityScore": 0.0,
+      "total": 14.43,
+      "profileUrl": "https://x.com/Chainriffs",
+      "xUrl": "https://x.com/Chainriffs",
+      "tgHandle": "@Chainriffss",
       "rank": 4
-    },
-    {
-      "name": "Mj (@vanxryus on X) ",
-      "handle": "@Vanxyrus",
-      "avatar": "https://unavatar.io/twitter/Vanxyrus",
-      "tweetScore": 0,
-      "botActivityScore": 38.01,
-      "total": 38.01,
-      "profileUrl": "https://x.com/Vanxyrus",
-      "xUrl": "https://x.com/Vanxyrus",
-      "tgHandle": "@Vanxyrus",
-      "rank": 5
-    },
-    {
-      "name": "mDiBe89",
-      "handle": "@tibbiracer",
-      "avatar": "https://unavatar.io/twitter/tibbiracer",
-      "tweetScore": 30,
-      "botActivityScore": 0,
-      "total": 30,
-      "profileUrl": "https://x.com/tibbiracer",
-      "xUrl": "https://x.com/tibbiracer",
-      "tgHandle": "@mDiBe89",
-      "rank": 6
-    },
-    {
-      "name": "Thegardner",
-      "handle": "@thegardener777",
-      "avatar": "https://unavatar.io/twitter/thegardener777",
-      "tweetScore": 0,
-      "botActivityScore": 26.38,
-      "total": 26.38,
-      "profileUrl": "https://x.com/thegardener777",
-      "xUrl": "https://x.com/thegardener777",
-      "tgHandle": "@thegardener777",
-      "rank": 7
-    },
-    {
-      "name": "Spenny",
-      "handle": "@SpennyCrypto",
-      "avatar": "https://unavatar.io/twitter/SpennyCrypto",
-      "tweetScore": 14.75,
-      "botActivityScore": 0,
-      "total": 14.75,
-      "profileUrl": "https://x.com/SpennyCrypto",
-      "xUrl": "https://x.com/SpennyCrypto",
-      "tgHandle": "@spennypretzel",
-      "rank": 8
     },
     {
       "name": "cryptocchio0",
       "handle": "@mrLCguy",
       "avatar": "https://unavatar.io/twitter/mrLCguy",
-      "tweetScore": 0,
-      "botActivityScore": 6.02,
-      "total": 6.02,
+      "tweetScore": 6.7,
+      "botActivityScore": 0.0,
+      "total": 6.7,
       "profileUrl": "https://x.com/mrlcguy",
       "xUrl": "https://x.com/mrlcguy",
       "tgHandle": "@cryptocchio0",
+      "rank": 5
+    },
+    {
+      "name": "Premium Mind  ( @deepseektetra on X )",
+      "handle": "@deepseektetra",
+      "avatar": "https://unavatar.io/twitter/deepseektetra",
+      "tweetScore": 4.67,
+      "botActivityScore": 0.0,
+      "total": 4.67,
+      "profileUrl": "https://x.com/deepseektetra",
+      "xUrl": "https://x.com/deepseektetra",
+      "tgHandle": "@Elohim528",
+      "rank": 6
+    },
+    {
+      "name": "N30 ",
+      "handle": "@N30_cryptoo",
+      "avatar": "https://unavatar.io/twitter/N30_cryptoo",
+      "tweetScore": 3.39,
+      "botActivityScore": 0.0,
+      "total": 3.39,
+      "profileUrl": "https://x.com/N30_cryptoo",
+      "xUrl": "https://x.com/N30_cryptoo",
+      "tgHandle": "@N30_CRYPTO",
+      "rank": 7
+    },
+    {
+      "name": "Tyler Kenny ",
+      "handle": "@thebasedfrogx",
+      "avatar": "https://unavatar.io/twitter/thebasedfrogx",
+      "tweetScore": 0.0,
+      "botActivityScore": 3.32,
+      "total": 3.32,
+      "profileUrl": "https://x.com/thebasedfrogx",
+      "xUrl": "https://x.com/thebasedfrogx",
+      "tgHandle": "@thebasedfrog",
+      "rank": 8
+    },
+    {
+      "name": "cryptic_t",
+      "handle": "@cryptic_tits",
+      "avatar": "https://unavatar.io/twitter/cryptic_tits",
+      "tweetScore": 0.69,
+      "botActivityScore": 0.0,
+      "total": 0.69,
+      "profileUrl": "https://x.com/cryptic_tits",
+      "xUrl": "https://x.com/cryptic_tits",
+      "tgHandle": "@cryptic_t",
       "rank": 9
+    },
+    {
+      "name": "neo lawyer ",
+      "handle": "@Neolawyer1",
+      "avatar": "https://unavatar.io/twitter/Neolawyer1",
+      "tweetScore": 0.0,
+      "botActivityScore": 0.02,
+      "total": 0.02,
+      "profileUrl": "https://x.com/Neolawyer1",
+      "xUrl": "https://x.com/Neolawyer1",
+      "tgHandle": "@Neolawyer",
+      "rank": 10
     },
     {
       "name": "Base Pop",
       "handle": "@KD11201",
       "avatar": "https://unavatar.io/twitter/KD11201",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
       "profileUrl": "https://x.com/KD11201",
       "xUrl": "https://x.com/KD11201",
       "tgHandle": "@Kd11201",
-      "rank": 10
+      "rank": 11
     },
     {
       "name": "Anderson",
       "handle": "@0x7_anderson",
       "avatar": "https://unavatar.io/twitter/0x7_anderson",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
       "profileUrl": "https://x.com/0x7_anderson",
       "xUrl": "https://x.com/0x7_anderson",
       "tgHandle": "@tarcioanderson",
-      "rank": 11
+      "rank": 12
+    },
+    {
+      "name": "Thegardner",
+      "handle": "@thegardener777",
+      "avatar": "https://unavatar.io/twitter/thegardener777",
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
+      "profileUrl": "https://x.com/thegardener777",
+      "xUrl": "https://x.com/thegardener777",
+      "tgHandle": "@thegardener777",
+      "rank": 13
     },
     {
       "name": "Karaiso",
@@ -142,7 +166,7 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/karaiso4",
       "xUrl": "https://x.com/karaiso4",
       "tgHandle": "@karaiso",
-      "rank": 12
+      "rank": 14
     },
     {
       "name": "Math",
@@ -154,7 +178,7 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/mathburn666",
       "xUrl": "https://x.com/mathburn666",
       "tgHandle": "@mathburn666",
-      "rank": 13
+      "rank": 15
     },
     {
       "name": "SexCaliber ",
@@ -166,7 +190,7 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/Sexcalibur31",
       "xUrl": "https://x.com/Sexcalibur31",
       "tgHandle": "@sexcalibur31",
-      "rank": 14
+      "rank": 16
     },
     {
       "name": "RN03xx",
@@ -178,31 +202,19 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/_RN03xx_",
       "xUrl": "https://x.com/_RN03xx_",
       "tgHandle": "@RN03xx",
-      "rank": 15
+      "rank": 17
     },
     {
       "name": "Borny ",
       "handle": "@unborninfinite",
       "avatar": "https://unavatar.io/twitter/unborninfinite",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
       "profileUrl": "https://x.com/unborninfinite",
       "xUrl": "https://x.com/unborninfinite",
       "tgHandle": "@veryborny",
-      "rank": 16
-    },
-    {
-      "name": "Chiron \n",
-      "handle": "@chironchain",
-      "avatar": "https://unavatar.io/twitter/chironchain",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
-      "profileUrl": "https://x.com/chironchain",
-      "xUrl": "https://x.com/chironchain",
-      "tgHandle": "@chironthetrader",
-      "rank": 17
+      "rank": 18
     },
     {
       "name": "poorad",
@@ -214,7 +226,7 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/Pooorad",
       "xUrl": "https://x.com/Pooorad",
       "tgHandle": "@I_Love_Dogs21",
-      "rank": 18
+      "rank": 19
     },
     {
       "name": "AltcoinMiyagi",
@@ -226,7 +238,7 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/AltcoinMiyagi",
       "xUrl": "https://x.com/AltcoinMiyagi",
       "tgHandle": "@altcoinmiyagi",
-      "rank": 19
+      "rank": 20
     },
     {
       "name": "acespades34",
@@ -238,115 +250,79 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "no x link ",
       "xUrl": "no x link ",
       "tgHandle": "5200281793",
-      "rank": 20
+      "rank": 21
     },
     {
       "name": "Alf ",
       "handle": "@alfy11116",
       "avatar": "https://unavatar.io/twitter/alfy11116",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
       "profileUrl": "https://x.com/alfy11116",
       "xUrl": "https://x.com/alfy11116",
       "tgHandle": "@aLfy116",
-      "rank": 21
+      "rank": 22
     },
     {
       "name": "Flynn ",
       "handle": "@Flynn_howitt",
       "avatar": "https://unavatar.io/twitter/Flynn_howitt",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
       "profileUrl": "https://x.com/Flynn_howitt",
       "xUrl": "https://x.com/Flynn_howitt",
       "tgHandle": "@Flynn180",
-      "rank": 22
-    },
-    {
-      "name": "Tyler Kenny ",
-      "handle": "@thebasedfrogx",
-      "avatar": "https://unavatar.io/twitter/thebasedfrogx",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
-      "profileUrl": "https://x.com/thebasedfrogx",
-      "xUrl": "https://x.com/thebasedfrogx",
-      "tgHandle": "@thebasedfrog",
       "rank": 23
     },
     {
-      "name": "Premium Mind  ( @deepseektetra on X )",
-      "handle": "@deepseektetra",
-      "avatar": "https://unavatar.io/twitter/deepseektetra",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
-      "profileUrl": "https://x.com/deepseektetra",
-      "xUrl": "https://x.com/deepseektetra",
-      "tgHandle": "@Elohim528",
+      "name": "Mj (@vanxryus on X) ",
+      "handle": "@Vanxyrus",
+      "avatar": "https://unavatar.io/twitter/Vanxyrus",
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
+      "profileUrl": "https://x.com/Vanxyrus",
+      "xUrl": "https://x.com/Vanxyrus",
+      "tgHandle": "@Vanxyrus",
       "rank": 24
-    },
-    {
-      "name": "cryptic_t",
-      "handle": "@cryptic_tits",
-      "avatar": "https://unavatar.io/twitter/cryptic_tits",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
-      "profileUrl": "https://x.com/cryptic_tits",
-      "xUrl": "https://x.com/cryptic_tits",
-      "tgHandle": "@cryptic_t",
-      "rank": 25
-    },
-    {
-      "name": "neo lawyer ",
-      "handle": "@Neolawyer1",
-      "avatar": "https://unavatar.io/twitter/Neolawyer1",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
-      "profileUrl": "https://x.com/Neolawyer1",
-      "xUrl": "https://x.com/Neolawyer1",
-      "tgHandle": "@Neolawyer",
-      "rank": 26
     },
     {
       "name": "Medbdy",
       "handle": "@medbdy",
       "avatar": "https://unavatar.io/twitter/medbdy",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
       "profileUrl": "https://x.com/medbdy",
       "xUrl": "https://x.com/medbdy",
       "tgHandle": "@Medbdy7",
-      "rank": 27
+      "rank": 25
     },
     {
       "name": "Zeus ",
       "handle": "@vlagudfsfjr",
       "avatar": "https://unavatar.io/twitter/vlagudfsfjr",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
       "profileUrl": "https://x.com/vlagudfsfjr",
       "xUrl": "https://x.com/vlagudfsfjr",
       "tgHandle": "@zeus4r",
-      "rank": 28
+      "rank": 26
     },
     {
       "name": "Shake ",
       "handle": "@Shake51_",
       "avatar": "https://unavatar.io/twitter/Shake51_",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
       "profileUrl": "https://x.com/Shake51_",
       "xUrl": "https://x.com/Shake51_",
       "tgHandle": "@Shake51",
-      "rank": 29
+      "rank": 27
     },
     {
       "name": "Social Block ",
@@ -358,7 +334,7 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "no X link",
       "xUrl": "no X link",
       "tgHandle": "8349346803",
-      "rank": 30
+      "rank": 28
     },
     {
       "name": "DJ (@NLinker777 on X )",
@@ -370,31 +346,19 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/NLinker777",
       "xUrl": "https://x.com/NLinker777",
       "tgHandle": "@JIHANWOOOO",
-      "rank": 31
+      "rank": 29
     },
     {
-      "name": "N30 ",
-      "handle": "@N30_cryptoo",
-      "avatar": "https://unavatar.io/twitter/N30_cryptoo",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
-      "profileUrl": "https://x.com/N30_cryptoo",
-      "xUrl": "https://x.com/N30_cryptoo",
-      "tgHandle": "@N30_CRYPTO",
-      "rank": 32
-    },
-    {
-      "name": "@KAPOTHEGOAT01\n",
-      "handle": "@KAPOTHEGOAT01",
-      "avatar": "https://unavatar.io/twitter/KAPOTHEGOAT01",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
-      "profileUrl": "https://x.com/KAPOTHEGOAT01",
-      "xUrl": "https://x.com/KAPOTHEGOAT01",
-      "tgHandle": "@LUCKYL1MG",
-      "rank": 33
+      "name": "Spenny",
+      "handle": "@SpennyCrypto",
+      "avatar": "https://unavatar.io/twitter/SpennyCrypto",
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
+      "profileUrl": "https://x.com/SpennyCrypto",
+      "xUrl": "https://x.com/SpennyCrypto",
+      "tgHandle": "@spennypretzel",
+      "rank": 30
     },
     {
       "name": "Nouyarao",
@@ -406,19 +370,31 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/sentientom",
       "xUrl": "https://x.com/sentientom",
       "tgHandle": "@Nouyarao",
-      "rank": 34
+      "rank": 31
+    },
+    {
+      "name": "mDiBe89",
+      "handle": "@tibbiracer",
+      "avatar": "https://unavatar.io/twitter/tibbiracer",
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
+      "profileUrl": "https://x.com/tibbiracer",
+      "xUrl": "https://x.com/tibbiracer",
+      "tgHandle": "@mDiBe89",
+      "rank": 32
     },
     {
       "name": "Debankind ",
       "handle": "@DebankinDad",
       "avatar": "https://unavatar.io/twitter/DebankinDad",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
       "profileUrl": "https://x.com/DebankinDad",
       "xUrl": "https://x.com/DebankinDad",
       "tgHandle": "DebankinDad",
-      "rank": 35
+      "rank": 33
     },
     {
       "name": "3Dmax",
@@ -430,7 +406,19 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/3DMax_Virtuals",
       "xUrl": "https://x.com/3DMax_Virtuals",
       "tgHandle": "@oO_3Dmax",
-      "rank": 36
+      "rank": 34
+    },
+    {
+      "name": "arindewar",
+      "handle": "@arindewar",
+      "avatar": "https://unavatar.io/twitter/arindewar",
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
+      "profileUrl": "https://x.com/arindewar",
+      "xUrl": "https://x.com/arindewar",
+      "tgHandle": "@arrieindewarrie",
+      "rank": 35
     },
     {
       "name": "jeyojeyojeyo and fast are one and the same",
@@ -442,31 +430,31 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "no X link ",
       "xUrl": "no X link ",
       "tgHandle": "351175795",
-      "rank": 37
+      "rank": 36
     },
     {
       "name": "BigHammer ",
       "handle": "@joebangsjr",
       "avatar": "https://unavatar.io/twitter/joebangsjr",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
       "profileUrl": "https://x.com/joebangsjr",
       "xUrl": "https://x.com/joebangsjr",
       "tgHandle": "@BigHammer",
-      "rank": 38
+      "rank": 37
     },
     {
       "name": "AltcoinMatcha",
       "handle": "@AltcoinMatcha",
       "avatar": "https://unavatar.io/twitter/AltcoinMatcha",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
       "profileUrl": "https://x.com/AltcoinMatcha",
       "xUrl": "https://x.com/AltcoinMatcha",
       "tgHandle": "@AltcoinMatcha",
-      "rank": 39
+      "rank": 38
     },
     {
       "name": "Lyvo",
@@ -478,6 +466,18 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/lyvocrypto",
       "xUrl": "https://x.com/lyvocrypto",
       "tgHandle": "@LyvoCrypto",
+      "rank": 39
+    },
+    {
+      "name": "Techy0x",
+      "handle": "@techy0x",
+      "avatar": "https://unavatar.io/twitter/techy0x",
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
+      "profileUrl": "https://x.com/techy0x",
+      "xUrl": "https://x.com/techy0x",
+      "tgHandle": "@techy0x",
       "rank": 40
     },
     {
@@ -522,109 +522,157 @@ window.LEADERBOARD_DATA = {
       "name": "Rb3k ",
       "handle": "@rbthreek",
       "avatar": "https://unavatar.io/twitter/rbthreek",
-      "tweetScore": 0,
-      "botActivityScore": 172.59,
-      "total": 172.59,
+      "tweetScore": 0.0,
+      "botActivityScore": 121.07,
+      "total": 121.07,
       "profileUrl": "https://x.com/rbthreek",
       "xUrl": "https://x.com/rbthreek",
       "tgHandle": "@rbthreek",
       "rank": 1
     },
     {
-      "name": "arindewar",
-      "handle": "@arindewar",
-      "avatar": "https://unavatar.io/twitter/arindewar",
-      "tweetScore": 74.15,
-      "botActivityScore": 0,
-      "total": 74.15,
-      "profileUrl": "https://x.com/arindewar",
-      "xUrl": "https://x.com/arindewar",
-      "tgHandle": "@arrieindewarrie",
+      "name": "Chiron \n",
+      "handle": "@chironchain",
+      "avatar": "https://unavatar.io/twitter/chironchain",
+      "tweetScore": 0.0,
+      "botActivityScore": 40.13,
+      "total": 40.13,
+      "profileUrl": "https://x.com/chironchain",
+      "xUrl": "https://x.com/chironchain",
+      "tgHandle": "@chironthetrader",
       "rank": 2
     },
     {
-      "name": "Mj (@vanxryus on X) ",
-      "handle": "@Vanxyrus",
-      "avatar": "https://unavatar.io/twitter/Vanxyrus",
-      "tweetScore": 0,
-      "botActivityScore": 64.02,
-      "total": 64.02,
-      "profileUrl": "https://x.com/Vanxyrus",
-      "xUrl": "https://x.com/Vanxyrus",
-      "tgHandle": "@Vanxyrus",
+      "name": "@KAPOTHEGOAT01\n",
+      "handle": "@KAPOTHEGOAT01",
+      "avatar": "https://unavatar.io/twitter/KAPOTHEGOAT01",
+      "tweetScore": 20.81,
+      "botActivityScore": 0.0,
+      "total": 20.81,
+      "profileUrl": "https://x.com/KAPOTHEGOAT01",
+      "xUrl": "https://x.com/KAPOTHEGOAT01",
+      "tgHandle": "@LUCKYL1MG",
       "rank": 3
     },
     {
       "name": "Chainriffs",
       "handle": "@Chainriffs",
       "avatar": "https://unavatar.io/twitter/Chainriffs",
-      "tweetScore": 60,
-      "botActivityScore": 0,
-      "total": 60,
+      "tweetScore": 14.43,
+      "botActivityScore": 0.0,
+      "total": 14.43,
       "profileUrl": "https://x.com/Chainriffs",
       "xUrl": "https://x.com/Chainriffs",
       "tgHandle": "@Chainriffss",
       "rank": 4
     },
     {
-      "name": "Techy0x",
-      "handle": "@techy0x",
-      "avatar": "https://unavatar.io/twitter/techy0x",
-      "tweetScore": 0,
-      "botActivityScore": 47.21,
-      "total": 47.21,
-      "profileUrl": "https://x.com/techy0x",
-      "xUrl": "https://x.com/techy0x",
-      "tgHandle": "@techy0x",
-      "rank": 5
-    },
-    {
       "name": "cryptocchio0",
       "handle": "@mrLCguy",
       "avatar": "https://unavatar.io/twitter/mrLCguy",
-      "tweetScore": 0,
-      "botActivityScore": 29.04,
-      "total": 29.04,
+      "tweetScore": 6.7,
+      "botActivityScore": 0.0,
+      "total": 6.7,
       "profileUrl": "https://x.com/mrlcguy",
       "xUrl": "https://x.com/mrlcguy",
       "tgHandle": "@cryptocchio0",
+      "rank": 5
+    },
+    {
+      "name": "Premium Mind  ( @deepseektetra on X )",
+      "handle": "@deepseektetra",
+      "avatar": "https://unavatar.io/twitter/deepseektetra",
+      "tweetScore": 4.67,
+      "botActivityScore": 0.0,
+      "total": 4.67,
+      "profileUrl": "https://x.com/deepseektetra",
+      "xUrl": "https://x.com/deepseektetra",
+      "tgHandle": "@Elohim528",
       "rank": 6
     },
     {
-      "name": "Thegardner",
-      "handle": "@thegardener777",
-      "avatar": "https://unavatar.io/twitter/thegardener777",
-      "tweetScore": 0,
-      "botActivityScore": 26.38,
-      "total": 26.38,
-      "profileUrl": "https://x.com/thegardener777",
-      "xUrl": "https://x.com/thegardener777",
-      "tgHandle": "@thegardener777",
+      "name": "N30 ",
+      "handle": "@N30_cryptoo",
+      "avatar": "https://unavatar.io/twitter/N30_cryptoo",
+      "tweetScore": 3.39,
+      "botActivityScore": 0.0,
+      "total": 3.39,
+      "profileUrl": "https://x.com/N30_cryptoo",
+      "xUrl": "https://x.com/N30_cryptoo",
+      "tgHandle": "@N30_CRYPTO",
       "rank": 7
+    },
+    {
+      "name": "Tyler Kenny ",
+      "handle": "@thebasedfrogx",
+      "avatar": "https://unavatar.io/twitter/thebasedfrogx",
+      "tweetScore": 0.0,
+      "botActivityScore": 3.32,
+      "total": 3.32,
+      "profileUrl": "https://x.com/thebasedfrogx",
+      "xUrl": "https://x.com/thebasedfrogx",
+      "tgHandle": "@thebasedfrog",
+      "rank": 8
+    },
+    {
+      "name": "cryptic_t",
+      "handle": "@cryptic_tits",
+      "avatar": "https://unavatar.io/twitter/cryptic_tits",
+      "tweetScore": 0.69,
+      "botActivityScore": 0.0,
+      "total": 0.69,
+      "profileUrl": "https://x.com/cryptic_tits",
+      "xUrl": "https://x.com/cryptic_tits",
+      "tgHandle": "@cryptic_t",
+      "rank": 9
+    },
+    {
+      "name": "neo lawyer ",
+      "handle": "@Neolawyer1",
+      "avatar": "https://unavatar.io/twitter/Neolawyer1",
+      "tweetScore": 0.0,
+      "botActivityScore": 0.02,
+      "total": 0.02,
+      "profileUrl": "https://x.com/Neolawyer1",
+      "xUrl": "https://x.com/Neolawyer1",
+      "tgHandle": "@Neolawyer",
+      "rank": 10
     },
     {
       "name": "Base Pop",
       "handle": "@KD11201",
       "avatar": "https://unavatar.io/twitter/KD11201",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
       "profileUrl": "https://x.com/KD11201",
       "xUrl": "https://x.com/KD11201",
       "tgHandle": "@Kd11201",
-      "rank": 8
+      "rank": 11
     },
     {
       "name": "Anderson",
       "handle": "@0x7_anderson",
       "avatar": "https://unavatar.io/twitter/0x7_anderson",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
       "profileUrl": "https://x.com/0x7_anderson",
       "xUrl": "https://x.com/0x7_anderson",
       "tgHandle": "@tarcioanderson",
-      "rank": 9
+      "rank": 12
+    },
+    {
+      "name": "Thegardner",
+      "handle": "@thegardener777",
+      "avatar": "https://unavatar.io/twitter/thegardener777",
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
+      "profileUrl": "https://x.com/thegardener777",
+      "xUrl": "https://x.com/thegardener777",
+      "tgHandle": "@thegardener777",
+      "rank": 13
     },
     {
       "name": "Karaiso",
@@ -636,7 +684,7 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/karaiso4",
       "xUrl": "https://x.com/karaiso4",
       "tgHandle": "@karaiso",
-      "rank": 10
+      "rank": 14
     },
     {
       "name": "Math",
@@ -648,7 +696,7 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/mathburn666",
       "xUrl": "https://x.com/mathburn666",
       "tgHandle": "@mathburn666",
-      "rank": 11
+      "rank": 15
     },
     {
       "name": "SexCaliber ",
@@ -660,7 +708,7 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/Sexcalibur31",
       "xUrl": "https://x.com/Sexcalibur31",
       "tgHandle": "@sexcalibur31",
-      "rank": 12
+      "rank": 16
     },
     {
       "name": "RN03xx",
@@ -672,31 +720,19 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/_RN03xx_",
       "xUrl": "https://x.com/_RN03xx_",
       "tgHandle": "@RN03xx",
-      "rank": 13
+      "rank": 17
     },
     {
       "name": "Borny ",
       "handle": "@unborninfinite",
       "avatar": "https://unavatar.io/twitter/unborninfinite",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
       "profileUrl": "https://x.com/unborninfinite",
       "xUrl": "https://x.com/unborninfinite",
       "tgHandle": "@veryborny",
-      "rank": 14
-    },
-    {
-      "name": "Chiron \n",
-      "handle": "@chironchain",
-      "avatar": "https://unavatar.io/twitter/chironchain",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
-      "profileUrl": "https://x.com/chironchain",
-      "xUrl": "https://x.com/chironchain",
-      "tgHandle": "@chironthetrader",
-      "rank": 15
+      "rank": 18
     },
     {
       "name": "poorad",
@@ -708,7 +744,7 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/Pooorad",
       "xUrl": "https://x.com/Pooorad",
       "tgHandle": "@I_Love_Dogs21",
-      "rank": 16
+      "rank": 19
     },
     {
       "name": "AltcoinMiyagi",
@@ -720,7 +756,7 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/AltcoinMiyagi",
       "xUrl": "https://x.com/AltcoinMiyagi",
       "tgHandle": "@altcoinmiyagi",
-      "rank": 17
+      "rank": 20
     },
     {
       "name": "acespades34",
@@ -732,87 +768,51 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "no x link ",
       "xUrl": "no x link ",
       "tgHandle": "5200281793",
-      "rank": 18
+      "rank": 21
     },
     {
       "name": "Alf ",
       "handle": "@alfy11116",
       "avatar": "https://unavatar.io/twitter/alfy11116",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
       "profileUrl": "https://x.com/alfy11116",
       "xUrl": "https://x.com/alfy11116",
       "tgHandle": "@aLfy116",
-      "rank": 19
+      "rank": 22
     },
     {
       "name": "Flynn ",
       "handle": "@Flynn_howitt",
       "avatar": "https://unavatar.io/twitter/Flynn_howitt",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
       "profileUrl": "https://x.com/Flynn_howitt",
       "xUrl": "https://x.com/Flynn_howitt",
       "tgHandle": "@Flynn180",
-      "rank": 20
-    },
-    {
-      "name": "Tyler Kenny ",
-      "handle": "@thebasedfrogx",
-      "avatar": "https://unavatar.io/twitter/thebasedfrogx",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
-      "profileUrl": "https://x.com/thebasedfrogx",
-      "xUrl": "https://x.com/thebasedfrogx",
-      "tgHandle": "@thebasedfrog",
-      "rank": 21
-    },
-    {
-      "name": "Premium Mind  ( @deepseektetra on X )",
-      "handle": "@deepseektetra",
-      "avatar": "https://unavatar.io/twitter/deepseektetra",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
-      "profileUrl": "https://x.com/deepseektetra",
-      "xUrl": "https://x.com/deepseektetra",
-      "tgHandle": "@Elohim528",
-      "rank": 22
-    },
-    {
-      "name": "cryptic_t",
-      "handle": "@cryptic_tits",
-      "avatar": "https://unavatar.io/twitter/cryptic_tits",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
-      "profileUrl": "https://x.com/cryptic_tits",
-      "xUrl": "https://x.com/cryptic_tits",
-      "tgHandle": "@cryptic_t",
       "rank": 23
     },
     {
-      "name": "neo lawyer ",
-      "handle": "@Neolawyer1",
-      "avatar": "https://unavatar.io/twitter/Neolawyer1",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
-      "profileUrl": "https://x.com/Neolawyer1",
-      "xUrl": "https://x.com/Neolawyer1",
-      "tgHandle": "@Neolawyer",
+      "name": "Mj (@vanxryus on X) ",
+      "handle": "@Vanxyrus",
+      "avatar": "https://unavatar.io/twitter/Vanxyrus",
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
+      "profileUrl": "https://x.com/Vanxyrus",
+      "xUrl": "https://x.com/Vanxyrus",
+      "tgHandle": "@Vanxyrus",
       "rank": 24
     },
     {
       "name": "Medbdy",
       "handle": "@medbdy",
       "avatar": "https://unavatar.io/twitter/medbdy",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
       "profileUrl": "https://x.com/medbdy",
       "xUrl": "https://x.com/medbdy",
       "tgHandle": "@Medbdy7",
@@ -822,9 +822,9 @@ window.LEADERBOARD_DATA = {
       "name": "Zeus ",
       "handle": "@vlagudfsfjr",
       "avatar": "https://unavatar.io/twitter/vlagudfsfjr",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
       "profileUrl": "https://x.com/vlagudfsfjr",
       "xUrl": "https://x.com/vlagudfsfjr",
       "tgHandle": "@zeus4r",
@@ -834,9 +834,9 @@ window.LEADERBOARD_DATA = {
       "name": "Shake ",
       "handle": "@Shake51_",
       "avatar": "https://unavatar.io/twitter/Shake51_",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
       "profileUrl": "https://x.com/Shake51_",
       "xUrl": "https://x.com/Shake51_",
       "tgHandle": "@Shake51",
@@ -867,40 +867,16 @@ window.LEADERBOARD_DATA = {
       "rank": 29
     },
     {
-      "name": "N30 ",
-      "handle": "@N30_cryptoo",
-      "avatar": "https://unavatar.io/twitter/N30_cryptoo",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
-      "profileUrl": "https://x.com/N30_cryptoo",
-      "xUrl": "https://x.com/N30_cryptoo",
-      "tgHandle": "@N30_CRYPTO",
-      "rank": 30
-    },
-    {
-      "name": "@KAPOTHEGOAT01\n",
-      "handle": "@KAPOTHEGOAT01",
-      "avatar": "https://unavatar.io/twitter/KAPOTHEGOAT01",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
-      "profileUrl": "https://x.com/KAPOTHEGOAT01",
-      "xUrl": "https://x.com/KAPOTHEGOAT01",
-      "tgHandle": "@LUCKYL1MG",
-      "rank": 31
-    },
-    {
       "name": "Spenny",
       "handle": "@SpennyCrypto",
       "avatar": "https://unavatar.io/twitter/SpennyCrypto",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
       "profileUrl": "https://x.com/SpennyCrypto",
       "xUrl": "https://x.com/SpennyCrypto",
       "tgHandle": "@spennypretzel",
-      "rank": 32
+      "rank": 30
     },
     {
       "name": "Nouyarao",
@@ -912,31 +888,31 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/sentientom",
       "xUrl": "https://x.com/sentientom",
       "tgHandle": "@Nouyarao",
-      "rank": 33
+      "rank": 31
     },
     {
       "name": "mDiBe89",
       "handle": "@tibbiracer",
       "avatar": "https://unavatar.io/twitter/tibbiracer",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
       "profileUrl": "https://x.com/tibbiracer",
       "xUrl": "https://x.com/tibbiracer",
       "tgHandle": "@mDiBe89",
-      "rank": 34
+      "rank": 32
     },
     {
       "name": "Debankind ",
       "handle": "@DebankinDad",
       "avatar": "https://unavatar.io/twitter/DebankinDad",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
       "profileUrl": "https://x.com/DebankinDad",
       "xUrl": "https://x.com/DebankinDad",
       "tgHandle": "DebankinDad",
-      "rank": 35
+      "rank": 33
     },
     {
       "name": "3Dmax",
@@ -948,7 +924,19 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/3DMax_Virtuals",
       "xUrl": "https://x.com/3DMax_Virtuals",
       "tgHandle": "@oO_3Dmax",
-      "rank": 36
+      "rank": 34
+    },
+    {
+      "name": "arindewar",
+      "handle": "@arindewar",
+      "avatar": "https://unavatar.io/twitter/arindewar",
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
+      "profileUrl": "https://x.com/arindewar",
+      "xUrl": "https://x.com/arindewar",
+      "tgHandle": "@arrieindewarrie",
+      "rank": 35
     },
     {
       "name": "jeyojeyojeyo and fast are one and the same",
@@ -960,31 +948,31 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "no X link ",
       "xUrl": "no X link ",
       "tgHandle": "351175795",
-      "rank": 37
+      "rank": 36
     },
     {
       "name": "BigHammer ",
       "handle": "@joebangsjr",
       "avatar": "https://unavatar.io/twitter/joebangsjr",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
       "profileUrl": "https://x.com/joebangsjr",
       "xUrl": "https://x.com/joebangsjr",
       "tgHandle": "@BigHammer",
-      "rank": 38
+      "rank": 37
     },
     {
       "name": "AltcoinMatcha",
       "handle": "@AltcoinMatcha",
       "avatar": "https://unavatar.io/twitter/AltcoinMatcha",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
       "profileUrl": "https://x.com/AltcoinMatcha",
       "xUrl": "https://x.com/AltcoinMatcha",
       "tgHandle": "@AltcoinMatcha",
-      "rank": 39
+      "rank": 38
     },
     {
       "name": "Lyvo",
@@ -996,6 +984,18 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/lyvocrypto",
       "xUrl": "https://x.com/lyvocrypto",
       "tgHandle": "@LyvoCrypto",
+      "rank": 39
+    },
+    {
+      "name": "Techy0x",
+      "handle": "@techy0x",
+      "avatar": "https://unavatar.io/twitter/techy0x",
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
+      "profileUrl": "https://x.com/techy0x",
+      "xUrl": "https://x.com/techy0x",
+      "tgHandle": "@techy0x",
       "rank": 40
     },
     {
@@ -1040,133 +1040,157 @@ window.LEADERBOARD_DATA = {
       "name": "Rb3k ",
       "handle": "@rbthreek",
       "avatar": "https://unavatar.io/twitter/rbthreek",
-      "tweetScore": 0,
-      "botActivityScore": 1683.89,
-      "total": 1683.89,
+      "tweetScore": 0.0,
+      "botActivityScore": 121.07,
+      "total": 121.07,
       "profileUrl": "https://x.com/rbthreek",
       "xUrl": "https://x.com/rbthreek",
       "tgHandle": "@rbthreek",
       "rank": 1
     },
     {
-      "name": "Chainriffs",
-      "handle": "@Chainriffs",
-      "avatar": "https://unavatar.io/twitter/Chainriffs",
-      "tweetScore": 120,
-      "botActivityScore": 0,
-      "total": 120,
-      "profileUrl": "https://x.com/Chainriffs",
-      "xUrl": "https://x.com/Chainriffs",
-      "tgHandle": "@Chainriffss",
+      "name": "Chiron \n",
+      "handle": "@chironchain",
+      "avatar": "https://unavatar.io/twitter/chironchain",
+      "tweetScore": 0.0,
+      "botActivityScore": 40.13,
+      "total": 40.13,
+      "profileUrl": "https://x.com/chironchain",
+      "xUrl": "https://x.com/chironchain",
+      "tgHandle": "@chironthetrader",
       "rank": 2
     },
     {
-      "name": "arindewar",
-      "handle": "@arindewar",
-      "avatar": "https://unavatar.io/twitter/arindewar",
-      "tweetScore": 89.15,
-      "botActivityScore": 0,
-      "total": 89.15,
-      "profileUrl": "https://x.com/arindewar",
-      "xUrl": "https://x.com/arindewar",
-      "tgHandle": "@arrieindewarrie",
+      "name": "@KAPOTHEGOAT01\n",
+      "handle": "@KAPOTHEGOAT01",
+      "avatar": "https://unavatar.io/twitter/KAPOTHEGOAT01",
+      "tweetScore": 20.81,
+      "botActivityScore": 0.0,
+      "total": 20.81,
+      "profileUrl": "https://x.com/KAPOTHEGOAT01",
+      "xUrl": "https://x.com/KAPOTHEGOAT01",
+      "tgHandle": "@LUCKYL1MG",
       "rank": 3
     },
     {
-      "name": "Techy0x",
-      "handle": "@techy0x",
-      "avatar": "https://unavatar.io/twitter/techy0x",
-      "tweetScore": 0,
-      "botActivityScore": 47.21,
-      "total": 47.21,
-      "profileUrl": "https://x.com/techy0x",
-      "xUrl": "https://x.com/techy0x",
-      "tgHandle": "@techy0x",
+      "name": "Chainriffs",
+      "handle": "@Chainriffs",
+      "avatar": "https://unavatar.io/twitter/Chainriffs",
+      "tweetScore": 14.43,
+      "botActivityScore": 0.0,
+      "total": 14.43,
+      "profileUrl": "https://x.com/Chainriffs",
+      "xUrl": "https://x.com/Chainriffs",
+      "tgHandle": "@Chainriffss",
       "rank": 4
-    },
-    {
-      "name": "Mj (@vanxryus on X) ",
-      "handle": "@Vanxyrus",
-      "avatar": "https://unavatar.io/twitter/Vanxyrus",
-      "tweetScore": 0,
-      "botActivityScore": 38.01,
-      "total": 38.01,
-      "profileUrl": "https://x.com/Vanxyrus",
-      "xUrl": "https://x.com/Vanxyrus",
-      "tgHandle": "@Vanxyrus",
-      "rank": 5
-    },
-    {
-      "name": "mDiBe89",
-      "handle": "@tibbiracer",
-      "avatar": "https://unavatar.io/twitter/tibbiracer",
-      "tweetScore": 30,
-      "botActivityScore": 0,
-      "total": 30,
-      "profileUrl": "https://x.com/tibbiracer",
-      "xUrl": "https://x.com/tibbiracer",
-      "tgHandle": "@mDiBe89",
-      "rank": 6
-    },
-    {
-      "name": "Thegardner",
-      "handle": "@thegardener777",
-      "avatar": "https://unavatar.io/twitter/thegardener777",
-      "tweetScore": 0,
-      "botActivityScore": 26.38,
-      "total": 26.38,
-      "profileUrl": "https://x.com/thegardener777",
-      "xUrl": "https://x.com/thegardener777",
-      "tgHandle": "@thegardener777",
-      "rank": 7
-    },
-    {
-      "name": "Spenny",
-      "handle": "@SpennyCrypto",
-      "avatar": "https://unavatar.io/twitter/SpennyCrypto",
-      "tweetScore": 14.75,
-      "botActivityScore": 0,
-      "total": 14.75,
-      "profileUrl": "https://x.com/SpennyCrypto",
-      "xUrl": "https://x.com/SpennyCrypto",
-      "tgHandle": "@spennypretzel",
-      "rank": 8
     },
     {
       "name": "cryptocchio0",
       "handle": "@mrLCguy",
       "avatar": "https://unavatar.io/twitter/mrLCguy",
-      "tweetScore": 0,
-      "botActivityScore": 6.02,
-      "total": 6.02,
+      "tweetScore": 6.7,
+      "botActivityScore": 0.0,
+      "total": 6.7,
       "profileUrl": "https://x.com/mrlcguy",
       "xUrl": "https://x.com/mrlcguy",
       "tgHandle": "@cryptocchio0",
+      "rank": 5
+    },
+    {
+      "name": "Premium Mind  ( @deepseektetra on X )",
+      "handle": "@deepseektetra",
+      "avatar": "https://unavatar.io/twitter/deepseektetra",
+      "tweetScore": 4.67,
+      "botActivityScore": 0.0,
+      "total": 4.67,
+      "profileUrl": "https://x.com/deepseektetra",
+      "xUrl": "https://x.com/deepseektetra",
+      "tgHandle": "@Elohim528",
+      "rank": 6
+    },
+    {
+      "name": "N30 ",
+      "handle": "@N30_cryptoo",
+      "avatar": "https://unavatar.io/twitter/N30_cryptoo",
+      "tweetScore": 3.39,
+      "botActivityScore": 0.0,
+      "total": 3.39,
+      "profileUrl": "https://x.com/N30_cryptoo",
+      "xUrl": "https://x.com/N30_cryptoo",
+      "tgHandle": "@N30_CRYPTO",
+      "rank": 7
+    },
+    {
+      "name": "Tyler Kenny ",
+      "handle": "@thebasedfrogx",
+      "avatar": "https://unavatar.io/twitter/thebasedfrogx",
+      "tweetScore": 0.0,
+      "botActivityScore": 3.32,
+      "total": 3.32,
+      "profileUrl": "https://x.com/thebasedfrogx",
+      "xUrl": "https://x.com/thebasedfrogx",
+      "tgHandle": "@thebasedfrog",
+      "rank": 8
+    },
+    {
+      "name": "cryptic_t",
+      "handle": "@cryptic_tits",
+      "avatar": "https://unavatar.io/twitter/cryptic_tits",
+      "tweetScore": 0.69,
+      "botActivityScore": 0.0,
+      "total": 0.69,
+      "profileUrl": "https://x.com/cryptic_tits",
+      "xUrl": "https://x.com/cryptic_tits",
+      "tgHandle": "@cryptic_t",
       "rank": 9
+    },
+    {
+      "name": "neo lawyer ",
+      "handle": "@Neolawyer1",
+      "avatar": "https://unavatar.io/twitter/Neolawyer1",
+      "tweetScore": 0.0,
+      "botActivityScore": 0.02,
+      "total": 0.02,
+      "profileUrl": "https://x.com/Neolawyer1",
+      "xUrl": "https://x.com/Neolawyer1",
+      "tgHandle": "@Neolawyer",
+      "rank": 10
     },
     {
       "name": "Base Pop",
       "handle": "@KD11201",
       "avatar": "https://unavatar.io/twitter/KD11201",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
       "profileUrl": "https://x.com/KD11201",
       "xUrl": "https://x.com/KD11201",
       "tgHandle": "@Kd11201",
-      "rank": 10
+      "rank": 11
     },
     {
       "name": "Anderson",
       "handle": "@0x7_anderson",
       "avatar": "https://unavatar.io/twitter/0x7_anderson",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
       "profileUrl": "https://x.com/0x7_anderson",
       "xUrl": "https://x.com/0x7_anderson",
       "tgHandle": "@tarcioanderson",
-      "rank": 11
+      "rank": 12
+    },
+    {
+      "name": "Thegardner",
+      "handle": "@thegardener777",
+      "avatar": "https://unavatar.io/twitter/thegardener777",
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
+      "profileUrl": "https://x.com/thegardener777",
+      "xUrl": "https://x.com/thegardener777",
+      "tgHandle": "@thegardener777",
+      "rank": 13
     },
     {
       "name": "Karaiso",
@@ -1178,7 +1202,7 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/karaiso4",
       "xUrl": "https://x.com/karaiso4",
       "tgHandle": "@karaiso",
-      "rank": 12
+      "rank": 14
     },
     {
       "name": "Math",
@@ -1190,7 +1214,7 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/mathburn666",
       "xUrl": "https://x.com/mathburn666",
       "tgHandle": "@mathburn666",
-      "rank": 13
+      "rank": 15
     },
     {
       "name": "SexCaliber ",
@@ -1202,7 +1226,7 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/Sexcalibur31",
       "xUrl": "https://x.com/Sexcalibur31",
       "tgHandle": "@sexcalibur31",
-      "rank": 14
+      "rank": 16
     },
     {
       "name": "RN03xx",
@@ -1214,31 +1238,19 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/_RN03xx_",
       "xUrl": "https://x.com/_RN03xx_",
       "tgHandle": "@RN03xx",
-      "rank": 15
+      "rank": 17
     },
     {
       "name": "Borny ",
       "handle": "@unborninfinite",
       "avatar": "https://unavatar.io/twitter/unborninfinite",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
       "profileUrl": "https://x.com/unborninfinite",
       "xUrl": "https://x.com/unborninfinite",
       "tgHandle": "@veryborny",
-      "rank": 16
-    },
-    {
-      "name": "Chiron \n",
-      "handle": "@chironchain",
-      "avatar": "https://unavatar.io/twitter/chironchain",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
-      "profileUrl": "https://x.com/chironchain",
-      "xUrl": "https://x.com/chironchain",
-      "tgHandle": "@chironthetrader",
-      "rank": 17
+      "rank": 18
     },
     {
       "name": "poorad",
@@ -1250,7 +1262,7 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/Pooorad",
       "xUrl": "https://x.com/Pooorad",
       "tgHandle": "@I_Love_Dogs21",
-      "rank": 18
+      "rank": 19
     },
     {
       "name": "AltcoinMiyagi",
@@ -1262,7 +1274,7 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/AltcoinMiyagi",
       "xUrl": "https://x.com/AltcoinMiyagi",
       "tgHandle": "@altcoinmiyagi",
-      "rank": 19
+      "rank": 20
     },
     {
       "name": "acespades34",
@@ -1274,115 +1286,79 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "no x link ",
       "xUrl": "no x link ",
       "tgHandle": "5200281793",
-      "rank": 20
+      "rank": 21
     },
     {
       "name": "Alf ",
       "handle": "@alfy11116",
       "avatar": "https://unavatar.io/twitter/alfy11116",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
       "profileUrl": "https://x.com/alfy11116",
       "xUrl": "https://x.com/alfy11116",
       "tgHandle": "@aLfy116",
-      "rank": 21
+      "rank": 22
     },
     {
       "name": "Flynn ",
       "handle": "@Flynn_howitt",
       "avatar": "https://unavatar.io/twitter/Flynn_howitt",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
       "profileUrl": "https://x.com/Flynn_howitt",
       "xUrl": "https://x.com/Flynn_howitt",
       "tgHandle": "@Flynn180",
-      "rank": 22
-    },
-    {
-      "name": "Tyler Kenny ",
-      "handle": "@thebasedfrogx",
-      "avatar": "https://unavatar.io/twitter/thebasedfrogx",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
-      "profileUrl": "https://x.com/thebasedfrogx",
-      "xUrl": "https://x.com/thebasedfrogx",
-      "tgHandle": "@thebasedfrog",
       "rank": 23
     },
     {
-      "name": "Premium Mind  ( @deepseektetra on X )",
-      "handle": "@deepseektetra",
-      "avatar": "https://unavatar.io/twitter/deepseektetra",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
-      "profileUrl": "https://x.com/deepseektetra",
-      "xUrl": "https://x.com/deepseektetra",
-      "tgHandle": "@Elohim528",
+      "name": "Mj (@vanxryus on X) ",
+      "handle": "@Vanxyrus",
+      "avatar": "https://unavatar.io/twitter/Vanxyrus",
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
+      "profileUrl": "https://x.com/Vanxyrus",
+      "xUrl": "https://x.com/Vanxyrus",
+      "tgHandle": "@Vanxyrus",
       "rank": 24
-    },
-    {
-      "name": "cryptic_t",
-      "handle": "@cryptic_tits",
-      "avatar": "https://unavatar.io/twitter/cryptic_tits",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
-      "profileUrl": "https://x.com/cryptic_tits",
-      "xUrl": "https://x.com/cryptic_tits",
-      "tgHandle": "@cryptic_t",
-      "rank": 25
-    },
-    {
-      "name": "neo lawyer ",
-      "handle": "@Neolawyer1",
-      "avatar": "https://unavatar.io/twitter/Neolawyer1",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
-      "profileUrl": "https://x.com/Neolawyer1",
-      "xUrl": "https://x.com/Neolawyer1",
-      "tgHandle": "@Neolawyer",
-      "rank": 26
     },
     {
       "name": "Medbdy",
       "handle": "@medbdy",
       "avatar": "https://unavatar.io/twitter/medbdy",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
       "profileUrl": "https://x.com/medbdy",
       "xUrl": "https://x.com/medbdy",
       "tgHandle": "@Medbdy7",
-      "rank": 27
+      "rank": 25
     },
     {
       "name": "Zeus ",
       "handle": "@vlagudfsfjr",
       "avatar": "https://unavatar.io/twitter/vlagudfsfjr",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
       "profileUrl": "https://x.com/vlagudfsfjr",
       "xUrl": "https://x.com/vlagudfsfjr",
       "tgHandle": "@zeus4r",
-      "rank": 28
+      "rank": 26
     },
     {
       "name": "Shake ",
       "handle": "@Shake51_",
       "avatar": "https://unavatar.io/twitter/Shake51_",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
       "profileUrl": "https://x.com/Shake51_",
       "xUrl": "https://x.com/Shake51_",
       "tgHandle": "@Shake51",
-      "rank": 29
+      "rank": 27
     },
     {
       "name": "Social Block ",
@@ -1394,7 +1370,7 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "no X link",
       "xUrl": "no X link",
       "tgHandle": "8349346803",
-      "rank": 30
+      "rank": 28
     },
     {
       "name": "DJ (@NLinker777 on X )",
@@ -1406,31 +1382,19 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/NLinker777",
       "xUrl": "https://x.com/NLinker777",
       "tgHandle": "@JIHANWOOOO",
-      "rank": 31
+      "rank": 29
     },
     {
-      "name": "N30 ",
-      "handle": "@N30_cryptoo",
-      "avatar": "https://unavatar.io/twitter/N30_cryptoo",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
-      "profileUrl": "https://x.com/N30_cryptoo",
-      "xUrl": "https://x.com/N30_cryptoo",
-      "tgHandle": "@N30_CRYPTO",
-      "rank": 32
-    },
-    {
-      "name": "@KAPOTHEGOAT01\n",
-      "handle": "@KAPOTHEGOAT01",
-      "avatar": "https://unavatar.io/twitter/KAPOTHEGOAT01",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
-      "profileUrl": "https://x.com/KAPOTHEGOAT01",
-      "xUrl": "https://x.com/KAPOTHEGOAT01",
-      "tgHandle": "@LUCKYL1MG",
-      "rank": 33
+      "name": "Spenny",
+      "handle": "@SpennyCrypto",
+      "avatar": "https://unavatar.io/twitter/SpennyCrypto",
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
+      "profileUrl": "https://x.com/SpennyCrypto",
+      "xUrl": "https://x.com/SpennyCrypto",
+      "tgHandle": "@spennypretzel",
+      "rank": 30
     },
     {
       "name": "Nouyarao",
@@ -1442,19 +1406,31 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/sentientom",
       "xUrl": "https://x.com/sentientom",
       "tgHandle": "@Nouyarao",
-      "rank": 34
+      "rank": 31
+    },
+    {
+      "name": "mDiBe89",
+      "handle": "@tibbiracer",
+      "avatar": "https://unavatar.io/twitter/tibbiracer",
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
+      "profileUrl": "https://x.com/tibbiracer",
+      "xUrl": "https://x.com/tibbiracer",
+      "tgHandle": "@mDiBe89",
+      "rank": 32
     },
     {
       "name": "Debankind ",
       "handle": "@DebankinDad",
       "avatar": "https://unavatar.io/twitter/DebankinDad",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
       "profileUrl": "https://x.com/DebankinDad",
       "xUrl": "https://x.com/DebankinDad",
       "tgHandle": "DebankinDad",
-      "rank": 35
+      "rank": 33
     },
     {
       "name": "3Dmax",
@@ -1466,7 +1442,19 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/3DMax_Virtuals",
       "xUrl": "https://x.com/3DMax_Virtuals",
       "tgHandle": "@oO_3Dmax",
-      "rank": 36
+      "rank": 34
+    },
+    {
+      "name": "arindewar",
+      "handle": "@arindewar",
+      "avatar": "https://unavatar.io/twitter/arindewar",
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
+      "profileUrl": "https://x.com/arindewar",
+      "xUrl": "https://x.com/arindewar",
+      "tgHandle": "@arrieindewarrie",
+      "rank": 35
     },
     {
       "name": "jeyojeyojeyo and fast are one and the same",
@@ -1478,31 +1466,31 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "no X link ",
       "xUrl": "no X link ",
       "tgHandle": "351175795",
-      "rank": 37
+      "rank": 36
     },
     {
       "name": "BigHammer ",
       "handle": "@joebangsjr",
       "avatar": "https://unavatar.io/twitter/joebangsjr",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
       "profileUrl": "https://x.com/joebangsjr",
       "xUrl": "https://x.com/joebangsjr",
       "tgHandle": "@BigHammer",
-      "rank": 38
+      "rank": 37
     },
     {
       "name": "AltcoinMatcha",
       "handle": "@AltcoinMatcha",
       "avatar": "https://unavatar.io/twitter/AltcoinMatcha",
-      "tweetScore": 0,
-      "botActivityScore": 0,
-      "total": 0,
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
       "profileUrl": "https://x.com/AltcoinMatcha",
       "xUrl": "https://x.com/AltcoinMatcha",
       "tgHandle": "@AltcoinMatcha",
-      "rank": 39
+      "rank": 38
     },
     {
       "name": "Lyvo",
@@ -1514,6 +1502,18 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/lyvocrypto",
       "xUrl": "https://x.com/lyvocrypto",
       "tgHandle": "@LyvoCrypto",
+      "rank": 39
+    },
+    {
+      "name": "Techy0x",
+      "handle": "@techy0x",
+      "avatar": "https://unavatar.io/twitter/techy0x",
+      "tweetScore": 0.0,
+      "botActivityScore": 0.0,
+      "total": 0.0,
+      "profileUrl": "https://x.com/techy0x",
+      "xUrl": "https://x.com/techy0x",
+      "tgHandle": "@techy0x",
       "rank": 40
     },
     {
