@@ -2,15 +2,37 @@
 // AFFILIATE LEADERBOARD - GROUPBOT DESIGN
 // ========================================
 
-// Avatar Fallback Helper
-function getAvatarFallback(name) {
+// Avatar Fallback Helper with multiple attempts
+function getAvatarFallback(name, username) {
     const cleanName = (name || 'User').replace(/[@\n]/g, '').trim();
-    return `https://ui-avatars.com/api/?name=${encodeURIComponent(cleanName)}&background=0A0A0A&color=38FF93&bold=true&size=200`;
+    const cleanUsername = (username || cleanName).replace(/[@\n]/g, '').trim();
+
+    // Return fallback: text-based avatar with Groupbot colors
+    return `https://ui-avatars.com/api/?name=${encodeURIComponent(cleanName)}&background=0A0A0A&color=38FF93&bold=true&size=200&font-size=0.4`;
 }
 
-function handleAvatarError(img, name) {
-    img.onerror = null; // Prevent infinite loop
-    img.src = getAvatarFallback(name);
+let avatarAttempts = new Map();
+
+function handleAvatarError(img, name, username) {
+    const imgKey = img.src;
+    const attempts = avatarAttempts.get(imgKey) || 0;
+
+    if (attempts === 0) {
+        // First attempt: try with different case
+        avatarAttempts.set(imgKey, 1);
+        const cleanUsername = username.replace('@', '');
+        img.src = `https://unavatar.io/x/${cleanUsername}`;
+    } else if (attempts === 1) {
+        // Second attempt: try avatars.githubusercontent.com
+        avatarAttempts.set(imgKey, 2);
+        const cleanUsername = username.replace('@', '');
+        img.src = `https://avatars.githubusercontent.com/${cleanUsername}`;
+    } else {
+        // Final fallback: text-based avatar
+        img.onerror = null; // Prevent infinite loop
+        img.src = getAvatarFallback(name, username);
+        avatarAttempts.delete(imgKey);
+    }
 }
 
 // Data
@@ -104,7 +126,7 @@ function renderPodium() {
                  alt="${affiliate.name}"
                  class="podium-avatar"
                  loading="lazy"
-                 onerror="handleAvatarError(this, '${affiliate.name.replace(/'/g, "\\'")}')">
+                 onerror="handleAvatarError(this, '${affiliate.name.replace(/'/g, "\\'")}', '${affiliate.name.replace(/'/g, "\\'")}')">
             <div class="podium-name">${affiliate.name}</div>
             <div class="podium-handle">${affiliate.handle || affiliate.x_handle || ''}</div>
         `;
@@ -126,7 +148,7 @@ function renderAlltimeTable() {
                     <img src="${affiliate.avatar}"
                          alt="${affiliate.name}"
                          loading="lazy"
-                         onerror="handleAvatarError(this, '${affiliate.name.replace(/'/g, "\\'")}')"
+                         onerror="handleAvatarError(this, '${affiliate.name.replace(/'/g, "\\'")}', '${affiliate.name.replace(/'/g, "\\'")}'')"
                          style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--card-border);">
                     <div>
                         <div style="font-weight: 600;">${affiliate.name}</div>
@@ -182,7 +204,7 @@ function renderWeeklyGrid() {
                      alt="${affiliate.name}"
                      class="affiliate-avatar"
                      loading="lazy"
-                     onerror="handleAvatarError(this, '${affiliate.name.replace(/'/g, "\\'")}')">
+                     onerror="handleAvatarError(this, '${affiliate.name.replace(/'/g, "\\'")}', '${affiliate.name.replace(/'/g, "\\'")}')">
                 <div class="affiliate-info">
                     <h3>${affiliate.name}</h3>
                     <div class="affiliate-handle">${affiliate.handle}</div>
@@ -243,7 +265,7 @@ function renderMonthlyGrid() {
                      alt="${affiliate.name}"
                      class="affiliate-avatar"
                      loading="lazy"
-                     onerror="handleAvatarError(this, '${affiliate.name.replace(/'/g, "\\'")}')">
+                     onerror="handleAvatarError(this, '${affiliate.name.replace(/'/g, "\\'")}', '${affiliate.name.replace(/'/g, "\\'")}')">
                 <div class="affiliate-info">
                     <h3>${affiliate.name}</h3>
                     <div class="affiliate-handle">${affiliate.handle}</div>
@@ -304,7 +326,7 @@ function renderDirectoryGrid() {
                      alt="${affiliate.name}"
                      class="directory-avatar"
                      loading="lazy"
-                     onerror="handleAvatarError(this, '${affiliate.name.replace(/'/g, "\\'")}')">
+                     onerror="handleAvatarError(this, '${affiliate.name.replace(/'/g, "\\'")}', '${affiliate.name.replace(/'/g, "\\'")}')">
                 <div class="directory-info">
                     <h3>${affiliate.name}</h3>
                     <div class="directory-handle">${affiliate.handle}</div>
@@ -436,7 +458,7 @@ function openAffiliateModal(rank, source = 'alltime') {
             <img src="${affiliate.avatar}"
                  alt="${affiliate.name}"
                  loading="lazy"
-                 onerror="handleAvatarError(this, '${affiliate.name.replace(/'/g, "\\'")}')"
+                 onerror="handleAvatarError(this, '${affiliate.name.replace(/'/g, "\\'")}', '${affiliate.name.replace(/'/g, "\\'")}'))"
                  style="width: 120px; height: 120px; border-radius: 50%; border: 3px solid var(--card-border);">
             <h2 style="margin-top: 1rem; font-size: 1.5rem;">${affiliate.name}</h2>
             <p class="mono" style="color: var(--text-tertiary); margin-top: 0.5rem;">${affiliate.handle}</p>
