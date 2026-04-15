@@ -13,7 +13,7 @@ let filteredMonthlyData = [];
 let filteredDirectoryData = [];
 
 const itemsPerPage = 10;
-const cardsPerPage = 12;
+const cardsPerPage = 10;
 
 let alltimeCurrentPage = 1;
 let weeklyCurrentPage = 1;
