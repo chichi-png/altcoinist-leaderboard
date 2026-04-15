@@ -2,6 +2,17 @@
 // AFFILIATE LEADERBOARD - GROUPBOT DESIGN
 // ========================================
 
+// Avatar Fallback Helper
+function getAvatarFallback(name) {
+    const cleanName = (name || 'User').replace(/[@\n]/g, '').trim();
+    return `https://ui-avatars.com/api/?name=${encodeURIComponent(cleanName)}&background=0A0A0A&color=38FF93&bold=true&size=200`;
+}
+
+function handleAvatarError(img, name) {
+    img.onerror = null; // Prevent infinite loop
+    img.src = getAvatarFallback(name);
+}
+
 // Data
 let affiliatesData = [];
 let weeklyData = [];
@@ -89,7 +100,11 @@ function renderPodium() {
     positions.forEach((affiliate, index) => {
         document.getElementById(ids[index]).innerHTML = `
             <div class="podium-rank-badge">#${index + 1}</div>
-            <img src="${affiliate.avatar}" alt="${affiliate.name}" class="podium-avatar" loading="lazy">
+            <img src="${affiliate.avatar}"
+                 alt="${affiliate.name}"
+                 class="podium-avatar"
+                 loading="lazy"
+                 onerror="handleAvatarError(this, '${affiliate.name.replace(/'/g, "\\'")}')">
             <div class="podium-name">${affiliate.name}</div>
             <div class="podium-handle">${affiliate.handle || affiliate.x_handle || ''}</div>
         `;
@@ -108,7 +123,10 @@ function renderAlltimeTable() {
             <td><span class="rank">#${affiliate.rank}</span></td>
             <td>
                 <div style="display: flex; align-items: center; gap: 0.75rem;">
-                    <img src="${affiliate.avatar}" alt="${affiliate.name}" loading="lazy"
+                    <img src="${affiliate.avatar}"
+                         alt="${affiliate.name}"
+                         loading="lazy"
+                         onerror="handleAvatarError(this, '${affiliate.name.replace(/'/g, "\\'")}')"
                          style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--card-border);">
                     <div>
                         <div style="font-weight: 600;">${affiliate.name}</div>
@@ -160,7 +178,11 @@ function renderWeeklyGrid() {
     grid.innerHTML = pageData.map(affiliate => `
         <div class="affiliate-card" onclick="openAffiliateModal(${affiliate.rank}, 'weekly')">
             <div class="affiliate-header">
-                <img src="${affiliate.avatar}" alt="${affiliate.name}" class="affiliate-avatar" loading="lazy">
+                <img src="${affiliate.avatar}"
+                     alt="${affiliate.name}"
+                     class="affiliate-avatar"
+                     loading="lazy"
+                     onerror="handleAvatarError(this, '${affiliate.name.replace(/'/g, "\\'")}')">
                 <div class="affiliate-info">
                     <h3>${affiliate.name}</h3>
                     <div class="affiliate-handle">${affiliate.handle}</div>
@@ -217,7 +239,11 @@ function renderMonthlyGrid() {
     grid.innerHTML = pageData.map(affiliate => `
         <div class="affiliate-card" onclick="openAffiliateModal(${affiliate.rank}, 'monthly')">
             <div class="affiliate-header">
-                <img src="${affiliate.avatar}" alt="${affiliate.name}" class="affiliate-avatar" loading="lazy">
+                <img src="${affiliate.avatar}"
+                     alt="${affiliate.name}"
+                     class="affiliate-avatar"
+                     loading="lazy"
+                     onerror="handleAvatarError(this, '${affiliate.name.replace(/'/g, "\\'")}')">
                 <div class="affiliate-info">
                     <h3>${affiliate.name}</h3>
                     <div class="affiliate-handle">${affiliate.handle}</div>
@@ -274,7 +300,11 @@ function renderDirectoryGrid() {
     grid.innerHTML = pageData.map(affiliate => `
         <div class="directory-card">
             <div class="directory-header">
-                <img src="${affiliate.avatar}" alt="${affiliate.name}" class="directory-avatar" loading="lazy">
+                <img src="${affiliate.avatar}"
+                     alt="${affiliate.name}"
+                     class="directory-avatar"
+                     loading="lazy"
+                     onerror="handleAvatarError(this, '${affiliate.name.replace(/'/g, "\\'")}')">
                 <div class="directory-info">
                     <h3>${affiliate.name}</h3>
                     <div class="directory-handle">${affiliate.handle}</div>
@@ -403,7 +433,10 @@ function openAffiliateModal(rank, source = 'alltime') {
     const modalBody = document.getElementById('modal-body');
     modalBody.innerHTML = `
         <div style="text-align: center; margin-bottom: 2rem;">
-            <img src="${affiliate.avatar}" alt="${affiliate.name}" loading="lazy"
+            <img src="${affiliate.avatar}"
+                 alt="${affiliate.name}"
+                 loading="lazy"
+                 onerror="handleAvatarError(this, '${affiliate.name.replace(/'/g, "\\'")}')"
                  style="width: 120px; height: 120px; border-radius: 50%; border: 3px solid var(--card-border);">
             <h2 style="margin-top: 1rem; font-size: 1.5rem;">${affiliate.name}</h2>
             <p class="mono" style="color: var(--text-tertiary); margin-top: 0.5rem;">${affiliate.handle}</p>
