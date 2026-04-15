@@ -296,21 +296,6 @@ function renderDirectoryGrid() {
                     Telegram
                 </a>` : ''}
             </div>
-
-            <div class="directory-scores">
-                <div class="directory-score-item">
-                    <div class="directory-score-label">Rank</div>
-                    <div class="directory-score-value">#${affiliate.rank}</div>
-                </div>
-                <div class="directory-score-item">
-                    <div class="directory-score-label">Tweets</div>
-                    <div class="directory-score-value">${affiliate.tweetScore}</div>
-                </div>
-                <div class="directory-score-item">
-                    <div class="directory-score-label">Activity</div>
-                    <div class="directory-score-value">${affiliate.botActivityScore}</div>
-                </div>
-            </div>
         </div>
     `).join('');
 
@@ -332,10 +317,8 @@ function sortDirectory() {
 
     if (sortBy === 'name') {
         filteredDirectoryData.sort((a, b) => a.name.localeCompare(b.name));
-    } else if (sortBy === 'rank') {
-        filteredDirectoryData.sort((a, b) => a.rank - b.rank);
-    } else if (sortBy === 'score-desc') {
-        filteredDirectoryData.sort((a, b) => b.total - a.total);
+    } else if (sortBy === 'name-desc') {
+        filteredDirectoryData.sort((a, b) => b.name.localeCompare(a.name));
     }
 
     directoryCurrentPage = 1;
