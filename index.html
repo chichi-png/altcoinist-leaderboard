@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="0; url=/leaderboard">
+    <title>Altcoinist Affiliate Leaderboard</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000;
+            color: #38FF93;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .loading {
+            text-align: center;
+        }
+        .loading h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        .loading p {
+            color: rgba(56, 255, 147, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <div class="loading">
+        <h1>ALTCOINIST</h1>
+        <p>Redirecting to leaderboard...</p>
+    </div>
+    <script>
+        // Backup redirect if meta refresh doesn't work
+        window.location.href = '/leaderboard';
+    </script>
+</body>
+</html>
