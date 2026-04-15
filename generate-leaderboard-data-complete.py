@@ -114,8 +114,11 @@ def build_complete_list(scores_raw, period_name):
         # Avatar
         avatar = f"https://unavatar.io/twitter/{twitter_username}" if twitter_username else f"https://ui-avatars.com/api/?name={name.replace(' ', '+')}"
 
+        # Use Twitter username as display name (matches avatar), fallback to original name
+        display_name = f"@{twitter_username}" if twitter_username else name
+
         affiliates.append({
-            'name': name,
+            'name': display_name,
             'handle': handle,
             'avatar': avatar,
             'tweetScore': tweet_score,
