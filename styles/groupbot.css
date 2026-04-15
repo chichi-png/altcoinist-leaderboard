@@ -615,23 +615,43 @@ tbody tr:hover {
     transform: translateY(-25px);
 }
 
-.podium-medal {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+.podium-rank-badge {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--text-primary);
+    background: rgba(56, 255, 147, 0.1);
+    border: 1px solid rgba(56, 255, 147, 0.3);
+    border-radius: var(--radius-full);
+    padding: 0.5rem 1rem;
+    margin-bottom: 1.25rem;
+    transition: all var(--transition-base);
 }
 
-.podium-position.first .podium-medal {
-    font-size: 3rem;
-    animation: pulse 2s ease-in-out infinite;
+.podium-position.first .podium-rank-badge {
+    font-size: 1rem;
+    background: linear-gradient(135deg, rgba(56, 255, 147, 0.15) 0%, rgba(56, 255, 147, 0.05) 100%);
+    border: 2px solid var(--accent);
+    color: var(--accent);
+    box-shadow: 0 0 20px rgba(56, 255, 147, 0.3);
+    animation: glow 2s ease-in-out infinite;
 }
 
-@keyframes pulse {
+.podium-position.second .podium-rank-badge {
+    border-color: rgba(56, 255, 147, 0.25);
+}
+
+.podium-position.third .podium-rank-badge {
+    border-color: rgba(56, 255, 147, 0.2);
+}
+
+@keyframes glow {
     0%, 100% {
-        transform: scale(1);
+        box-shadow: 0 0 20px rgba(56, 255, 147, 0.3);
     }
     50% {
-        transform: scale(1.1);
+        box-shadow: 0 0 30px rgba(56, 255, 147, 0.5);
     }
 }
 
@@ -656,9 +676,14 @@ tbody tr:hover {
         0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
-.podium-position.second .podium-avatar,
+.podium-position.second .podium-avatar {
+    border-color: rgba(56, 255, 147, 0.3);
+    box-shadow: 0 0 20px rgba(56, 255, 147, 0.15);
+}
+
 .podium-position.third .podium-avatar {
-    border-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(56, 255, 147, 0.2);
+    box-shadow: 0 0 15px rgba(56, 255, 147, 0.1);
 }
 
 .podium-avatar:hover {
