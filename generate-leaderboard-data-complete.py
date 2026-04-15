@@ -111,8 +111,12 @@ def build_complete_list(scores_raw, period_name):
         bot_activity_score = score_entry.get('botActivityScore', 0) if score_entry else 0
         total = score_entry.get('total', 0) if score_entry else 0
 
-        # Avatar
-        avatar = f"https://unavatar.io/twitter/{twitter_username}" if twitter_username else f"https://ui-avatars.com/api/?name={name.replace(' ', '+')}"
+        # Avatar - use multiple sources for better reliability
+        if twitter_username:
+            # Try Twitter's CDN first, then unavatar as fallback
+            avatar = f"https://unavatar.io/twitter/{twitter_username}?fallback=https://ui-avatars.com/api/?name={twitter_username}&background=0D0D0D&color=38FF93&size=400&bold=true"
+        else:
+            avatar = f"https://ui-avatars.com/api/?name={name.replace(' ', '+')}&background=0D0D0D&color=38FF93&size=400&bold=true"
 
         # Use Twitter username as display name (matches avatar), fallback to original name
         display_name = f"@{twitter_username}" if twitter_username else name

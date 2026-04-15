@@ -7,8 +7,8 @@ function getAvatarFallback(name, username) {
     const cleanName = (name || 'User').replace(/[@\n]/g, '').trim();
     const cleanUsername = (username || cleanName).replace(/[@\n]/g, '').trim();
 
-    // Return fallback: text-based avatar with Groupbot colors
-    return `https://ui-avatars.com/api/?name=${encodeURIComponent(cleanName)}&background=0A0A0A&color=38FF93&bold=true&size=200&font-size=0.4`;
+    // Return fallback: text-based avatar with Groupbot colors (dark bg, green text)
+    return `https://ui-avatars.com/api/?name=${encodeURIComponent(cleanUsername)}&background=0D0D0D&color=38FF93&bold=true&size=400&font-size=0.35&length=2`;
 }
 
 let avatarAttempts = new Map();
