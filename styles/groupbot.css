@@ -1091,6 +1091,7 @@ tbody tr:hover {
 
     .nav-link {
         font-size: 0.75rem;
+        padding: 0.5rem 0.75rem;
     }
 
     h1 {
@@ -1105,30 +1106,168 @@ tbody tr:hover {
         padding: 1.5rem 1rem 2.5rem;
     }
 
+    .container {
+        padding: 0 1rem;
+    }
+
     .stats-grid {
         grid-template-columns: 1fr;
     }
 
+    /* Controls improvements for mobile */
+    .search-input,
+    .sort-select {
+        min-width: auto;
+        width: 100%;
+        padding: 0.875rem 1rem;
+        font-size: 1rem;
+        min-height: 48px;
+    }
+
+    .controls {
+        gap: 0.75rem;
+    }
+
+    /* Table improvements for small screens */
+    .table-wrapper {
+        margin: 0 -1rem;
+        border-left: none;
+        border-right: none;
+        border-radius: 0;
+    }
+
+    th, td {
+        padding: 0.625rem 0.5rem;
+        font-size: 0.8125rem;
+    }
+
+    th:first-child,
+    td:first-child {
+        padding-left: 1rem;
+    }
+
+    th:last-child,
+    td:last-child {
+        padding-right: 1rem;
+    }
+
+    /* Hide tweet/bot score columns on very small screens, keep total */
+    th:nth-child(3),
+    td:nth-child(3),
+    th:nth-child(4),
+    td:nth-child(4) {
+        display: none;
+    }
+
+    /* Affiliate column gets more space */
+    th:nth-child(2),
+    td:nth-child(2) {
+        max-width: none;
+    }
+
+    /* Modal improvements */
+    .modal-content {
+        margin: 1rem;
+        max-width: calc(100% - 2rem);
+        padding: 1.5rem;
+        max-height: calc(100vh - 2rem);
+    }
+
+    .modal-close {
+        top: 0.75rem;
+        right: 0.75rem;
+    }
+
+    /* Card improvements */
+    .affiliate-card,
+    .directory-card {
+        padding: 1.25rem;
+    }
+
+    .directory-avatar {
+        width: 80px;
+        height: 80px;
+    }
+
+    /* Pagination improvements */
     .pagination {
         gap: 0.25rem;
         flex-wrap: wrap;
+        justify-content: center;
     }
 
-    .pagination button {
-        padding: 0.5rem 0.75rem;
+    .pagination button,
+    .pagination span {
+        padding: 0.5rem 0.625rem;
+        font-size: 0.75rem;
+        min-width: 36px;
+        min-height: 36px;
+    }
+
+    /* Button improvements */
+    .btn {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.9375rem;
+        min-height: 44px;
+    }
+
+    /* Podium improvements */
+    .podium-avatar {
+        width: 120px !important;
+        height: 120px !important;
+    }
+
+    .podium-position.first .podium-avatar {
+        width: 150px !important;
+        height: 150px !important;
+    }
+
+    .podium-name {
+        font-size: 1rem;
+    }
+
+    .podium-handle {
         font-size: 0.8125rem;
     }
 }
 
 /* Touch devices */
 @media (hover: none) and (pointer: coarse) {
+    /* Ensure all touch targets are at least 44x44px */
     .btn {
         min-height: 44px;
         min-width: 44px;
     }
 
     .nav-link {
-        padding: 0.5rem;
+        padding: 0.75rem;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .pagination button {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    .modal-close {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    /* Remove hover effects on touch devices */
+    .affiliate-card:hover,
+    .directory-card:hover,
+    .feature-card:hover {
+        transform: none;
+    }
+
+    /* Make table rows easier to tap */
+    tbody tr {
+        cursor: pointer;
+        min-height: 60px;
     }
 
     .card:hover,
