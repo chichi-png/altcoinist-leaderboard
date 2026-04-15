@@ -746,6 +746,57 @@ tbody tr:hover {
     margin-top: 2rem;
 }
 
+/* Weekly Grid - Larger, more prominent (2-3 columns) */
+#weekly-grid {
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 2rem;
+}
+
+#weekly-grid .affiliate-card {
+    border-left: 3px solid var(--accent);
+    padding: 2rem;
+    background: linear-gradient(135deg, rgba(56, 255, 147, 0.03) 0%, var(--card-bg) 100%);
+}
+
+#weekly-grid .affiliate-card:hover {
+    border-left-color: var(--accent);
+    box-shadow: 0 0 30px rgba(56, 255, 147, 0.15);
+}
+
+#weekly-grid .affiliate-avatar {
+    width: 72px;
+    height: 72px;
+    border: 3px solid rgba(56, 255, 147, 0.2);
+}
+
+/* Monthly Grid - Compact, efficient (3-4 columns) */
+#monthly-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.25rem;
+}
+
+#monthly-grid .affiliate-card {
+    padding: 1.25rem;
+    border-color: rgba(255, 255, 255, 0.04);
+}
+
+#monthly-grid .affiliate-card:hover {
+    border-color: rgba(56, 255, 147, 0.15);
+}
+
+#monthly-grid .affiliate-avatar {
+    width: 50px;
+    height: 50px;
+}
+
+#monthly-grid .affiliate-info h3 {
+    font-size: 1rem;
+}
+
+#monthly-grid .affiliate-handle {
+    font-size: 0.8125rem;
+}
+
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -986,8 +1037,27 @@ tbody tr:hover {
         height: 180px;
     }
 
-    .leaderboard-grid {
+    .leaderboard-grid,
+    #weekly-grid,
+    #monthly-grid {
         grid-template-columns: 1fr;
+    }
+
+    /* Reset weekly/monthly distinctions on mobile */
+    #weekly-grid,
+    #monthly-grid {
+        gap: 1.5rem;
+    }
+
+    #weekly-grid .affiliate-card,
+    #monthly-grid .affiliate-card {
+        padding: 1.5rem;
+    }
+
+    #weekly-grid .affiliate-avatar,
+    #monthly-grid .affiliate-avatar {
+        width: 60px;
+        height: 60px;
     }
 
     .controls {
