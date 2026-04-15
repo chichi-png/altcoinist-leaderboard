@@ -111,9 +111,17 @@ def build_complete_list(scores_raw, period_name):
         bot_activity_score = score_entry.get('botActivityScore', 0) if score_entry else 0
         total = score_entry.get('total', 0) if score_entry else 0
 
-        # Avatar - use multiple sources for better reliability
-        if twitter_username:
-            # Try Twitter's CDN first, then unavatar as fallback
+        # Avatar - check for local image first, then use unavatar
+        import os
+        local_avatar_jpg = f"avatars/@{twitter_username}.jpg"
+        local_avatar_png = f"avatars/@{twitter_username}.png"
+
+        if twitter_username and os.path.exists(local_avatar_jpg):
+            avatar = local_avatar_jpg
+        elif twitter_username and os.path.exists(local_avatar_png):
+            avatar = local_avatar_png
+        elif twitter_username:
+            # Fallback to unavatar if local image doesn't exist
             avatar = f"https://unavatar.io/twitter/{twitter_username}?fallback=https://ui-avatars.com/api/?name={twitter_username}&background=0D0D0D&color=38FF93&size=400&bold=true"
         else:
             avatar = f"https://ui-avatars.com/api/?name={name.replace(' ', '+')}&background=0D0D0D&color=38FF93&size=400&bold=true"
