@@ -222,7 +222,6 @@ function renderAlltimeTable() {
                          style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--card-border);">
                     <div>
                         <div style="font-weight: 600;">${affiliate.name}</div>
-                        <div class="mono" style="font-size: 0.8125rem; color: var(--text-tertiary);">${affiliate.handle}</div>
                     </div>
                 </div>
             </td>
@@ -277,7 +276,6 @@ function renderWeeklyGrid() {
                      onerror="handleAvatarError(this, '${affiliate.name.replace(/'/g, "\\'")}', '${affiliate.name.replace(/'/g, "\\'")}')">
                 <div class="affiliate-info">
                     <h3>${affiliate.name}</h3>
-                    <div class="affiliate-handle">${affiliate.handle}</div>
                 </div>
             </div>
             <div class="affiliate-stats">
@@ -342,7 +340,6 @@ function renderMonthlyGrid() {
                      onerror="handleAvatarError(this, '${affiliate.name.replace(/'/g, "\\'")}', '${affiliate.name.replace(/'/g, "\\'")}')">
                 <div class="affiliate-info">
                     <h3>${affiliate.name}</h3>
-                    <div class="affiliate-handle">${affiliate.handle}</div>
                 </div>
             </div>
             <div class="affiliate-stats">
