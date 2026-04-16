@@ -804,9 +804,11 @@ tbody tr:hover {
 
 /* Weekly: Stats on the right (horizontal layout) */
 #weekly-grid .affiliate-stats {
-    display: flex;
-    gap: 2rem;
+    display: grid;
+    grid-template-columns: 80px 80px 80px;
+    gap: 1.5rem;
     margin-top: 0;
+    margin-left: auto;
     padding-top: 0;
     border-top: none;
     flex-shrink: 0;
@@ -814,7 +816,7 @@ tbody tr:hover {
 
 #weekly-grid .stat-item {
     text-align: right;
-    min-width: 80px;
+    width: 80px;
 }
 
 #weekly-grid .stat-item label {
