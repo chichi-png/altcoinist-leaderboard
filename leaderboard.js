@@ -539,7 +539,7 @@ function openAffiliateModal(rank, source = 'alltime') {
             <p style="margin-top: 0.5rem; color: var(--text-secondary); font-size: 0.875rem; max-width: 400px; margin-left: auto; margin-right: auto; line-height: 1.5;">
                 ${affiliate.bio || 'Crypto trader | Altcoinist affiliate'}
             </p>
-            ${affiliate.profileUrl ? `<p style="margin-top: 0.75rem;"><a href="${affiliate.profileUrl}" target="_blank" style="color: var(--accent); text-decoration: none;">View Profile →</a></p>` : ''}
+            ${source === 'directory' && affiliate.profileUrl ? `<p style="margin-top: 0.75rem;"><a href="${affiliate.profileUrl}" target="_blank" style="color: var(--accent); text-decoration: none;">View Profile →</a></p>` : ''}
         </div>
         <div class="stats-grid">
             <div class="stat-card">
