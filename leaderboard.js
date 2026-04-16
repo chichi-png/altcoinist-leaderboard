@@ -532,10 +532,10 @@ function openAffiliateModal(rank, source = 'alltime') {
                  onerror="handleAvatarError(this, '${affiliate.name.replace(/'/g, "\\'")}', '${affiliate.name.replace(/'/g, "\\'")}'))"
                  style="width: 120px; height: 120px; border-radius: 50%; border: 3px solid var(--card-border);">
             <h2 style="margin-top: 1rem; font-size: 1.5rem;">${affiliate.name}</h2>
-            <p class="mono" style="color: var(--text-tertiary); margin-top: 0.5rem;">${affiliate.handle}</p>
-            <p style="margin-top: 0.5rem; color: var(--text-secondary); font-size: 0.875rem; max-width: 400px; margin-left: auto; margin-right: auto; line-height: 1.5;">
+            ${source === 'directory' ? `<p class="mono" style="color: var(--text-tertiary); margin-top: 0.5rem;">${affiliate.handle}</p>` : ''}
+            ${source === 'directory' ? `<p style="margin-top: 0.5rem; color: var(--text-secondary); font-size: 0.875rem; max-width: 400px; margin-left: auto; margin-right: auto; line-height: 1.5;">
                 ${affiliate.bio || 'Crypto trader | Altcoinist affiliate'}
-            </p>
+            </p>` : ''}
             ${source === 'directory' && affiliate.profileUrl ? `<p style="margin-top: 0.75rem;"><a href="${affiliate.profileUrl}" target="_blank" style="color: var(--accent); text-decoration: none;">View Profile →</a></p>` : ''}
         </div>
         <div class="stats-grid">
