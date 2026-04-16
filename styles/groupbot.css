@@ -1115,11 +1115,12 @@ tbody tr:hover {
     }
 
     #weekly-grid .affiliate-stats {
-        gap: 1.25rem;
+        grid-template-columns: 70px 70px 70px;
+        gap: 1rem;
     }
 
     #weekly-grid .stat-item {
-        min-width: 70px;
+        width: 70px;
     }
 
     #weekly-grid .stat-item .value {
@@ -1276,15 +1277,22 @@ tbody tr:hover {
     }
 
     #weekly-grid .affiliate-stats {
-        width: 100%;
-        justify-content: space-between;
+        grid-template-columns: 60px 60px 60px;
         gap: 0.5rem;
+        margin-left: 0;
     }
 
     #weekly-grid .stat-item {
+        width: 60px;
         text-align: center;
-        min-width: auto;
-        flex: 1;
+    }
+
+    #weekly-grid .stat-item label {
+        font-size: 0.625rem;
+    }
+
+    #weekly-grid .stat-item .value {
+        font-size: 0.875rem;
     }
 
     .directory-avatar {
