@@ -53,6 +53,38 @@ let weeklyCurrentPage = 1;
 let monthlyCurrentPage = 1;
 let directoryCurrentPage = 1;
 
+// Date Range Calculations
+function getCurrentWeekRange() {
+    const now = new Date();
+    const dayOfWeek = now.getDay(); // 0 = Sunday
+
+    // Start of week (Sunday)
+    const startOfWeek = new Date(now);
+    startOfWeek.setDate(now.getDate() - dayOfWeek);
+
+    // End of week (Saturday)
+    const endOfWeek = new Date(startOfWeek);
+    endOfWeek.setDate(startOfWeek.getDate() + 6);
+
+    // Format: "mar 10-16"
+    const months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+    const startMonth = months[startOfWeek.getMonth()];
+    const startDay = startOfWeek.getDate();
+    const endDay = endOfWeek.getDate();
+
+    return `${startMonth} ${startDay}-${endDay}`;
+}
+
+function getCurrentMonth() {
+    const months = ['january', 'february', 'march', 'april', 'may', 'june',
+                    'july', 'august', 'september', 'october', 'november', 'december'];
+    const now = new Date();
+    const month = months[now.getMonth()];
+    const year = now.getFullYear();
+
+    return `${month} ${year}`;
+}
+
 // Load Data
 async function loadData() {
     try {
@@ -73,10 +105,48 @@ async function loadData() {
         weeklyData = data.weekly || [];
         monthlyData = data.monthly || [];
 
+        // Load affiliate bios
+        let biosData = {};
+        try {
+            const biosResponse = await fetch('affiliate-bios.json');
+            if (biosResponse.ok) {
+                biosData = await biosResponse.json();
+            }
+        } catch (error) {
+            console.warn('Could not load affiliate bios, using defaults:', error);
+        }
+
+        // Merge bios into affiliate data
+        affiliatesData = affiliatesData.map(affiliate => ({
+            ...affiliate,
+            bio: biosData[affiliate.handle]?.bio || 'Crypto trader | Altcoinist affiliate'
+        }));
+
+        weeklyData = weeklyData.map(affiliate => ({
+            ...affiliate,
+            bio: biosData[affiliate.handle]?.bio || 'Crypto trader | Altcoinist affiliate'
+        }));
+
+        monthlyData = monthlyData.map(affiliate => ({
+            ...affiliate,
+            bio: biosData[affiliate.handle]?.bio || 'Crypto trader | Altcoinist affiliate'
+        }));
+
         filteredAlltimeData = [...affiliatesData];
         filteredWeeklyData = [...weeklyData];
         filteredMonthlyData = [...monthlyData];
         filteredDirectoryData = [...affiliatesData];
+
+        // Set date ranges
+        const weekRangeElement = document.getElementById('week-range');
+        const monthRangeElement = document.getElementById('month-range');
+
+        if (weekRangeElement) {
+            weekRangeElement.textContent = getCurrentWeekRange();
+        }
+        if (monthRangeElement) {
+            monthRangeElement.textContent = getCurrentMonth();
+        }
 
         renderPodium();
         renderAlltimeTable();
@@ -466,6 +536,9 @@ function openAffiliateModal(rank, source = 'alltime') {
                  style="width: 120px; height: 120px; border-radius: 50%; border: 3px solid var(--card-border);">
             <h2 style="margin-top: 1rem; font-size: 1.5rem;">${affiliate.name}</h2>
             <p class="mono" style="color: var(--text-tertiary); margin-top: 0.5rem;">${affiliate.handle}</p>
+            <p style="margin-top: 0.5rem; color: var(--text-secondary); font-size: 0.875rem; max-width: 400px; margin-left: auto; margin-right: auto; line-height: 1.5;">
+                ${affiliate.bio || 'Crypto trader | Altcoinist affiliate'}
+            </p>
             ${affiliate.profileUrl ? `<p style="margin-top: 0.75rem;"><a href="${affiliate.profileUrl}" target="_blank" style="color: var(--accent); text-decoration: none;">View Profile →</a></p>` : ''}
         </div>
         <div class="stats-grid">

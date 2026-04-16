@@ -46,8 +46,15 @@
                 </div>
             </div>
 
-            <div class="text-center mt-4">
-                <button class="btn btn-primary" onclick="switchPage('alltime'); return false;">View Full Rankings →</button>
+            <div class="text-center mt-4" style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="https://altcoinist.notion.site/2a9b35d78748801c856dc1c9ebef6815?pvs=105"
+                   target="_blank"
+                   class="btn btn-primary">
+                    Become an Affiliate
+                </a>
+                <button class="btn btn-secondary" onclick="switchPage('alltime'); return false;">
+                    View Full Rankings →
+                </button>
             </div>
         </section>
     </div>
@@ -105,7 +112,7 @@
         <section class="section">
             <div class="container">
                 <div class="text-center mb-4">
-                    <span class="eyebrow">03 / weekly rankings</span>
+                    <span class="eyebrow">03 / weekly rankings • <span id="week-range"></span></span>
                     <h2 class="gradient-heading">This Week's Leaders</h2>
                 </div>
 
@@ -140,7 +147,7 @@
         <section class="section">
             <div class="container">
                 <div class="text-center mb-4">
-                    <span class="eyebrow">04 / monthly rankings</span>
+                    <span class="eyebrow">04 / monthly rankings • <span id="month-range"></span></span>
                     <h2 class="gradient-heading">This Month's Leaders</h2>
                 </div>
 
