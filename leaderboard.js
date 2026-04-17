@@ -280,12 +280,8 @@ function renderWeeklyGrid() {
             </div>
             <div class="affiliate-stats">
                 <div class="stat-item">
-                    <label>TWEET SCORE</label>
-                    <span class="value">${affiliate.tweetScore}</span>
-                </div>
-                <div class="stat-item">
-                    <label>BOT SCORE</label>
-                    <span class="value">${affiliate.botActivityScore}</span>
+                    <label>RANK</label>
+                    <span class="value">#${affiliate.rank}</span>
                 </div>
                 <div class="stat-item">
                     <label>TOTAL SCORE</label>
