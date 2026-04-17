@@ -280,15 +280,15 @@ function renderWeeklyGrid() {
             </div>
             <div class="affiliate-stats">
                 <div class="stat-item">
-                    <label>Tweet</label>
+                    <label>TWEET SCORE</label>
                     <span class="value">${affiliate.tweetScore}</span>
                 </div>
                 <div class="stat-item">
-                    <label>Bot</label>
+                    <label>BOT SCORE</label>
                     <span class="value">${affiliate.botActivityScore}</span>
                 </div>
                 <div class="stat-item">
-                    <label>Total</label>
+                    <label>TOTAL SCORE</label>
                     <span class="value">${affiliate.total}</span>
                 </div>
             </div>
@@ -344,11 +344,11 @@ function renderMonthlyGrid() {
             </div>
             <div class="affiliate-stats">
                 <div class="stat-item">
-                    <label>Rank</label>
+                    <label>RANK</label>
                     <span class="value">#${affiliate.rank}</span>
                 </div>
                 <div class="stat-item">
-                    <label>Total</label>
+                    <label>TOTAL SCORE</label>
                     <span class="value">${affiliate.total}</span>
                 </div>
             </div>
@@ -400,7 +400,6 @@ function renderDirectoryGrid() {
                      onerror="handleAvatarError(this, '${affiliate.name.replace(/'/g, "\\'")}', '${affiliate.name.replace(/'/g, "\\'")}')">
                 <div class="directory-info">
                     <h3>${affiliate.name}</h3>
-                    <div class="directory-handle">${affiliate.handle}</div>
                 </div>
             </div>
 

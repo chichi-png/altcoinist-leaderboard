@@ -823,6 +823,9 @@ tbody tr:hover {
     font-size: 0.6875rem;
     color: var(--text-muted);
     margin-bottom: 0.35rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-weight: 600;
 }
 
 #weekly-grid .stat-item .value {
@@ -1290,9 +1293,10 @@ tbody tr:hover {
     }
 
     #weekly-grid .stat-item label {
-        font-size: 0.6875rem;
+        font-size: 0.625rem;
         font-weight: 600;
-        letter-spacing: 0.05em;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
     }
 
     #weekly-grid .stat-item .value {
