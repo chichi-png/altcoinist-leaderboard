@@ -1,230 +1,1913 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Affiliate Leaderboard - Altcoinist</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Affiliate Leaderboard — Altcoinist</title>
+<link rel="stylesheet" href="styles/groupbot.css">
+<style>
+/* ==== TWEAK-DRIVEN OVERRIDES ==== */
+:root {
+  --accent: #38FF93;
+  --accent-rgb: 56, 255, 147;
+  --bg: #000000;
+  --card-bg: rgba(8, 8, 8, 0.85);
+  /* Tiers desaturated to keep palette minimal — brand green is the only color */
+  --tier-diamond: rgba(255,255,255,0.95);
+  --tier-gold:    rgba(255,255,255,0.75);
+  --tier-silver:  rgba(255,255,255,0.55);
+  --tier-bronze:  rgba(255,255,255,0.4);
+  --tier-base:    rgba(255,255,255,0.28);
+}
+body[data-density="compact"] td { padding: 0.6rem 1rem; font-size: 0.875rem; }
+body[data-density="compact"] th { padding: 0.6rem 1rem; }
+body[data-density="spacious"] td { padding: 1.35rem 1.75rem; font-size: 1rem; }
+body[data-density="spacious"] th { padding: 1.35rem 1.75rem; }
 
-    <!-- Groupbot Design System -->
-    <link rel="stylesheet" href="styles/groupbot.css">
+body[data-anim="off"] * { animation: none !important; transition: none !important; }
+
+/* card shapes */
+body[data-card="flat"] .affiliate-card,
+body[data-card="flat"] .directory-card,
+body[data-card="flat"] .table-wrapper { backdrop-filter: none; background: #0A0A0A; border-radius: 4px; }
+body[data-card="glass"] .affiliate-card,
+body[data-card="glass"] .directory-card { background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01)); }
+body[data-card="bordered"] .affiliate-card,
+body[data-card="bordered"] .directory-card { border-color: rgba(var(--accent-rgb),0.25); }
+
+/* score progress bar */
+.score-bar-wrap { display: flex; align-items: center; gap: 0.75rem; }
+.score-bar {
+  flex: 1; height: 4px; background: rgba(255,255,255,0.06);
+  border-radius: 2px; overflow: hidden; min-width: 80px;
+}
+.score-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), rgba(var(--accent-rgb),0.3));
+  box-shadow: 0 0 8px rgba(var(--accent-rgb),0.5);
+  transition: width 0.6s ease;
+}
+body[data-scorebar="off"] .score-bar-wrap .score-bar { display: none; }
+
+/* ===== TIERS ===== */
+.tier-chip {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: var(--font-mono); font-size: 10px; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 0.3rem 0.6rem; border-radius: var(--radius-full);
+  border: 1px solid var(--card-border);
+  background: rgba(255,255,255,0.02);
+  color: var(--text-secondary);
+}
+.tier-chip .tier-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--text-tertiary);
+}
+/* Tier classes kept as hooks but inherit default chip styling — no color */
+.tier-diamond, .tier-gold, .tier-silver, .tier-bronze, .tier-base { color: var(--text-secondary); }
+
+body[data-tiers="off"] .tier-chip { display: none; }
+
+/* tier section headers on all-time */
+.tier-section-header {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 1.5rem 1.5rem 0.75rem;
+  font-family: var(--font-mono); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--text-muted);
+}
+.tier-section-header .hr {
+  flex: 1; height: 1px;
+  background: linear-gradient(90deg, currentColor, transparent);
+  opacity: 0.4;
+}
+body[data-tier-bands="off"] .tier-section-header { display: none; }
+
+/* avatar shape */
+body[data-avatar-shape="squircle"] .podium-avatar,
+body[data-avatar-shape="squircle"] .affiliate-avatar,
+body[data-avatar-shape="squircle"] .directory-avatar,
+body[data-avatar-shape="squircle"] tbody img,
+body[data-avatar-shape="squircle"] .wins-avatar {
+  border-radius: 28% !important;
+}
+body[data-avatar-shape="square"] .podium-avatar,
+body[data-avatar-shape="square"] .affiliate-avatar,
+body[data-avatar-shape="square"] .directory-avatar,
+body[data-avatar-shape="square"] tbody img,
+body[data-avatar-shape="square"] .wins-avatar {
+  border-radius: 8px !important;
+}
+
+/* podium variants */
+body[data-podium="coins"] .podium-avatar { border-width: 6px; }
+body[data-podium="coins"] .podium-position.first .podium-avatar {
+  border-color: var(--tier-gold);
+  box-shadow: 0 0 40px rgba(245, 197, 66, 0.4), 0 8px 24px rgba(0,0,0,0.5);
+}
+body[data-podium="coins"] .podium-position.second .podium-avatar {
+  border-color: var(--tier-silver);
+  box-shadow: 0 0 25px rgba(217, 217, 224, 0.25);
+}
+body[data-podium="coins"] .podium-position.third .podium-avatar {
+  border-color: var(--tier-bronze);
+  box-shadow: 0 0 25px rgba(224, 138, 76, 0.25);
+}
+/* Keep all podium names on the system white gradient — no green override on first */
+
+body[data-podium="minimal"] .podium-rank-badge { animation: none; box-shadow: none; }
+body[data-podium="minimal"] .podium-avatar { box-shadow: none; }
+body[data-podium="minimal"] .podium-position.first .podium-avatar { box-shadow: 0 0 0 1px var(--accent); border-width: 2px; }
+
+/* score spark: tiny bars next to rank on table */
+.rank-wrap { display: inline-flex; align-items: center; gap: 0.5rem; }
+.rank-change {
+  font-family: var(--font-mono); font-size: 0.6875rem;
+  padding: 0.1rem 0.35rem; border-radius: 4px;
+}
+.rank-change.up   { color: var(--accent); background: rgba(var(--accent-rgb), 0.08); }
+.rank-change.down { color: #ff7a7a; background: rgba(255, 122, 122, 0.08); }
+.rank-change.same { color: var(--text-muted); }
+
+/* ===== WINS / HIGHLIGHTS PAGE ===== */
+.wins-intro {
+  max-width: 640px; margin: 0 auto 2.5rem;
+  color: var(--text-secondary); text-align: center;
+}
+.wins-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+.win-card {
+  position: relative;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all var(--transition-base);
+  display: flex; flex-direction: column;
+  text-decoration: none;
+}
+.win-card:hover {
+  border-color: rgba(var(--accent-rgb), 0.25);
+  transform: translateY(-2px);
+  box-shadow: 0 0 40px rgba(var(--accent-rgb), 0.1);
+}
+
+/* PnL variant: image-first (the PnL card IS the content) */
+.win-card.pnl-card {
+  cursor: zoom-in;
+  padding: 0; border: 1px solid var(--card-border);
+  background: var(--card-bg);
+  color: inherit;
+  text-align: left;
+  font: inherit;
+  width: 100%;
+}
+.win-card.pnl-card .win-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: #000;
+  border-bottom: 1px solid var(--card-border);
+}
+.win-card.pnl-card .win-meta {
+  padding: 1rem 1.25rem;
+  display: flex; align-items: center; gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.win-card.pnl-card .win-avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.08);
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.win-card.pnl-card .win-who {
+  display: flex; flex-direction: column; gap: 0.1rem;
+  min-width: 0; flex: 1;
+}
+.win-card.pnl-card .win-who .n {
+  font-weight: 600; font-size: 0.875rem;
+  color: var(--text-primary);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.win-card.pnl-card .win-who .h {
+  font-family: var(--font-mono); font-size: 0.6875rem;
+  color: var(--text-tertiary);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.win-card.pnl-card .win-token-pill {
+  font-family: var(--font-mono); font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  padding: 0.3rem 0.55rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(var(--accent-rgb),0.2);
+  background: rgba(var(--accent-rgb),0.05);
+  color: rgba(var(--accent-rgb),0.9);
+  white-space: nowrap;
+}
+.win-card.pnl-card .win-time {
+  font-family: var(--font-mono); font-size: 0.6875rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* Posts variant: tweet-style card */
+.win-card.post-card {
+  padding: 1.5rem;
+}
+.win-card.post-card .win-card-head {
+  display: flex; align-items: center; gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+.win-card.post-card .win-avatar {
+  width: 44px; height: 44px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.08);
+  object-fit: cover;
+}
+.win-card.post-card h4 {
+  font-size: 0.9375rem; font-weight: 600; color: var(--text-primary);
+  line-height: 1.2;
+}
+.win-card.post-card .handle {
+  font-family: var(--font-mono); font-size: 0.75rem;
+  color: var(--text-tertiary);
+}
+.win-card.post-card .win-kind {
+  margin-left: auto;
+  font-family: var(--font-mono); font-size: 9px;
+  text-transform: uppercase; letter-spacing: 0.14em;
+  padding: 0.3rem 0.55rem; border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  border: 1px solid var(--card-border);
+  background: rgba(255,255,255,0.02);
+}
+.win-card.post-card .win-stat {
+  font-family: var(--font-heading); font-weight: 700;
+  font-size: 2.5rem; letter-spacing: -0.03em;
+  line-height: 1;
+  background-image: linear-gradient(0deg, rgba(255, 255, 255, 0.56) 0%, rgb(255, 255, 255) 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.win-card.post-card .win-label {
+  font-family: var(--font-mono); font-size: 10px;
+  text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--text-muted); margin-top: 0.35rem;
+}
+.win-card.post-card .win-body {
+  margin: 1rem 0;
+  color: var(--text-secondary); font-size: 0.9375rem;
+  line-height: 1.55;
+}
+.win-card.post-card .win-engagement {
+  display: flex; gap: 1.25rem; flex-wrap: wrap;
+  padding-top: 1rem; border-top: 1px solid var(--card-border);
+  margin-top: auto;
+}
+.win-card.post-card .win-engagement .e {
+  font-family: var(--font-mono); font-size: 0.8125rem;
+  color: var(--text-secondary);
+  display: inline-flex; align-items: center; gap: 0.35rem;
+}
+.win-card.post-card .win-engagement .e svg { opacity: 0.6; }
+
+.wins-filter {
+  display: inline-flex; gap: 0.25rem;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-full);
+  padding: 0.25rem;
+  margin-bottom: 2rem;
+}
+.wins-filter button {
+  padding: 0.5rem 1rem;
+  background: transparent; border: none;
+  font-family: var(--font-mono); font-size: 0.75rem;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-secondary); cursor: pointer;
+  border-radius: var(--radius-full);
+  transition: all var(--transition-fast);
+}
+.wins-filter button.active {
+  background: rgba(var(--accent-rgb), 0.08);
+  color: var(--accent);
+  border: 1px solid rgba(var(--accent-rgb), 0.25);
+}
+.wins-filter button:hover:not(.active) { color: var(--text-primary); }
+
+/* Tweaks panel */
+#tweaks-panel {
+  position: fixed;
+  right: 1rem; bottom: 1rem;
+  width: 320px;
+  max-height: calc(100vh - 2rem);
+  background: rgba(10,10,10,0.98);
+  border: 1px solid rgba(var(--accent-rgb), 0.35);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(20px);
+  z-index: 3000;
+  display: none; flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(var(--accent-rgb),0.05);
+  overflow: hidden;
+  font-family: var(--font-body);
+}
+#tweaks-panel.open { display: flex; }
+#tweaks-panel .tw-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 1.25rem; border-bottom: 1px solid var(--card-border);
+}
+#tweaks-panel .tw-head h3 {
+  font-family: var(--font-mono); font-size: 0.75rem;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--accent); margin: 0;
+}
+#tweaks-panel .tw-close {
+  background: transparent; border: none; color: var(--text-secondary);
+  cursor: pointer; font-size: 1.25rem; line-height: 1;
+  width: 24px; height: 24px;
+}
+#tweaks-panel .tw-body {
+  overflow-y: auto; padding: 1rem 1.25rem;
+}
+#tweaks-panel .tw-group { margin-bottom: 1.25rem; }
+#tweaks-panel .tw-group label.gl {
+  display: block;
+  font-family: var(--font-mono); font-size: 9px;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: 0.5rem;
+}
+#tweaks-panel .tw-seg {
+  display: flex; gap: 0.25rem;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-sm); padding: 0.2rem;
+}
+#tweaks-panel .tw-seg button {
+  flex: 1; padding: 0.4rem 0.5rem;
+  background: transparent; border: none;
+  color: var(--text-secondary);
+  font-family: var(--font-mono); font-size: 0.6875rem;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  cursor: pointer; border-radius: 4px;
+  transition: all var(--transition-fast);
+}
+#tweaks-panel .tw-seg button.active {
+  background: var(--accent); color: #000; font-weight: 600;
+}
+#tweaks-panel .tw-swatches {
+  display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.4rem;
+}
+#tweaks-panel .tw-swatches button {
+  aspect-ratio: 1; border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  background: var(--sw);
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.05);
+  transition: transform var(--transition-fast);
+}
+#tweaks-panel .tw-swatches button:hover { transform: scale(1.1); }
+#tweaks-panel .tw-swatches button.active { border-color: #fff; }
+
+#tweaks-panel .tw-toggle {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.5rem 0; font-size: 0.875rem;
+  color: var(--text-primary);
+}
+#tweaks-panel .tw-toggle .sw {
+  width: 32px; height: 18px; border-radius: 9999px;
+  background: rgba(255,255,255,0.1);
+  position: relative; cursor: pointer;
+  transition: background var(--transition-fast);
+}
+#tweaks-panel .tw-toggle .sw::after {
+  content: '';
+  width: 14px; height: 14px; border-radius: 50%;
+  background: #fff;
+  position: absolute; top: 2px; left: 2px;
+  transition: left var(--transition-fast);
+}
+#tweaks-panel .tw-toggle.on .sw { background: var(--accent); }
+#tweaks-panel .tw-toggle.on .sw::after { left: 16px; background: #000; }
+
+/* Nav tweak button (hidden when panel closed and not in edit mode) */
+#tweaks-panel .tw-reset {
+  width: 100%;
+  padding: 0.6rem;
+  background: transparent;
+  border: 1px solid var(--card-border);
+  color: var(--text-secondary);
+  font-family: var(--font-mono); font-size: 0.6875rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  border-radius: var(--radius-sm); cursor: pointer;
+  transition: all var(--transition-fast);
+}
+#tweaks-panel .tw-reset:hover { color: var(--accent); border-color: var(--accent); }
+
+@media (max-width: 560px) {
+  #tweaks-panel { left: 1rem; right: 1rem; width: auto; }
+}
+
+/* Tier summary cards on home */
+.tier-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.75rem;
+  max-width: 900px;
+  margin: 0 auto 2rem;
+  padding: 0 1rem;
+}
+.tier-pill {
+  padding: 0.875rem 1rem;
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  background: rgba(8, 8, 8, 0.85);
+  backdrop-filter: blur(40px);
+  display: flex; flex-direction: column; gap: 0.35rem;
+  align-items: center;
+  text-align: center;
+  transition: all var(--transition-base);
+  cursor: default;
+}
+.tier-pill .tl { justify-content: center; }
+.tier-pill .tl::before { display: none; }
+.tier-pill:hover {
+  border-color: rgba(var(--accent-rgb), 0.15);
+  background: rgba(var(--accent-rgb), 0.03);
+  transform: translateY(-1px);
+  box-shadow: 0 0 30px rgba(var(--accent-rgb), 0.08);
+}
+.tier-pill .tl {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(var(--accent-rgb), 0.6);
+  display: flex; align-items: center; justify-content: center;
+}
+.tier-pill .tl::before { display: none; }
+.tier-pill .tl .dot { display: none; }
+.tier-pill .tv {
+  font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700;
+  color: var(--text-primary); line-height: 1;
+}
+.tier-pill .ts {
+  font-size: 0.75rem; color: var(--text-muted);
+}
+body[data-tier-bands="off"] .tier-summary { display: none; }
+
+/* handle chip + pnl number on directory */
+.dir-handle {
+  font-family: var(--font-mono); font-size: 0.8125rem;
+  color: var(--text-tertiary); margin-top: 0.25rem;
+}
+
+/* score cell formatted */
+.score-val { font-family: var(--font-mono); color: var(--accent); font-weight: 700; }
+.score-val.muted { color: var(--text-muted); font-weight: 500; }
+
+/* fix pagination tap */
+.pagination button span { pointer-events: none; }
+
+/* tier-row highlight on tables */
+tbody tr[data-tier="diamond"] td:first-child { box-shadow: inset 3px 0 0 var(--tier-diamond); }
+tbody tr[data-tier="gold"]    td:first-child { box-shadow: inset 3px 0 0 var(--tier-gold); }
+tbody tr[data-tier="silver"]  td:first-child { box-shadow: inset 3px 0 0 var(--tier-silver); }
+tbody tr[data-tier="bronze"]  td:first-child { box-shadow: inset 3px 0 0 var(--tier-bronze); }
+body[data-tier-stripe="off"] tbody tr td:first-child { box-shadow: none !important; }
+
+/* Row hover glow — Altcoinist green, subtle and uniform across the row */
+#alltime-tbody tr:not(.tier-band-row) {
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+#alltime-tbody tr:not(.tier-band-row):hover td {
+  background: rgba(var(--accent-rgb), 0.05);
+}
+#alltime-tbody tr:not(.tier-band-row):hover td:first-child {
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+body[data-anim="off"] #alltime-tbody tr:not(.tier-band-row):hover td,
+body[data-anim="off"] #alltime-tbody tr:not(.tier-band-row):hover td:first-child {
+  background: inherit;
+  box-shadow: inherit;
+}
+
+.empty-msg {
+  text-align: center; padding: 3rem 1rem;
+  color: var(--text-tertiary); font-family: var(--font-mono); font-size: 0.875rem;
+}
+
+/* ===== WEEKLY page: compact horizontal row ===== */
+#weekly-grid {
+  grid-template-columns: 1fr !important;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+#weekly-grid .affiliate-card {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.25rem 1.5rem;
+}
+#weekly-grid .affiliate-header {
+  display: flex; align-items: center; gap: 1rem;
+  flex: 1 1 auto;
+  min-width: 0;
+  margin-bottom: 0;
+}
+#weekly-grid .affiliate-info {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+#weekly-grid .affiliate-info h3 {
+  font-size: 1rem;
+  margin-bottom: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+#weekly-grid .affiliate-stats {
+  display: grid;
+  grid-template-columns: 70px 140px;
+  gap: 1.5rem;
+  flex-shrink: 0;
+  margin-left: auto;
+  border-top: none !important;
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+  background: transparent !important;
+}
+#weekly-grid .affiliate-stats .stat-item { text-align: right; }
+#weekly-grid .affiliate-stats .stat-item label { white-space: nowrap; }
+#weekly-grid .affiliate-avatar { flex-shrink: 0; }
+
+@media (max-width: 600px) {
+  #weekly-grid .affiliate-stats {
+    grid-template-columns: 60px 110px;
+    gap: 1rem;
+  }
+  #weekly-grid .affiliate-card {
+    padding: 1rem;
+    gap: 0.75rem;
+  }
+}
+
+/* ===== MONTHLY page: distinct performance-strip card ===== */
+#monthly-grid {
+  display: flex !important;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 920px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.monthly-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 60px 56px 1fr 130px;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.1rem 1.5rem;
+  background: linear-gradient(90deg, rgba(var(--accent-rgb),0.025) 0%, rgba(255,255,255,0.01) 100%);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  overflow: hidden;
+}
+.monthly-card:hover {
+  border-color: rgba(var(--accent-rgb), 0.3);
+  transform: translateX(2px);
+  box-shadow: 0 0 32px rgba(var(--accent-rgb), 0.1);
+}
+body[data-anim="off"] .monthly-card:hover { transform: none; }
+
+.monthly-rank {
+  display: flex; align-items: baseline; gap: 0.1rem;
+  font-family: var(--font-heading);
+  color: var(--text-muted);
+  line-height: 1;
+}
+.monthly-rank-hash {
+  font-size: 1rem;
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+.monthly-rank-num {
+  font-size: 1.75rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  background-image: linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.45) 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.monthly-card[data-tier="diamond"] .monthly-rank-num,
+.monthly-card[data-tier="gold"] .monthly-rank-num {
+  background-image: linear-gradient(180deg, var(--accent) 0%, rgba(var(--accent-rgb),0.5) 100%);
+}
+
+.monthly-avatar {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.08);
+  object-fit: cover;
+}
+
+.monthly-body {
+  min-width: 0;
+  display: flex; flex-direction: column;
+  gap: 0.5rem;
+}
+.monthly-name-row {
+  display: flex; align-items: baseline; gap: 0.75rem;
+  min-width: 0;
+}
+.monthly-name-row h3 {
+  font-size: 1rem; font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.monthly-handle {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--text-tertiary);
+  white-space: nowrap;
+}
+.monthly-breakdown {
+  display: flex; flex-direction: column; gap: 0.3rem;
+}
+.monthly-bar-row {
+  display: grid;
+  grid-template-columns: 88px 1fr 56px;
+  align-items: center;
+  gap: 0.75rem;
+}
+.monthly-bar-row label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.monthly-bar {
+  height: 4px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.monthly-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.monthly-bar-fill.tweets { background: linear-gradient(90deg, rgba(var(--accent-rgb),0.9), rgba(var(--accent-rgb),0.4)); }
+.monthly-bar-fill.bot    { background: linear-gradient(90deg, rgba(255,255,255,0.45), rgba(255,255,255,0.15)); }
+.monthly-bar-val {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-align: right;
+}
+.monthly-total {
+  text-align: right;
+  display: flex; flex-direction: column; gap: 0.15rem;
+  padding-left: 1rem;
+  border-left: 1px solid var(--card-border);
+}
+.monthly-total-val {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.6rem;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--accent);
+}
+.monthly-total-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+@media (max-width: 720px) {
+  .monthly-card {
+    grid-template-columns: 48px 44px 1fr;
+    gap: 0.75rem;
+    padding: 0.9rem 1rem;
+  }
+  .monthly-rank-num { font-size: 2rem; }
+  .monthly-total {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-left: 0;
+    border-left: none;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--card-border);
+    text-align: left;
+  }
+  .monthly-bar-row { grid-template-columns: 72px 1fr 48px; gap: 0.5rem; }
+}
+
+/* ===== PnL Lightbox ===== */
+.pnl-lightbox {
+  position: fixed; inset: 0;
+  background: rgba(0, 0, 0, 0.92);
+  backdrop-filter: blur(12px);
+  z-index: 4000;
+  display: none;
+  align-items: center; justify-content: center;
+  padding: 2rem;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.pnl-lightbox.open {
+  display: flex;
+  opacity: 1;
+}
+.pnl-lightbox-inner {
+  max-width: min(1100px, 92vw);
+  width: 100%;
+  max-height: 90vh;
+  display: flex; flex-direction: column;
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--card-bg);
+  box-shadow: 0 24px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(var(--accent-rgb),0.08);
+  animation: pnl-pop 0.25s cubic-bezier(0.34, 1.3, 0.64, 1);
+}
+@keyframes pnl-pop {
+  from { transform: scale(0.95); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+.pnl-lightbox-inner img {
+  display: block;
+  width: 100%;
+  max-height: calc(90vh - 72px);
+  object-fit: contain;
+  background: #000;
+}
+.pnl-lightbox-meta {
+  padding: 1rem 1.25rem;
+  display: flex; align-items: center; gap: 0.75rem;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--card-border);
+}
+.pnl-lightbox-meta .win-avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.08);
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.pnl-lightbox-meta .win-who { display: flex; flex-direction: column; gap: 0.1rem; flex: 1; min-width: 0; }
+.pnl-lightbox-meta .win-who .n { font-weight: 600; font-size: 0.875rem; color: var(--text-primary); }
+.pnl-lightbox-meta .win-who .h { font-family: var(--font-mono); font-size: 0.6875rem; color: var(--text-tertiary); }
+.pnl-lightbox-meta .win-token-pill {
+  font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.08em;
+  padding: 0.3rem 0.55rem; border-radius: var(--radius-sm);
+  border: 1px solid rgba(var(--accent-rgb),0.2);
+  background: rgba(var(--accent-rgb),0.05);
+  color: rgba(var(--accent-rgb),0.9);
+}
+.pnl-lightbox-meta .win-time { font-family: var(--font-mono); font-size: 0.6875rem; color: var(--text-muted); }
+.pnl-lightbox-close {
+  position: absolute;
+  top: 1.25rem; right: 1.25rem;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  font-size: 1.5rem; line-height: 1;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all var(--transition-fast);
+  z-index: 1;
+}
+.pnl-lightbox-close:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: rotate(90deg);
+}
+body[data-anim="off"] .pnl-lightbox-close:hover { transform: none; }
+body[data-anim="off"] .pnl-lightbox-inner { animation: none; }
+
+/* =========================================================
+   COMPREHENSIVE MOBILE RESPONSIVE FIXES
+   ========================================================= */
+
+/* Global: prevent horizontal scroll + soften typography */
+html, body { overflow-x: hidden; }
+body { -webkit-text-size-adjust: 100%; }
+
+/* Auto-hide nav on scroll-down, show on scroll-up */
+.nav {
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.22s ease !important;
+  will-change: transform, opacity;
+}
+/* Visible state: preserve base horizontal centering */
+.nav:not(.nav-hidden) {
+  transform: translateX(-50%) translateY(0) !important;
+}
+/* Hidden state: slide straight up, keep centered horizontally */
+.nav.nav-hidden {
+  transform: translateX(-50%) translateY(-140%) !important;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---- Tablet (<=900px) ---- */
+@media (max-width: 900px) {
+  .container { padding-left: 1.25rem; padding-right: 1.25rem; }
+  .section { padding: 3rem 0; }
+
+  /* Section eyebrows / titles shrink */
+  .section-title, h2.section-title { font-size: clamp(1.75rem, 6vw, 2.5rem); }
+  .hero-title, .page-title { font-size: clamp(2rem, 8vw, 3.75rem) !important; line-height: 1.1; }
+
+  /* Wins grid: 2 up on tablet */
+  .wins-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+
+  /* Tier summary compact */
+  .tier-summary { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 0.5rem; }
+}
+
+/* ---- Phone (<=640px) ---- */
+@media (max-width: 640px) {
+  /* Nav: collapse to compact pill, allow wrap, hide subtitle */
+  .nav, .nav-inner { padding-left: 0.75rem !important; padding-right: 0.75rem !important; }
+  .nav-inner { flex-wrap: wrap; gap: 0.5rem !important; row-gap: 0.5rem; }
+  .nav-links { gap: 0.25rem !important; order: 3; width: 100%; justify-content: center; overflow-x: auto; flex-wrap: nowrap; scrollbar-width: none; padding-bottom: 2px; }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-link { font-size: 0.75rem !important; padding: 0.4rem 0.7rem !important; white-space: nowrap; }
+  .nav-cta, .btn-primary-cta { padding: 0.5rem 0.9rem !important; font-size: 0.75rem !important; }
+  .nav-logo, .logo { font-size: 1rem !important; }
+  .nav-logo-subtitle, .logo-subtitle { display: none !important; }
+
+  /* Hero: reduce padding, center, smaller eyebrow */
+  .hero, .hero-section { padding: 4rem 0 2rem !important; min-height: auto !important; }
+  .hero-eyebrow, .eyebrow { font-size: 0.6875rem !important; letter-spacing: 0.15em !important; }
+
+  /* PODIUM: stack vertically, normalize sizes */
+  .podium {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 1.5rem !important;
+    padding: 1rem 0 !important;
+  }
+  .podium-position { order: initial !important; transform: none !important; width: 100%; max-width: 320px; }
+  .podium-position.first  { order: 1 !important; }
+  .podium-position.second { order: 2 !important; }
+  .podium-position.third  { order: 3 !important; }
+  .podium-avatar { width: 120px !important; height: 120px !important; }
+  .podium-position.first .podium-avatar { width: 140px !important; height: 140px !important; }
+  .podium-name { font-size: 1.1rem !important; }
+  .podium-position.first .podium-name { font-size: 1.25rem !important; }
+
+  /* Tier summary: 2 columns */
+  .tier-summary { grid-template-columns: repeat(2, 1fr); }
+  .tier-pill { padding: 0.75rem 0.5rem; font-size: 0.8125rem; }
+
+  /* Controls: stack + full-width */
+  .controls { flex-direction: column !important; gap: 0.75rem !important; }
+  .search-input, .sort-select { width: 100% !important; font-size: 16px !important; /* iOS zoom prevent */ }
+
+  /* TABLE: make horizontally scrollable, add cue */
+  .table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: var(--radius-lg); border: 1px solid var(--card-border); }
+  .table-wrapper::after { content: ''; display: block; }
+  table { min-width: 640px; }
+  th, td { padding: 0.75rem 0.75rem !important; font-size: 0.8125rem !important; }
+  /* Hide lower-priority columns on smallest screens */
+  table th:nth-child(4), table td:nth-child(4) { display: none; } /* tweet score */
+  table th:nth-child(5), table td:nth-child(5) { display: none; } /* bot activity */
+
+  /* Weekly card: stack avatar+name above stats */
+  #weekly-grid .affiliate-card {
+    flex-wrap: wrap;
+    padding: 1rem !important;
+    gap: 0.75rem !important;
+  }
+  #weekly-grid .affiliate-header { gap: 0.75rem; }
+  #weekly-grid .affiliate-avatar { width: 48px !important; height: 48px !important; }
+  #weekly-grid .affiliate-stats {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.5rem !important;
+    width: 100%;
+    margin-left: 0 !important;
+    padding-top: 0.75rem !important;
+    border-top: 1px solid var(--card-border) !important;
+  }
+  #weekly-grid .affiliate-stats .stat-item { text-align: left; }
+  #weekly-grid .affiliate-stats .stat-item:last-child { text-align: right; }
+
+  /* Monthly card: condense */
+  .monthly-card {
+    grid-template-columns: 44px 40px 1fr !important;
+    gap: 0.6rem !important;
+    padding: 0.9rem !important;
+  }
+  .monthly-rank-num { font-size: 1.75rem !important; }
+  .monthly-avatar { width: 40px !important; height: 40px !important; }
+  .monthly-name-row { flex-wrap: wrap; gap: 0.35rem !important; }
+  .monthly-name-row h3 { font-size: 0.9375rem !important; }
+  .monthly-handle { font-size: 0.625rem !important; }
+  .monthly-bar-row { grid-template-columns: 62px 1fr 42px !important; gap: 0.4rem !important; }
+  .monthly-bar-row label { font-size: 9px !important; }
+  .monthly-bar-val { font-size: 0.6875rem !important; }
+  .monthly-total {
+    grid-column: 1 / -1 !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: baseline !important;
+    padding: 0.75rem 0 0 !important;
+    border-top: 1px solid var(--card-border);
+    border-left: none !important;
+    text-align: left !important;
+    margin-top: 0.5rem;
+  }
+  .monthly-total-val { font-size: 1.4rem !important; }
+
+  /* Wins: single column */
+  .wins-grid { grid-template-columns: 1fr !important; gap: 1rem; }
+  .wins-filter { flex-wrap: wrap; gap: 0.5rem; }
+  .wins-filter button { flex: 1 1 auto; min-width: 0; }
+  .win-card.pnl-card .win-meta { padding: 0.75rem 1rem; gap: 0.5rem; }
+  .win-card.pnl-card .win-token-pill { font-size: 0.625rem; padding: 0.25rem 0.45rem; }
+  .win-card.pnl-card .win-time { font-size: 0.625rem; }
+  .win-card.post-card { padding: 1.25rem; }
+  .win-card.post-card .win-stat { font-size: 2rem !important; }
+  .win-card.post-card .win-engagement { gap: 0.9rem; }
+
+  /* PnL Lightbox: edge-to-edge */
+  .pnl-lightbox { padding: 1rem; }
+  .pnl-lightbox-inner { max-width: 100%; max-height: 95vh; }
+  .pnl-lightbox-inner img { max-height: calc(95vh - 80px); }
+  .pnl-lightbox-close { top: 0.75rem; right: 0.75rem; width: 36px; height: 36px; }
+
+  /* Directory: 1 column */
+  #directory-grid, .leaderboard-grid { grid-template-columns: 1fr !important; }
+  .directory-card { padding: 1rem !important; }
+
+  /* Modal */
+  .modal-content { padding: 1.5rem !important; margin: 1rem !important; max-width: calc(100vw - 2rem) !important; }
+  .modal-content .stats-grid { grid-template-columns: 1fr 1fr !important; gap: 0.5rem !important; }
+
+  /* Tweaks panel: bottom sheet style */
+  #tweaks-panel {
+    left: 0.5rem !important; right: 0.5rem !important;
+    bottom: 0.5rem !important; top: auto !important;
+    width: auto !important; max-height: 70vh; overflow-y: auto;
+  }
+
+  /* Pagination: smaller */
+  .pagination { gap: 0.25rem; flex-wrap: wrap; justify-content: center; }
+  .pagination button, .pagination .page-num { padding: 0.5rem 0.75rem; font-size: 0.8125rem; min-width: 36px; }
+
+  /* Score bars on table: smaller */
+  .score-bar { min-width: 60px !important; }
+}
+
+/* ---- Very narrow (<=380px) ---- */
+@media (max-width: 380px) {
+  .container { padding-left: 1rem; padding-right: 1rem; }
+  .hero-title, .page-title { font-size: 2rem !important; }
+  .section-title { font-size: 1.5rem !important; }
+  .tier-summary { grid-template-columns: 1fr 1fr; }
+  .nav-link { font-size: 0.6875rem !important; padding: 0.35rem 0.6rem !important; }
+  .monthly-rank-num { font-size: 1.5rem !important; }
+}
+
+/* Touch-device polish: bigger hit areas, no hover transforms */
+@media (hover: none) and (pointer: coarse) {
+  .win-card:hover, .monthly-card:hover, .affiliate-card:hover, .directory-card:hover {
+    transform: none !important;
+  }
+  button, a, .nav-link, .pagination button { min-height: 44px; }
+}
+
+</style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="nav">
-        <div class="nav-inner">
-            <a href="#" class="nav-logo" onclick="switchPage('home'); return false;">ALTCOINIST</a>
-            <ul class="nav-links">
-                <li><a href="#" class="nav-link active" data-page="home" onclick="switchPage('home'); return false;">Home</a></li>
-                <li><a href="#" class="nav-link" data-page="alltime" onclick="switchPage('alltime'); return false;">All-Time</a></li>
-                <li><a href="#" class="nav-link" data-page="weekly" onclick="switchPage('weekly'); return false;">Weekly</a></li>
-                <li><a href="#" class="nav-link" data-page="monthly" onclick="switchPage('monthly'); return false;">Monthly</a></li>
-                <li><a href="#" class="nav-link" data-page="directory" onclick="switchPage('directory'); return false;">Directory</a></li>
-            </ul>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo" onclick="switchPage('home'); return false;">ALTCOINIST</a>
+    <ul class="nav-links">
+      <li><a href="#" class="nav-link active" data-page="home" onclick="switchPage('home'); return false;">Home</a></li>
+      <li><a href="#" class="nav-link" data-page="alltime" onclick="switchPage('alltime'); return false;">All-Time</a></li>
+      <li><a href="#" class="nav-link" data-page="weekly" onclick="switchPage('weekly'); return false;">Weekly</a></li>
+      <li><a href="#" class="nav-link" data-page="monthly" onclick="switchPage('monthly'); return false;">Monthly</a></li>
+      <li><a href="#" class="nav-link" data-page="wins" onclick="switchPage('wins'); return false;">Highlights</a></li>
+      <li><a href="#" class="nav-link" data-page="directory" onclick="switchPage('directory'); return false;">Directory</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Home -->
+<div id="home-page" class="page active" data-screen-label="Home">
+  <section class="section">
+    <div class="container text-center">
+      <span class="eyebrow">01 / top performers</span>
+      <h1 class="gradient-heading">Affiliate Leaderboard</h1>
+      <p class="mt-2" style="color: var(--text-secondary); max-width: 520px; margin-left: auto; margin-right: auto;">
+        The top performers in the Altcoinist signal network. Compete for the top spot and earn rewards.
+      </p>
+    </div>
+
+    <div class="podium">
+      <div class="podium-position second" id="podium-second"></div>
+      <div class="podium-position first"  id="podium-first"></div>
+      <div class="podium-position third"  id="podium-third"></div>
+    </div>
+
+    <div class="tier-summary" id="tier-summary"></div>
+
+    <div class="text-center mt-4" style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; align-items: center;">
+      <a href="https://altcoinist.notion.site/2a9b35d78748801c856dc1c9ebef6815?pvs=105" target="_blank" class="btn btn-primary">
+        <span>Become an Affiliate</span>
+        <span class="btn-arrow" aria-hidden="true">&rarr;</span>
+      </a>
+      <button class="btn btn-secondary" onclick="switchPage('alltime'); return false;">
+        View Full Rankings <span aria-hidden="true" style="font-size:0.6875rem;">&darr;</span>
+      </button>
+    </div>
+  </section>
+</div>
+
+<!-- All-Time -->
+<div id="alltime-page" class="page" data-screen-label="All-Time">
+  <section class="section">
+    <div class="container">
+      <div class="text-center mb-4">
+        <span class="eyebrow">02 / all-time rankings</span>
+        <h2 class="gradient-heading">All-Time Leaders</h2>
+      </div>
+      <div class="controls">
+        <input type="text" class="search-input" id="alltime-search" placeholder="Search affiliates..." oninput="filterAlltimeAffiliates()">
+        <select class="sort-select" id="alltime-sort" onchange="sortAlltimeAffiliates()">
+          <option value="rank">Sort by Rank</option>
+          <option value="score-desc">Score (High to Low)</option>
+          <option value="score-asc">Score (Low to High)</option>
+          <option value="tier">Sort by Tier</option>
+        </select>
+      </div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Affiliate</th>
+              <th>Tier</th>
+              <th>Tweet</th>
+              <th>Bot</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody id="alltime-tbody"></tbody>
+        </table>
+      </div>
+      <div class="pagination" id="alltime-pagination"></div>
+    </div>
+  </section>
+</div>
+
+<!-- Weekly -->
+<div id="weekly-page" class="page" data-screen-label="Weekly">
+  <section class="section">
+    <div class="container">
+      <div class="text-center mb-4">
+        <span class="eyebrow">03 / weekly rankings • <span id="week-range"></span></span>
+        <h2 class="gradient-heading">This Week's Leaders</h2>
+      </div>
+      <div class="controls">
+        <input type="text" class="search-input" id="weekly-search" placeholder="Search affiliates..." oninput="filterWeeklyAffiliates()">
+        <select class="sort-select" id="weekly-sort" onchange="sortWeeklyAffiliates()">
+          <option value="rank">Sort by Rank</option>
+          <option value="score-desc">Score (High to Low)</option>
+          <option value="score-asc">Score (Low to High)</option>
+          <option value="tier">Sort by Tier</option>
+        </select>
+      </div>
+      <div class="leaderboard-grid" id="weekly-grid"></div>
+      <div class="pagination" id="weekly-pagination"></div>
+    </div>
+  </section>
+</div>
+
+<!-- Monthly -->
+<div id="monthly-page" class="page" data-screen-label="Monthly">
+  <section class="section">
+    <div class="container">
+      <div class="text-center mb-4">
+        <span class="eyebrow">04 / monthly rankings • <span id="month-range"></span></span>
+        <h2 class="gradient-heading">This Month's Leaders</h2>
+      </div>
+      <div class="controls">
+        <input type="text" class="search-input" id="monthly-search" placeholder="Search affiliates..." oninput="filterMonthlyAffiliates()">
+        <select class="sort-select" id="monthly-sort" onchange="sortMonthlyAffiliates()">
+          <option value="rank">Sort by Rank</option>
+          <option value="score-desc">Score (High to Low)</option>
+          <option value="score-asc">Score (Low to High)</option>
+          <option value="tier">Sort by Tier</option>
+        </select>
+      </div>
+      <div class="leaderboard-grid" id="monthly-grid"></div>
+      <div class="pagination" id="monthly-pagination"></div>
+    </div>
+  </section>
+</div>
+
+<!-- Highlights -->
+<div id="wins-page" class="page" data-screen-label="Highlights">
+  <section class="section">
+    <div class="container">
+      <div class="text-center mb-4">
+        <span class="eyebrow">05 / affiliate highlights</span>
+        <h2 class="gradient-heading">Highlights</h2>
+        <p class="wins-intro mt-2">
+          Standout calls from our affiliates — verified PnL cards and top-performing posts. Every card links back to the original tweet.
+        </p>
+        <div class="wins-filter" id="wins-filter">
+          <button class="active" data-filter="pnl">PnL Cards</button>
+          <button data-filter="post">Top Posts</button>
         </div>
-    </nav>
-
-    <!-- Home Page -->
-    <div id="home-page" class="page active">
-        <section class="section">
-            <div class="container text-center">
-                <span class="eyebrow">01 / top performers</span>
-                <h1 class="gradient-heading">Affiliate Leaderboard</h1>
-                <p class="mt-2" style="color: var(--text-secondary); max-width: 520px; margin-left: auto; margin-right: auto;">
-                    The top performers in our affiliate program. Compete for the top spot and earn rewards.
-                </p>
-            </div>
-
-            <div class="podium">
-                <div class="podium-position second" id="podium-second">
-                    <!-- Populated by JavaScript -->
-                </div>
-                <div class="podium-position first" id="podium-first">
-                    <!-- Populated by JavaScript -->
-                </div>
-                <div class="podium-position third" id="podium-third">
-                    <!-- Populated by JavaScript -->
-                </div>
-            </div>
-
-            <div class="text-center mt-4" style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                <button class="btn btn-secondary" onclick="switchPage('alltime'); return false;">
-                    View Full Rankings →
-                </button>
-                <a href="https://altcoinist.notion.site/2a9b35d78748801c856dc1c9ebef6815?pvs=105"
-                   target="_blank"
-                   class="btn btn-secondary">
-                    Become an Affiliate
-                </a>
-            </div>
-        </section>
+      </div>
+      <div class="wins-grid" id="wins-grid"></div>
     </div>
+  </section>
+</div>
 
-    <!-- All-Time Rankings Page -->
-    <div id="alltime-page" class="page">
-        <section class="section">
-            <div class="container">
-                <div class="text-center mb-4">
-                    <span class="eyebrow">02 / all-time rankings</span>
-                    <h2 class="gradient-heading">All-Time Leaders</h2>
-                </div>
-
-                <div class="controls">
-                    <input
-                        type="text"
-                        class="search-input"
-                        id="alltime-search"
-                        placeholder="Search affiliates..."
-                        oninput="filterAlltimeAffiliates()"
-                    >
-                    <select class="sort-select" id="alltime-sort" onchange="sortAlltimeAffiliates()">
-                        <option value="rank">Sort by Rank</option>
-                        <option value="score-desc">Score (High to Low)</option>
-                        <option value="score-asc">Score (Low to High)</option>
-                    </select>
-                </div>
-
-                <div class="table-wrapper">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Rank</th>
-                                <th>Affiliate</th>
-                                <th>Tweet Score</th>
-                                <th>Bot Activity</th>
-                                <th>Total Score</th>
-                            </tr>
-                        </thead>
-                        <tbody id="alltime-tbody">
-                            <!-- Populated by JavaScript -->
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="pagination" id="alltime-pagination">
-                    <!-- Populated by JavaScript -->
-                </div>
-            </div>
-        </section>
+<!-- Directory -->
+<div id="directory-page" class="page" data-screen-label="Directory">
+  <section class="section">
+    <div class="container">
+      <div class="text-center mb-4">
+        <span class="eyebrow">06 / affiliate directory</span>
+        <h2 class="gradient-heading">Our Affiliates</h2>
+        <p class="mt-2" style="color: var(--text-secondary); max-width: 520px; margin-left: auto; margin-right: auto;">
+          Meet every affiliate in the program.
+        </p>
+      </div>
+      <div class="controls">
+        <input type="text" class="search-input" id="directory-search" placeholder="Search affiliates..." oninput="filterDirectory()">
+        <select class="sort-select" id="directory-sort" onchange="sortDirectory()">
+          <option value="name">Sort by Name (A-Z)</option>
+          <option value="name-desc">Sort by Name (Z-A)</option>
+          <option value="rank">Sort by Rank</option>
+        </select>
+      </div>
+      <div class="leaderboard-grid" id="directory-grid"></div>
+      <div class="pagination" id="directory-pagination"></div>
     </div>
+  </section>
+</div>
 
-    <!-- Weekly Rankings Page -->
-    <div id="weekly-page" class="page">
-        <section class="section">
-            <div class="container">
-                <div class="text-center mb-4">
-                    <span class="eyebrow">03 / weekly rankings • <span id="week-range"></span></span>
-                    <h2 class="gradient-heading">This Week's Leaders</h2>
-                </div>
-
-                <div class="controls">
-                    <input
-                        type="text"
-                        class="search-input"
-                        id="weekly-search"
-                        placeholder="Search affiliates..."
-                        oninput="filterWeeklyAffiliates()"
-                    >
-                    <select class="sort-select" id="weekly-sort" onchange="sortWeeklyAffiliates()">
-                        <option value="rank">Sort by Rank</option>
-                        <option value="score-desc">Score (High to Low)</option>
-                        <option value="score-asc">Score (Low to High)</option>
-                    </select>
-                </div>
-
-                <div class="leaderboard-grid" id="weekly-grid">
-                    <!-- Populated by JavaScript -->
-                </div>
-
-                <div class="pagination" id="weekly-pagination">
-                    <!-- Populated by JavaScript -->
-                </div>
-            </div>
-        </section>
+<!-- PnL lightbox -->
+<div id="pnl-lightbox" class="pnl-lightbox" onclick="closePnlLightbox(event)" role="dialog" aria-label="PnL card preview" aria-hidden="true">
+  <button class="pnl-lightbox-close" onclick="closePnlLightbox(); event.stopPropagation();" aria-label="Close">×</button>
+  <div class="pnl-lightbox-inner" onclick="event.stopPropagation()">
+    <img id="pnl-lightbox-img" alt="">
+    <div class="pnl-lightbox-meta">
+      <img id="pnl-lightbox-avatar" alt="" class="win-avatar">
+      <div class="win-who">
+        <span class="n" id="pnl-lightbox-name"></span>
+      </div>
+      <span class="win-token-pill" id="pnl-lightbox-pill"></span>
+      <span class="win-time" id="pnl-lightbox-time"></span>
     </div>
+  </div>
+</div>
 
-    <!-- Monthly Rankings Page -->
-    <div id="monthly-page" class="page">
-        <section class="section">
-            <div class="container">
-                <div class="text-center mb-4">
-                    <span class="eyebrow">04 / monthly rankings • <span id="month-range"></span></span>
-                    <h2 class="gradient-heading">This Month's Leaders</h2>
-                </div>
+<!-- Modal -->
+<div id="affiliate-modal" class="modal" onclick="closeModalOnBackdrop(event)">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal()">&times;</button>
+    <div id="modal-body"></div>
+  </div>
+</div>
 
-                <div class="controls">
-                    <input
-                        type="text"
-                        class="search-input"
-                        id="monthly-search"
-                        placeholder="Search affiliates..."
-                        oninput="filterMonthlyAffiliates()"
-                    >
-                    <select class="sort-select" id="monthly-sort" onchange="sortMonthlyAffiliates()">
-                        <option value="rank">Sort by Rank</option>
-                        <option value="score-desc">Score (High to Low)</option>
-                        <option value="score-asc">Score (Low to High)</option>
-                    </select>
-                </div>
+<!-- Tweaks -->
+<div id="tweaks-panel" role="dialog" aria-label="Tweaks">
+  <div class="tw-head">
+    <h3>// Tweaks</h3>
+    <button class="tw-close" onclick="closeTweaks()">×</button>
+  </div>
+  <div class="tw-body" id="tw-body"></div>
+</div>
 
-                <div class="leaderboard-grid" id="monthly-grid">
-                    <!-- Populated by JavaScript -->
-                </div>
+<script>
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "accent": "#38FF93",
+  "density": "comfortable",
+  "card": "default",
+  "podium": "neon",
+  "tiers": true,
+  "tierBands": true,
+  "tierStripe": false,
+  "scoreBar": true,
+  "avatarShape": "circle",
+  "animations": true
+}/*EDITMODE-END*/;
 
-                <div class="pagination" id="monthly-pagination">
-                    <!-- Populated by JavaScript -->
-                </div>
-            </div>
-        </section>
+let TW = {...TWEAK_DEFAULTS};
+
+// --------- Avatar helper ----------
+function getAvatarFallback(name) {
+  const cleanName = (name || 'User').replace(/[@\n]/g, '').trim();
+  return `https://ui-avatars.com/api/?name=${encodeURIComponent(cleanName)}&background=0D0D0D&color=38FF93&bold=true&size=400&font-size=0.35&length=2`;
+}
+const avatarAttempts = new Map();
+function handleAvatarError(img, name, username) {
+  const key = img.src;
+  const attempts = avatarAttempts.get(key) || 0;
+  if (attempts === 0) {
+    avatarAttempts.set(key, 1);
+    const u = (username || name).replace('@','');
+    img.src = `https://unavatar.io/x/${u}`;
+  } else {
+    img.onerror = null;
+    img.src = getAvatarFallback(name);
+    avatarAttempts.delete(key);
+  }
+}
+
+// --------- Tier computation ----------
+// Based on total score: since scores range 0-200ish, bands:
+// Diamond: >= 100, Gold: >= 15, Silver: >= 1, Bronze: >0, Base: 0
+function tierOf(score) {
+  if (score >= 100) return { key: 'diamond', label: 'Diamond' };
+  if (score >= 15)  return { key: 'gold',    label: 'Gold' };
+  if (score >= 1)   return { key: 'silver',  label: 'Silver' };
+  if (score > 0)    return { key: 'bronze',  label: 'Bronze' };
+  return { key: 'base', label: 'Base' };
+}
+function tierChip(t) {
+  return `<span class="tier-chip tier-${t.key}"><span class="tier-dot"></span>${t.label}</span>`;
+}
+
+function fmtScore(n) {
+  if (n === 0 || n == null) return '—';
+  if (n < 1) return n.toFixed(2);
+  if (n < 100) return n.toFixed(1);
+  return Math.round(n).toLocaleString();
+}
+
+// --------- Data ----------
+let affiliatesData = [], weeklyData = [], monthlyData = [];
+let filteredAlltimeData = [], filteredWeeklyData = [], filteredMonthlyData = [], filteredDirectoryData = [];
+const itemsPerPage = 10, cardsPerPage = 10;
+let alltimeCurrentPage = 1, weeklyCurrentPage = 1, monthlyCurrentPage = 1, directoryCurrentPage = 1;
+
+function getCurrentWeekRange() {
+  const now = new Date(), dayOfWeek = now.getDay();
+  const s = new Date(now); s.setDate(now.getDate() - dayOfWeek);
+  const e = new Date(s); e.setDate(s.getDate() + 6);
+  const M = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
+  return `${M[s.getMonth()]} ${s.getDate()}-${e.getDate()}`;
+}
+function getCurrentMonth() {
+  const M = ['january','february','march','april','may','june','july','august','september','october','november','december'];
+  const d = new Date(); return `${M[d.getMonth()]} ${d.getFullYear()}`;
+}
+
+// --------- Highlights seed data ----------
+// PnL cards: real cards generated by affiliates (images in /wins).
+// Posts: top-performing tweets (placeholder until real data lands).
+const WINS = [
+  // ===== PnL CARDS (real, from affiliates) =====
+  { kind:'pnl', image:'wins/lyvo-gitlawb-93x.jpg',          handle:'@LyvoCrypto',    name:'LyvoCrypto',    token:'$GITLAWB',  multiplier:'9.3x', entry:'$325.88K', exit:'$3.03M',  daysAgo:'29d', postUrl:'https://x.com/LyvoCrypto' },
+  { kind:'pnl', image:'wins/lyvo-clawbank-56x.jpg',         handle:'@LyvoCrypto',    name:'LyvoCrypto',    token:'$ClawBank', multiplier:'5.6x', entry:'$289.13K', exit:'$1.61M',  daysAgo:'10d', postUrl:'https://x.com/LyvoCrypto' },
+  { kind:'pnl', image:'wins/n30-nox-54x.jpg',               handle:'@N30_cryptoo',   name:'N30_CRYPTO',    token:'$NOX',      multiplier:'5.4x', entry:'$582.52K', exit:'$3.13M',  daysAgo:'7d',  postUrl:'https://x.com/N30_cryptoo' },
+  { kind:'pnl', image:'wins/chiron-molt-15x.jpg',           handle:'@chironthetrader',name:'chironthetrader',token:'$MOLT',   multiplier:'15x',  entry:'$2.14M',   exit:'$32.74M', daysAgo:'1d',  postUrl:'https://x.com/chironthetrader' },
+  { kind:'pnl', image:'wins/n30-nox-36x.jpg',               handle:'@N30_cryptoo',   name:'N30_CRYPTO',    token:'$NOX',      multiplier:'3.6x', entry:'$582.52K', exit:'$2.09M',  daysAgo:'4d',  postUrl:'https://x.com/N30_cryptoo' },
+  { kind:'pnl', image:'wins/lyvo-clawbank-35x.jpg',         handle:'@LyvoCrypto',    name:'LyvoCrypto',    token:'$ClawBank', multiplier:'3.5x', entry:'$289.13K', exit:'$1.02M',  daysAgo:'8d',  postUrl:'https://x.com/LyvoCrypto' },
+  { kind:'pnl', image:'wins/n30-nox-34x.jpg',               handle:'@N30_cryptoo',   name:'N30_CRYPTO',    token:'$NOX',      multiplier:'3.4x', entry:'$582.52K', exit:'$1.97M',  daysAgo:'12h', postUrl:'https://x.com/N30_cryptoo' },
+  { kind:'pnl', image:'wins/lyvo-volm-24x.jpg',             handle:'@LyvoCrypto',    name:'LyvoCrypto',    token:'$VOLM',     multiplier:'2.4x', entry:'$395.85K', exit:'$959.66K',daysAgo:'1d',  postUrl:'https://x.com/LyvoCrypto' },
+  { kind:'pnl', image:'wins/lyvo-volm-88pct.jpg',           handle:'@LyvoCrypto',    name:'LyvoCrypto',    token:'$VOLM',     multiplier:'88%',  entry:'$395.85K', exit:'$745.35K',daysAgo:'1d',  postUrl:'https://x.com/LyvoCrypto' },
+  { kind:'pnl', image:'wins/thebasedfrog-redwoodjs-60pct.jpg',handle:'@thebasedfrogx',name:'thebasedfrog', token:'$REDWOODJS',multiplier:'60%',  entry:'$2.15M',   exit:'$3.43M',  daysAgo:'1d',  postUrl:'https://x.com/thebasedfrogx' },
+  { kind:'pnl', image:'wins/alfy116-altt-16pct.jpg',        handle:'@aLfy116',       name:'aLfy116',       token:'$ALTT',     multiplier:'16%',  entry:'$7.86M',   exit:'$9.16M',  daysAgo:'1d',  postUrl:'https://x.com/aLfy116' },
+
+  // ===== TOP POSTS (tweet performance) =====
+  { kind:'post', handle:'@KAPOTHEGOAT01', name:'KAPOTHEGOAT01', stat:'20.81', label:'tweet score', body:'Highest individual tweet-score this cycle. Consistent posting cadence, strong replies from the top of the timeline.', postUrl:'https://x.com/KAPOTHEGOAT01', engagement:{ likes:'3.3k', rt:'640', reply:'210' } },
+  { kind:'post', handle:'@Chainriffs', name:'Chainriffs', stat:'14.43', label:'tweet score', body:'Signal thesis threads that actually cited entries, TP, and risk. Highest tweet-score affiliate this week.', postUrl:'https://x.com/Chainriffs', engagement:{ likes:'1.1k', rt:'180', reply:'80' } },
+  { kind:'post', handle:'@mrlcguy', name:'mrLCguy', stat:'6.7', label:'tweet score', body:'Mr LC running signal commentary with alpha on mid-caps. Quiet but consistent.', postUrl:'https://x.com/mrlcguy', engagement:{ likes:'280', rt:'40', reply:'15' } },
+  { kind:'post', handle:'@deepseektetra', name:'deepseektetra', stat:'4.67', label:'tweet score', body:'Clean breakdowns of recent signal runs. Steady engagement, tight callouts.', postUrl:'https://x.com/deepseektetra', engagement:{ likes:'420', rt:'85', reply:'30' } },
+  { kind:'post', handle:'@N30_cryptoo', name:'N30_CRYPTO', stat:'3.39', label:'tweet score', body:'Quote-ran multiple Altcoinist calls with conviction. Tight thesis threads.', postUrl:'https://x.com/N30_cryptoo', engagement:{ likes:'310', rt:'55', reply:'22' } },
+  { kind:'post', handle:'@thebasedfrogx', name:'thebasedfrog', stat:'3.32', label:'bot activity', body:'Biggest bot-activity contributor to the group this cycle.', postUrl:'https://x.com/thebasedfrogx', engagement:{ likes:'180', rt:'28', reply:'12' } }
+];
+
+// --------- Load ----------
+async function loadData() {
+  try {
+    let data;
+    try {
+      const r = await fetch('leaderboard-data.json');
+      if (!r.ok) throw 0;
+      data = await r.json();
+    } catch { data = window.LEADERBOARD_DATA; if (!data) throw new Error('No data'); }
+    affiliatesData = data.affiliates || [];
+    weeklyData = data.weekly || [];
+    monthlyData = data.monthly || [];
+
+    // annotate tier
+    for (const a of [...affiliatesData, ...weeklyData, ...monthlyData]) {
+      a.tier = tierOf(a.total);
+    }
+
+    let bios = {};
+    try { const br = await fetch('affiliate-bios.json'); if (br.ok) bios = await br.json(); } catch {}
+    for (const arr of [affiliatesData, weeklyData, monthlyData]) {
+      for (const a of arr) a.bio = bios[a.handle]?.bio || 'Altcoinist affiliate';
+    }
+
+    filteredAlltimeData = [...affiliatesData];
+    filteredWeeklyData  = [...weeklyData];
+    filteredMonthlyData = [...monthlyData];
+    filteredDirectoryData = [...affiliatesData];
+
+    const wR = document.getElementById('week-range'); if (wR) wR.textContent = getCurrentWeekRange();
+    const mR = document.getElementById('month-range'); if (mR) mR.textContent = getCurrentMonth();
+
+    renderPodium();
+    renderTierSummary();
+    renderAlltimeTable();
+    renderWeeklyGrid();
+    renderMonthlyGrid();
+    renderWins();
+    renderDirectoryGrid();
+  } catch (e) {
+    console.error('Failed to load', e);
+    document.getElementById('home-page').innerHTML = `<div class="empty-msg">Failed to load leaderboard data.</div>`;
+  }
+}
+
+// --------- Nav ----------
+function switchPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(`${name}-page`).classList.add('active');
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  const a = document.querySelector(`.nav-link[data-page="${name}"]`);
+  if (a) a.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// --------- Podium ----------
+function renderPodium() {
+  if (affiliatesData.length < 3) return;
+  const positions = [affiliatesData[0], affiliatesData[1], affiliatesData[2]];
+  const ids = ['podium-first','podium-second','podium-third'];
+  positions.forEach((a, i) => {
+    document.getElementById(ids[i]).innerHTML = `
+      <div class="podium-rank-badge">#${i+1}</div>
+      <img src="${a.avatar}" alt="${a.name}" class="podium-avatar" loading="lazy"
+        onerror="handleAvatarError(this, '${a.name.replace(/'/g,"\\'")}', '${a.handle.replace(/'/g,"\\'")}')">
+      <div class="podium-name">${a.name}</div>
+      ${tierChip(a.tier)}
+      <div class="mono" style="margin-top:0.5rem;color:var(--accent);font-weight:700;font-size:0.9375rem">${fmtScore(a.total)}</div>
+    `;
+  });
+}
+
+function renderTierSummary() {
+  const counts = { diamond:0, gold:0, silver:0, bronze:0, base:0 };
+  for (const a of affiliatesData) counts[a.tier.key]++;
+  const order = [
+    ['diamond','Diamond', counts.diamond],
+    ['gold',   'Gold',    counts.gold],
+    ['silver', 'Silver',  counts.silver],
+    ['bronze', 'Bronze',  counts.bronze],
+    ['base',   'Base',    counts.base],
+  ];
+  document.getElementById('tier-summary').innerHTML = order.map(([k,label,n]) => `
+    <div class="tier-pill tier-${k}">
+      <span class="tl"><span class="dot"></span>${label}</span>
+      <span class="tv">${n}</span>
+      <span class="ts">${n === 1 ? 'affiliate' : 'affiliates'}</span>
     </div>
+  `).join('');
+}
 
-    <!-- Affiliate Directory Page -->
-    <div id="directory-page" class="page">
-        <section class="section">
-            <div class="container">
-                <div class="text-center mb-4">
-                    <span class="eyebrow">05 / affiliate directory</span>
-                    <h2 class="gradient-heading">Our Affiliates</h2>
-                    <p class="mt-2" style="color: var(--text-secondary); max-width: 520px; margin-left: auto; margin-right: auto;">
-                        Meet all the affiliates in our program.
-                    </p>
-                </div>
+// --------- All-Time table ----------
+function renderAlltimeTable() {
+  const tbody = document.getElementById('alltime-tbody');
+  const start = (alltimeCurrentPage - 1) * itemsPerPage;
+  const end = start + itemsPerPage;
+  const page = filteredAlltimeData.slice(start, end);
 
-                <div class="controls">
-                    <input
-                        type="text"
-                        class="search-input"
-                        id="directory-search"
-                        placeholder="Search affiliates..."
-                        oninput="filterDirectory()"
-                    >
-                    <select class="sort-select" id="directory-sort" onchange="sortDirectory()">
-                        <option value="name">Sort by Name (A-Z)</option>
-                        <option value="name-desc">Sort by Name (Z-A)</option>
-                    </select>
-                </div>
+  // compute max total for score bars (in current page scope)
+  const maxTotal = Math.max(1, ...affiliatesData.map(a => a.total));
 
-                <div class="leaderboard-grid" id="directory-grid">
-                    <!-- Populated by JavaScript -->
-                </div>
-
-                <div class="pagination" id="directory-pagination">
-                    <!-- Populated by JavaScript -->
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- Modal -->
-    <div id="affiliate-modal" class="modal" onclick="closeModalOnBackdrop(event)">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal()">&times;</button>
-            <div id="modal-body">
-                <!-- Populated by JavaScript -->
-            </div>
+  // tier banding headers
+  let html = '';
+  let lastTier = null;
+  for (const a of page) {
+    if (a.tier.key !== lastTier) {
+      html += `<tr class="tier-band-row"><td colspan="6" style="padding:0;border:none;">
+        <div class="tier-section-header tier-${a.tier.key}">
+          <span class="tier-dot" style="width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 8px currentColor;"></span>
+          ${a.tier.label} Tier
+          <span class="hr"></span>
         </div>
-    </div>
+      </td></tr>`;
+      lastTier = a.tier.key;
+    }
+    const pct = Math.min(100, Math.max(2, (a.total / maxTotal) * 100));
+    html += `
+      <tr data-tier="${a.tier.key}" onclick="openAffiliateModal(${a.rank},'alltime')">
+        <td><span class="rank">#${a.rank}</span></td>
+        <td>
+          <div style="display:flex;align-items:center;gap:0.75rem;">
+            <img src="${a.avatar}" alt="${a.name}" loading="lazy"
+              onerror="handleAvatarError(this,'${a.name.replace(/'/g,"\\'")}','${a.handle.replace(/'/g,"\\'")}')"
+              style="width:40px;height:40px;border-radius:50%;border:2px solid var(--card-border);">
+            <div>
+              <div style="font-weight:600;">${a.name}</div>
+            </div>
+          </div>
+        </td>
+        <td>${tierChip(a.tier)}</td>
+        <td><span class="score-val ${a.tweetScore === 0 ? 'muted' : ''}">${fmtScore(a.tweetScore)}</span></td>
+        <td><span class="score-val ${a.botActivityScore === 0 ? 'muted' : ''}">${fmtScore(a.botActivityScore)}</span></td>
+        <td>
+          <span class="score-val">${fmtScore(a.total)}</span>
+        </td>
+      </tr>
+    `;
+  }
+  tbody.innerHTML = html || `<tr><td colspan="6"><div class="empty-msg">No affiliates match your search.</div></td></tr>`;
+  renderPagination('alltime', filteredAlltimeData.length, itemsPerPage);
+}
 
-    <script src="embedded-data.js"></script>
-    <script src="leaderboard.js"></script>
+function filterAlltimeAffiliates() {
+  const q = document.getElementById('alltime-search').value.toLowerCase();
+  filteredAlltimeData = affiliatesData.filter(a =>
+    a.name.toLowerCase().includes(q) || a.handle.toLowerCase().includes(q));
+  alltimeCurrentPage = 1; renderAlltimeTable();
+}
+// Tier sort order (best → worst)
+const TIER_ORDER = { diamond: 0, gold: 1, silver: 2, bronze: 3, base: 4 };
+function sortByTier(arr) {
+  arr.sort((a,b) => {
+    const t = TIER_ORDER[a.tier.key] - TIER_ORDER[b.tier.key];
+    if (t !== 0) return t;
+    return b.total - a.total; // within tier, higher score first
+  });
+}
+
+function sortAlltimeAffiliates() {
+  const s = document.getElementById('alltime-sort').value;
+  if (s === 'rank') filteredAlltimeData.sort((a,b)=>a.rank-b.rank);
+  else if (s === 'score-desc') filteredAlltimeData.sort((a,b)=>b.total-a.total);
+  else if (s === 'tier') sortByTier(filteredAlltimeData);
+  else filteredAlltimeData.sort((a,b)=>a.total-b.total);
+  alltimeCurrentPage = 1; renderAlltimeTable();
+}
+
+// --------- Weekly/Monthly grid ----------
+function cardHtml(a, src) {
+  if (src === 'monthly') {
+    // Monthly: richer "performance strip" card with score breakdown bars
+    const tweetPct = a.total > 0 ? Math.round((a.tweetScore / a.total) * 100) : 0;
+    const botPct   = a.total > 0 ? Math.round((a.botActivityScore / a.total) * 100) : 0;
+    return `
+      <div class="monthly-card" data-tier="${a.tier.key}" onclick="openAffiliateModal(${a.rank},'${src}')">
+        <div class="monthly-rank">
+          <span class="monthly-rank-hash">#</span><span class="monthly-rank-num">${a.rank}</span>
+        </div>
+        <img src="${a.avatar}" alt="${a.name}" class="monthly-avatar" loading="lazy"
+          onerror="handleAvatarError(this,'${a.name.replace(/'/g,"\\'")}','${a.handle.replace(/'/g,"\\'")}')">
+        <div class="monthly-body">
+          <div class="monthly-name-row">
+            <h3>${a.name}</h3>
+          </div>
+          <div class="monthly-breakdown">
+            <div class="monthly-bar-row">
+              <label>Tweets</label>
+              <div class="monthly-bar"><div class="monthly-bar-fill tweets" style="width:${tweetPct}%"></div></div>
+              <span class="monthly-bar-val">${fmtScore(a.tweetScore)}</span>
+            </div>
+            <div class="monthly-bar-row">
+              <label>Bot Activity</label>
+              <div class="monthly-bar"><div class="monthly-bar-fill bot" style="width:${botPct}%"></div></div>
+              <span class="monthly-bar-val">${fmtScore(a.botActivityScore)}</span>
+            </div>
+          </div>
+        </div>
+        <div class="monthly-total">
+          <span class="monthly-total-val">${fmtScore(a.total)}</span>
+          <span class="monthly-total-label">Total</span>
+        </div>
+      </div>`;
+  }
+
+  // Weekly (default): compact horizontal row
+  return `
+    <div class="affiliate-card" data-tier="${a.tier.key}" onclick="openAffiliateModal(${a.rank},'${src}')">
+      <div class="affiliate-header">
+        <img src="${a.avatar}" alt="${a.name}" class="affiliate-avatar" loading="lazy"
+          onerror="handleAvatarError(this,'${a.name.replace(/'/g,"\\'")}','${a.handle.replace(/'/g,"\\'")}')">
+        <div class="affiliate-info">
+          <h3>${a.name}</h3>
+        </div>
+      </div>
+      <div class="affiliate-stats">
+        <div class="stat-item">
+          <label>RANK</label>
+          <span class="value">#${a.rank}</span>
+        </div>
+        <div class="stat-item">
+          <label>TOTAL SCORE</label>
+          <span class="value">${fmtScore(a.total)}</span>
+        </div>
+      </div>
+    </div>`;
+}
+
+function renderWeeklyGrid() {
+  const g = document.getElementById('weekly-grid');
+  const s = (weeklyCurrentPage - 1) * cardsPerPage;
+  const page = filteredWeeklyData.slice(s, s + cardsPerPage);
+  g.innerHTML = page.map(a => cardHtml(a, 'weekly')).join('') || `<div class="empty-msg">No results.</div>`;
+  renderPagination('weekly', filteredWeeklyData.length, cardsPerPage);
+}
+function filterWeeklyAffiliates() {
+  const q = document.getElementById('weekly-search').value.toLowerCase();
+  filteredWeeklyData = weeklyData.filter(a => a.name.toLowerCase().includes(q) || a.handle.toLowerCase().includes(q));
+  weeklyCurrentPage = 1; renderWeeklyGrid();
+}
+function sortWeeklyAffiliates() {
+  const s = document.getElementById('weekly-sort').value;
+  if (s==='rank') filteredWeeklyData.sort((a,b)=>a.rank-b.rank);
+  else if (s==='score-desc') filteredWeeklyData.sort((a,b)=>b.total-a.total);
+  else if (s==='tier') sortByTier(filteredWeeklyData);
+  else filteredWeeklyData.sort((a,b)=>a.total-b.total);
+  weeklyCurrentPage = 1; renderWeeklyGrid();
+}
+
+function renderMonthlyGrid() {
+  const g = document.getElementById('monthly-grid');
+  const s = (monthlyCurrentPage - 1) * cardsPerPage;
+  const page = filteredMonthlyData.slice(s, s + cardsPerPage);
+  g.innerHTML = page.map(a => cardHtml(a, 'monthly')).join('') || `<div class="empty-msg">No results.</div>`;
+  renderPagination('monthly', filteredMonthlyData.length, cardsPerPage);
+}
+function filterMonthlyAffiliates() {
+  const q = document.getElementById('monthly-search').value.toLowerCase();
+  filteredMonthlyData = monthlyData.filter(a => a.name.toLowerCase().includes(q) || a.handle.toLowerCase().includes(q));
+  monthlyCurrentPage = 1; renderMonthlyGrid();
+}
+function sortMonthlyAffiliates() {
+  const s = document.getElementById('monthly-sort').value;
+  if (s==='rank') filteredMonthlyData.sort((a,b)=>a.rank-b.rank);
+  else if (s==='score-desc') filteredMonthlyData.sort((a,b)=>b.total-a.total);
+  else if (s==='tier') sortByTier(filteredMonthlyData);
+  else filteredMonthlyData.sort((a,b)=>a.total-b.total);
+  monthlyCurrentPage = 1; renderMonthlyGrid();
+}
+
+// --------- Highlights ----------
+let winsFilter = 'pnl';
+function renderWins() {
+  const g = document.getElementById('wins-grid');
+  const list = WINS.filter(w => w.kind === winsFilter);
+  if (!list.length) {
+    g.innerHTML = `<div class="empty-msg" style="grid-column: 1/-1;">No highlights to show.</div>`;
+    return;
+  }
+  g.innerHTML = list.map(w => {
+    const aff = affiliatesData.find(a => a.handle.toLowerCase() === w.handle.toLowerCase());
+    const avatar = aff ? aff.avatar : getAvatarFallback(w.name || w.handle);
+    const name = aff ? aff.name : (w.name || w.handle.replace('@',''));
+
+    if (w.kind === 'pnl') {
+      // Image-first card — clicking opens a lightbox for full-view (no external redirect)
+      const idx = WINS.indexOf(w);
+      return `
+        <button type="button" class="win-card pnl-card" onclick="openPnlLightbox(${idx})" aria-label="${w.token} ${w.multiplier} by ${name} — open full view">
+          <img src="${w.image}" alt="${w.token} ${w.multiplier} PnL by ${name}" class="win-image" loading="lazy">
+          <div class="win-meta">
+            <img src="${avatar}" alt="${name}" class="win-avatar"
+              onerror="handleAvatarError(this,'${name.replace(/'/g,"\\'")}','${w.handle.replace(/'/g,"\\'")}')">
+            <div class="win-who">
+              <span class="n">${name}</span>
+            </div>
+            <span class="win-token-pill">${w.token} · ${w.multiplier}</span>
+            <span class="win-time">${w.daysAgo}</span>
+          </div>
+        </button>
+      `;
+    }
+
+    // Post card — entire card links to X
+    return `
+      <a href="${w.postUrl}" target="_blank" rel="noopener" class="win-card post-card" aria-label="View post by ${name} on X">
+        <div class="win-card-head">
+          <img src="${avatar}" alt="${name}" class="win-avatar"
+            onerror="handleAvatarError(this,'${name.replace(/'/g,"\\'")}','${w.handle.replace(/'/g,"\\'")}')">
+          <div>
+            <h4>${name}</h4>
+          </div>
+          <span class="win-kind">Post</span>
+        </div>
+        <div class="win-stat">${w.stat}</div>
+        <div class="win-label">${w.label}</div>
+        <div class="win-body">${w.body}</div>
+        <div class="win-engagement">
+          <span class="e"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>${w.engagement.likes}</span>
+          <span class="e"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M23.77 15.67c-.29-.29-.77-.29-1.06 0l-2.44 2.44V7.65c0-2.21-1.79-4-4-4H6.45c-.41 0-.75.34-.75.75s.34.75.75.75h9.82c1.38 0 2.5 1.12 2.5 2.5v10.46l-2.44-2.44c-.29-.29-.77-.29-1.06 0-.29.29-.29.77 0 1.06l3.72 3.72c.15.15.34.22.53.22s.38-.07.53-.22l3.72-3.72c.29-.29.29-.77 0-1.06zm-9.78 2.58H4.17c-1.38 0-2.5-1.12-2.5-2.5V5.29l2.44 2.44c.15.15.34.22.53.22s.38-.07.53-.22c.29-.29.29-.77 0-1.06L1.45 2.95c-.29-.29-.77-.29-1.06 0L-3.33 6.67c-.29.29-.29.77 0 1.06.29.29.77.29 1.06 0L.17 5.29v10.46c0 2.21 1.79 4 4 4h9.82c.41 0 .75-.34.75-.75s-.34-.75-.75-.75z"/></svg>${w.engagement.rt}</span>
+          <span class="e"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M14 3H6c-1.1 0-2 .9-2 2v16l5-5h9c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>${w.engagement.reply}</span>
+        </div>
+      </a>
+    `;
+  }).join('');
+}
+document.addEventListener('click', (e) => {
+  if (e.target.matches('#wins-filter button')) {
+    document.querySelectorAll('#wins-filter button').forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    winsFilter = e.target.dataset.filter;
+    renderWins();
+  }
+});
+
+// --------- PnL Lightbox ----------
+function openPnlLightbox(idx) {
+  const w = WINS[idx];
+  if (!w) return;
+  const aff = affiliatesData.find(a => a.handle.toLowerCase() === w.handle.toLowerCase());
+  const avatar = aff ? aff.avatar : getAvatarFallback(w.name || w.handle);
+  const name = aff ? aff.name : (w.name || w.handle.replace('@',''));
+  const lb = document.getElementById('pnl-lightbox');
+  document.getElementById('pnl-lightbox-img').src = w.image;
+  document.getElementById('pnl-lightbox-img').alt = `${w.token} ${w.multiplier} PnL by ${name}`;
+  const av = document.getElementById('pnl-lightbox-avatar');
+  av.src = avatar;
+  av.alt = name;
+  av.onerror = () => handleAvatarError(av, name, w.handle);
+  document.getElementById('pnl-lightbox-name').textContent = name;
+  document.getElementById('pnl-lightbox-handle').textContent = w.handle;
+  document.getElementById('pnl-lightbox-pill').textContent = `${w.token} · ${w.multiplier}`;
+  document.getElementById('pnl-lightbox-time').textContent = w.daysAgo;
+  lb.classList.add('open');
+  lb.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+function closePnlLightbox(e) {
+  // If called from click event on the backdrop, only close when clicking the backdrop itself
+  if (e && e.type === 'click' && e.target && !e.target.classList.contains('pnl-lightbox')) return;
+  const lb = document.getElementById('pnl-lightbox');
+  lb.classList.remove('open');
+  lb.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    const lb = document.getElementById('pnl-lightbox');
+    if (lb && lb.classList.contains('open')) closePnlLightbox();
+  }
+});
+
+// --------- Auto-hide nav on scroll ----------
+(function initNavAutoHide() {
+  const nav = document.querySelector('.nav');
+  if (!nav) return;
+  let lastY = window.scrollY;
+  let ticking = false;
+  const threshold = 4;
+  const topBuffer = 60;
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      const y = Math.max(0, window.scrollY);
+      const delta = y - lastY;
+      if (y < topBuffer) {
+        // Near top — always visible
+        nav.classList.remove('nav-hidden');
+      } else if (delta > threshold) {
+        // Scrolling DOWN — slide up and vanish
+        nav.classList.add('nav-hidden');
+      } else if (delta < -threshold) {
+        // Scrolling UP — pop back down
+        nav.classList.remove('nav-hidden');
+      }
+      lastY = y;
+      ticking = false;
+    });
+  }, { passive: true });
+})();
+
+// --------- Directory ----------
+function renderDirectoryGrid() {
+  const g = document.getElementById('directory-grid');
+  const s = (directoryCurrentPage - 1) * cardsPerPage;
+  const page = filteredDirectoryData.slice(s, s + cardsPerPage);
+  g.innerHTML = page.map(a => `
+    <div class="directory-card" data-tier="${a.tier.key}">
+      <div class="directory-header">
+        <img src="${a.avatar}" alt="${a.name}" class="directory-avatar" loading="lazy"
+          onerror="handleAvatarError(this,'${a.name.replace(/'/g,"\\'")}','${a.handle.replace(/'/g,"\\'")}')">
+        <div class="directory-info">
+          <h3>${a.name}</h3>
+          <div style="margin-top:0.5rem;">${tierChip(a.tier)}</div>
+        </div>
+      </div>
+      <div class="directory-links">
+        ${a.xUrl && a.xUrl.startsWith('http') ? `<a href="${a.xUrl}" target="_blank" class="directory-link" onclick="event.stopPropagation()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> X
+        </a>` : ''}
+        ${a.tgHandle && a.tgHandle.startsWith('@') ? `<a href="https://t.me/${a.tgHandle.replace('@','')}" target="_blank" class="directory-link" onclick="event.stopPropagation()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg> TG
+        </a>` : ''}
+      </div>
+    </div>
+  `).join('') || `<div class="empty-msg">No affiliates found.</div>`;
+  renderPagination('directory', filteredDirectoryData.length, cardsPerPage);
+}
+function filterDirectory() {
+  const q = document.getElementById('directory-search').value.toLowerCase();
+  filteredDirectoryData = affiliatesData.filter(a => a.name.toLowerCase().includes(q) || a.handle.toLowerCase().includes(q));
+  directoryCurrentPage = 1; renderDirectoryGrid();
+}
+function sortDirectory() {
+  const s = document.getElementById('directory-sort').value;
+  if (s==='name') filteredDirectoryData.sort((a,b)=>a.name.localeCompare(b.name));
+  else if (s==='name-desc') filteredDirectoryData.sort((a,b)=>b.name.localeCompare(a.name));
+  else filteredDirectoryData.sort((a,b)=>a.rank-b.rank);
+  directoryCurrentPage = 1; renderDirectoryGrid();
+}
+
+// --------- Pagination ----------
+function renderPagination(type, total, per) {
+  const c = document.getElementById(`${type}-pagination`);
+  const pages = Math.ceil(total / per);
+  let current = type==='alltime'?alltimeCurrentPage : type==='weekly'?weeklyCurrentPage : type==='monthly'?monthlyCurrentPage : directoryCurrentPage;
+  if (pages <= 1) { c.innerHTML = ''; return; }
+  let html = `<button ${current===1?'disabled':''} onclick="goToPage('${type}',${current-1})">←</button>`;
+  for (let i=1; i<=pages; i++) {
+    if (i===1 || i===pages || (i>=current-1 && i<=current+1)) {
+      html += `<button class="${i===current?'active':''}" onclick="goToPage('${type}',${i})">${i}</button>`;
+    } else if (i===current-2 || i===current+2) {
+      html += `<span style="color:var(--text-tertiary);padding:0 0.25rem;">…</span>`;
+    }
+  }
+  html += `<button ${current===pages?'disabled':''} onclick="goToPage('${type}',${current+1})">→</button>`;
+  c.innerHTML = html;
+}
+function goToPage(type, p) {
+  if (type==='alltime') { alltimeCurrentPage = p; renderAlltimeTable(); }
+  else if (type==='weekly') { weeklyCurrentPage = p; renderWeeklyGrid(); }
+  else if (type==='monthly') { monthlyCurrentPage = p; renderMonthlyGrid(); }
+  else { directoryCurrentPage = p; renderDirectoryGrid(); }
+  window.scrollTo(0,0);
+}
+
+// --------- Modal ----------
+function openAffiliateModal(rank, src) {
+  const set = src==='weekly'? weeklyData : src==='monthly' ? monthlyData : affiliatesData;
+  const a = set.find(x => x.rank === rank); if (!a) return;
+  document.getElementById('modal-body').innerHTML = `
+    <div style="text-align:center;margin-bottom:1.5rem;">
+      <img src="${a.avatar}" alt="${a.name}" loading="lazy"
+        onerror="handleAvatarError(this,'${a.name.replace(/'/g,"\\'")}','${a.handle.replace(/'/g,"\\'")}')"
+        style="width:120px;height:120px;border-radius:50%;border:3px solid var(--card-border);">
+      <h2 style="margin-top:1rem;">${a.name}</h2>
+      <div style="margin-top:0.75rem;">${tierChip(a.tier)}</div>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-value">#${a.rank}</div><div class="stat-label">Rank</div></div>
+      <div class="stat-card"><div class="stat-value" style="color:var(--accent);">${fmtScore(a.total)}</div><div class="stat-label">Total Score</div></div>
+      <div class="stat-card"><div class="stat-value">${fmtScore(a.tweetScore)}</div><div class="stat-label">Tweet Score</div></div>
+      <div class="stat-card"><div class="stat-value">${fmtScore(a.botActivityScore)}</div><div class="stat-label">Bot Activity</div></div>
+    </div>
+    ${a.xUrl && a.xUrl.startsWith('http') ? `<div style="text-align:center;margin-top:1.5rem;">
+      <a href="${a.xUrl}" target="_blank" class="btn btn-secondary">View on X →</a>
+    </div>`:''}
+  `;
+  document.getElementById('affiliate-modal').classList.add('active');
+}
+function closeModal() { document.getElementById('affiliate-modal').classList.remove('active'); }
+function closeModalOnBackdrop(e) { if (e.target === document.getElementById('affiliate-modal')) closeModal(); }
+
+// ====================== TWEAKS ======================
+const ACCENT_SWATCHES = [
+  ['#38FF93','56,255,147'],
+  ['#00E5FF','0,229,255'],
+  ['#B6FF3C','182,255,60'],
+  ['#FF8A3C','255,138,60'],
+  ['#FF4DB8','255,77,184'],
+  ['#9B8CFF','155,140,255'],
+];
+
+function applyTweaks() {
+  const root = document.documentElement, body = document.body;
+  const swatch = ACCENT_SWATCHES.find(s => s[0] === TW.accent) || ACCENT_SWATCHES[0];
+  root.style.setProperty('--accent', swatch[0]);
+  root.style.setProperty('--accent-rgb', swatch[1]);
+  body.dataset.density = TW.density;
+  body.dataset.card = TW.card;
+  body.dataset.podium = TW.podium;
+  body.dataset.tiers = TW.tiers ? 'on' : 'off';
+  body.dataset.tierBands = TW.tierBands ? 'on' : 'off';
+  body.dataset.tierStripe = TW.tierStripe ? 'on' : 'off';
+  body.dataset.scorebar = TW.scoreBar ? 'on' : 'off';
+  body.dataset.avatarShape = TW.avatarShape;
+  body.dataset.anim = TW.animations ? 'on' : 'off';
+  renderTweaksBody();
+  // Re-render visible things that depend on tier-ordering/headers
+  if (affiliatesData.length) {
+    renderAlltimeTable();
+  }
+}
+
+function setTW(key, val) {
+  TW[key] = val;
+  applyTweaks();
+  window.parent.postMessage({type:'__edit_mode_set_keys', edits: { [key]: val }}, '*');
+}
+
+function renderTweaksBody() {
+  const el = document.getElementById('tw-body');
+  const seg = (key, opts) => `
+    <div class="tw-seg">
+      ${opts.map(([v,label]) => `<button class="${TW[key]===v?'active':''}" onclick="setTW('${key}','${v}')">${label}</button>`).join('')}
+    </div>
+  `;
+  const tog = (key, label) => `
+    <div class="tw-toggle ${TW[key]?'on':''}" onclick="setTW('${key}', ${!TW[key]})">
+      <span>${label}</span>
+      <span class="sw"></span>
+    </div>
+  `;
+  el.innerHTML = `
+    <div class="tw-group">
+      <label class="gl">Accent color</label>
+      <div class="tw-swatches">
+        ${ACCENT_SWATCHES.map(([hex]) => `<button class="${TW.accent===hex?'active':''}" style="--sw:${hex};background:${hex};" onclick="setTW('accent','${hex}')" title="${hex}"></button>`).join('')}
+      </div>
+    </div>
+    <div class="tw-group">
+      <label class="gl">Density</label>
+      ${seg('density', [['compact','Compact'],['comfortable','Comfy'],['spacious','Spacious']])}
+    </div>
+    <div class="tw-group">
+      <label class="gl">Card style</label>
+      ${seg('card', [['default','Default'],['glass','Glass'],['bordered','Border'],['flat','Flat']])}
+    </div>
+    <div class="tw-group">
+      <label class="gl">Podium treatment</label>
+      ${seg('podium', [['neon','Neon'],['coins','Medals'],['minimal','Minimal']])}
+    </div>
+    <div class="tw-group">
+      <label class="gl">Avatar shape</label>
+      ${seg('avatarShape', [['circle','Circle'],['squircle','Squircle'],['square','Square']])}
+    </div>
+    <div class="tw-group">
+      <label class="gl">Tiers</label>
+      ${tog('tiers','Show tier chips')}
+      ${tog('tierBands','Band headers on table')}
+      ${tog('tierStripe','Left stripe on rows')}
+    </div>
+    <div class="tw-group">
+      <label class="gl">Extras</label>
+      ${tog('scoreBar','Score progress bars')}
+      ${tog('animations','Motion / animations')}
+    </div>
+    <div class="tw-group">
+      <button class="tw-reset" onclick="resetTweaks()">Reset to defaults</button>
+    </div>
+  `;
+}
+function resetTweaks() {
+  TW = {...TWEAK_DEFAULTS};
+  applyTweaks();
+  window.parent.postMessage({type:'__edit_mode_set_keys', edits: TW}, '*');
+}
+function openTweaks(){ document.getElementById('tweaks-panel').classList.add('open'); renderTweaksBody(); }
+function closeTweaks(){ document.getElementById('tweaks-panel').classList.remove('open'); }
+
+// Edit-mode protocol — register handler FIRST
+window.addEventListener('message', (e) => {
+  if (!e.data) return;
+  if (e.data.type === '__activate_edit_mode') openTweaks();
+  else if (e.data.type === '__deactivate_edit_mode') closeTweaks();
+});
+window.parent.postMessage({type:'__edit_mode_available'}, '*');
+
+// Init
+document.addEventListener('DOMContentLoaded', () => {
+  applyTweaks();
+  loadData();
+  document.addEventListener('keydown', (e) => { if (e.key==='Escape') closeModal(); });
+});
+</script>
 </body>
 </html>
