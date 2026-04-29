@@ -1551,6 +1551,18 @@
       "xUrl": "https://x.com/devdosomething",
       "tgHandle": "@Devdosomething",
       "rank": 43
+    },
+    {
+      "name": "inesscrypto",
+      "handle": "@inesscrypto",
+      "avatar": "avatars/inesscrypto.jpg",
+      "tweetScore": 0,
+      "botActivityScore": 0,
+      "total": 0,
+      "profileUrl": "https://x.com/inesscrypto",
+      "xUrl": "https://x.com/inesscrypto",
+      "tgHandle": "@ineslou",
+      "rank": 44
     }
   ]
 }
