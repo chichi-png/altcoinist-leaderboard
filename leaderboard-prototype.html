@@ -1,0 +1,2742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Affiliate Leaderboard - Altcoinist (Prototype)</title>
+
+    <style>
+    /* ========================================
+       ALTCOINIST GROUPBOT DESIGN SYSTEM
+       Adapted from groupbot-design-system.md
+       Updated: 2026-04-14
+       ======================================== */
+
+    /* ========================================
+       FONTS
+       ======================================== */
+
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+    /* ========================================
+       CSS CUSTOM PROPERTIES
+       ======================================== */
+
+    :root {
+        /* Brand Colors */
+        --accent: #38FF93;
+        --accent-rgb: 56, 255, 147;
+        --brand-400: #38FF93;
+
+        /* Backgrounds */
+        --bg: #000000;
+        --card-bg: rgba(8, 8, 8, 0.85);
+        --card-border: rgba(255, 255, 255, 0.06);
+        --surface-dark: #0A0A0A;
+
+        /* Text */
+        --text-primary: #FFFFFF;
+        --text-secondary: rgba(255, 255, 255, 0.55);
+        --text-tertiary: rgba(255, 255, 255, 0.45);
+        --text-muted: rgba(255, 255, 255, 0.35);
+        --text-faint: rgba(255, 255, 255, 0.3);
+
+        /* Typography */
+        --font-heading: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+
+        /* Layout */
+        --container-max: 1100px;
+        --container-narrow: 960px;
+
+        /* Spacing */
+        --space-xs: 0.5rem;
+        --space-sm: 1rem;
+        --space-md: 1.5rem;
+        --space-lg: 2rem;
+        --space-xl: 3rem;
+
+        /* Borders */
+        --radius-sm: 8px;
+        --radius-md: 12px;
+        --radius-lg: 16px;
+        --radius-full: 9999px;
+
+        /* Transitions */
+        --transition-fast: 150ms ease;
+        --transition-base: 300ms ease;
+        --transition-slow: 500ms ease;
+    }
+
+    /* ========================================
+       RESET & BASE
+       ======================================== */
+
+    *,
+    *::before,
+    *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        overflow-x: hidden;
+    }
+
+    body {
+        font-family: var(--font-body);
+        background: var(--bg);
+        color: var(--text-primary);
+        line-height: 1.6;
+        overflow-x: hidden;
+    }
+
+    /* Selection */
+    ::selection {
+        background-color: rgba(56, 255, 147, 0.25);
+        color: #ffffff;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: rgba(56, 255, 147, 0.35);
+        border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: rgba(56, 255, 147, 0.55);
+    }
+
+    /* ========================================
+       TYPOGRAPHY
+       ======================================== */
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: var(--font-heading);
+        font-weight: 600;
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+    }
+
+    /* Gradient Heading Effect */
+    .gradient-heading {
+        background-image: linear-gradient(0deg, rgba(255, 255, 255, 0.56) 0%, rgb(255, 255, 255) 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    h1 {
+        font-size: clamp(2.2rem, 5vw, 4rem);
+    }
+
+    h2 {
+        font-size: clamp(1.8rem, 4vw, 2.8rem);
+    }
+
+    h3 {
+        font-size: clamp(1.25rem, 3vw, 1.5rem);
+    }
+
+    p {
+        font-family: var(--font-body);
+        color: var(--text-secondary);
+        line-height: 1.6;
+    }
+
+    .mono {
+        font-family: var(--font-mono);
+        letter-spacing: -0.01em;
+    }
+
+    /* Eyebrow Label */
+    .eyebrow {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: rgba(56, 255, 147, 0.8);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .eyebrow::before {
+        content: '';
+        width: 24px;
+        height: 1px;
+        background: rgba(56, 255, 147, 0.4);
+    }
+
+    /* ========================================
+       LAYOUT
+       ======================================== */
+
+    .container {
+        max-width: var(--container-max);
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+
+    .container-narrow {
+        max-width: var(--container-narrow);
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+
+    .section {
+        position: relative;
+        z-index: 10;
+        padding: 2rem 1rem 3.5rem;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    /* ========================================
+       NAVIGATION
+       ======================================== */
+
+    .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background: rgba(10, 10, 10, 0.8);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--card-border);
+        padding: 1rem 0;
+    }
+
+    .nav-inner {
+        max-width: var(--container-max);
+        margin: 0 auto;
+        padding: 0 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .nav-logo {
+        font-family: var(--font-heading);
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        text-decoration: none;
+        letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .nav-link {
+        font-family: var(--font-body);
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--text-secondary);
+        text-decoration: none;
+        transition: color var(--transition-fast);
+        cursor: pointer;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+        color: var(--accent);
+    }
+
+    /* ========================================
+       CARDS
+       ======================================== */
+
+    .card {
+        position: relative;
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-lg);
+        padding: 1.5rem;
+        backdrop-filter: blur(40px);
+        transition: all var(--transition-base);
+    }
+
+    .card:hover {
+        border-color: rgba(56, 255, 147, 0.15);
+        transform: translateY(-2px);
+        box-shadow: 0 0 30px rgba(56, 255, 147, 0.08);
+    }
+
+    /* Feature Card */
+    .feature-card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-lg);
+        padding: 1.5rem;
+        backdrop-filter: blur(40px);
+        transition: all var(--transition-base);
+        overflow: hidden;
+    }
+
+    .feature-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(ellipse at top right, rgba(56, 255, 147, 0.04), transparent 70%);
+        pointer-events: none;
+    }
+
+    .feature-card:hover {
+        border-color: rgba(56, 255, 147, 0.15);
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Stat Card */
+    .stat-card {
+        background: rgba(255, 255, 255, 0.015);
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-sm);
+        padding: 0.75rem 0.5rem;
+        text-align: center;
+        transition: all var(--transition-base);
+    }
+
+    .stat-card:hover {
+        border-color: rgba(56, 255, 147, 0.2);
+        background: rgba(56, 255, 147, 0.03);
+    }
+
+    .stat-label {
+        font-size: 9px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--text-muted);
+        margin-top: 0.25rem;
+    }
+
+    .stat-value {
+        font-family: var(--font-heading);
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--text-primary);
+    }
+
+    /* ========================================
+       TABLES
+       ======================================== */
+
+    .table-wrapper {
+        width: 100%;
+        overflow-x: auto;
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-lg);
+        background: var(--card-bg);
+        backdrop-filter: blur(40px);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    thead {
+        background: rgba(255, 255, 255, 0.02);
+        border-bottom: 2px solid var(--card-border);
+    }
+
+    th {
+        font-family: var(--font-heading);
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-align: left;
+        padding: 1rem 1.5rem;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    td {
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid var(--card-border);
+        color: var(--text-primary);
+        font-size: 0.9375rem;
+    }
+
+    tr:last-child td {
+        border-bottom: none;
+    }
+
+    tbody tr {
+        transition: background var(--transition-fast);
+        cursor: pointer;
+    }
+
+    tbody tr:hover {
+        background: rgba(255, 255, 255, 0.02);
+    }
+
+    /* Rank column */
+    .rank {
+        font-family: var(--font-mono);
+        font-weight: 700;
+        font-size: 1.125rem;
+        color: var(--accent);
+    }
+
+    /* ========================================
+       BUTTONS
+       ======================================== */
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        font-family: var(--font-heading);
+        font-size: 0.875rem;
+        font-weight: 600;
+        border-radius: var(--radius-full);
+        border: none;
+        cursor: pointer;
+        transition: all var(--transition-base);
+        text-decoration: none;
+    }
+
+    .btn-primary {
+        background: var(--accent);
+        color: #000;
+    }
+
+    .btn-primary:hover {
+        background: #2adb7a;
+        transform: scale(1.04);
+    }
+
+    .btn-secondary {
+        background: transparent;
+        color: var(--text-primary);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .btn-secondary:hover {
+        background: var(--accent);
+        color: #000;
+        border-color: var(--accent);
+        transform: scale(1.04);
+    }
+
+    /* ========================================
+       PAGINATION
+       ======================================== */
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 2rem;
+    }
+
+    .pagination button {
+        padding: 0.5rem 1rem;
+        background: transparent;
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-sm);
+        color: var(--text-primary);
+        font-family: var(--font-mono);
+        font-size: 0.875rem;
+        cursor: pointer;
+        transition: all var(--transition-fast);
+    }
+
+    .pagination button:hover:not(:disabled) {
+        border-color: var(--accent);
+        color: var(--accent);
+    }
+
+    .pagination button.active {
+        background: var(--accent);
+        color: #000;
+        border-color: var(--accent);
+    }
+
+    .pagination button:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+    }
+
+    /* ========================================
+       CONTROLS (Search, Sort)
+       ======================================== */
+
+    .controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .search-input,
+    .sort-select {
+        flex: 1;
+        min-width: 200px;
+        padding: 0.75rem 1rem;
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-sm);
+        color: var(--text-primary);
+        font-family: var(--font-body);
+        font-size: 0.9375rem;
+    }
+
+    .search-input:focus,
+    .sort-select:focus {
+        outline: none;
+        border-color: var(--accent);
+    }
+
+    .sort-select {
+        cursor: pointer;
+        flex: 0 0 auto;
+        min-width: auto;
+    }
+
+    /* ========================================
+       MODAL
+       ======================================== */
+
+    .modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 2000;
+        background: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(8px);
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+    }
+
+    .modal.active {
+        display: flex;
+    }
+
+    .modal-content {
+        position: relative;
+        max-width: 600px;
+        width: 100%;
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-lg);
+        padding: 2rem;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    .modal-close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: transparent;
+        border: none;
+        color: var(--text-secondary);
+        font-size: 1.5rem;
+        cursor: pointer;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: all var(--transition-fast);
+    }
+
+    .modal-close:hover {
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text-primary);
+    }
+
+    /* ========================================
+       PODIUM (Home Page)
+       ======================================== */
+
+    .podium {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        gap: 2.5rem;
+        max-width: 900px;
+        margin: 3rem auto;
+        padding: 2rem 1rem;
+    }
+
+    .podium-position {
+        flex: 1;
+        text-align: center;
+        position: relative;
+        transition: all var(--transition-base);
+    }
+
+    .podium-position.first {
+        order: 2;
+        transform: translateY(-20px);
+    }
+
+    .podium-position.second {
+        order: 1;
+    }
+
+    .podium-position.third {
+        order: 3;
+    }
+
+    .podium-position:hover {
+        transform: translateY(-8px);
+    }
+
+    .podium-position.first:hover {
+        transform: translateY(-25px);
+    }
+
+    .podium-rank-badge {
+        font-family: var(--font-mono);
+        font-size: 0.875rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        color: var(--text-primary);
+        background: rgba(56, 255, 147, 0.1);
+        border: 1px solid rgba(56, 255, 147, 0.3);
+        border-radius: var(--radius-full);
+        padding: 0.5rem 1rem;
+        margin-bottom: 1.25rem;
+        transition: all var(--transition-base);
+    }
+
+    .podium-position.first .podium-rank-badge {
+        font-size: 1rem;
+        background: linear-gradient(135deg, rgba(56, 255, 147, 0.15) 0%, rgba(56, 255, 147, 0.05) 100%);
+        border: 2px solid var(--accent);
+        color: var(--accent);
+        box-shadow: 0 0 20px rgba(56, 255, 147, 0.3);
+        animation: glow 2s ease-in-out infinite;
+    }
+
+    .podium-position.second .podium-rank-badge {
+        border-color: rgba(56, 255, 147, 0.25);
+    }
+
+    .podium-position.third .podium-rank-badge {
+        border-color: rgba(56, 255, 147, 0.2);
+    }
+
+    @keyframes glow {
+        0%, 100% {
+            box-shadow: 0 0 20px rgba(56, 255, 147, 0.3);
+        }
+        50% {
+            box-shadow: 0 0 30px rgba(56, 255, 147, 0.5);
+        }
+    }
+
+    .podium-avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        border: 3px solid var(--card-border);
+        margin: 0 auto 1.25rem;
+        transition: all var(--transition-base);
+        object-fit: cover;
+        background: var(--surface-dark);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .podium-position.first .podium-avatar {
+        width: 160px;
+        height: 160px;
+        border: 4px solid var(--accent);
+        box-shadow:
+            0 0 40px rgba(56, 255, 147, 0.35),
+            0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    .podium-position.second .podium-avatar {
+        border-color: rgba(56, 255, 147, 0.3);
+        box-shadow: 0 0 20px rgba(56, 255, 147, 0.15);
+    }
+
+    .podium-position.third .podium-avatar {
+        border-color: rgba(56, 255, 147, 0.2);
+        box-shadow: 0 0 15px rgba(56, 255, 147, 0.1);
+    }
+
+    .podium-avatar:hover {
+        transform: scale(1.05);
+    }
+
+    .podium-name {
+        font-family: var(--font-heading);
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--text-primary);
+        letter-spacing: -0.01em;
+    }
+
+    .podium-position.first .podium-name {
+        font-size: 1.5rem;
+        background-image: linear-gradient(135deg, var(--accent) 0%, rgba(56, 255, 147, 0.7) 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .podium-handle {
+        font-family: var(--font-mono);
+        font-size: 0.875rem;
+        color: var(--text-tertiary);
+        letter-spacing: -0.01em;
+    }
+
+    .podium-position.first .podium-handle {
+        color: var(--text-secondary);
+    }
+
+    /* ========================================
+       GRIDS
+       ======================================== */
+
+    .grid {
+        display: grid;
+        gap: 1rem;
+    }
+
+    .grid-2 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .grid-3 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .grid-4 {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .leaderboard-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2rem;
+    }
+
+    /* Weekly Grid - Horizontal card layout (distinctive from monthly/all-time) */
+    #weekly-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 2rem;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #weekly-grid .affiliate-card {
+        display: flex;
+        align-items: center;
+        gap: 1.25rem;
+        padding: 1.25rem 1.5rem;
+        background: linear-gradient(90deg, rgba(56, 255, 147, 0.02) 0%, var(--card-bg) 100%);
+        box-shadow: 0 0 20px rgba(56, 255, 147, 0.08);
+    }
+
+    #weekly-grid .affiliate-card:hover {
+        box-shadow: 0 0 30px rgba(56, 255, 147, 0.15);
+    }
+
+    /* Weekly: Avatar on the left */
+    #weekly-grid .affiliate-header {
+        flex-shrink: 0;
+        margin-bottom: 0;
+        gap: 1.25rem;
+    }
+
+    #weekly-grid .affiliate-avatar {
+        width: 64px;
+        height: 64px;
+        border: 2px solid rgba(56, 255, 147, 0.25);
+        flex-shrink: 0;
+    }
+
+    /* Weekly: Info section (name + handle) in the middle */
+    #weekly-grid .affiliate-info {
+        flex: 0 1 auto;
+        min-width: 0;
+    }
+
+    #weekly-grid .affiliate-info h3 {
+        font-size: 1.125rem;
+        margin-bottom: 0.35rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    #weekly-grid .affiliate-handle {
+        font-size: 0.875rem;
+        color: var(--text-tertiary);
+    }
+
+    /* Weekly: Stats on the right (horizontal layout) */
+    #weekly-grid .affiliate-stats {
+        display: grid;
+        grid-template-columns: 80px 100px;
+        gap: 1.5rem;
+        margin-top: 0;
+        margin-left: auto;
+        padding-top: 0;
+        border-top: none;
+        flex-shrink: 0;
+    }
+
+    #weekly-grid .stat-item {
+        text-align: right;
+        width: auto;
+    }
+
+    #weekly-grid .stat-item label {
+        font-size: 0.6875rem;
+        color: var(--text-muted);
+        margin-bottom: 0.35rem;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        font-weight: 600;
+    }
+
+    #weekly-grid .stat-item .value {
+        font-size: 1.125rem;
+        font-weight: 600;
+    }
+
+    /* Monthly Grid - Compact, efficient (3-4 columns) */
+    #monthly-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 1.25rem;
+    }
+
+    #monthly-grid .affiliate-card {
+        padding: 1.25rem;
+        border-color: rgba(255, 255, 255, 0.04);
+    }
+
+    #monthly-grid .affiliate-card:hover {
+        border-color: rgba(56, 255, 147, 0.15);
+    }
+
+    #monthly-grid .affiliate-avatar {
+        width: 50px;
+        height: 50px;
+    }
+
+    #monthly-grid .affiliate-info h3 {
+        font-size: 1rem;
+    }
+
+    #monthly-grid .affiliate-handle {
+        font-size: 0.8125rem;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    /* ========================================
+       AFFILIATE CARD (Weekly/Monthly Grids)
+       ======================================== */
+
+    .affiliate-card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-lg);
+        padding: 1.5rem;
+        transition: all var(--transition-base);
+        cursor: pointer;
+    }
+
+    .affiliate-card:hover {
+        border-color: rgba(56, 255, 147, 0.2);
+        transform: translateY(-2px);
+    }
+
+    .affiliate-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .affiliate-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        border: 2px solid var(--card-border);
+    }
+
+    .affiliate-info h3 {
+        font-size: 1.125rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .affiliate-handle {
+        font-family: var(--font-mono);
+        font-size: 0.875rem;
+        color: var(--text-tertiary);
+    }
+
+    .affiliate-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--card-border);
+    }
+
+    .stat-item {
+        text-align: center;
+    }
+
+    .stat-item label {
+        display: block;
+        font-size: 0.75rem;
+        color: var(--text-tertiary);
+        margin-bottom: 0.25rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .stat-item .value {
+        font-family: var(--font-mono);
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--accent);
+    }
+
+    /* ========================================
+       DIRECTORY PROFILE CARDS
+       ======================================== */
+
+    .directory-card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-lg);
+        padding: 2rem;
+        transition: all var(--transition-base);
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .directory-card:hover {
+        border-color: rgba(56, 255, 147, 0.2);
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    .directory-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .directory-avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        border: 3px solid var(--card-border);
+        object-fit: cover;
+        transition: all var(--transition-base);
+    }
+
+    .directory-card:hover .directory-avatar {
+        border-color: rgba(56, 255, 147, 0.4);
+        transform: scale(1.05);
+        box-shadow: 0 0 20px rgba(56, 255, 147, 0.2);
+    }
+
+    .directory-info {
+        text-align: center;
+    }
+
+    .directory-info h3 {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+        color: var(--text-primary);
+    }
+
+    .directory-handle {
+        font-family: var(--font-mono);
+        font-size: 0.875rem;
+        color: var(--text-tertiary);
+        letter-spacing: -0.01em;
+    }
+
+    .directory-links {
+        display: flex;
+        gap: 0.75rem;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .directory-link {
+        flex: 1;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1rem;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-sm);
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-size: 0.875rem;
+        font-weight: 500;
+        transition: all var(--transition-fast);
+    }
+
+    .directory-link:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+        background: rgba(56, 255, 147, 0.08);
+        transform: translateY(-2px);
+    }
+
+    /* ========================================
+       UTILITY CLASSES
+       ======================================== */
+
+    .mt-1 { margin-top: 0.5rem; }
+    .mt-2 { margin-top: 1rem; }
+    .mt-3 { margin-top: 1.5rem; }
+    .mt-4 { margin-top: 2rem; }
+
+    .mb-1 { margin-bottom: 0.5rem; }
+    .mb-2 { margin-bottom: 1rem; }
+    .mb-3 { margin-bottom: 1.5rem; }
+    .mb-4 { margin-bottom: 2rem; }
+
+    .hidden { display: none; }
+    .block { display: block; }
+
+    /* ========================================
+       PAGE VISIBILITY
+       ======================================== */
+
+    .page {
+        display: none;
+        padding-top: 80px;
+    }
+
+    .page.active {
+        display: block;
+    }
+
+    /* ========================================
+       RESPONSIVE
+       ======================================== */
+
+    /* Tablet (768px) */
+    @media (max-width: 768px) {
+        .nav-links {
+            gap: 1rem;
+        }
+
+        .nav-link {
+            font-size: 0.8125rem;
+        }
+
+        .podium {
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .podium-position {
+            order: initial !important;
+            transform: none !important;
+        }
+
+        .podium-position:hover {
+            transform: scale(1.02) !important;
+        }
+
+        .podium-avatar {
+            width: 140px;
+            height: 140px;
+        }
+
+        .podium-position.first .podium-avatar {
+            width: 180px;
+            height: 180px;
+        }
+
+        .leaderboard-grid,
+        #monthly-grid {
+            grid-template-columns: 1fr;
+        }
+
+        /* Weekly: Keep horizontal but adjust spacing */
+        #weekly-grid {
+            max-width: 100%;
+        }
+
+        #weekly-grid .affiliate-card {
+            padding: 1rem 1.25rem;
+            gap: 1rem;
+        }
+
+        #weekly-grid .affiliate-avatar {
+            width: 56px;
+            height: 56px;
+        }
+
+        #weekly-grid .affiliate-stats {
+            grid-template-columns: 70px 90px;
+            gap: 1rem;
+        }
+
+        #weekly-grid .stat-item {
+            width: auto;
+        }
+
+        #weekly-grid .stat-item .value {
+            font-size: 1rem;
+        }
+
+        /* Monthly: Reset distinctions on mobile */
+        #monthly-grid {
+            gap: 1.5rem;
+        }
+
+        #monthly-grid .affiliate-card {
+            padding: 1.5rem;
+        }
+
+        #monthly-grid .affiliate-avatar {
+            width: 60px;
+            height: 60px;
+        }
+
+        .controls {
+            flex-direction: column;
+        }
+
+        .search-input,
+        .sort-select {
+            width: 100%;
+        }
+
+        th, td {
+            padding: 0.75rem 1rem;
+            font-size: 0.875rem;
+        }
+    }
+
+    /* Mobile (480px) */
+    @media (max-width: 480px) {
+        .nav-inner {
+            flex-wrap: wrap;
+            padding: 0 1rem;
+        }
+
+        .nav-links {
+            width: 100%;
+            justify-content: space-around;
+            margin-top: 0.5rem;
+            gap: 0.5rem;
+        }
+
+        .nav-link {
+            font-size: 0.75rem;
+            padding: 0.5rem 0.75rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+        }
+
+        .section {
+            padding: 1.5rem 1rem 2.5rem;
+        }
+
+        .container {
+            padding: 0 1rem;
+        }
+
+        .stats-grid {
+            grid-template-columns: 1fr;
+        }
+
+        /* Controls improvements for mobile */
+        .search-input,
+        .sort-select {
+            min-width: auto;
+            width: 100%;
+            padding: 0.875rem 1rem;
+            font-size: 1rem;
+            min-height: 48px;
+        }
+
+        .controls {
+            gap: 0.75rem;
+        }
+
+        /* Table improvements for small screens */
+        .table-wrapper {
+            margin: 0 -1rem;
+            border-left: none;
+            border-right: none;
+            border-radius: 0;
+        }
+
+        th, td {
+            padding: 0.625rem 0.5rem;
+            font-size: 0.8125rem;
+        }
+
+        th:first-child,
+        td:first-child {
+            padding-left: 1rem;
+        }
+
+        th:last-child,
+        td:last-child {
+            padding-right: 1rem;
+        }
+
+        /* Hide tweet/bot score columns on very small screens, keep total */
+        th:nth-child(3),
+        td:nth-child(3),
+        th:nth-child(4),
+        td:nth-child(4) {
+            display: none;
+        }
+
+        /* Affiliate column gets more space */
+        th:nth-child(2),
+        td:nth-child(2) {
+            max-width: none;
+        }
+
+        /* Modal improvements */
+        .modal-content {
+            margin: 1rem;
+            max-width: calc(100% - 2rem);
+            padding: 1.5rem;
+            max-height: calc(100vh - 2rem);
+        }
+
+        .modal-close {
+            top: 0.75rem;
+            right: 0.75rem;
+        }
+
+        /* Card improvements */
+        .affiliate-card,
+        .directory-card {
+            padding: 1.25rem;
+        }
+
+        /* Weekly: Stack vertically on very small screens */
+        #weekly-grid .affiliate-card {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+        }
+
+        #weekly-grid .affiliate-header {
+            width: 100%;
+        }
+
+        #weekly-grid .affiliate-stats {
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-left: 0;
+            width: 100%;
+        }
+
+        #weekly-grid .stat-item {
+            width: auto;
+            text-align: center;
+        }
+
+        #weekly-grid .stat-item label {
+            font-size: 0.625rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+        }
+
+        #weekly-grid .stat-item .value {
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .directory-avatar {
+            width: 80px;
+            height: 80px;
+        }
+
+        /* Pagination improvements */
+        .pagination {
+            gap: 0.25rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .pagination button,
+        .pagination span {
+            padding: 0.5rem 0.625rem;
+            font-size: 0.75rem;
+            min-width: 36px;
+            min-height: 36px;
+        }
+
+        /* Button improvements */
+        .btn {
+            padding: 0.75rem 1.5rem;
+            font-size: 0.9375rem;
+            min-height: 44px;
+        }
+
+        /* Podium improvements */
+        .podium-avatar {
+            width: 120px !important;
+            height: 120px !important;
+        }
+
+        .podium-position.first .podium-avatar {
+            width: 150px !important;
+            height: 150px !important;
+        }
+
+        .podium-name {
+            font-size: 1rem;
+        }
+
+        .podium-handle {
+            font-size: 0.8125rem;
+        }
+    }
+
+    /* Touch devices */
+    @media (hover: none) and (pointer: coarse) {
+        /* Ensure all touch targets are at least 44x44px */
+        .btn {
+            min-height: 44px;
+            min-width: 44px;
+        }
+
+        .nav-link {
+            padding: 0.75rem;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pagination button {
+            min-height: 44px;
+            min-width: 44px;
+        }
+
+        .modal-close {
+            min-height: 44px;
+            min-width: 44px;
+        }
+
+        /* Remove hover effects on touch devices */
+        .affiliate-card:hover,
+        .directory-card:hover,
+        .feature-card:hover {
+            transform: none;
+        }
+
+        /* Make table rows easier to tap */
+        tbody tr {
+            cursor: pointer;
+            min-height: 60px;
+        }
+
+        .card:hover,
+        .affiliate-card:hover,
+        .feature-card:hover {
+            transform: none;
+        }
+    }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="#" class="nav-logo" onclick="switchPage('home'); return false;">ALTCOINIST</a>
+            <ul class="nav-links">
+                <li><a href="#" class="nav-link active" data-page="home" onclick="switchPage('home'); return false;">Home</a></li>
+                <li><a href="#" class="nav-link" data-page="alltime" onclick="switchPage('alltime'); return false;">All-Time</a></li>
+                <li><a href="#" class="nav-link" data-page="weekly" onclick="switchPage('weekly'); return false;">Weekly</a></li>
+                <li><a href="#" class="nav-link" data-page="monthly" onclick="switchPage('monthly'); return false;">Monthly</a></li>
+                <li><a href="#" class="nav-link" data-page="directory" onclick="switchPage('directory'); return false;">Directory</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <div id="home-page" class="page active">
+        <section class="section">
+            <div class="container text-center">
+                <span class="eyebrow">01 / top performers</span>
+                <h1 class="gradient-heading">Affiliate Leaderboard</h1>
+                <p class="mt-2" style="color: var(--text-secondary); max-width: 520px; margin-left: auto; margin-right: auto;">
+                    The top performers in our affiliate program. Compete for the top spot and earn rewards.
+                </p>
+            </div>
+
+            <div class="podium">
+                <div class="podium-position second" id="podium-second">
+                    <!-- Populated by JavaScript -->
+                </div>
+                <div class="podium-position first" id="podium-first">
+                    <!-- Populated by JavaScript -->
+                </div>
+                <div class="podium-position third" id="podium-third">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="text-center mt-4" style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <button class="btn btn-secondary" onclick="switchPage('alltime'); return false;">
+                    View Full Rankings →
+                </button>
+                <a href="https://altcoinist.notion.site/2a9b35d78748801c856dc1c9ebef6815?pvs=105"
+                   target="_blank"
+                   class="btn btn-secondary">
+                    Become an Affiliate
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <!-- All-Time Rankings Page -->
+    <div id="alltime-page" class="page">
+        <section class="section">
+            <div class="container">
+                <div class="text-center mb-4">
+                    <span class="eyebrow">02 / all-time rankings</span>
+                    <h2 class="gradient-heading">All-Time Leaders</h2>
+                </div>
+
+                <div class="controls">
+                    <input
+                        type="text"
+                        class="search-input"
+                        id="alltime-search"
+                        placeholder="Search affiliates..."
+                        oninput="filterAlltimeAffiliates()"
+                    >
+                    <select class="sort-select" id="alltime-sort" onchange="sortAlltimeAffiliates()">
+                        <option value="rank">Sort by Rank</option>
+                        <option value="score-desc">Score (High to Low)</option>
+                        <option value="score-asc">Score (Low to High)</option>
+                    </select>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Affiliate</th>
+                                <th>Tweet Score</th>
+                                <th>Bot Activity</th>
+                                <th>Total Score</th>
+                            </tr>
+                        </thead>
+                        <tbody id="alltime-tbody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination" id="alltime-pagination">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Weekly Rankings Page -->
+    <div id="weekly-page" class="page">
+        <section class="section">
+            <div class="container">
+                <div class="text-center mb-4">
+                    <span class="eyebrow">03 / weekly rankings • <span id="week-range"></span></span>
+                    <h2 class="gradient-heading">This Week's Leaders</h2>
+                </div>
+
+                <div class="controls">
+                    <input
+                        type="text"
+                        class="search-input"
+                        id="weekly-search"
+                        placeholder="Search affiliates..."
+                        oninput="filterWeeklyAffiliates()"
+                    >
+                    <select class="sort-select" id="weekly-sort" onchange="sortWeeklyAffiliates()">
+                        <option value="rank">Sort by Rank</option>
+                        <option value="score-desc">Score (High to Low)</option>
+                        <option value="score-asc">Score (Low to High)</option>
+                    </select>
+                </div>
+
+                <div class="leaderboard-grid" id="weekly-grid">
+                    <!-- Populated by JavaScript -->
+                </div>
+
+                <div class="pagination" id="weekly-pagination">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Monthly Rankings Page -->
+    <div id="monthly-page" class="page">
+        <section class="section">
+            <div class="container">
+                <div class="text-center mb-4">
+                    <span class="eyebrow">04 / monthly rankings • <span id="month-range"></span></span>
+                    <h2 class="gradient-heading">This Month's Leaders</h2>
+                </div>
+
+                <div class="controls">
+                    <input
+                        type="text"
+                        class="search-input"
+                        id="monthly-search"
+                        placeholder="Search affiliates..."
+                        oninput="filterMonthlyAffiliates()"
+                    >
+                    <select class="sort-select" id="monthly-sort" onchange="sortMonthlyAffiliates()">
+                        <option value="rank">Sort by Rank</option>
+                        <option value="score-desc">Score (High to Low)</option>
+                        <option value="score-asc">Score (Low to High)</option>
+                    </select>
+                </div>
+
+                <div class="leaderboard-grid" id="monthly-grid">
+                    <!-- Populated by JavaScript -->
+                </div>
+
+                <div class="pagination" id="monthly-pagination">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Affiliate Directory Page -->
+    <div id="directory-page" class="page">
+        <section class="section">
+            <div class="container">
+                <div class="text-center mb-4">
+                    <span class="eyebrow">05 / affiliate directory</span>
+                    <h2 class="gradient-heading">Our Affiliates</h2>
+                    <p class="mt-2" style="color: var(--text-secondary); max-width: 520px; margin-left: auto; margin-right: auto;">
+                        Meet all the affiliates in our program.
+                    </p>
+                </div>
+
+                <div class="controls">
+                    <input
+                        type="text"
+                        class="search-input"
+                        id="directory-search"
+                        placeholder="Search affiliates..."
+                        oninput="filterDirectory()"
+                    >
+                    <select class="sort-select" id="directory-sort" onchange="sortDirectory()">
+                        <option value="name">Sort by Name (A-Z)</option>
+                        <option value="name-desc">Sort by Name (Z-A)</option>
+                    </select>
+                </div>
+
+                <div class="leaderboard-grid" id="directory-grid">
+                    <!-- Populated by JavaScript -->
+                </div>
+
+                <div class="pagination" id="directory-pagination">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal -->
+    <div id="affiliate-modal" class="modal" onclick="closeModalOnBackdrop(event)">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div id="modal-body">
+                <!-- Populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // ========================================
+    // EMBEDDED SAMPLE DATA (15 affiliates)
+    // ========================================
+    window.LEADERBOARD_DATA = {
+      "affiliates": [
+        {
+          "name": "Rb3k ",
+          "handle": "@rbthreek",
+          "avatar": "https://unavatar.io/twitter/rbthreek",
+          "tweetScore": 0.0,
+          "botActivityScore": 121.07,
+          "total": 121.07,
+          "profileUrl": "https://x.com/rbthreek",
+          "xUrl": "https://x.com/rbthreek",
+          "tgHandle": "@rbthreek",
+          "rank": 1
+        },
+        {
+          "name": "Chiron ",
+          "handle": "@chironchain",
+          "avatar": "https://unavatar.io/twitter/chironchain",
+          "tweetScore": 0.0,
+          "botActivityScore": 40.13,
+          "total": 40.13,
+          "profileUrl": "https://x.com/chironchain",
+          "xUrl": "https://x.com/chironchain",
+          "tgHandle": "@chironthetrader",
+          "rank": 2
+        },
+        {
+          "name": "@KAPOTHEGOAT01",
+          "handle": "@KAPOTHEGOAT01",
+          "avatar": "https://unavatar.io/twitter/KAPOTHEGOAT01",
+          "tweetScore": 20.81,
+          "botActivityScore": 0.0,
+          "total": 20.81,
+          "profileUrl": "https://x.com/KAPOTHEGOAT01",
+          "xUrl": "https://x.com/KAPOTHEGOAT01",
+          "tgHandle": "@LUCKYL1MG",
+          "rank": 3
+        },
+        {
+          "name": "Chainriffs",
+          "handle": "@Chainriffs",
+          "avatar": "https://unavatar.io/twitter/Chainriffs",
+          "tweetScore": 14.43,
+          "botActivityScore": 0.0,
+          "total": 14.43,
+          "profileUrl": "https://x.com/Chainriffs",
+          "xUrl": "https://x.com/Chainriffs",
+          "tgHandle": "@Chainriffss",
+          "rank": 4
+        },
+        {
+          "name": "cryptocchio0",
+          "handle": "@mrLCguy",
+          "avatar": "https://unavatar.io/twitter/mrLCguy",
+          "tweetScore": 6.7,
+          "botActivityScore": 0.0,
+          "total": 6.7,
+          "profileUrl": "https://x.com/mrlcguy",
+          "xUrl": "https://x.com/mrlcguy",
+          "tgHandle": "@cryptocchio0",
+          "rank": 5
+        },
+        {
+          "name": "Premium Mind ( @deepseektetra on X )",
+          "handle": "@deepseektetra",
+          "avatar": "https://unavatar.io/twitter/deepseektetra",
+          "tweetScore": 4.67,
+          "botActivityScore": 0.0,
+          "total": 4.67,
+          "profileUrl": "https://x.com/deepseektetra",
+          "xUrl": "https://x.com/deepseektetra",
+          "tgHandle": "@Elohim528",
+          "rank": 6
+        },
+        {
+          "name": "N30 ",
+          "handle": "@N30_cryptoo",
+          "avatar": "https://unavatar.io/twitter/N30_cryptoo",
+          "tweetScore": 3.39,
+          "botActivityScore": 0.0,
+          "total": 3.39,
+          "profileUrl": "https://x.com/N30_cryptoo",
+          "xUrl": "https://x.com/N30_cryptoo",
+          "tgHandle": "@N30_CRYPTO",
+          "rank": 7
+        },
+        {
+          "name": "Tyler Kenny ",
+          "handle": "@thebasedfrogx",
+          "avatar": "https://unavatar.io/twitter/thebasedfrogx",
+          "tweetScore": 0.0,
+          "botActivityScore": 3.32,
+          "total": 3.32,
+          "profileUrl": "https://x.com/thebasedfrogx",
+          "xUrl": "https://x.com/thebasedfrogx",
+          "tgHandle": "@thebasedfrog",
+          "rank": 8
+        },
+        {
+          "name": "cryptic_t",
+          "handle": "@cryptic_tits",
+          "avatar": "https://unavatar.io/twitter/cryptic_tits",
+          "tweetScore": 0.69,
+          "botActivityScore": 0.0,
+          "total": 0.69,
+          "profileUrl": "https://x.com/cryptic_tits",
+          "xUrl": "https://x.com/cryptic_tits",
+          "tgHandle": "@cryptic_t",
+          "rank": 9
+        },
+        {
+          "name": "neo lawyer ",
+          "handle": "@Neolawyer1",
+          "avatar": "https://unavatar.io/twitter/Neolawyer1",
+          "tweetScore": 0.0,
+          "botActivityScore": 0.02,
+          "total": 0.02,
+          "profileUrl": "https://x.com/Neolawyer1",
+          "xUrl": "https://x.com/Neolawyer1",
+          "tgHandle": "@Neolawyer",
+          "rank": 10
+        },
+        {
+          "name": "Base Pop",
+          "handle": "@KD11201",
+          "avatar": "https://unavatar.io/twitter/KD11201",
+          "tweetScore": 0.0,
+          "botActivityScore": 0.0,
+          "total": 0.0,
+          "profileUrl": "https://x.com/KD11201",
+          "xUrl": "https://x.com/KD11201",
+          "tgHandle": "@Kd11201",
+          "rank": 11
+        },
+        {
+          "name": "Anderson",
+          "handle": "@0x7_anderson",
+          "avatar": "https://unavatar.io/twitter/0x7_anderson",
+          "tweetScore": 0.0,
+          "botActivityScore": 0.0,
+          "total": 0.0,
+          "profileUrl": "https://x.com/0x7_anderson",
+          "xUrl": "https://x.com/0x7_anderson",
+          "tgHandle": "@tarcioanderson",
+          "rank": 12
+        },
+        {
+          "name": "Thegardner",
+          "handle": "@thegardener777",
+          "avatar": "https://unavatar.io/twitter/thegardener777",
+          "tweetScore": 0.0,
+          "botActivityScore": 0.0,
+          "total": 0.0,
+          "profileUrl": "https://x.com/thegardener777",
+          "xUrl": "https://x.com/thegardener777",
+          "tgHandle": "@thegardener777",
+          "rank": 13
+        },
+        {
+          "name": "Karaiso",
+          "handle": "@karaiso4",
+          "avatar": "https://unavatar.io/twitter/karaiso4",
+          "tweetScore": 0,
+          "botActivityScore": 0,
+          "total": 0,
+          "profileUrl": "https://x.com/karaiso4",
+          "xUrl": "https://x.com/karaiso4",
+          "tgHandle": "@karaiso",
+          "rank": 14
+        },
+        {
+          "name": "Math",
+          "handle": "@mathburn666",
+          "avatar": "https://unavatar.io/twitter/mathburn666",
+          "tweetScore": 0,
+          "botActivityScore": 0,
+          "total": 0,
+          "profileUrl": "https://x.com/mathburn666",
+          "xUrl": "https://x.com/mathburn666",
+          "tgHandle": "@mathburn666",
+          "rank": 15
+        }
+      ],
+      "weekly": [
+        {
+          "name": "Rb3k ",
+          "handle": "@rbthreek",
+          "avatar": "https://unavatar.io/twitter/rbthreek",
+          "tweetScore": 0.0,
+          "botActivityScore": 121.07,
+          "total": 121.07,
+          "profileUrl": "https://x.com/rbthreek",
+          "xUrl": "https://x.com/rbthreek",
+          "tgHandle": "@rbthreek",
+          "rank": 1
+        },
+        {
+          "name": "Chiron ",
+          "handle": "@chironchain",
+          "avatar": "https://unavatar.io/twitter/chironchain",
+          "tweetScore": 0.0,
+          "botActivityScore": 40.13,
+          "total": 40.13,
+          "profileUrl": "https://x.com/chironchain",
+          "xUrl": "https://x.com/chironchain",
+          "tgHandle": "@chironthetrader",
+          "rank": 2
+        },
+        {
+          "name": "@KAPOTHEGOAT01",
+          "handle": "@KAPOTHEGOAT01",
+          "avatar": "https://unavatar.io/twitter/KAPOTHEGOAT01",
+          "tweetScore": 20.81,
+          "botActivityScore": 0.0,
+          "total": 20.81,
+          "profileUrl": "https://x.com/KAPOTHEGOAT01",
+          "xUrl": "https://x.com/KAPOTHEGOAT01",
+          "tgHandle": "@LUCKYL1MG",
+          "rank": 3
+        },
+        {
+          "name": "Chainriffs",
+          "handle": "@Chainriffs",
+          "avatar": "https://unavatar.io/twitter/Chainriffs",
+          "tweetScore": 14.43,
+          "botActivityScore": 0.0,
+          "total": 14.43,
+          "profileUrl": "https://x.com/Chainriffs",
+          "xUrl": "https://x.com/Chainriffs",
+          "tgHandle": "@Chainriffss",
+          "rank": 4
+        },
+        {
+          "name": "cryptocchio0",
+          "handle": "@mrLCguy",
+          "avatar": "https://unavatar.io/twitter/mrLCguy",
+          "tweetScore": 6.7,
+          "botActivityScore": 0.0,
+          "total": 6.7,
+          "profileUrl": "https://x.com/mrlcguy",
+          "xUrl": "https://x.com/mrlcguy",
+          "tgHandle": "@cryptocchio0",
+          "rank": 5
+        },
+        {
+          "name": "Premium Mind ( @deepseektetra on X )",
+          "handle": "@deepseektetra",
+          "avatar": "https://unavatar.io/twitter/deepseektetra",
+          "tweetScore": 4.67,
+          "botActivityScore": 0.0,
+          "total": 4.67,
+          "profileUrl": "https://x.com/deepseektetra",
+          "xUrl": "https://x.com/deepseektetra",
+          "tgHandle": "@Elohim528",
+          "rank": 6
+        },
+        {
+          "name": "N30 ",
+          "handle": "@N30_cryptoo",
+          "avatar": "https://unavatar.io/twitter/N30_cryptoo",
+          "tweetScore": 3.39,
+          "botActivityScore": 0.0,
+          "total": 3.39,
+          "profileUrl": "https://x.com/N30_cryptoo",
+          "xUrl": "https://x.com/N30_cryptoo",
+          "tgHandle": "@N30_CRYPTO",
+          "rank": 7
+        },
+        {
+          "name": "Tyler Kenny ",
+          "handle": "@thebasedfrogx",
+          "avatar": "https://unavatar.io/twitter/thebasedfrogx",
+          "tweetScore": 0.0,
+          "botActivityScore": 3.32,
+          "total": 3.32,
+          "profileUrl": "https://x.com/thebasedfrogx",
+          "xUrl": "https://x.com/thebasedfrogx",
+          "tgHandle": "@thebasedfrog",
+          "rank": 8
+        },
+        {
+          "name": "cryptic_t",
+          "handle": "@cryptic_tits",
+          "avatar": "https://unavatar.io/twitter/cryptic_tits",
+          "tweetScore": 0.69,
+          "botActivityScore": 0.0,
+          "total": 0.69,
+          "profileUrl": "https://x.com/cryptic_tits",
+          "xUrl": "https://x.com/cryptic_tits",
+          "tgHandle": "@cryptic_t",
+          "rank": 9
+        },
+        {
+          "name": "neo lawyer ",
+          "handle": "@Neolawyer1",
+          "avatar": "https://unavatar.io/twitter/Neolawyer1",
+          "tweetScore": 0.0,
+          "botActivityScore": 0.02,
+          "total": 0.02,
+          "profileUrl": "https://x.com/Neolawyer1",
+          "xUrl": "https://x.com/Neolawyer1",
+          "tgHandle": "@Neolawyer",
+          "rank": 10
+        },
+        {
+          "name": "Base Pop",
+          "handle": "@KD11201",
+          "avatar": "https://unavatar.io/twitter/KD11201",
+          "tweetScore": 0.0,
+          "botActivityScore": 0.0,
+          "total": 0.0,
+          "profileUrl": "https://x.com/KD11201",
+          "xUrl": "https://x.com/KD11201",
+          "tgHandle": "@Kd11201",
+          "rank": 11
+        },
+        {
+          "name": "Anderson",
+          "handle": "@0x7_anderson",
+          "avatar": "https://unavatar.io/twitter/0x7_anderson",
+          "tweetScore": 0.0,
+          "botActivityScore": 0.0,
+          "total": 0.0,
+          "profileUrl": "https://x.com/0x7_anderson",
+          "xUrl": "https://x.com/0x7_anderson",
+          "tgHandle": "@tarcioanderson",
+          "rank": 12
+        },
+        {
+          "name": "Thegardner",
+          "handle": "@thegardener777",
+          "avatar": "https://unavatar.io/twitter/thegardener777",
+          "tweetScore": 0.0,
+          "botActivityScore": 0.0,
+          "total": 0.0,
+          "profileUrl": "https://x.com/thegardener777",
+          "xUrl": "https://x.com/thegardener777",
+          "tgHandle": "@thegardener777",
+          "rank": 13
+        },
+        {
+          "name": "Karaiso",
+          "handle": "@karaiso4",
+          "avatar": "https://unavatar.io/twitter/karaiso4",
+          "tweetScore": 0,
+          "botActivityScore": 0,
+          "total": 0,
+          "profileUrl": "https://x.com/karaiso4",
+          "xUrl": "https://x.com/karaiso4",
+          "tgHandle": "@karaiso",
+          "rank": 14
+        },
+        {
+          "name": "Math",
+          "handle": "@mathburn666",
+          "avatar": "https://unavatar.io/twitter/mathburn666",
+          "tweetScore": 0,
+          "botActivityScore": 0,
+          "total": 0,
+          "profileUrl": "https://x.com/mathburn666",
+          "xUrl": "https://x.com/mathburn666",
+          "tgHandle": "@mathburn666",
+          "rank": 15
+        }
+      ],
+      "monthly": [
+        {
+          "name": "Rb3k ",
+          "handle": "@rbthreek",
+          "avatar": "https://unavatar.io/twitter/rbthreek",
+          "tweetScore": 0.0,
+          "botActivityScore": 121.07,
+          "total": 121.07,
+          "profileUrl": "https://x.com/rbthreek",
+          "xUrl": "https://x.com/rbthreek",
+          "tgHandle": "@rbthreek",
+          "rank": 1
+        },
+        {
+          "name": "Chiron ",
+          "handle": "@chironchain",
+          "avatar": "https://unavatar.io/twitter/chironchain",
+          "tweetScore": 0.0,
+          "botActivityScore": 40.13,
+          "total": 40.13,
+          "profileUrl": "https://x.com/chironchain",
+          "xUrl": "https://x.com/chironchain",
+          "tgHandle": "@chironthetrader",
+          "rank": 2
+        },
+        {
+          "name": "@KAPOTHEGOAT01",
+          "handle": "@KAPOTHEGOAT01",
+          "avatar": "https://unavatar.io/twitter/KAPOTHEGOAT01",
+          "tweetScore": 20.81,
+          "botActivityScore": 0.0,
+          "total": 20.81,
+          "profileUrl": "https://x.com/KAPOTHEGOAT01",
+          "xUrl": "https://x.com/KAPOTHEGOAT01",
+          "tgHandle": "@LUCKYL1MG",
+          "rank": 3
+        },
+        {
+          "name": "Chainriffs",
+          "handle": "@Chainriffs",
+          "avatar": "https://unavatar.io/twitter/Chainriffs",
+          "tweetScore": 14.43,
+          "botActivityScore": 0.0,
+          "total": 14.43,
+          "profileUrl": "https://x.com/Chainriffs",
+          "xUrl": "https://x.com/Chainriffs",
+          "tgHandle": "@Chainriffss",
+          "rank": 4
+        },
+        {
+          "name": "cryptocchio0",
+          "handle": "@mrLCguy",
+          "avatar": "https://unavatar.io/twitter/mrLCguy",
+          "tweetScore": 6.7,
+          "botActivityScore": 0.0,
+          "total": 6.7,
+          "profileUrl": "https://x.com/mrlcguy",
+          "xUrl": "https://x.com/mrlcguy",
+          "tgHandle": "@cryptocchio0",
+          "rank": 5
+        },
+        {
+          "name": "Premium Mind ( @deepseektetra on X )",
+          "handle": "@deepseektetra",
+          "avatar": "https://unavatar.io/twitter/deepseektetra",
+          "tweetScore": 4.67,
+          "botActivityScore": 0.0,
+          "total": 4.67,
+          "profileUrl": "https://x.com/deepseektetra",
+          "xUrl": "https://x.com/deepseektetra",
+          "tgHandle": "@Elohim528",
+          "rank": 6
+        },
+        {
+          "name": "N30 ",
+          "handle": "@N30_cryptoo",
+          "avatar": "https://unavatar.io/twitter/N30_cryptoo",
+          "tweetScore": 3.39,
+          "botActivityScore": 0.0,
+          "total": 3.39,
+          "profileUrl": "https://x.com/N30_cryptoo",
+          "xUrl": "https://x.com/N30_cryptoo",
+          "tgHandle": "@N30_CRYPTO",
+          "rank": 7
+        },
+        {
+          "name": "Tyler Kenny ",
+          "handle": "@thebasedfrogx",
+          "avatar": "https://unavatar.io/twitter/thebasedfrogx",
+          "tweetScore": 0.0,
+          "botActivityScore": 3.32,
+          "total": 3.32,
+          "profileUrl": "https://x.com/thebasedfrogx",
+          "xUrl": "https://x.com/thebasedfrogx",
+          "tgHandle": "@thebasedfrog",
+          "rank": 8
+        },
+        {
+          "name": "cryptic_t",
+          "handle": "@cryptic_tits",
+          "avatar": "https://unavatar.io/twitter/cryptic_tits",
+          "tweetScore": 0.69,
+          "botActivityScore": 0.0,
+          "total": 0.69,
+          "profileUrl": "https://x.com/cryptic_tits",
+          "xUrl": "https://x.com/cryptic_tits",
+          "tgHandle": "@cryptic_t",
+          "rank": 9
+        },
+        {
+          "name": "neo lawyer ",
+          "handle": "@Neolawyer1",
+          "avatar": "https://unavatar.io/twitter/Neolawyer1",
+          "tweetScore": 0.0,
+          "botActivityScore": 0.02,
+          "total": 0.02,
+          "profileUrl": "https://x.com/Neolawyer1",
+          "xUrl": "https://x.com/Neolawyer1",
+          "tgHandle": "@Neolawyer",
+          "rank": 10
+        },
+        {
+          "name": "Base Pop",
+          "handle": "@KD11201",
+          "avatar": "https://unavatar.io/twitter/KD11201",
+          "tweetScore": 0.0,
+          "botActivityScore": 0.0,
+          "total": 0.0,
+          "profileUrl": "https://x.com/KD11201",
+          "xUrl": "https://x.com/KD11201",
+          "tgHandle": "@Kd11201",
+          "rank": 11
+        },
+        {
+          "name": "Anderson",
+          "handle": "@0x7_anderson",
+          "avatar": "https://unavatar.io/twitter/0x7_anderson",
+          "tweetScore": 0.0,
+          "botActivityScore": 0.0,
+          "total": 0.0,
+          "profileUrl": "https://x.com/0x7_anderson",
+          "xUrl": "https://x.com/0x7_anderson",
+          "tgHandle": "@tarcioanderson",
+          "rank": 12
+        },
+        {
+          "name": "Thegardner",
+          "handle": "@thegardener777",
+          "avatar": "https://unavatar.io/twitter/thegardener777",
+          "tweetScore": 0.0,
+          "botActivityScore": 0.0,
+          "total": 0.0,
+          "profileUrl": "https://x.com/thegardener777",
+          "xUrl": "https://x.com/thegardener777",
+          "tgHandle": "@thegardener777",
+          "rank": 13
+        },
+        {
+          "name": "Karaiso",
+          "handle": "@karaiso4",
+          "avatar": "https://unavatar.io/twitter/karaiso4",
+          "tweetScore": 0,
+          "botActivityScore": 0,
+          "total": 0,
+          "profileUrl": "https://x.com/karaiso4",
+          "xUrl": "https://x.com/karaiso4",
+          "tgHandle": "@karaiso",
+          "rank": 14
+        },
+        {
+          "name": "Math",
+          "handle": "@mathburn666",
+          "avatar": "https://unavatar.io/twitter/mathburn666",
+          "tweetScore": 0,
+          "botActivityScore": 0,
+          "total": 0,
+          "profileUrl": "https://x.com/mathburn666",
+          "xUrl": "https://x.com/mathburn666",
+          "tgHandle": "@mathburn666",
+          "rank": 15
+        }
+      ]
+    };
+    </script>
+
+    <script>
+    // ========================================
+    // AFFILIATE LEADERBOARD - GROUPBOT DESIGN
+    // ========================================
+
+    // Avatar Fallback Helper with multiple attempts
+    function getAvatarFallback(name, username) {
+        const cleanName = (name || 'User').replace(/[@\n]/g, '').trim();
+        const cleanUsername = (username || cleanName).replace(/[@\n]/g, '').trim();
+
+        // Return fallback: text-based avatar with Groupbot colors (dark bg, green text)
+        return `https://ui-avatars.com/api/?name=${encodeURIComponent(cleanUsername)}&background=0D0D0D&color=38FF93&bold=true&size=400&font-size=0.35&length=2`;
+    }
+
+    let avatarAttempts = new Map();
+
+    function handleAvatarError(img, name, username) {
+        const imgKey = img.src;
+        const attempts = avatarAttempts.get(imgKey) || 0;
+
+        if (attempts === 0) {
+            // First attempt: try with different case
+            avatarAttempts.set(imgKey, 1);
+            const cleanUsername = username.replace('@', '');
+            img.src = `https://unavatar.io/x/${cleanUsername}`;
+        } else if (attempts === 1) {
+            // Second attempt: try avatars.githubusercontent.com
+            avatarAttempts.set(imgKey, 2);
+            const cleanUsername = username.replace('@', '');
+            img.src = `https://avatars.githubusercontent.com/${cleanUsername}`;
+        } else {
+            // Final fallback: text-based avatar
+            img.onerror = null; // Prevent infinite loop
+            img.src = getAvatarFallback(name, username);
+            avatarAttempts.delete(imgKey);
+        }
+    }
+
+    // Data
+    let affiliatesData = [];
+    let weeklyData = [];
+    let monthlyData = [];
+
+    let filteredAlltimeData = [];
+    let filteredWeeklyData = [];
+    let filteredMonthlyData = [];
+    let filteredDirectoryData = [];
+
+    const itemsPerPage = 10;
+    const cardsPerPage = 10;
+
+    let alltimeCurrentPage = 1;
+    let weeklyCurrentPage = 1;
+    let monthlyCurrentPage = 1;
+    let directoryCurrentPage = 1;
+
+    // Date Range Calculations
+    function getCurrentWeekRange() {
+        const now = new Date();
+        const dayOfWeek = now.getDay(); // 0 = Sunday
+
+        // Start of week (Sunday)
+        const startOfWeek = new Date(now);
+        startOfWeek.setDate(now.getDate() - dayOfWeek);
+
+        // End of week (Saturday)
+        const endOfWeek = new Date(startOfWeek);
+        endOfWeek.setDate(startOfWeek.getDate() + 6);
+
+        // Format: "mar 10-16"
+        const months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+        const startMonth = months[startOfWeek.getMonth()];
+        const startDay = startOfWeek.getDate();
+        const endDay = endOfWeek.getDate();
+
+        return `${startMonth} ${startDay}-${endDay}`;
+    }
+
+    function getCurrentMonth() {
+        const months = ['january', 'february', 'march', 'april', 'may', 'june',
+                        'july', 'august', 'september', 'october', 'november', 'december'];
+        const now = new Date();
+        const month = months[now.getMonth()];
+        const year = now.getFullYear();
+
+        return `${month} ${year}`;
+    }
+
+    // Load Data (prototype: uses embedded window.LEADERBOARD_DATA directly)
+    async function loadData() {
+        try {
+            const data = window.LEADERBOARD_DATA;
+            if (!data) throw new Error('No data available');
+
+            affiliatesData = data.affiliates || [];
+            weeklyData = data.weekly || [];
+            monthlyData = data.monthly || [];
+
+            // Add default bios (no bios.json fetch in prototype)
+            affiliatesData = affiliatesData.map(affiliate => ({
+                ...affiliate,
+                bio: 'Crypto trader | Altcoinist affiliate'
+            }));
+
+            weeklyData = weeklyData.map(affiliate => ({
+                ...affiliate,
+                bio: 'Crypto trader | Altcoinist affiliate'
+            }));
+
+            monthlyData = monthlyData.map(affiliate => ({
+                ...affiliate,
+                bio: 'Crypto trader | Altcoinist affiliate'
+            }));
+
+            filteredAlltimeData = [...affiliatesData];
+            filteredWeeklyData = [...weeklyData];
+            filteredMonthlyData = [...monthlyData];
+            filteredDirectoryData = [...affiliatesData];
+
+            // Set date ranges
+            const weekRangeElement = document.getElementById('week-range');
+            const monthRangeElement = document.getElementById('month-range');
+
+            if (weekRangeElement) {
+                weekRangeElement.textContent = getCurrentWeekRange();
+            }
+            if (monthRangeElement) {
+                monthRangeElement.textContent = getCurrentMonth();
+            }
+
+            renderPodium();
+            renderAlltimeTable();
+            renderWeeklyGrid();
+            renderMonthlyGrid();
+            renderDirectoryGrid();
+        } catch (error) {
+            console.error('Failed to load leaderboard data:', error);
+
+            const errorHtml = `
+                <div style="text-align: center; padding: 3rem; color: var(--text-secondary);">
+                    <h2 style="color: var(--text-primary); margin-bottom: 1rem;">Failed to Load Data</h2>
+                    <p>Could not load leaderboard data. Please refresh the page or try again later.</p>
+                    <p style="margin-top: 1rem;"><button class="btn btn-primary" onclick="location.reload()">Reload Page</button></p>
+                </div>
+            `;
+
+            document.getElementById('home-page').innerHTML = errorHtml;
+        }
+    }
+
+    // Navigation
+    function switchPage(pageName) {
+        document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+        document.getElementById(`${pageName}-page`).classList.add('active');
+
+        // Update active nav link using data-page attribute
+        document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+        const activeLink = document.querySelector(`.nav-link[data-page="${pageName}"]`);
+        if (activeLink) activeLink.classList.add('active');
+
+        window.scrollTo(0, 0);
+    }
+
+    // Podium
+    function renderPodium() {
+        if (affiliatesData.length < 3) return;
+
+        const positions = [affiliatesData[0], affiliatesData[1], affiliatesData[2]];
+        const ids = ['podium-first', 'podium-second', 'podium-third'];
+
+        positions.forEach((affiliate, index) => {
+            document.getElementById(ids[index]).innerHTML = `
+                <div class="podium-rank-badge">#${index + 1}</div>
+                <img src="${affiliate.avatar}"
+                     alt="${affiliate.name}"
+                     class="podium-avatar"
+                     loading="lazy"
+                     onerror="handleAvatarError(this, '${affiliate.name.replace(/'/g, "\\'")}', '${affiliate.name.replace(/'/g, "\\'")}')">
+                <div class="podium-name">${affiliate.name}</div>
+                <div class="podium-handle">${affiliate.handle || affiliate.x_handle || ''}</div>
+            `;
+        });
+    }
+
+    // All-Time Table
+    function renderAlltimeTable() {
+        const tbody = document.getElementById('alltime-tbody');
+        const start = (alltimeCurrentPage - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        const pageData = filteredAlltimeData.slice(start, end);
+
+        tbody.innerHTML = pageData.map(affiliate => `
+            <tr onclick="openAffiliateModal(${affiliate.rank}, 'alltime')">
+                <td><span class="rank">#${affiliate.rank}</span></td>
+                <td>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <img src="${affiliate.avatar}"
+                             alt="${affiliate.name}"
+                             loading="lazy"
+                             onerror="handleAvatarError(this, '${affiliate.name.replace(/'/g, "\\'")}', '${affiliate.name.replace(/'/g, "\\'")}')"
+                             style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--card-border);">
+                        <div>
+                            <div style="font-weight: 600;">${affiliate.name}</div>
+                        </div>
+                    </div>
+                </td>
+                <td><span class="mono">${affiliate.tweetScore}</span></td>
+                <td><span class="mono">${affiliate.botActivityScore}</span></td>
+                <td><span class="mono" style="color: var(--accent); font-weight: 700;">${affiliate.total}</span></td>
+            </tr>
+        `).join('');
+
+        renderPagination('alltime', filteredAlltimeData.length, itemsPerPage);
+    }
+
+    function filterAlltimeAffiliates() {
+        const searchTerm = document.getElementById('alltime-search').value.toLowerCase();
+        filteredAlltimeData = affiliatesData.filter(affiliate =>
+            affiliate.name.toLowerCase().includes(searchTerm) ||
+            affiliate.handle.toLowerCase().includes(searchTerm)
+        );
+        alltimeCurrentPage = 1;
+        renderAlltimeTable();
+    }
+
+    function sortAlltimeAffiliates() {
+        const sortBy = document.getElementById('alltime-sort').value;
+
+        if (sortBy === 'rank') {
+            filteredAlltimeData.sort((a, b) => a.rank - b.rank);
+        } else if (sortBy === 'score-desc') {
+            filteredAlltimeData.sort((a, b) => b.total - a.total);
+        } else if (sortBy === 'score-asc') {
+            filteredAlltimeData.sort((a, b) => a.total - b.total);
+        }
+
+        alltimeCurrentPage = 1;
+        renderAlltimeTable();
+    }
+
+    // Weekly Grid
+    function renderWeeklyGrid() {
+        const grid = document.getElementById('weekly-grid');
+        const start = (weeklyCurrentPage - 1) * cardsPerPage;
+        const end = start + cardsPerPage;
+        const pageData = filteredWeeklyData.slice(start, end);
+
+        grid.innerHTML = pageData.map(affiliate => `
+            <div class="affiliate-card" onclick="openAffiliateModal(${affiliate.rank}, 'weekly')">
+                <div class="affiliate-header">
+                    <img src="${affiliate.avatar}"
+                         alt="${affiliate.name}"
+                         class="affiliate-avatar"
+                         loading="lazy"
+                         onerror="handleAvatarError(this, '${affiliate.name.replace(/'/g, "\\'")}', '${affiliate.name.replace(/'/g, "\\'")}')">
+                    <div class="affiliate-info">
+                        <h3>${affiliate.name}</h3>
+                    </div>
+                </div>
+                <div class="affiliate-stats">
+                    <div class="stat-item">
+                        <label>RANK</label>
+                        <span class="value">#${affiliate.rank}</span>
+                    </div>
+                    <div class="stat-item">
+                        <label>TOTAL SCORE</label>
+                        <span class="value">${affiliate.total}</span>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+
+        renderPagination('weekly', filteredWeeklyData.length, cardsPerPage);
+    }
+
+    function filterWeeklyAffiliates() {
+        const searchTerm = document.getElementById('weekly-search').value.toLowerCase();
+        filteredWeeklyData = weeklyData.filter(affiliate =>
+            affiliate.name.toLowerCase().includes(searchTerm) ||
+            affiliate.handle.toLowerCase().includes(searchTerm)
+        );
+        weeklyCurrentPage = 1;
+        renderWeeklyGrid();
+    }
+
+    function sortWeeklyAffiliates() {
+        const sortBy = document.getElementById('weekly-sort').value;
+
+        if (sortBy === 'rank') {
+            filteredWeeklyData.sort((a, b) => a.rank - b.rank);
+        } else if (sortBy === 'score-desc') {
+            filteredWeeklyData.sort((a, b) => b.total - a.total);
+        } else if (sortBy === 'score-asc') {
+            filteredWeeklyData.sort((a, b) => a.total - b.total);
+        }
+
+        weeklyCurrentPage = 1;
+        renderWeeklyGrid();
+    }
+
+    // Monthly Grid
+    function renderMonthlyGrid() {
+        const grid = document.getElementById('monthly-grid');
+        const start = (monthlyCurrentPage - 1) * cardsPerPage;
+        const end = start + cardsPerPage;
+        const pageData = filteredMonthlyData.slice(start, end);
+
+        grid.innerHTML = pageData.map(affiliate => `
+            <div class="affiliate-card" onclick="openAffiliateModal(${affiliate.rank}, 'monthly')">
+                <div class="affiliate-header">
+                    <img src="${affiliate.avatar}"
+                         alt="${affiliate.name}"
+                         class="affiliate-avatar"
+                         loading="lazy"
+                         onerror="handleAvatarError(this, '${affiliate.name.replace(/'/g, "\\'")}', '${affiliate.name.replace(/'/g, "\\'")}')">
+                    <div class="affiliate-info">
+                        <h3>${affiliate.name}</h3>
+                    </div>
+                </div>
+                <div class="affiliate-stats">
+                    <div class="stat-item">
+                        <label>RANK</label>
+                        <span class="value">#${affiliate.rank}</span>
+                    </div>
+                    <div class="stat-item">
+                        <label>TOTAL SCORE</label>
+                        <span class="value">${affiliate.total}</span>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+
+        renderPagination('monthly', filteredMonthlyData.length, cardsPerPage);
+    }
+
+    function filterMonthlyAffiliates() {
+        const searchTerm = document.getElementById('monthly-search').value.toLowerCase();
+        filteredMonthlyData = monthlyData.filter(affiliate =>
+            affiliate.name.toLowerCase().includes(searchTerm) ||
+            affiliate.handle.toLowerCase().includes(searchTerm)
+        );
+        monthlyCurrentPage = 1;
+        renderMonthlyGrid();
+    }
+
+    function sortMonthlyAffiliates() {
+        const sortBy = document.getElementById('monthly-sort').value;
+
+        if (sortBy === 'rank') {
+            filteredMonthlyData.sort((a, b) => a.rank - b.rank);
+        } else if (sortBy === 'score-desc') {
+            filteredMonthlyData.sort((a, b) => b.total - a.total);
+        } else if (sortBy === 'score-asc') {
+            filteredMonthlyData.sort((a, b) => a.total - b.total);
+        }
+
+        monthlyCurrentPage = 1;
+        renderMonthlyGrid();
+    }
+
+    // Directory Grid
+    function renderDirectoryGrid() {
+        const grid = document.getElementById('directory-grid');
+        const start = (directoryCurrentPage - 1) * cardsPerPage;
+        const end = start + cardsPerPage;
+        const pageData = filteredDirectoryData.slice(start, end);
+
+        grid.innerHTML = pageData.map(affiliate => `
+            <div class="directory-card">
+                <div class="directory-header">
+                    <img src="${affiliate.avatar}"
+                         alt="${affiliate.name}"
+                         class="directory-avatar"
+                         loading="lazy"
+                         onerror="handleAvatarError(this, '${affiliate.name.replace(/'/g, "\\'")}', '${affiliate.name.replace(/'/g, "\\'")}')">
+                    <div class="directory-info">
+                        <h3>${affiliate.name}</h3>
+                    </div>
+                </div>
+
+                <div class="directory-links">
+                    ${affiliate.xUrl ? `<a href="${affiliate.xUrl}" target="_blank" class="directory-link">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                        </svg>
+                        Twitter
+                    </a>` : ''}
+                    ${affiliate.tgHandle ? `<a href="https://t.me/${affiliate.tgHandle.replace('@', '')}" target="_blank" class="directory-link">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
+                        </svg>
+                        Telegram
+                    </a>` : ''}
+                </div>
+            </div>
+        `).join('');
+
+        renderPagination('directory', filteredDirectoryData.length, cardsPerPage);
+    }
+
+    function filterDirectory() {
+        const searchTerm = document.getElementById('directory-search').value.toLowerCase();
+        filteredDirectoryData = affiliatesData.filter(affiliate =>
+            affiliate.name.toLowerCase().includes(searchTerm) ||
+            affiliate.handle.toLowerCase().includes(searchTerm)
+        );
+        directoryCurrentPage = 1;
+        renderDirectoryGrid();
+    }
+
+    function sortDirectory() {
+        const sortBy = document.getElementById('directory-sort').value;
+
+        if (sortBy === 'name') {
+            filteredDirectoryData.sort((a, b) => a.name.localeCompare(b.name));
+        } else if (sortBy === 'name-desc') {
+            filteredDirectoryData.sort((a, b) => b.name.localeCompare(a.name));
+        }
+
+        directoryCurrentPage = 1;
+        renderDirectoryGrid();
+    }
+
+    // Pagination
+    function renderPagination(type, totalItems, itemsPerPageCount) {
+        const paginationContainer = document.getElementById(`${type}-pagination`);
+        const totalPages = Math.ceil(totalItems / itemsPerPageCount);
+
+        let currentPage;
+        if (type === 'alltime') currentPage = alltimeCurrentPage;
+        else if (type === 'weekly') currentPage = weeklyCurrentPage;
+        else if (type === 'monthly') currentPage = monthlyCurrentPage;
+        else if (type === 'directory') currentPage = directoryCurrentPage;
+
+        if (totalPages <= 1) {
+            paginationContainer.innerHTML = '';
+            return;
+        }
+
+        let html = '';
+        html += `<button ${currentPage === 1 ? 'disabled' : ''} onclick="goToPage('${type}', ${currentPage - 1})" aria-label="Previous page">←</button>`;
+
+        for (let i = 1; i <= totalPages; i++) {
+            if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
+                html += `<button class="${i === currentPage ? 'active' : ''}" onclick="goToPage('${type}', ${i})" aria-label="Page ${i}">${i}</button>`;
+            } else if (i === currentPage - 2 || i === currentPage + 2) {
+                html += `<span style="color: var(--text-tertiary);" aria-hidden="true">...</span>`;
+            }
+        }
+
+        html += `<button ${currentPage === totalPages ? 'disabled' : ''} onclick="goToPage('${type}', ${currentPage + 1})" aria-label="Next page">→</button>`;
+        paginationContainer.innerHTML = html;
+    }
+
+    function goToPage(type, page) {
+        if (type === 'alltime') {
+            const maxPage = Math.ceil(filteredAlltimeData.length / itemsPerPage);
+            if (page < 1 || page > maxPage) return;
+            alltimeCurrentPage = page;
+            renderAlltimeTable();
+        } else if (type === 'weekly') {
+            const maxPage = Math.ceil(filteredWeeklyData.length / cardsPerPage);
+            if (page < 1 || page > maxPage) return;
+            weeklyCurrentPage = page;
+            renderWeeklyGrid();
+        } else if (type === 'monthly') {
+            const maxPage = Math.ceil(filteredMonthlyData.length / cardsPerPage);
+            if (page < 1 || page > maxPage) return;
+            monthlyCurrentPage = page;
+            renderMonthlyGrid();
+        } else if (type === 'directory') {
+            const maxPage = Math.ceil(filteredDirectoryData.length / cardsPerPage);
+            if (page < 1 || page > maxPage) return;
+            directoryCurrentPage = page;
+            renderDirectoryGrid();
+        }
+        window.scrollTo(0, 0);
+    }
+
+    // Modal
+    function openAffiliateModal(rank, source = 'alltime') {
+        let affiliate;
+
+        // Look up affiliate from the correct source data
+        if (source === 'weekly') {
+            affiliate = weeklyData.find(a => a.rank === rank);
+        } else if (source === 'monthly') {
+            affiliate = monthlyData.find(a => a.rank === rank);
+        } else if (source === 'directory') {
+            affiliate = affiliatesData.find(a => a.rank === rank);
+        } else {
+            affiliate = affiliatesData.find(a => a.rank === rank);
+        }
+
+        if (!affiliate) {
+            console.error(`Affiliate with rank ${rank} not found in ${source} data`);
+            return;
+        }
+
+        const modalBody = document.getElementById('modal-body');
+        modalBody.innerHTML = `
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <img src="${affiliate.avatar}"
+                     alt="${affiliate.name}"
+                     loading="lazy"
+                     onerror="handleAvatarError(this, '${affiliate.name.replace(/'/g, "\\'")}', '${affiliate.name.replace(/'/g, "\\'")}')"
+                     style="width: 120px; height: 120px; border-radius: 50%; border: 3px solid var(--card-border);">
+                <h2 style="margin-top: 1rem; font-size: 1.5rem;">${affiliate.name}</h2>
+                ${source === 'directory' ? `<p style="margin-top: 0.5rem; color: var(--text-secondary); font-size: 0.875rem; max-width: 400px; margin-left: auto; margin-right: auto; line-height: 1.5;">
+                    ${affiliate.bio || 'Crypto trader | Altcoinist affiliate'}
+                </p>` : ''}
+                ${source === 'directory' && affiliate.profileUrl ? `<p style="margin-top: 0.75rem;"><a href="${affiliate.profileUrl}" target="_blank" style="color: var(--accent); text-decoration: none;">View Profile →</a></p>` : ''}
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">#${affiliate.rank}</div>
+                    <div class="stat-label">Rank</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" style="color: var(--accent);">${affiliate.total}</div>
+                    <div class="stat-label">Total Score</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${affiliate.tweetScore}</div>
+                    <div class="stat-label">Tweet Score</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${affiliate.botActivityScore}</div>
+                    <div class="stat-label">Bot Activity</div>
+                </div>
+            </div>
+        `;
+
+        document.getElementById('affiliate-modal').classList.add('active');
+    }
+
+    function closeModal() {
+        document.getElementById('affiliate-modal').classList.remove('active');
+    }
+
+    function closeModalOnBackdrop(event) {
+        if (event.target === document.getElementById('affiliate-modal')) {
+            closeModal();
+        }
+    }
+
+    // Init
+    document.addEventListener('DOMContentLoaded', () => {
+        loadData();
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+    });
+    </script>
+</body>
+</html>
