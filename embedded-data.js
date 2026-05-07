@@ -69,7 +69,7 @@ window.LEADERBOARD_DATA = {
       "total": 4.67,
       "profileUrl": "https://x.com/deepseektetra",
       "xUrl": "https://x.com/deepseektetra",
-      "tgHandle": "@Elohim528",
+      "tgHandle": "@tetra528",
       "rank": 6
     },
     {
@@ -587,7 +587,7 @@ window.LEADERBOARD_DATA = {
       "total": 4.67,
       "profileUrl": "https://x.com/deepseektetra",
       "xUrl": "https://x.com/deepseektetra",
-      "tgHandle": "@Elohim528",
+      "tgHandle": "@tetra528",
       "rank": 6
     },
     {
@@ -1105,7 +1105,7 @@ window.LEADERBOARD_DATA = {
       "total": 4.67,
       "profileUrl": "https://x.com/deepseektetra",
       "xUrl": "https://x.com/deepseektetra",
-      "tgHandle": "@Elohim528",
+      "tgHandle": "@tetra528",
       "rank": 6
     },
     {
