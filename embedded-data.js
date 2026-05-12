@@ -10,7 +10,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/rbthreek",
       "xUrl": "https://x.com/rbthreek",
       "tgHandle": "@rbthreek",
-      "rank": 1
+      "rank": 1,
+      "flexCards": []
     },
     {
       "name": "Chiron \n",
@@ -22,7 +23,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/chironchain",
       "xUrl": "https://x.com/chironchain",
       "tgHandle": "@chironthetrader",
-      "rank": 2
+      "rank": 2,
+      "flexCards": []
     },
     {
       "name": "@KAPOTHEGOAT01\n",
@@ -34,7 +36,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/KAPOTHEGOAT01",
       "xUrl": "https://x.com/KAPOTHEGOAT01",
       "tgHandle": "@LUCKYL1MG",
-      "rank": 3
+      "rank": 3,
+      "flexCards": []
     },
     {
       "name": "Chainriffs",
@@ -46,7 +49,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/Chainriffs",
       "xUrl": "https://x.com/Chainriffs",
       "tgHandle": "@Chainriffss",
-      "rank": 4
+      "rank": 4,
+      "flexCards": []
     },
     {
       "name": "cryptocchio0",
@@ -58,7 +62,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/mrlcguy",
       "xUrl": "https://x.com/mrlcguy",
       "tgHandle": "@cryptocchio0",
-      "rank": 5
+      "rank": 5,
+      "flexCards": []
     },
     {
       "name": "Premium Mind  ( @deepseektetra on X )",
@@ -70,7 +75,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/deepseektetra",
       "xUrl": "https://x.com/deepseektetra",
       "tgHandle": "@tetra528",
-      "rank": 6
+      "rank": 6,
+      "flexCards": []
     },
     {
       "name": "N30 ",
@@ -82,7 +88,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/N30_cryptoo",
       "xUrl": "https://x.com/N30_cryptoo",
       "tgHandle": "@N30_CRYPTO",
-      "rank": 7
+      "rank": 7,
+      "flexCards": []
     },
     {
       "name": "Tyler Kenny ",
@@ -94,7 +101,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/thebasedfrogx",
       "xUrl": "https://x.com/thebasedfrogx",
       "tgHandle": "@thebasedfrog",
-      "rank": 8
+      "rank": 8,
+      "flexCards": []
     },
     {
       "name": "cryptic_t",
@@ -106,7 +114,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/cryptic_tits",
       "xUrl": "https://x.com/cryptic_tits",
       "tgHandle": "@cryptic_t",
-      "rank": 9
+      "rank": 9,
+      "flexCards": []
     },
     {
       "name": "neo lawyer ",
@@ -118,7 +127,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/Neolawyer1",
       "xUrl": "https://x.com/Neolawyer1",
       "tgHandle": "@Neolawyer",
-      "rank": 10
+      "rank": 10,
+      "flexCards": []
     },
     {
       "name": "Base Pop",
@@ -130,7 +140,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/KD11201",
       "xUrl": "https://x.com/KD11201",
       "tgHandle": "@Kd11201",
-      "rank": 11
+      "rank": 11,
+      "flexCards": []
     },
     {
       "name": "Anderson",
@@ -142,7 +153,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/0x7_anderson",
       "xUrl": "https://x.com/0x7_anderson",
       "tgHandle": "@tarcioanderson",
-      "rank": 12
+      "rank": 12,
+      "flexCards": []
     },
     {
       "name": "Thegardner",
@@ -154,7 +166,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/thegardener777",
       "xUrl": "https://x.com/thegardener777",
       "tgHandle": "@thegardener777",
-      "rank": 13
+      "rank": 13,
+      "flexCards": []
     },
     {
       "name": "Karaiso",
@@ -166,7 +179,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/karaiso4",
       "xUrl": "https://x.com/karaiso4",
       "tgHandle": "@karaiso",
-      "rank": 14
+      "rank": 14,
+      "flexCards": []
     },
     {
       "name": "Math",
@@ -178,7 +192,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/mathburn666",
       "xUrl": "https://x.com/mathburn666",
       "tgHandle": "@mathburn666",
-      "rank": 15
+      "rank": 15,
+      "flexCards": []
     },
     {
       "name": "SexCaliber ",
@@ -190,7 +205,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/Sexcalibur31",
       "xUrl": "https://x.com/Sexcalibur31",
       "tgHandle": "@sexcalibur31",
-      "rank": 16
+      "rank": 16,
+      "flexCards": []
     },
     {
       "name": "RN03xx",
@@ -202,7 +218,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/_RN03xx_",
       "xUrl": "https://x.com/_RN03xx_",
       "tgHandle": "@RN03xx",
-      "rank": 17
+      "rank": 17,
+      "flexCards": []
     },
     {
       "name": "Borny ",
@@ -214,7 +231,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/unborninfinite",
       "xUrl": "https://x.com/unborninfinite",
       "tgHandle": "@veryborny",
-      "rank": 18
+      "rank": 18,
+      "flexCards": []
     },
     {
       "name": "poorad",
@@ -226,7 +244,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/Pooorad",
       "xUrl": "https://x.com/Pooorad",
       "tgHandle": "@I_Love_Dogs21",
-      "rank": 19
+      "rank": 19,
+      "flexCards": []
     },
     {
       "name": "AltcoinMiyagi",
@@ -238,7 +257,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/AltcoinMiyagi",
       "xUrl": "https://x.com/AltcoinMiyagi",
       "tgHandle": "@altcoinmiyagi",
-      "rank": 20
+      "rank": 20,
+      "flexCards": []
     },
     {
       "name": "acespades34",
@@ -250,7 +270,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "no x link ",
       "xUrl": "no x link ",
       "tgHandle": "5200281793",
-      "rank": 21
+      "rank": 21,
+      "flexCards": []
     },
     {
       "name": "Alf ",
@@ -262,7 +283,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/alfy11116",
       "xUrl": "https://x.com/alfy11116",
       "tgHandle": "@aLfy116",
-      "rank": 22
+      "rank": 22,
+      "flexCards": []
     },
     {
       "name": "Flynn ",
@@ -274,7 +296,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/Flynn_howitt",
       "xUrl": "https://x.com/Flynn_howitt",
       "tgHandle": "@Flynn180",
-      "rank": 23
+      "rank": 23,
+      "flexCards": []
     },
     {
       "name": "Mj (@vanxryus on X) ",
@@ -286,7 +309,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/Vanxyrus",
       "xUrl": "https://x.com/Vanxyrus",
       "tgHandle": "@Vanxyrus",
-      "rank": 24
+      "rank": 24,
+      "flexCards": []
     },
     {
       "name": "Medbdy",
@@ -298,7 +322,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/medbdy",
       "xUrl": "https://x.com/medbdy",
       "tgHandle": "@Medbdy7",
-      "rank": 25
+      "rank": 25,
+      "flexCards": []
     },
     {
       "name": "Zeus ",
@@ -310,7 +335,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/vlagudfsfjr",
       "xUrl": "https://x.com/vlagudfsfjr",
       "tgHandle": "@zeus4r",
-      "rank": 26
+      "rank": 26,
+      "flexCards": []
     },
     {
       "name": "Shake ",
@@ -322,7 +348,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/Shake51_",
       "xUrl": "https://x.com/Shake51_",
       "tgHandle": "@Shake51",
-      "rank": 27
+      "rank": 27,
+      "flexCards": []
     },
     {
       "name": "Social Block ",
@@ -334,7 +361,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "no X link",
       "xUrl": "no X link",
       "tgHandle": "8349346803",
-      "rank": 28
+      "rank": 28,
+      "flexCards": []
     },
     {
       "name": "DJ (@NLinker777 on X )",
@@ -346,7 +374,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/NLinker777",
       "xUrl": "https://x.com/NLinker777",
       "tgHandle": "@JIHANWOOOO",
-      "rank": 29
+      "rank": 29,
+      "flexCards": []
     },
     {
       "name": "Spenny",
@@ -358,7 +387,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/SpennyCrypto",
       "xUrl": "https://x.com/SpennyCrypto",
       "tgHandle": "@spennypretzel",
-      "rank": 30
+      "rank": 30,
+      "flexCards": []
     },
     {
       "name": "Nouyarao",
@@ -370,7 +400,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/sentientom",
       "xUrl": "https://x.com/sentientom",
       "tgHandle": "@Nouyarao",
-      "rank": 31
+      "rank": 31,
+      "flexCards": []
     },
     {
       "name": "mDiBe89",
@@ -382,7 +413,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/tibbiracer",
       "xUrl": "https://x.com/tibbiracer",
       "tgHandle": "@mDiBe89",
-      "rank": 32
+      "rank": 32,
+      "flexCards": []
     },
     {
       "name": "Debankind ",
@@ -394,7 +426,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/DebankinDad",
       "xUrl": "https://x.com/DebankinDad",
       "tgHandle": "DebankinDad",
-      "rank": 33
+      "rank": 33,
+      "flexCards": []
     },
     {
       "name": "3Dmax",
@@ -406,7 +439,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/3DMax_Virtuals",
       "xUrl": "https://x.com/3DMax_Virtuals",
       "tgHandle": "@oO_3Dmax",
-      "rank": 34
+      "rank": 34,
+      "flexCards": []
     },
     {
       "name": "arindewar",
@@ -418,7 +452,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/arindewar",
       "xUrl": "https://x.com/arindewar",
       "tgHandle": "@arrieindewarrie",
-      "rank": 35
+      "rank": 35,
+      "flexCards": []
     },
     {
       "name": "jeyojeyojeyo and fast are one and the same",
@@ -430,7 +465,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "no X link ",
       "xUrl": "no X link ",
       "tgHandle": "351175795",
-      "rank": 36
+      "rank": 36,
+      "flexCards": []
     },
     {
       "name": "BigHammer ",
@@ -442,7 +478,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/joebangsjr",
       "xUrl": "https://x.com/joebangsjr",
       "tgHandle": "@BigHammer",
-      "rank": 37
+      "rank": 37,
+      "flexCards": []
     },
     {
       "name": "AltcoinMatcha",
@@ -454,7 +491,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/AltcoinMatcha",
       "xUrl": "https://x.com/AltcoinMatcha",
       "tgHandle": "@AltcoinMatcha",
-      "rank": 38
+      "rank": 38,
+      "flexCards": []
     },
     {
       "name": "Lyvo",
@@ -466,7 +504,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/lyvocrypto",
       "xUrl": "https://x.com/lyvocrypto",
       "tgHandle": "@LyvoCrypto",
-      "rank": 39
+      "rank": 39,
+      "flexCards": []
     },
     {
       "name": "Techy0x",
@@ -478,7 +517,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/techy0x",
       "xUrl": "https://x.com/techy0x",
       "tgHandle": "@techy0x",
-      "rank": 40
+      "rank": 40,
+      "flexCards": []
     },
     {
       "name": "Don_Sama_1",
@@ -490,7 +530,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/Don_Sama_1",
       "xUrl": "https://x.com/Don_Sama_1",
       "tgHandle": "1156835258",
-      "rank": 41
+      "rank": 41,
+      "flexCards": []
     },
     {
       "name": "jyprop",
@@ -502,7 +543,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/prolabch",
       "xUrl": "https://x.com/prolabch",
       "tgHandle": "@jyprop",
-      "rank": 42
+      "rank": 42,
+      "flexCards": []
     },
     {
       "name": "Devdosomething ",
@@ -514,7 +556,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/devdosomething",
       "xUrl": "https://x.com/devdosomething",
       "tgHandle": "@Devdosomething",
-      "rank": 43
+      "rank": 43,
+      "flexCards": []
     }
   ],
   "weekly": [
@@ -528,7 +571,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/rbthreek",
       "xUrl": "https://x.com/rbthreek",
       "tgHandle": "@rbthreek",
-      "rank": 1
+      "rank": 1,
+      "flexCards": []
     },
     {
       "name": "Chiron \n",
@@ -540,7 +584,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/chironchain",
       "xUrl": "https://x.com/chironchain",
       "tgHandle": "@chironthetrader",
-      "rank": 2
+      "rank": 2,
+      "flexCards": []
     },
     {
       "name": "@KAPOTHEGOAT01\n",
@@ -552,7 +597,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/KAPOTHEGOAT01",
       "xUrl": "https://x.com/KAPOTHEGOAT01",
       "tgHandle": "@LUCKYL1MG",
-      "rank": 3
+      "rank": 3,
+      "flexCards": []
     },
     {
       "name": "Chainriffs",
@@ -564,7 +610,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/Chainriffs",
       "xUrl": "https://x.com/Chainriffs",
       "tgHandle": "@Chainriffss",
-      "rank": 4
+      "rank": 4,
+      "flexCards": []
     },
     {
       "name": "cryptocchio0",
@@ -576,7 +623,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/mrlcguy",
       "xUrl": "https://x.com/mrlcguy",
       "tgHandle": "@cryptocchio0",
-      "rank": 5
+      "rank": 5,
+      "flexCards": []
     },
     {
       "name": "Premium Mind  ( @deepseektetra on X )",
@@ -588,7 +636,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/deepseektetra",
       "xUrl": "https://x.com/deepseektetra",
       "tgHandle": "@tetra528",
-      "rank": 6
+      "rank": 6,
+      "flexCards": []
     },
     {
       "name": "N30 ",
@@ -600,7 +649,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/N30_cryptoo",
       "xUrl": "https://x.com/N30_cryptoo",
       "tgHandle": "@N30_CRYPTO",
-      "rank": 7
+      "rank": 7,
+      "flexCards": []
     },
     {
       "name": "Tyler Kenny ",
@@ -612,7 +662,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/thebasedfrogx",
       "xUrl": "https://x.com/thebasedfrogx",
       "tgHandle": "@thebasedfrog",
-      "rank": 8
+      "rank": 8,
+      "flexCards": []
     },
     {
       "name": "cryptic_t",
@@ -624,7 +675,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/cryptic_tits",
       "xUrl": "https://x.com/cryptic_tits",
       "tgHandle": "@cryptic_t",
-      "rank": 9
+      "rank": 9,
+      "flexCards": []
     },
     {
       "name": "neo lawyer ",
@@ -636,7 +688,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/Neolawyer1",
       "xUrl": "https://x.com/Neolawyer1",
       "tgHandle": "@Neolawyer",
-      "rank": 10
+      "rank": 10,
+      "flexCards": []
     },
     {
       "name": "Base Pop",
@@ -648,7 +701,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/KD11201",
       "xUrl": "https://x.com/KD11201",
       "tgHandle": "@Kd11201",
-      "rank": 11
+      "rank": 11,
+      "flexCards": []
     },
     {
       "name": "Anderson",
@@ -660,7 +714,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/0x7_anderson",
       "xUrl": "https://x.com/0x7_anderson",
       "tgHandle": "@tarcioanderson",
-      "rank": 12
+      "rank": 12,
+      "flexCards": []
     },
     {
       "name": "Thegardner",
@@ -672,7 +727,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/thegardener777",
       "xUrl": "https://x.com/thegardener777",
       "tgHandle": "@thegardener777",
-      "rank": 13
+      "rank": 13,
+      "flexCards": []
     },
     {
       "name": "Karaiso",
@@ -684,7 +740,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/karaiso4",
       "xUrl": "https://x.com/karaiso4",
       "tgHandle": "@karaiso",
-      "rank": 14
+      "rank": 14,
+      "flexCards": []
     },
     {
       "name": "Math",
@@ -696,7 +753,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/mathburn666",
       "xUrl": "https://x.com/mathburn666",
       "tgHandle": "@mathburn666",
-      "rank": 15
+      "rank": 15,
+      "flexCards": []
     },
     {
       "name": "SexCaliber ",
@@ -708,7 +766,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/Sexcalibur31",
       "xUrl": "https://x.com/Sexcalibur31",
       "tgHandle": "@sexcalibur31",
-      "rank": 16
+      "rank": 16,
+      "flexCards": []
     },
     {
       "name": "RN03xx",
@@ -720,7 +779,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/_RN03xx_",
       "xUrl": "https://x.com/_RN03xx_",
       "tgHandle": "@RN03xx",
-      "rank": 17
+      "rank": 17,
+      "flexCards": []
     },
     {
       "name": "Borny ",
@@ -732,7 +792,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/unborninfinite",
       "xUrl": "https://x.com/unborninfinite",
       "tgHandle": "@veryborny",
-      "rank": 18
+      "rank": 18,
+      "flexCards": []
     },
     {
       "name": "poorad",
@@ -744,7 +805,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/Pooorad",
       "xUrl": "https://x.com/Pooorad",
       "tgHandle": "@I_Love_Dogs21",
-      "rank": 19
+      "rank": 19,
+      "flexCards": []
     },
     {
       "name": "AltcoinMiyagi",
@@ -756,7 +818,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/AltcoinMiyagi",
       "xUrl": "https://x.com/AltcoinMiyagi",
       "tgHandle": "@altcoinmiyagi",
-      "rank": 20
+      "rank": 20,
+      "flexCards": []
     },
     {
       "name": "acespades34",
@@ -768,7 +831,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "no x link ",
       "xUrl": "no x link ",
       "tgHandle": "5200281793",
-      "rank": 21
+      "rank": 21,
+      "flexCards": []
     },
     {
       "name": "Alf ",
@@ -780,7 +844,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/alfy11116",
       "xUrl": "https://x.com/alfy11116",
       "tgHandle": "@aLfy116",
-      "rank": 22
+      "rank": 22,
+      "flexCards": []
     },
     {
       "name": "Flynn ",
@@ -792,7 +857,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/Flynn_howitt",
       "xUrl": "https://x.com/Flynn_howitt",
       "tgHandle": "@Flynn180",
-      "rank": 23
+      "rank": 23,
+      "flexCards": []
     },
     {
       "name": "Mj (@vanxryus on X) ",
@@ -804,7 +870,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/Vanxyrus",
       "xUrl": "https://x.com/Vanxyrus",
       "tgHandle": "@Vanxyrus",
-      "rank": 24
+      "rank": 24,
+      "flexCards": []
     },
     {
       "name": "Medbdy",
@@ -816,7 +883,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/medbdy",
       "xUrl": "https://x.com/medbdy",
       "tgHandle": "@Medbdy7",
-      "rank": 25
+      "rank": 25,
+      "flexCards": []
     },
     {
       "name": "Zeus ",
@@ -828,7 +896,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/vlagudfsfjr",
       "xUrl": "https://x.com/vlagudfsfjr",
       "tgHandle": "@zeus4r",
-      "rank": 26
+      "rank": 26,
+      "flexCards": []
     },
     {
       "name": "Shake ",
@@ -840,7 +909,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/Shake51_",
       "xUrl": "https://x.com/Shake51_",
       "tgHandle": "@Shake51",
-      "rank": 27
+      "rank": 27,
+      "flexCards": []
     },
     {
       "name": "Social Block ",
@@ -852,7 +922,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "no X link",
       "xUrl": "no X link",
       "tgHandle": "8349346803",
-      "rank": 28
+      "rank": 28,
+      "flexCards": []
     },
     {
       "name": "DJ (@NLinker777 on X )",
@@ -864,7 +935,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/NLinker777",
       "xUrl": "https://x.com/NLinker777",
       "tgHandle": "@JIHANWOOOO",
-      "rank": 29
+      "rank": 29,
+      "flexCards": []
     },
     {
       "name": "Spenny",
@@ -876,7 +948,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/SpennyCrypto",
       "xUrl": "https://x.com/SpennyCrypto",
       "tgHandle": "@spennypretzel",
-      "rank": 30
+      "rank": 30,
+      "flexCards": []
     },
     {
       "name": "Nouyarao",
@@ -888,7 +961,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/sentientom",
       "xUrl": "https://x.com/sentientom",
       "tgHandle": "@Nouyarao",
-      "rank": 31
+      "rank": 31,
+      "flexCards": []
     },
     {
       "name": "mDiBe89",
@@ -900,7 +974,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/tibbiracer",
       "xUrl": "https://x.com/tibbiracer",
       "tgHandle": "@mDiBe89",
-      "rank": 32
+      "rank": 32,
+      "flexCards": []
     },
     {
       "name": "Debankind ",
@@ -912,7 +987,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/DebankinDad",
       "xUrl": "https://x.com/DebankinDad",
       "tgHandle": "DebankinDad",
-      "rank": 33
+      "rank": 33,
+      "flexCards": []
     },
     {
       "name": "3Dmax",
@@ -924,7 +1000,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/3DMax_Virtuals",
       "xUrl": "https://x.com/3DMax_Virtuals",
       "tgHandle": "@oO_3Dmax",
-      "rank": 34
+      "rank": 34,
+      "flexCards": []
     },
     {
       "name": "arindewar",
@@ -936,7 +1013,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/arindewar",
       "xUrl": "https://x.com/arindewar",
       "tgHandle": "@arrieindewarrie",
-      "rank": 35
+      "rank": 35,
+      "flexCards": []
     },
     {
       "name": "jeyojeyojeyo and fast are one and the same",
@@ -948,7 +1026,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "no X link ",
       "xUrl": "no X link ",
       "tgHandle": "351175795",
-      "rank": 36
+      "rank": 36,
+      "flexCards": []
     },
     {
       "name": "BigHammer ",
@@ -960,7 +1039,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/joebangsjr",
       "xUrl": "https://x.com/joebangsjr",
       "tgHandle": "@BigHammer",
-      "rank": 37
+      "rank": 37,
+      "flexCards": []
     },
     {
       "name": "AltcoinMatcha",
@@ -972,7 +1052,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/AltcoinMatcha",
       "xUrl": "https://x.com/AltcoinMatcha",
       "tgHandle": "@AltcoinMatcha",
-      "rank": 38
+      "rank": 38,
+      "flexCards": []
     },
     {
       "name": "Lyvo",
@@ -984,7 +1065,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/lyvocrypto",
       "xUrl": "https://x.com/lyvocrypto",
       "tgHandle": "@LyvoCrypto",
-      "rank": 39
+      "rank": 39,
+      "flexCards": []
     },
     {
       "name": "Techy0x",
@@ -996,7 +1078,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/techy0x",
       "xUrl": "https://x.com/techy0x",
       "tgHandle": "@techy0x",
-      "rank": 40
+      "rank": 40,
+      "flexCards": []
     },
     {
       "name": "Don_Sama_1",
@@ -1008,7 +1091,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/Don_Sama_1",
       "xUrl": "https://x.com/Don_Sama_1",
       "tgHandle": "1156835258",
-      "rank": 41
+      "rank": 41,
+      "flexCards": []
     },
     {
       "name": "jyprop",
@@ -1020,7 +1104,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/prolabch",
       "xUrl": "https://x.com/prolabch",
       "tgHandle": "@jyprop",
-      "rank": 42
+      "rank": 42,
+      "flexCards": []
     },
     {
       "name": "Devdosomething ",
@@ -1032,7 +1117,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/devdosomething",
       "xUrl": "https://x.com/devdosomething",
       "tgHandle": "@Devdosomething",
-      "rank": 43
+      "rank": 43,
+      "flexCards": []
     }
   ],
   "monthly": [
@@ -1046,7 +1132,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/rbthreek",
       "xUrl": "https://x.com/rbthreek",
       "tgHandle": "@rbthreek",
-      "rank": 1
+      "rank": 1,
+      "flexCards": []
     },
     {
       "name": "Chiron \n",
@@ -1058,7 +1145,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/chironchain",
       "xUrl": "https://x.com/chironchain",
       "tgHandle": "@chironthetrader",
-      "rank": 2
+      "rank": 2,
+      "flexCards": []
     },
     {
       "name": "@KAPOTHEGOAT01\n",
@@ -1070,7 +1158,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/KAPOTHEGOAT01",
       "xUrl": "https://x.com/KAPOTHEGOAT01",
       "tgHandle": "@LUCKYL1MG",
-      "rank": 3
+      "rank": 3,
+      "flexCards": []
     },
     {
       "name": "Chainriffs",
@@ -1082,7 +1171,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/Chainriffs",
       "xUrl": "https://x.com/Chainriffs",
       "tgHandle": "@Chainriffss",
-      "rank": 4
+      "rank": 4,
+      "flexCards": []
     },
     {
       "name": "cryptocchio0",
@@ -1094,7 +1184,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/mrlcguy",
       "xUrl": "https://x.com/mrlcguy",
       "tgHandle": "@cryptocchio0",
-      "rank": 5
+      "rank": 5,
+      "flexCards": []
     },
     {
       "name": "Premium Mind  ( @deepseektetra on X )",
@@ -1106,7 +1197,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/deepseektetra",
       "xUrl": "https://x.com/deepseektetra",
       "tgHandle": "@tetra528",
-      "rank": 6
+      "rank": 6,
+      "flexCards": []
     },
     {
       "name": "N30 ",
@@ -1118,7 +1210,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/N30_cryptoo",
       "xUrl": "https://x.com/N30_cryptoo",
       "tgHandle": "@N30_CRYPTO",
-      "rank": 7
+      "rank": 7,
+      "flexCards": []
     },
     {
       "name": "Tyler Kenny ",
@@ -1130,7 +1223,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/thebasedfrogx",
       "xUrl": "https://x.com/thebasedfrogx",
       "tgHandle": "@thebasedfrog",
-      "rank": 8
+      "rank": 8,
+      "flexCards": []
     },
     {
       "name": "cryptic_t",
@@ -1142,7 +1236,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/cryptic_tits",
       "xUrl": "https://x.com/cryptic_tits",
       "tgHandle": "@cryptic_t",
-      "rank": 9
+      "rank": 9,
+      "flexCards": []
     },
     {
       "name": "neo lawyer ",
@@ -1154,7 +1249,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/Neolawyer1",
       "xUrl": "https://x.com/Neolawyer1",
       "tgHandle": "@Neolawyer",
-      "rank": 10
+      "rank": 10,
+      "flexCards": []
     },
     {
       "name": "Base Pop",
@@ -1166,7 +1262,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/KD11201",
       "xUrl": "https://x.com/KD11201",
       "tgHandle": "@Kd11201",
-      "rank": 11
+      "rank": 11,
+      "flexCards": []
     },
     {
       "name": "Anderson",
@@ -1178,7 +1275,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/0x7_anderson",
       "xUrl": "https://x.com/0x7_anderson",
       "tgHandle": "@tarcioanderson",
-      "rank": 12
+      "rank": 12,
+      "flexCards": []
     },
     {
       "name": "Thegardner",
@@ -1190,7 +1288,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/thegardener777",
       "xUrl": "https://x.com/thegardener777",
       "tgHandle": "@thegardener777",
-      "rank": 13
+      "rank": 13,
+      "flexCards": []
     },
     {
       "name": "Karaiso",
@@ -1202,7 +1301,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/karaiso4",
       "xUrl": "https://x.com/karaiso4",
       "tgHandle": "@karaiso",
-      "rank": 14
+      "rank": 14,
+      "flexCards": []
     },
     {
       "name": "Math",
@@ -1214,7 +1314,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/mathburn666",
       "xUrl": "https://x.com/mathburn666",
       "tgHandle": "@mathburn666",
-      "rank": 15
+      "rank": 15,
+      "flexCards": []
     },
     {
       "name": "SexCaliber ",
@@ -1226,7 +1327,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/Sexcalibur31",
       "xUrl": "https://x.com/Sexcalibur31",
       "tgHandle": "@sexcalibur31",
-      "rank": 16
+      "rank": 16,
+      "flexCards": []
     },
     {
       "name": "RN03xx",
@@ -1238,7 +1340,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/_RN03xx_",
       "xUrl": "https://x.com/_RN03xx_",
       "tgHandle": "@RN03xx",
-      "rank": 17
+      "rank": 17,
+      "flexCards": []
     },
     {
       "name": "Borny ",
@@ -1250,7 +1353,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/unborninfinite",
       "xUrl": "https://x.com/unborninfinite",
       "tgHandle": "@veryborny",
-      "rank": 18
+      "rank": 18,
+      "flexCards": []
     },
     {
       "name": "poorad",
@@ -1262,7 +1366,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/Pooorad",
       "xUrl": "https://x.com/Pooorad",
       "tgHandle": "@I_Love_Dogs21",
-      "rank": 19
+      "rank": 19,
+      "flexCards": []
     },
     {
       "name": "AltcoinMiyagi",
@@ -1274,7 +1379,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/AltcoinMiyagi",
       "xUrl": "https://x.com/AltcoinMiyagi",
       "tgHandle": "@altcoinmiyagi",
-      "rank": 20
+      "rank": 20,
+      "flexCards": []
     },
     {
       "name": "acespades34",
@@ -1286,7 +1392,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "no x link ",
       "xUrl": "no x link ",
       "tgHandle": "5200281793",
-      "rank": 21
+      "rank": 21,
+      "flexCards": []
     },
     {
       "name": "Alf ",
@@ -1298,7 +1405,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/alfy11116",
       "xUrl": "https://x.com/alfy11116",
       "tgHandle": "@aLfy116",
-      "rank": 22
+      "rank": 22,
+      "flexCards": []
     },
     {
       "name": "Flynn ",
@@ -1310,7 +1418,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/Flynn_howitt",
       "xUrl": "https://x.com/Flynn_howitt",
       "tgHandle": "@Flynn180",
-      "rank": 23
+      "rank": 23,
+      "flexCards": []
     },
     {
       "name": "Mj (@vanxryus on X) ",
@@ -1322,7 +1431,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/Vanxyrus",
       "xUrl": "https://x.com/Vanxyrus",
       "tgHandle": "@Vanxyrus",
-      "rank": 24
+      "rank": 24,
+      "flexCards": []
     },
     {
       "name": "Medbdy",
@@ -1334,7 +1444,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/medbdy",
       "xUrl": "https://x.com/medbdy",
       "tgHandle": "@Medbdy7",
-      "rank": 25
+      "rank": 25,
+      "flexCards": []
     },
     {
       "name": "Zeus ",
@@ -1346,7 +1457,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/vlagudfsfjr",
       "xUrl": "https://x.com/vlagudfsfjr",
       "tgHandle": "@zeus4r",
-      "rank": 26
+      "rank": 26,
+      "flexCards": []
     },
     {
       "name": "Shake ",
@@ -1358,7 +1470,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/Shake51_",
       "xUrl": "https://x.com/Shake51_",
       "tgHandle": "@Shake51",
-      "rank": 27
+      "rank": 27,
+      "flexCards": []
     },
     {
       "name": "Social Block ",
@@ -1370,7 +1483,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "no X link",
       "xUrl": "no X link",
       "tgHandle": "8349346803",
-      "rank": 28
+      "rank": 28,
+      "flexCards": []
     },
     {
       "name": "DJ (@NLinker777 on X )",
@@ -1382,7 +1496,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/NLinker777",
       "xUrl": "https://x.com/NLinker777",
       "tgHandle": "@JIHANWOOOO",
-      "rank": 29
+      "rank": 29,
+      "flexCards": []
     },
     {
       "name": "Spenny",
@@ -1394,7 +1509,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/SpennyCrypto",
       "xUrl": "https://x.com/SpennyCrypto",
       "tgHandle": "@spennypretzel",
-      "rank": 30
+      "rank": 30,
+      "flexCards": []
     },
     {
       "name": "Nouyarao",
@@ -1406,7 +1522,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/sentientom",
       "xUrl": "https://x.com/sentientom",
       "tgHandle": "@Nouyarao",
-      "rank": 31
+      "rank": 31,
+      "flexCards": []
     },
     {
       "name": "mDiBe89",
@@ -1418,7 +1535,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/tibbiracer",
       "xUrl": "https://x.com/tibbiracer",
       "tgHandle": "@mDiBe89",
-      "rank": 32
+      "rank": 32,
+      "flexCards": []
     },
     {
       "name": "Debankind ",
@@ -1430,7 +1548,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/DebankinDad",
       "xUrl": "https://x.com/DebankinDad",
       "tgHandle": "DebankinDad",
-      "rank": 33
+      "rank": 33,
+      "flexCards": []
     },
     {
       "name": "3Dmax",
@@ -1442,7 +1561,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/3DMax_Virtuals",
       "xUrl": "https://x.com/3DMax_Virtuals",
       "tgHandle": "@oO_3Dmax",
-      "rank": 34
+      "rank": 34,
+      "flexCards": []
     },
     {
       "name": "arindewar",
@@ -1454,7 +1574,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/arindewar",
       "xUrl": "https://x.com/arindewar",
       "tgHandle": "@arrieindewarrie",
-      "rank": 35
+      "rank": 35,
+      "flexCards": []
     },
     {
       "name": "jeyojeyojeyo and fast are one and the same",
@@ -1466,7 +1587,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "no X link ",
       "xUrl": "no X link ",
       "tgHandle": "351175795",
-      "rank": 36
+      "rank": 36,
+      "flexCards": []
     },
     {
       "name": "BigHammer ",
@@ -1478,7 +1600,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/joebangsjr",
       "xUrl": "https://x.com/joebangsjr",
       "tgHandle": "@BigHammer",
-      "rank": 37
+      "rank": 37,
+      "flexCards": []
     },
     {
       "name": "AltcoinMatcha",
@@ -1490,7 +1613,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/AltcoinMatcha",
       "xUrl": "https://x.com/AltcoinMatcha",
       "tgHandle": "@AltcoinMatcha",
-      "rank": 38
+      "rank": 38,
+      "flexCards": []
     },
     {
       "name": "Lyvo",
@@ -1502,7 +1626,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/lyvocrypto",
       "xUrl": "https://x.com/lyvocrypto",
       "tgHandle": "@LyvoCrypto",
-      "rank": 39
+      "rank": 39,
+      "flexCards": []
     },
     {
       "name": "Techy0x",
@@ -1514,7 +1639,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/techy0x",
       "xUrl": "https://x.com/techy0x",
       "tgHandle": "@techy0x",
-      "rank": 40
+      "rank": 40,
+      "flexCards": []
     },
     {
       "name": "Don_Sama_1",
@@ -1526,7 +1652,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/Don_Sama_1",
       "xUrl": "https://x.com/Don_Sama_1",
       "tgHandle": "1156835258",
-      "rank": 41
+      "rank": 41,
+      "flexCards": []
     },
     {
       "name": "jyprop",
@@ -1538,7 +1665,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/prolabch",
       "xUrl": "https://x.com/prolabch",
       "tgHandle": "@jyprop",
-      "rank": 42
+      "rank": 42,
+      "flexCards": []
     },
     {
       "name": "Devdosomething ",
@@ -1550,7 +1678,8 @@ window.LEADERBOARD_DATA = {
       "profileUrl": "https://x.com/devdosomething",
       "xUrl": "https://x.com/devdosomething",
       "tgHandle": "@Devdosomething",
-      "rank": 43
+      "rank": 43,
+      "flexCards": []
     }
   ]
 };
