@@ -1851,6 +1851,123 @@ function shareCallerUrl(handle) {
     fallbackCopy(url);
   }
 }
+function shareCallerCard(rank, src) {
+  const set = src==='weekly'? weeklyData : src==='monthly' ? monthlyData : affiliatesData;
+  const a = set.find(x => x.rank === rank); if (!a) return;
+
+  const W = 1200, H = 630;
+  const canvas = document.createElement('canvas');
+  canvas.width = W; canvas.height = H;
+  const ctx = canvas.getContext('2d');
+
+  function drawCard(avatarImg) {
+    // Background
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(0, 0, W, H);
+
+    // Left accent bar
+    ctx.fillStyle = '#38FF93';
+    ctx.fillRect(0, 0, 5, H);
+
+    // Subtle grid pattern
+    ctx.strokeStyle = 'rgba(255,255,255,0.025)';
+    ctx.lineWidth = 1;
+    for (let x = 60; x < W; x += 60) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
+    for (let y = 60; y < H; y += 60) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
+
+    // Avatar circle (right side)
+    const cx = 960, cy = 315, r = 130;
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, 0, Math.PI * 2);
+    ctx.clip();
+    if (avatarImg) {
+      ctx.drawImage(avatarImg, cx - r, cy - r, r * 2, r * 2);
+    } else {
+      ctx.fillStyle = 'rgba(56,255,147,0.08)';
+      ctx.fillRect(cx - r, cy - r, r * 2, r * 2);
+      ctx.fillStyle = '#38FF93';
+      ctx.font = 'bold 96px Arial, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText((a.handle||'?').replace('@','')[0].toUpperCase(), cx, cy);
+    }
+    ctx.restore();
+
+    // Avatar ring
+    ctx.strokeStyle = 'rgba(56,255,147,0.4)';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.arc(cx, cy, r + 2, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // Rank badge
+    ctx.fillStyle = 'rgba(56,255,147,0.12)';
+    ctx.beginPath();
+    ctx.roundRect(60, 60, 130, 48, 24);
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(56,255,147,0.35)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.roundRect(60, 60, 130, 48, 24);
+    ctx.stroke();
+    ctx.fillStyle = '#38FF93';
+    ctx.font = 'bold 22px "Courier New", monospace';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'alphabetic';
+    ctx.fillText(`#${a.rank} RANKED`, 82, 92);
+
+    // Handle
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 64px Arial, sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillText(a.handle, 60, 210);
+
+    // Tier
+    ctx.fillStyle = 'rgba(255,255,255,0.4)';
+    ctx.font = '20px "Courier New", monospace';
+    ctx.fillText((a.tier || '').toUpperCase() + ' TIER', 60, 255);
+
+    // Score
+    ctx.fillStyle = '#38FF93';
+    ctx.font = 'bold 128px Arial, sans-serif';
+    ctx.fillText(fmtScore(a.total), 60, 420);
+
+    ctx.fillStyle = 'rgba(255,255,255,0.3)';
+    ctx.font = '16px "Courier New", monospace';
+    ctx.fillText('HALL OF FAME SCORE', 60, 455);
+
+    // Branding
+    ctx.textAlign = 'right';
+    ctx.fillStyle = 'rgba(255,255,255,0.7)';
+    ctx.font = 'bold 28px Arial, sans-serif';
+    ctx.fillText('ALTCOINIST', W - 60, 100);
+    ctx.fillStyle = 'rgba(56,255,147,0.6)';
+    ctx.font = '16px "Courier New", monospace';
+    ctx.fillText('Hall of Fame', W - 60, 128);
+    ctx.fillStyle = 'rgba(255,255,255,0.2)';
+    ctx.font = '14px "Courier New", monospace';
+    ctx.fillText('altcoinist.com', W - 60, H - 40);
+
+    // Download
+    const link = document.createElement('a');
+    const handle = (a.handle || 'caller').replace('@', '');
+    link.download = `altcoinist-${handle}-rank${a.rank}.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+
+    // Also copy URL
+    shareCallerUrl(handle);
+    showToast('Card downloaded + link copied!');
+  }
+
+  // Try loading avatar with CORS
+  const img = new Image();
+  img.crossOrigin = 'anonymous';
+  img.onload = () => drawCard(img);
+  img.onerror = () => drawCard(null);
+  img.src = a.avatar + '?_cb=' + Date.now();
+}
 function fallbackCopy(url) {
   const el = document.createElement('textarea');
   el.value = url; el.style.position = 'fixed'; el.style.opacity = '0';
