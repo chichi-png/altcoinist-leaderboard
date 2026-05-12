@@ -1026,6 +1026,57 @@ body { -webkit-text-size-adjust: 100%; }
   button, a, .nav-link, .pagination button { min-height: 44px; }
 }
 
+
+/* ===== MODAL REDESIGN ===== */
+.modal-hero {
+  display: flex; align-items: center; gap: 1.25rem;
+  padding: 1.5rem 1.5rem 1.25rem;
+  border-bottom: 1px solid var(--card-border);
+  margin: -1.5rem -1.5rem 1.25rem;
+  background: linear-gradient(135deg, rgba(var(--accent-rgb),0.05), transparent);
+}
+.modal-hero-avatar {
+  width: 80px; height: 80px; border-radius: 50%;
+  border: 2px solid rgba(var(--accent-rgb), 0.4);
+  object-fit: cover; flex-shrink: 0;
+  background: rgba(255,255,255,0.04);
+}
+.modal-hero-info { flex: 1; min-width: 0; }
+.modal-hero-handle {
+  font-family: var(--font-mono); font-size: 1rem; font-weight: 600;
+  color: var(--text-primary); letter-spacing: -0.01em;
+  margin-bottom: 0.4rem;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.modal-hero-badges { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+.modal-rank-badge {
+  display: inline-flex; align-items: center;
+  font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700;
+  letter-spacing: 0.06em; color: var(--accent);
+  background: rgba(var(--accent-rgb), 0.1);
+  border: 1px solid rgba(var(--accent-rgb), 0.3);
+  border-radius: var(--radius-full); padding: 0.25rem 0.65rem;
+}
+.modal-flex-section { margin-top: 1.25rem; }
+.modal-flex-label {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: 0.75rem;
+}
+.modal-flex-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.625rem; }
+.modal-flex-img {
+  width: 100%; border-radius: var(--radius-md, 8px);
+  border: 1px solid var(--card-border);
+  object-fit: cover; cursor: zoom-in; display: block;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.modal-flex-img:hover { border-color: rgba(var(--accent-rgb),0.4); transform: scale(1.01); }
+.btn-share {
+  background: rgba(var(--accent-rgb), 0.08);
+  border: 1px solid rgba(var(--accent-rgb), 0.3);
+  color: var(--accent);
+}
+.btn-share:hover { background: rgba(var(--accent-rgb), 0.15); border-color: rgba(var(--accent-rgb), 0.6); }
 </style>
 </head>
 <body>
@@ -1292,6 +1343,12 @@ function fmtScore(n) {
   if (n < 1) return n.toFixed(2);
   if (n < 100) return n.toFixed(1);
   return Math.round(n).toLocaleString();
+}
+function tierLabel(t) {
+  if (!t) return '—';
+  if (typeof t === 'object') return t.label || '—';
+  const map = { diamond:'Diamond', gold:'Gold', silver:'Silver', bronze:'Bronze', base:'Base' };
+  return map[t.toLowerCase()] || t;
 }
 
 // --------- Data ----------
@@ -1817,24 +1874,40 @@ function goToPage(type, p) {
 function openAffiliateModal(rank, src) {
   const set = src==='weekly'? weeklyData : src==='monthly' ? monthlyData : affiliatesData;
   const a = set.find(x => x.rank === rank); if (!a) return;
+
+  const flexCards = (a.flexCards || []);
+  const flexSection = flexCards.length ? `
+    <div class="modal-flex-section">
+      <div class="modal-flex-label">Best Calls</div>
+      <div class="modal-flex-grid">
+        ${flexCards.map(s => `<img class="modal-flex-img" src="flex/${s}" alt="Call" loading="lazy">`).join('')}
+      </div>
+    </div>` : '';
+
   document.getElementById('modal-body').innerHTML = `
-    <div style="text-align:center;margin-bottom:1.5rem;">
-      <img src="${a.avatar}" alt="${a.name}" loading="lazy"
-        onerror="handleAvatarError(this,'${a.name.replace(/'/g,"\\'")}','${a.handle.replace(/'/g,"\\'")}')"
-        style="width:120px;height:120px;border-radius:50%;border:3px solid var(--card-border);">
-      <h2 style="margin-top:1rem;">${a.name}</h2>
-      <div style="margin-top:0.75rem;">${tierChip(a.tier)}</div>
+    <div class="modal-hero">
+      <img class="modal-hero-avatar"
+        src="${a.avatar}" alt="${a.name}"
+        onerror="handleAvatarError(this,'${a.name.replace(/'/g,"\'")}','${a.handle.replace(/'/g,"\'")}')">
+      <div class="modal-hero-info">
+        <div class="modal-hero-handle">${a.handle}</div>
+        <div class="modal-hero-badges">
+          <span class="modal-rank-badge">#${a.rank}</span>
+          ${tierChip(a.tier)}
+        </div>
+      </div>
     </div>
     <div class="stats-grid">
-      <div class="stat-card"><div class="stat-value">#${a.rank}</div><div class="stat-label">Rank</div></div>
       <div class="stat-card"><div class="stat-value" style="color:var(--accent);">${fmtScore(a.total)}</div><div class="stat-label">Total Score</div></div>
       <div class="stat-card"><div class="stat-value">${fmtScore(a.tweetScore)}</div><div class="stat-label">Tweet Score</div></div>
-      <div class="stat-card"><div class="stat-value">${fmtScore(a.botActivityScore)}</div><div class="stat-label">Bot Activity</div></div>
+      <div class="stat-card"><div class="stat-value">${fmtScore(a.botActivityScore)}</div><div class="stat-label">Trading Activity</div></div>
+      <div class="stat-card"><div class="stat-value">${tierLabel(a.tier)}</div><div class="stat-label">Tier</div></div>
     </div>
+    ${flexSection}
     <div style="text-align:center;margin-top:1.5rem;display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
-      <a href="https://t.me/altcoinist_bot" target="_blank" class="btn btn-primary">Follow on Altcoinist &rarr;</a>
+      <a href="https://t.me/zsofi_bot/app" target="_blank" class="btn btn-primary">Join Altcoinist &rarr;</a>
       ${a.xUrl && a.xUrl.startsWith('http') ? `<a href="${a.xUrl}" target="_blank" class="btn btn-secondary">View on X</a>` : ''}
-      <button class="btn btn-secondary" onclick="shareCallerUrl('${(a.handle||'').replace('@','')}')">Copy link</button>
+      <button class="btn btn-share" onclick="shareCallerCard(${a.rank}, '${src||'alltime'}')">Share Card</button>
     </div>
   `;
   document.getElementById('affiliate-modal').classList.add('active');
@@ -1865,103 +1938,141 @@ function shareCallerCard(rank, src) {
     ctx.fillStyle = '#000000';
     ctx.fillRect(0, 0, W, H);
 
-    // Left accent bar
-    ctx.fillStyle = '#38FF93';
-    ctx.fillRect(0, 0, 5, H);
+    // Top-right glow
+    const g1 = ctx.createRadialGradient(W, 0, 0, W, 0, 680);
+    g1.addColorStop(0, 'rgba(56,255,147,0.09)');
+    g1.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = g1; ctx.fillRect(0, 0, W, H);
 
-    // Subtle grid pattern
-    ctx.strokeStyle = 'rgba(255,255,255,0.025)';
-    ctx.lineWidth = 1;
-    for (let x = 60; x < W; x += 60) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
-    for (let y = 60; y < H; y += 60) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
+    // Bottom-left glow
+    const g2 = ctx.createRadialGradient(0, H, 0, 0, H, 380);
+    g2.addColorStop(0, 'rgba(56,255,147,0.05)');
+    g2.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = g2; ctx.fillRect(0, 0, W, H);
 
-    // Avatar circle (right side)
-    const cx = 960, cy = 315, r = 130;
+    // Watermark rank
     ctx.save();
-    ctx.beginPath();
-    ctx.arc(cx, cy, r, 0, Math.PI * 2);
-    ctx.clip();
+    ctx.globalAlpha = 0.035;
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 380px Inter, Arial, sans-serif';
+    ctx.textAlign = 'right';
+    ctx.textBaseline = 'top';
+    ctx.fillText(String(a.rank), 1170, -30);
+    ctx.restore();
+
+    // Left accent bar + glow
+    ctx.save();
+    ctx.shadowColor = '#38FF93'; ctx.shadowBlur = 18;
+    ctx.fillStyle = '#38FF93';
+    ctx.fillRect(0, 0, 4, H);
+    ctx.restore();
+
+    // Avatar
+    const AX = 950, AY = 300, AR = 155;
+    ctx.save();
+    ctx.shadowColor = 'rgba(56,255,147,0.25)'; ctx.shadowBlur = 50;
+    ctx.beginPath(); ctx.arc(AX, AY, AR + 6, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(56,255,147,0.15)'; ctx.lineWidth = 12; ctx.stroke();
+    ctx.restore();
+
+    ctx.save();
+    ctx.beginPath(); ctx.arc(AX, AY, AR, 0, Math.PI * 2); ctx.clip();
     if (avatarImg) {
-      ctx.drawImage(avatarImg, cx - r, cy - r, r * 2, r * 2);
+      ctx.drawImage(avatarImg, AX - AR, AY - AR, AR * 2, AR * 2);
     } else {
-      ctx.fillStyle = 'rgba(56,255,147,0.08)';
-      ctx.fillRect(cx - r, cy - r, r * 2, r * 2);
+      ctx.fillStyle = 'rgba(20,20,20,1)';
+      ctx.fillRect(AX - AR, AY - AR, AR * 2, AR * 2);
       ctx.fillStyle = '#38FF93';
-      ctx.font = 'bold 96px Arial, sans-serif';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText((a.handle||'?').replace('@','')[0].toUpperCase(), cx, cy);
+      ctx.font = 'bold 120px Arial, sans-serif';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText((a.handle || '?').replace('@', '')[0].toUpperCase(), AX, AY);
     }
     ctx.restore();
 
-    // Avatar ring
-    ctx.strokeStyle = 'rgba(56,255,147,0.4)';
-    ctx.lineWidth = 3;
-    ctx.beginPath();
-    ctx.arc(cx, cy, r + 2, 0, Math.PI * 2);
-    ctx.stroke();
+    // Gradient ring
+    const rg = ctx.createLinearGradient(AX - AR, AY - AR, AX + AR, AY + AR);
+    rg.addColorStop(0, 'rgba(56,255,147,0.95)');
+    rg.addColorStop(0.4, 'rgba(200,255,230,0.5)');
+    rg.addColorStop(1, 'rgba(56,255,147,0.1)');
+    ctx.strokeStyle = rg; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.arc(AX, AY, AR, 0, Math.PI * 2); ctx.stroke();
+
+    // Brand
+    ctx.fillStyle = 'rgba(56,255,147,0.65)';
+    ctx.font = '600 12px "JetBrains Mono","Courier New",monospace';
+    ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+    ctx.fillText('ALTCOINIST', 60, 68);
 
     // Rank badge
-    ctx.fillStyle = 'rgba(56,255,147,0.12)';
-    ctx.beginPath();
-    ctx.roundRect(60, 60, 130, 48, 24);
-    ctx.fill();
-    ctx.strokeStyle = 'rgba(56,255,147,0.35)';
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.roundRect(60, 60, 130, 48, 24);
-    ctx.stroke();
+    ctx.fillStyle = 'rgba(56,255,147,0.1)';
+    ctx.beginPath(); ctx.roundRect(60, 80, 160, 42, 21); ctx.fill();
+    ctx.strokeStyle = 'rgba(56,255,147,0.28)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.roundRect(60, 80, 160, 42, 21); ctx.stroke();
     ctx.fillStyle = '#38FF93';
-    ctx.font = 'bold 22px "Courier New", monospace';
-    ctx.textAlign = 'left';
-    ctx.textBaseline = 'alphabetic';
-    ctx.fillText(`#${a.rank} RANKED`, 82, 92);
+    ctx.font = 'bold 13px "JetBrains Mono","Courier New",monospace';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('#' + a.rank + '  RANKED', 82, 101);
 
     // Handle
-    ctx.fillStyle = '#ffffff';
-    ctx.font = 'bold 64px Arial, sans-serif';
-    ctx.textAlign = 'left';
-    ctx.fillText(a.handle, 60, 210);
+    const handle = a.handle || '';
+    const hSz = handle.length > 14 ? 52 : handle.length > 11 ? 62 : 72;
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = 'bold ' + hSz + 'px Inter, Arial, sans-serif';
+    ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+    ctx.fillText(handle, 60, 222);
 
     // Tier
-    ctx.fillStyle = 'rgba(255,255,255,0.4)';
-    ctx.font = '20px "Courier New", monospace';
-    ctx.fillText((a.tier || '').toUpperCase() + ' TIER', 60, 255);
+    const tKey = (a.tier && a.tier.key) || 'base';
+    const tLbl = (a.tier && a.tier.label) || 'Base';
+    const tC = { diamond:'rgba(255,255,255,0.88)', gold:'rgba(255,215,100,0.8)', silver:'rgba(192,200,210,0.8)', bronze:'rgba(200,130,80,0.75)', base:'rgba(255,255,255,0.32)' };
+    ctx.fillStyle = tC[tKey] || 'rgba(255,255,255,0.45)';
+    ctx.font = '500 15px "JetBrains Mono","Courier New",monospace';
+    ctx.fillText(tLbl.toUpperCase() + '  TIER', 60, 265);
 
     // Score
+    const scoreStr = fmtScore(a.total);
+    const sSz = scoreStr.length > 6 ? 90 : scoreStr.length > 4 ? 108 : 128;
     ctx.fillStyle = '#38FF93';
-    ctx.font = 'bold 128px Arial, sans-serif';
-    ctx.fillText(fmtScore(a.total), 60, 420);
+    ctx.font = 'bold ' + sSz + 'px Inter, Arial, sans-serif';
+    ctx.fillText(scoreStr, 60, 430);
 
-    ctx.fillStyle = 'rgba(255,255,255,0.3)';
-    ctx.font = '16px "Courier New", monospace';
-    ctx.fillText('HALL OF FAME SCORE', 60, 455);
+    ctx.fillStyle = 'rgba(255,255,255,0.22)';
+    ctx.font = '500 12px "JetBrains Mono","Courier New",monospace';
+    ctx.fillText('HALL OF FAME SCORE', 60, 462);
 
-    // Branding
-    ctx.textAlign = 'right';
-    ctx.fillStyle = 'rgba(255,255,255,0.7)';
-    ctx.font = 'bold 28px Arial, sans-serif';
-    ctx.fillText('ALTCOINIST', W - 60, 100);
-    ctx.fillStyle = 'rgba(56,255,147,0.6)';
-    ctx.font = '16px "Courier New", monospace';
-    ctx.fillText('Hall of Fame', W - 60, 128);
-    ctx.fillStyle = 'rgba(255,255,255,0.2)';
-    ctx.font = '14px "Courier New", monospace';
-    ctx.fillText('altcoinist.com', W - 60, H - 40);
+    // Divider
+    ctx.strokeStyle = 'rgba(255,255,255,0.07)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(60, 495); ctx.lineTo(W - 60, 495); ctx.stroke();
+
+    // CTA left
+    ctx.fillStyle = 'rgba(255,255,255,0.32)';
+    ctx.font = '500 12px "JetBrains Mono","Courier New",monospace';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('FIND YOUR CALLER ON', 60, 528);
+    ctx.fillStyle = 'rgba(255,255,255,0.75)';
+    ctx.font = 'bold 18px Inter, Arial, sans-serif';
+    ctx.fillText('Altcoinist  \u2192', 60, 558);
+
+    // CTA pill right
+    ctx.fillStyle = 'rgba(56,255,147,0.1)';
+    ctx.beginPath(); ctx.roundRect(W - 360, 516, 300, 52, 26); ctx.fill();
+    ctx.strokeStyle = 'rgba(56,255,147,0.35)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.roundRect(W - 360, 516, 300, 52, 26); ctx.stroke();
+    ctx.fillStyle = '#38FF93';
+    ctx.font = '600 14px "JetBrains Mono","Courier New",monospace';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText('t.me/zsofi_bot/app', W - 360 + 150, 542);
 
     // Download
-    const link = document.createElement('a');
-    const handle = (a.handle || 'caller').replace('@', '');
-    link.download = `altcoinist-${handle}-rank${a.rank}.png`;
-    link.href = canvas.toDataURL('image/png');
-    link.click();
-
-    // Also copy URL
-    shareCallerUrl(handle);
+    const dlH = (a.handle || 'caller').replace('@', '');
+    const lnk = document.createElement('a');
+    lnk.download = 'altcoinist-' + dlH + '-rank' + a.rank + '.png';
+    lnk.href = canvas.toDataURL('image/png');
+    lnk.click();
+    shareCallerUrl(dlH);
     showToast('Card downloaded + link copied!');
   }
 
-  // Try loading avatar with CORS
   const img = new Image();
   img.crossOrigin = 'anonymous';
   img.onload = () => drawCard(img);
