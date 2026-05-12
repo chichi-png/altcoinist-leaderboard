@@ -1077,6 +1077,47 @@ body { -webkit-text-size-adjust: 100%; }
   color: var(--accent);
 }
 .btn-share:hover { background: rgba(var(--accent-rgb), 0.15); border-color: rgba(var(--accent-rgb), 0.6); }
+
+/* ===== HOME HERO STATS STRIP ===== */
+.hero-stats-strip {
+  display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;
+  margin: 1.75rem auto 0; max-width: 600px;
+}
+.hero-stat {
+  display: flex; flex-direction: column; align-items: center;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1.5rem;
+  min-width: 110px; flex: 1;
+  transition: border-color var(--transition-fast);
+}
+.hero-stat:hover { border-color: rgba(var(--accent-rgb),0.2); }
+.hero-stat-val {
+  font-family: var(--font-heading); font-size: 1.625rem; font-weight: 700;
+  color: var(--accent); letter-spacing: -0.03em; line-height: 1;
+  white-space: nowrap;
+}
+.hero-stat-label {
+  font-family: var(--font-mono); font-size: 9px;
+  text-transform: uppercase; letter-spacing: 0.16em;
+  color: var(--text-muted); margin-top: 0.4rem;
+  white-space: nowrap;
+}
+
+/* podium handle */
+.podium-handle-sub {
+  font-family: var(--font-mono); font-size: 0.6875rem;
+  color: var(--text-muted); margin-top: 0.15rem;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+/* table handle sub-line */
+.table-handle-sub {
+  font-family: var(--font-mono); font-size: 0.6875rem;
+  color: var(--text-muted); margin-top: 0.1rem;
+}
 </style>
 </head>
 <body>
@@ -1105,6 +1146,7 @@ body { -webkit-text-size-adjust: 100%; }
       <p class="mt-2" style="color: var(--text-secondary); max-width: 520px; margin-left: auto; margin-right: auto;">
         The best crypto callers on Altcoinist. Ranked by signal quality, trading activity, and community reach.
       </p>
+      <div class="hero-stats-strip" id="hero-stats"></div>
     </div>
 
     <div class="podium">
@@ -1429,6 +1471,7 @@ async function loadData() {
 
     renderPodium();
     renderTierSummary();
+    renderHeroStats();
     renderAlltimeTable();
     renderWeeklyGrid();
     renderMonthlyGrid();
@@ -1462,6 +1505,7 @@ function renderPodium() {
       <img src="${a.avatar}" alt="${a.name}" class="podium-avatar" loading="lazy"
         onerror="handleAvatarError(this, '${a.name.replace(/'/g,"\\'")}', '${a.handle.replace(/'/g,"\\'")}')">
       <div class="podium-name">${a.name}</div>
+      <div class="podium-handle-sub">${a.handle}</div>
       ${tierChip(a.tier)}
       <div class="mono" style="margin-top:0.5rem;color:var(--accent);font-weight:700;font-size:0.9375rem">${fmtScore(a.total)}</div>
     `;
@@ -1483,6 +1527,25 @@ function renderTierSummary() {
       <span class="tl"><span class="dot"></span>${label}</span>
       <span class="tv">${n}</span>
       <span class="ts">${n === 1 ? 'affiliate' : 'affiliates'}</span>
+    </div>
+  `).join('');
+}
+
+// --------- Hero stats strip ----------
+function renderHeroStats() {
+  const el = document.getElementById('hero-stats');
+  if (!el || !affiliatesData.length) return;
+  const top = affiliatesData[0];
+  const active = affiliatesData.filter(a => a.total > 0).length;
+  el.innerHTML = [
+    { val: affiliatesData.length,     label: 'Callers' },
+    { val: fmtScore(top.total),       label: 'Top Score' },
+    { val: top.handle,                label: '#1 Caller' },
+    { val: active,                    label: 'Active' },
+  ].map(s => `
+    <div class="hero-stat">
+      <span class="hero-stat-val">${s.val}</span>
+      <span class="hero-stat-label">${s.label}</span>
     </div>
   `).join('');
 }
@@ -1522,6 +1585,7 @@ function renderAlltimeTable() {
               style="width:40px;height:40px;border-radius:50%;border:2px solid var(--card-border);">
             <div>
               <div style="font-weight:600;">${a.name}</div>
+              <div class="table-handle-sub">${a.handle}</div>
             </div>
           </div>
         </td>
