@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Hall — Altcoinist Inner Circle</title>
+
+<!-- Open Graph (renders rich when shared on X) -->
+<meta property="og:title" content="The Hall — Altcoinist Inner Circle" />
+<meta property="og:description" content="Athletes who built the network. Inner Circle affiliates, verified on-chain." />
+<meta property="og:image" content="card-preview.png" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #000000;
+    --card-bg: rgba(8, 8, 8, 0.85);
+    --border: rgba(255, 255, 255, 0.06);
+    --border-strong: rgba(255, 255, 255, 0.12);
+    --text: #ffffff;
+    --text-55: rgba(255, 255, 255, 0.55);
+    --text-30: rgba(255, 255, 255, 0.30);
+    --brand: #38FF93;
+    --brand-60: rgba(56, 255, 147, 0.60);
+    --brand-30: rgba(56, 255, 147, 0.30);
+    --brand-08: rgba(56, 255, 147, 0.08);
+    --glow-card: 0 0 30px rgba(56, 255, 147, 0.08);
+    --glow-strong: 0 0 30px rgba(56, 255, 147, 0.2), inset 0 0 20px rgba(56, 255, 147, 0.05);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* View toggle */
+  .view { display: none; }
+  .view.active { display: block; }
+
+  /* Nav */
+  .nav {
+    padding: 28px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-brand {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text);
+    text-decoration: none;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  .nav-brand .dot { color: var(--brand); }
+  .nav-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-55);
+    text-decoration: none;
+    cursor: pointer;
+    background: none;
+    border: none;
+    transition: color 200ms;
+  }
+  .nav-link:hover { color: var(--brand); }
+
+  /* Eyebrow */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--brand-60);
+    margin-bottom: 14px;
+  }
+  .eyebrow::before {
+    content: '';
+    width: 18px;
+    height: 1px;
+    background: var(--brand);
+  }
+
+  /* Section dividers */
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-30);
+    margin: 56px 0 32px 0;
+  }
+  .section-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, rgba(56, 255, 147, 0.25), rgba(255, 255, 255, 0.04));
+  }
+
+  /* === WALL VIEW === */
+
+  /* Hero */
+  .hero {
+    padding: 80px 0 32px 0;
+  }
+  .hero h1 {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(2.2rem, 6vw, 4.2rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 18px;
+  }
+  .hero h1 .accent { color: var(--brand); }
+  .hero p {
+    color: var(--text-55);
+    font-size: 15px;
+    max-width: 520px;
+    margin-bottom: 36px;
+  }
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 28px 0;
+  }
+  .hero-stats .stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-30);
+    margin-bottom: 8px;
+  }
+  .hero-stats .stat-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .hero-stats .stat-value .small {
+    color: var(--text-55);
+    font-size: 14px;
+  }
+
+  /* Section heading */
+  .section-heading {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 12px;
+  }
+  .section-sub {
+    color: var(--text-55);
+    font-size: 14px;
+    margin-bottom: 32px;
+    max-width: 600px;
+  }
+
+  /* Mover card (featured weekly mover) */
+  .mover {
+    position: relative;
+    background: var(--card-bg);
+    border: 1px solid var(--border-strong);
+    border-radius: 16px;
+    padding: 28px;
+    overflow: hidden;
+    transition: all 300ms;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .mover::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 320px;
+    height: 320px;
+    background: radial-gradient(circle at top right, rgba(56, 255, 147, 0.10), transparent 60%);
+    pointer-events: none;
+  }
+  .mover:hover {
+    border-color: var(--brand-30);
+    box-shadow: var(--glow-card);
+  }
+  .mover-inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 24px;
+    align-items: center;
+  }
+  @media (max-width: 700px) {
+    .mover-inner {
+      grid-template-columns: 1fr;
+      text-align: left;
+    }
+  }
+  .mover-avatar {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1a3a2a, #061a10);
+    border: 1px solid var(--border-strong);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    font-size: 22px;
+    color: var(--brand);
+  }
+  .mover-meta { min-width: 0; }
+  .mover-tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--brand);
+    padding: 4px 8px;
+    border: 1px solid var(--brand-30);
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+  .mover-handle {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .mover-sub {
+    color: var(--text-55);
+    font-size: 13px;
+  }
+  .mover-delta { text-align: right; }
+  @media (max-width: 700px) {
+    .mover-delta { text-align: left; margin-top: 8px; }
+  }
+  .mover-delta .delta-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-30);
+    margin-bottom: 8px;
+  }
+  .mover-delta .delta-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--brand);
+  }
+
+  /* Athlete grid */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+
+  /* Athlete card */
+  .athlete {
+    position: relative;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px;
+    text-decoration: none;
+    color: inherit;
+    overflow: hidden;
+    transition: all 300ms;
+    cursor: pointer;
+    display: block;
+  }
+  .athlete::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle at top right, rgba(56, 255, 147, 0.06), transparent 60%);
+    pointer-events: none;
+  }
+  .athlete:hover {
+    border-color: var(--brand-30);
+    box-shadow: var(--glow-card);
+  }
+  .athlete-watermark {
+    position: absolute;
+    bottom: 8px;
+    right: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 36px;
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.04);
+    letter-spacing: -0.05em;
+    pointer-events: none;
+  }
+  .athlete-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+    position: relative;
+  }
+  .athlete-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1a3a2a, #061a10);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--brand);
+  }
+  .athlete-meta { min-width: 0; }
+  .athlete-handle {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .athlete-tier {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-30);
+    margin-top: 2px;
+  }
+  .athlete-tier.diamond { color: var(--brand-60); }
+  .athlete-stats {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 16px;
+    margin-top: 10px;
+  }
+  .athlete-stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-30);
+    margin-bottom: 4px;
+  }
+  .athlete-stat-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .athlete-stat-value.lead {
+    font-size: 22px;
+    color: var(--text);
+    grid-column: span 2;
+  }
+
+  /* Induct block */
+  .induct {
+    position: relative;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 36px;
+    overflow: hidden;
+    margin-bottom: 56px;
+  }
+  .induct::before {
+    content: '';
+    position: absolute;
+    bottom: -50%;
+    left: -10%;
+    width: 60%;
+    height: 140%;
+    background: radial-gradient(circle, rgba(56, 255, 147, 0.06), transparent 60%);
+    pointer-events: none;
+  }
+  .induct-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+  @media (max-width: 800px) {
+    .induct-grid { grid-template-columns: 1fr; }
+  }
+  .induct h3 {
+    font-size: clamp(1.4rem, 2.6vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 12px;
+  }
+  .induct p {
+    color: var(--text-55);
+    font-size: 14px;
+    margin-bottom: 18px;
+  }
+  .induct ul {
+    list-style: none;
+    padding: 0;
+  }
+  .induct li {
+    display: flex;
+    align-items: start;
+    gap: 12px;
+    padding: 12px 0;
+    border-top: 1px solid var(--border);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--text);
+  }
+  .induct li:first-child { border-top: none; padding-top: 0; }
+  .induct li::before {
+    content: '→';
+    color: var(--brand);
+    flex-shrink: 0;
+  }
+  .induct li .muted {
+    color: var(--text-55);
+    margin-left: 6px;
+  }
+
+  /* === PROFILE VIEW === */
+
+  /* Profile hero */
+  .profile-hero {
+    position: relative;
+    padding: 56px 0 32px 0;
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .profile-hero::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -10%;
+    width: 60%;
+    height: 140%;
+    background: radial-gradient(circle, rgba(56, 255, 147, 0.07), transparent 60%);
+    pointer-events: none;
+  }
+  .profile-hero-inner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+  @media (max-width: 600px) {
+    .profile-hero-inner { flex-direction: column; align-items: flex-start; }
+  }
+  .profile-avatar {
+    width: 108px;
+    height: 108px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1a3a2a, #061a10);
+    border: 1px solid var(--border-strong);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 28px;
+    color: var(--brand);
+    flex-shrink: 0;
+  }
+  .profile-info { min-width: 0; }
+  .profile-tier-badge {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--brand);
+    padding: 5px 10px;
+    border: 1px solid var(--brand-30);
+    border-radius: 4px;
+    margin-bottom: 14px;
+  }
+  .profile-handle {
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+  .profile-meta {
+    color: var(--text-55);
+    font-size: 14px;
+    margin-top: 6px;
+  }
+
+  /* Flex strip (lifetime stats) */
+  .flex-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    padding: 32px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  @media (max-width: 700px) {
+    .flex-strip { grid-template-columns: repeat(2, 1fr); }
+  }
+  .flex-strip .stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-30);
+    margin-bottom: 10px;
+  }
+  .flex-strip .stat-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .flex-strip .stat-value.lead { color: var(--brand); }
+  .flex-strip .stat-value .small {
+    color: var(--text-55);
+    font-size: 15px;
+  }
+
+  /* Best moments */
+  .moments-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  @media (max-width: 700px) {
+    .moments-grid { grid-template-columns: 1fr; }
+  }
+  .moment {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 22px;
+    transition: all 300ms;
+  }
+  .moment:hover {
+    border-color: var(--brand-30);
+    box-shadow: var(--glow-card);
+  }
+  .moment .m-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-30);
+    margin-bottom: 8px;
+  }
+  .moment .m-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--brand);
+  }
+  .moment .m-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-55);
+    margin-top: 4px;
+  }
+
+  /* Flex card area */
+  .card-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    align-items: start;
+  }
+  @media (max-width: 900px) {
+    .card-wrap { grid-template-columns: 1fr; }
+  }
+  .card-preview {
+    aspect-ratio: 1200 / 675;
+    background: var(--bg);
+    border: 1px solid var(--border-strong);
+    border-radius: 12px;
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .card-preview::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -10%;
+    width: 70%;
+    height: 140%;
+    background: radial-gradient(circle, rgba(56, 255, 147, 0.10), transparent 60%);
+    pointer-events: none;
+  }
+  .card-preview-top {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .card-preview-top .left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .card-preview-avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1a3a2a, #061a10);
+    border: 1px solid var(--border-strong);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--brand);
+  }
+  .card-preview-handle {
+    font-size: 20px;
+    font-weight: 700;
+  }
+  .card-preview-tier {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--brand);
+    padding: 4px 8px;
+    border: 1px solid var(--brand-30);
+    border-radius: 4px;
+  }
+  .card-preview-headline {
+    position: relative;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 700;
+    line-height: 1;
+  }
+  .card-preview-headline .label {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-30);
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .card-preview-headline .accent { color: var(--brand); }
+  .card-preview-sub {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .card-preview-sub .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-30);
+    margin-bottom: 4px;
+  }
+  .card-preview-sub .value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .card-preview-footer {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+  }
+  .card-preview-url {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--text-55);
+  }
+  .card-preview-brand {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--brand-60);
+  }
+  .card-actions h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .card-actions p {
+    color: var(--text-55);
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+
+  /* CTAs */
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .cta {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 22px;
+    border-radius: 999px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    color: var(--bg);
+    background: var(--brand);
+    transition: all 300ms;
+    box-shadow: var(--glow-strong);
+    cursor: pointer;
+    border: none;
+  }
+  .cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 36px rgba(56, 255, 147, 0.32), inset 0 0 22px rgba(56, 255, 147, 0.08);
+  }
+  .cta-ghost {
+    color: var(--text);
+    background: transparent;
+    border: 1px solid var(--border-strong);
+    box-shadow: none;
+  }
+  .cta-ghost:hover {
+    border-color: var(--brand-30);
+    color: var(--brand);
+    box-shadow: var(--glow-card);
+  }
+
+  /* Footer */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 36px 0 56px 0;
+    margin-top: 56px;
+    color: var(--text-30);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* Fade-in on scroll */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 700ms cubic-bezier(0.215, 0.61, 0.355, 1), transform 700ms cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Nav -->
+  <nav class="nav">
+    <button class="nav-brand" data-view="wall">altcoinist<span class="dot">.</span> the hall</button>
+    <button class="nav-link" id="nav-context-link" data-view="wall">about the circle</button>
+  </nav>
+
+  <!-- ====================== WALL VIEW ====================== -->
+  <div id="view-wall" class="view active">
+
+    <!-- Hero -->
+    <section class="hero reveal">
+      <div class="eyebrow">// inner circle, verified on-chain</div>
+      <h1>Athletes who built<br/>the <span class="accent">network</span>.</h1>
+      <p>The Hall is for the Inner Circle. Every name here brought traders, volume, and trust into Altcoinist. Their numbers are public because the work is public.</p>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-label">total referred volume</div>
+          <div class="stat-value">$24.8<span class="small">M</span></div>
+        </div>
+        <div>
+          <div class="stat-label">funded traders</div>
+          <div class="stat-value">786</div>
+        </div>
+        <div>
+          <div class="stat-label">groups running altcoinist</div>
+          <div class="stat-value">42</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 01 / Movers This Week -->
+    <div class="section-divider">// 01 / mover of the week</div>
+    <section class="reveal">
+      <h2 class="section-heading">Biggest jumper this week.</h2>
+      <p class="section-sub">Tracked Monday to Monday. Volume in, traders funded, group bots added — all weighted into one delta.</p>
+
+      <a class="mover" href="#athlete/sleeplessflow" data-athlete="sleeplessflow">
+        <div class="mover-inner">
+          <div class="mover-avatar">SF</div>
+          <div class="mover-meta">
+            <span class="mover-tag">+3 ranks this week</span>
+            <div class="mover-handle">@sleeplessflow</div>
+            <div class="mover-sub">Gold tier · 18 funded traders added · $420K new volume · W22</div>
+          </div>
+          <div class="mover-delta">
+            <div class="delta-label">score delta</div>
+            <div class="delta-value">+42%</div>
+          </div>
+        </div>
+      </a>
+    </section>
+
+    <!-- 02 / The Wall -->
+    <div class="section-divider">// 02 / the wall</div>
+    <section class="reveal">
+      <h2 class="section-heading">The Inner Circle.</h2>
+      <p class="section-sub">Sorted by lifetime referred volume. Click any athlete to see their profile and use their referral link.</p>
+
+      <div class="grid">
+        <a class="athlete" href="#athlete/rbthreek" data-athlete="rbthreek">
+          <div class="athlete-watermark">A</div>
+          <div class="athlete-head">
+            <div class="athlete-avatar">RB</div>
+            <div class="athlete-meta">
+              <div class="athlete-handle">@rbthreek</div>
+              <div class="athlete-tier diamond">diamond · since 2025</div>
+            </div>
+          </div>
+          <div class="athlete-stats">
+            <div style="grid-column: span 2;">
+              <div class="athlete-stat-label">lifetime referred volume</div>
+              <div class="athlete-stat-value lead">$12.4M</div>
+            </div>
+            <div>
+              <div class="athlete-stat-label">funded traders</div>
+              <div class="athlete-stat-value">247</div>
+            </div>
+            <div>
+              <div class="athlete-stat-label">earned (usdc)</div>
+              <div class="athlete-stat-value">$48.2K</div>
+            </div>
+          </div>
+        </a>
+
+        <a class="athlete" href="#athlete/sleeplessflow" data-athlete="sleeplessflow">
+          <div class="athlete-watermark">A</div>
+          <div class="athlete-head">
+            <div class="athlete-avatar">SF</div>
+            <div class="athlete-meta">
+              <div class="athlete-handle">@sleeplessflow</div>
+              <div class="athlete-tier">gold · since 2026</div>
+            </div>
+          </div>
+          <div class="athlete-stats">
+            <div style="grid-column: span 2;">
+              <div class="athlete-stat-label">lifetime referred volume</div>
+              <div class="athlete-stat-value lead">$1.8M</div>
+            </div>
+            <div>
+              <div class="athlete-stat-label">funded traders</div>
+              <div class="athlete-stat-value">64</div>
+            </div>
+            <div>
+              <div class="athlete-stat-label">earned (usdc)</div>
+              <div class="athlete-stat-value">$7.8K</div>
+            </div>
+          </div>
+        </a>
+
+        <a class="athlete" href="#athlete/cryptonadia" data-athlete="cryptonadia">
+          <div class="athlete-watermark">A</div>
+          <div class="athlete-head">
+            <div class="athlete-avatar">CN</div>
+            <div class="athlete-meta">
+              <div class="athlete-handle">@cryptonadia</div>
+              <div class="athlete-tier">gold · since 2026</div>
+            </div>
+          </div>
+          <div class="athlete-stats">
+            <div style="grid-column: span 2;">
+              <div class="athlete-stat-label">lifetime referred volume</div>
+              <div class="athlete-stat-value lead">$1.2M</div>
+            </div>
+            <div>
+              <div class="athlete-stat-label">funded traders</div>
+              <div class="athlete-stat-value">41</div>
+            </div>
+            <div>
+              <div class="athlete-stat-label">earned (usdc)</div>
+              <div class="athlete-stat-value">$5.1K</div>
+            </div>
+          </div>
+        </a>
+
+        <a class="athlete" href="#athlete/altchad" data-athlete="altchad">
+          <div class="athlete-watermark">A</div>
+          <div class="athlete-head">
+            <div class="athlete-avatar">AC</div>
+            <div class="athlete-meta">
+              <div class="athlete-handle">@altchad</div>
+              <div class="athlete-tier">silver · since 2026</div>
+            </div>
+          </div>
+          <div class="athlete-stats">
+            <div style="grid-column: span 2;">
+              <div class="athlete-stat-label">lifetime referred volume</div>
+              <div class="athlete-stat-value lead">$480K</div>
+            </div>
+            <div>
+              <div class="athlete-stat-label">funded traders</div>
+              <div class="athlete-stat-value">22</div>
+            </div>
+            <div>
+              <div class="athlete-stat-label">earned (usdc)</div>
+              <div class="athlete-stat-value">$1.9K</div>
+            </div>
+          </div>
+        </a>
+
+        <a class="athlete" href="#athlete/degenmonk" data-athlete="degenmonk">
+          <div class="athlete-watermark">A</div>
+          <div class="athlete-head">
+            <div class="athlete-avatar">DM</div>
+            <div class="athlete-meta">
+              <div class="athlete-handle">@degenmonk</div>
+              <div class="athlete-tier">silver · since 2026</div>
+            </div>
+          </div>
+          <div class="athlete-stats">
+            <div style="grid-column: span 2;">
+              <div class="athlete-stat-label">lifetime referred volume</div>
+              <div class="athlete-stat-value lead">$320K</div>
+            </div>
+            <div>
+              <div class="athlete-stat-label">funded traders</div>
+              <div class="athlete-stat-value">18</div>
+            </div>
+            <div>
+              <div class="athlete-stat-label">earned (usdc)</div>
+              <div class="athlete-stat-value">$1.4K</div>
+            </div>
+          </div>
+        </a>
+
+        <a class="athlete" href="#athlete/signalsally" data-athlete="signalsally">
+          <div class="athlete-watermark">A</div>
+          <div class="athlete-head">
+            <div class="athlete-avatar">SS</div>
+            <div class="athlete-meta">
+              <div class="athlete-handle">@signalsally</div>
+              <div class="athlete-tier">silver · since 2026</div>
+            </div>
+          </div>
+          <div class="athlete-stats">
+            <div style="grid-column: span 2;">
+              <div class="athlete-stat-label">lifetime referred volume</div>
+              <div class="athlete-stat-value lead">$290K</div>
+            </div>
+            <div>
+              <div class="athlete-stat-label">funded traders</div>
+              <div class="athlete-stat-value">14</div>
+            </div>
+            <div>
+              <div class="athlete-stat-label">earned (usdc)</div>
+              <div class="athlete-stat-value">$1.1K</div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 03 / About the Inner Circle -->
+    <div class="section-divider" id="about">// 03 / about the inner circle</div>
+    <section class="reveal">
+      <div class="induct">
+        <div class="induct-grid">
+          <div>
+            <h3>The Inner Circle is Altcoinist's top affiliate cohort.</h3>
+            <p>Hand-picked from the affiliate roster based on lifetime performance, audience fit, and the work they've put in. The Hall is the cohort's public face.</p>
+            <p>If you're in, your numbers are here, your flex card is ready, and the network compounds on your behalf.</p>
+          </div>
+          <div>
+            <ul>
+              <li>Verified on-chain <span class="muted">all stats sourced from PostHog</span></li>
+              <li>Weekly refresh <span class="muted">numbers update every Monday</span></li>
+              <li>Lifetime + this week <span class="muted">all-time flex with current momentum</span></li>
+              <li>Shareable cards <span class="muted">one per athlete, generated on sync</span></li>
+              <li>Tier visibility <span class="muted">diamond, gold, silver — status is the lever</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+  <!-- ====================== /WALL VIEW ====================== -->
+
+
+  <!-- ====================== PROFILE VIEW ====================== -->
+  <div id="view-profile" class="view">
+
+    <!-- Profile hero -->
+    <section class="profile-hero reveal">
+      <div class="profile-hero-inner">
+        <div class="profile-avatar" id="p-avatar">RB</div>
+        <div class="profile-info">
+          <span class="profile-tier-badge" id="p-tier">diamond tier</span>
+          <div class="profile-handle" id="p-handle">@rbthreek</div>
+          <div class="profile-meta" id="p-meta">Group Owner · Inner Circle since 2025-08</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Flex strip -->
+    <section class="reveal">
+      <div class="flex-strip">
+        <div>
+          <div class="stat-label">lifetime referred volume</div>
+          <div class="stat-value lead" id="p-vol">$12.4<span class="small">M</span></div>
+        </div>
+        <div>
+          <div class="stat-label">funded traders</div>
+          <div class="stat-value" id="p-traders">247</div>
+        </div>
+        <div>
+          <div class="stat-label">earned (usdc)</div>
+          <div class="stat-value" id="p-earned">$48.2<span class="small">K</span></div>
+        </div>
+        <div>
+          <div class="stat-label">groups installed</div>
+          <div class="stat-value" id="p-groups">8</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 01 / Best moments -->
+    <div class="section-divider">// 01 / best moments</div>
+    <section class="reveal">
+      <div class="moments-grid">
+        <div class="moment">
+          <div class="m-label">biggest week</div>
+          <div class="m-value" id="p-best-week-value">$1.04M</div>
+          <div class="m-sub" id="p-best-week-sub">w14 · 2026</div>
+        </div>
+        <div class="moment">
+          <div class="m-label">biggest month</div>
+          <div class="m-value" id="p-best-month-value">$2.91M</div>
+          <div class="m-sub" id="p-best-month-sub">apr 2026</div>
+        </div>
+        <div class="moment">
+          <div class="m-label">peak group day</div>
+          <div class="m-value" id="p-peak-day-value">38 traders</div>
+          <div class="m-sub" id="p-peak-day-sub">apr 12 · 2026</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 / Flex card -->
+    <div class="section-divider">// 02 / your flex card</div>
+    <section class="reveal">
+      <div class="card-wrap">
+        <div class="card-preview">
+          <div class="card-preview-top">
+            <div class="left">
+              <div class="card-preview-avatar" id="p-card-avatar">RB</div>
+              <div class="card-preview-handle" id="p-card-handle">@rbthreek</div>
+            </div>
+            <div class="card-preview-tier" id="p-card-tier">diamond</div>
+          </div>
+
+          <div class="card-preview-headline">
+            <span class="label">lifetime referred volume</span>
+            <span class="accent" id="p-card-vol">$12.4M</span>
+          </div>
+
+          <div class="card-preview-sub">
+            <div>
+              <div class="label">funded traders</div>
+              <div class="value" id="p-card-traders">247</div>
+            </div>
+            <div>
+              <div class="label">earned (usdc)</div>
+              <div class="value" id="p-card-earned">$48.2K</div>
+            </div>
+          </div>
+
+          <div class="card-preview-footer">
+            <div class="card-preview-url" id="p-card-url">altcoinist.com/athlete/rbthreek</div>
+            <div class="card-preview-brand">// altcoinist · the hall</div>
+          </div>
+        </div>
+
+        <div class="card-actions">
+          <h3>Drop this on X.</h3>
+          <p>Auto-generated from your latest stats. 1200×675 PNG, sized for X. Same brand language as the Hall so the link reads instantly when shared.</p>
+          <p>The card's URL points back to this profile, so viewers who click land here directly. Open Graph metadata makes the share render rich.</p>
+
+          <div class="cta-row">
+            <a href="#" class="cta">Download my flex card</a>
+            <a href="#" class="cta cta-ghost">Copy share text</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 / Where to find me -->
+    <div class="section-divider">// 03 / where to find me</div>
+    <section class="reveal">
+      <div class="cta-row">
+        <a href="#" class="cta cta-ghost">Open in X</a>
+        <a href="#" class="cta cta-ghost">Open my group</a>
+        <a href="#" class="cta cta-ghost">Open referral link</a>
+      </div>
+    </section>
+
+  </div>
+  <!-- ====================== /PROFILE VIEW ====================== -->
+
+  <footer>
+    <div>// altcoinist · the hall · v1 mock</div>
+    <div>2026-05-27</div>
+  </footer>
+
+</div>
+
+<script>
+  // Athlete data (mock — replace with PostHog pull later)
+  const athletes = {
+    rbthreek: {
+      avatar: 'RB', handle: '@rbthreek', tier: 'diamond', tierLabel: 'diamond tier',
+      meta: 'Group Owner · Inner Circle since 2025-08',
+      vol: '$12.4<span class="small">M</span>', volPlain: '$12.4M',
+      traders: '247', earned: '$48.2<span class="small">K</span>', earnedPlain: '$48.2K',
+      groups: '8',
+      bestWeek: { value: '$1.04M', sub: 'w14 · 2026' },
+      bestMonth: { value: '$2.91M', sub: 'apr 2026' },
+      peakDay: { value: '38 traders', sub: 'apr 12 · 2026' }
+    },
+    sleeplessflow: {
+      avatar: 'SF', handle: '@sleeplessflow', tier: 'gold', tierLabel: 'gold tier',
+      meta: 'X Creator · Inner Circle since 2026-02',
+      vol: '$1.8<span class="small">M</span>', volPlain: '$1.8M',
+      traders: '64', earned: '$7.8<span class="small">K</span>', earnedPlain: '$7.8K',
+      groups: '2',
+      bestWeek: { value: '$420K', sub: 'w22 · 2026' },
+      bestMonth: { value: '$610K', sub: 'may 2026' },
+      peakDay: { value: '18 traders', sub: 'may 20 · 2026' }
+    },
+    cryptonadia: {
+      avatar: 'CN', handle: '@cryptonadia', tier: 'gold', tierLabel: 'gold tier',
+      meta: 'X Creator · Inner Circle since 2026-03',
+      vol: '$1.2<span class="small">M</span>', volPlain: '$1.2M',
+      traders: '41', earned: '$5.1<span class="small">K</span>', earnedPlain: '$5.1K',
+      groups: '1',
+      bestWeek: { value: '$280K', sub: 'w18 · 2026' },
+      bestMonth: { value: '$390K', sub: 'apr 2026' },
+      peakDay: { value: '12 traders', sub: 'apr 28 · 2026' }
+    },
+    altchad: {
+      avatar: 'AC', handle: '@altchad', tier: 'silver', tierLabel: 'silver tier',
+      meta: 'X Creator · Inner Circle since 2026-04',
+      vol: '$480<span class="small">K</span>', volPlain: '$480K',
+      traders: '22', earned: '$1.9<span class="small">K</span>', earnedPlain: '$1.9K',
+      groups: '0',
+      bestWeek: { value: '$140K', sub: 'w19 · 2026' },
+      bestMonth: { value: '$210K', sub: 'may 2026' },
+      peakDay: { value: '7 traders', sub: 'may 8 · 2026' }
+    },
+    degenmonk: {
+      avatar: 'DM', handle: '@degenmonk', tier: 'silver', tierLabel: 'silver tier',
+      meta: 'Group Owner · Inner Circle since 2026-04',
+      vol: '$320<span class="small">K</span>', volPlain: '$320K',
+      traders: '18', earned: '$1.4<span class="small">K</span>', earnedPlain: '$1.4K',
+      groups: '1',
+      bestWeek: { value: '$90K', sub: 'w20 · 2026' },
+      bestMonth: { value: '$150K', sub: 'may 2026' },
+      peakDay: { value: '6 traders', sub: 'may 14 · 2026' }
+    },
+    signalsally: {
+      avatar: 'SS', handle: '@signalsally', tier: 'silver', tierLabel: 'silver tier',
+      meta: 'X Creator · Inner Circle since 2026-05',
+      vol: '$290<span class="small">K</span>', volPlain: '$290K',
+      traders: '14', earned: '$1.1<span class="small">K</span>', earnedPlain: '$1.1K',
+      groups: '0',
+      bestWeek: { value: '$72K', sub: 'w21 · 2026' },
+      bestMonth: { value: '$118K', sub: 'may 2026' },
+      peakDay: { value: '5 traders', sub: 'may 19 · 2026' }
+    }
+  };
+
+  function setText(id, html) {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = html;
+  }
+
+  function loadProfile(slug) {
+    const a = athletes[slug];
+    if (!a) return false;
+    setText('p-avatar', a.avatar);
+    setText('p-tier', a.tierLabel);
+    setText('p-handle', a.handle);
+    setText('p-meta', a.meta);
+    setText('p-vol', a.vol);
+    setText('p-traders', a.traders);
+    setText('p-earned', a.earned);
+    setText('p-groups', a.groups);
+    setText('p-best-week-value', a.bestWeek.value);
+    setText('p-best-week-sub', a.bestWeek.sub);
+    setText('p-best-month-value', a.bestMonth.value);
+    setText('p-best-month-sub', a.bestMonth.sub);
+    setText('p-peak-day-value', a.peakDay.value);
+    setText('p-peak-day-sub', a.peakDay.sub);
+    setText('p-card-avatar', a.avatar);
+    setText('p-card-handle', a.handle);
+    setText('p-card-tier', a.tier);
+    setText('p-card-vol', a.volPlain);
+    setText('p-card-traders', a.traders);
+    setText('p-card-earned', a.earnedPlain);
+    setText('p-card-url', 'altcoinist.com/athlete/' + slug);
+    document.title = a.handle + ' — The Hall';
+    return true;
+  }
+
+  function showView(view) {
+    document.querySelectorAll('.view').forEach((el) => el.classList.remove('active'));
+    const target = document.getElementById('view-' + view);
+    if (target) target.classList.add('active');
+    // Reset reveal animations so they fire again
+    target.querySelectorAll('.reveal').forEach((el) => el.classList.remove('in'));
+    observeReveals(target);
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    // Update context-aware nav label
+    const navContext = document.getElementById('nav-context-link');
+    if (view === 'profile') {
+      navContext.textContent = '← back to the hall';
+      navContext.dataset.view = 'wall';
+    } else {
+      navContext.textContent = 'about the circle';
+      navContext.dataset.view = 'wall';
+    }
+  }
+
+  function routeFromHash() {
+    const hash = window.location.hash;
+    const match = hash.match(/^#athlete\/(.+)$/);
+    if (match && loadProfile(match[1])) {
+      showView('profile');
+    } else if (hash === '#about') {
+      showView('wall');
+      // Defer scroll until view is rendered
+      setTimeout(() => {
+        const el = document.getElementById('about');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 50);
+    } else {
+      showView('wall');
+    }
+  }
+
+  // Reveal observer
+  let io;
+  function observeReveals(scope) {
+    if (io) io.disconnect();
+    io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
+    (scope || document).querySelectorAll('.reveal').forEach((el) => io.observe(el));
+  }
+
+  // Nav clicks
+  document.querySelectorAll('[data-view]').forEach((el) => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = el.dataset.view;
+      // "about the circle" should scroll to about section in wall view
+      if (el.id === 'nav-context-link' && el.textContent.includes('about')) {
+        window.location.hash = '#about';
+      } else {
+        history.pushState(null, '', window.location.pathname);
+        showView(target);
+      }
+    });
+  });
+
+  // Athlete card clicks (handled via hash routing, but ensure smooth view switch)
+  document.querySelectorAll('[data-athlete]').forEach((el) => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      const slug = el.dataset.athlete;
+      window.location.hash = '#athlete/' + slug;
+    });
+  });
+
+  // Hash change (back / forward / direct link)
+  window.addEventListener('hashchange', routeFromHash);
+
+  // Initial route
+  routeFromHash();
+</script>
+
+</body>
+</html>
