@@ -1,0 +1,33 @@
+{
+  "meta": {
+    "verifiedAplusCount": 3,
+    "cohortSize": 42,
+    "lastRefresh": "W22",
+    "lastRefreshLabel": "monday",
+    "lastRefreshDate": "2026-05-26"
+  },
+  "athletes": [
+    { "handle": "@rbthreek",       "avatar": "avatars/rbthreek.jpg",       "chain": "sol",  "repTier": "A+", "repScore": 87, "repPeak": 94, "vol": "$12.4M", "followers": "128K" },
+    { "handle": "@chironchain",    "avatar": "avatars/chironchain.jpg",    "chain": "eth",  "repTier": "A+", "repScore": 84, "repPeak": 89, "vol": "$2.1M",  "followers": "64K"  },
+    { "handle": "@KAPOTHEGOAT01",  "avatar": "avatars/KAPOTHEGOAT01.jpg",  "chain": "sol",  "repTier": "A+", "repScore": 81, "repPeak": 88, "vol": "$1.6M",  "followers": "92K"  },
+    { "handle": "@Chainriffs",     "avatar": "avatars/Chainriffs.jpg",     "chain": "base", "repTier": "A",  "repScore": 76, "repPeak": 81, "vol": "$1.1M",  "followers": "38K"  },
+    { "handle": "@mrLCguy",        "avatar": "avatars/mrLCguy.jpg",        "chain": "eth",  "repTier": "A",  "repScore": 72, "repPeak": 78, "vol": "$680K",  "followers": "24K"  },
+    { "handle": "@deepseektetra",  "avatar": "avatars/deepseektetra.jpg",  "chain": "sol",  "repTier": "A",  "repScore": 68, "repPeak": 74, "vol": "$540K",  "followers": "19K"  },
+    { "handle": "@N30_cryptoo",    "avatar": "avatars/N30_cryptoo.jpg",    "chain": "sui",  "repTier": "B",  "repScore": 64, "repPeak": 69, "vol": "$410K",  "followers": "31K"  },
+    { "handle": "@thebasedfrogx",  "avatar": "avatars/thebasedfrogx.jpg",  "chain": "base", "repTier": "B",  "repScore": 61, "repPeak": 66, "vol": "$380K",  "followers": "47K"  },
+    { "handle": "@Vanxyrus",       "avatar": "avatars/Vanxyrus.jpg",       "chain": "eth",  "repTier": "B",  "repScore": 58, "repPeak": 64, "vol": "$290K",  "followers": "12K"  },
+    { "handle": "@cryptic_tits",   "avatar": "avatars/cryptic_tits.png",   "chain": "sol",  "repTier": "C",  "repScore": 52, "repPeak": 58, "vol": "$240K",  "followers": "21K"  },
+    { "handle": "@Neolawyer1",     "avatar": "avatars/Neolawyer1.jpg",     "chain": "eth",  "repTier": "C",  "repScore": 48, "repPeak": 54, "vol": "$180K",  "followers": "8.2K" },
+    { "handle": "@KD11201",        "avatar": "avatars/KD11201.jpg",        "chain": "sui",  "repTier": "D",  "repScore": 38, "repPeak": 44, "vol": "$140K",  "followers": "5.6K" }
+  ],
+  "calls": [
+    { "chain": "sol",  "ticker": "$BONK",  "caller": "@rbthreek",       "entry": "$0.000018",  "pnl":  248, "time": "5d"  },
+    { "chain": "eth",  "ticker": "$PEPE",  "caller": "@chironchain",    "entry": "$0.0000091", "pnl":   62, "time": "6d"  },
+    { "chain": "sol",  "ticker": "$WIF",   "caller": "@KAPOTHEGOAT01",  "entry": "$1.84",      "pnl":   39, "time": "8d"  },
+    { "chain": "base", "ticker": "$DEGEN", "caller": "@thebasedfrogx",  "entry": "$0.012",     "pnl":  -14, "time": "11d" },
+    { "chain": "eth",  "ticker": "$LDO",   "caller": "@mrLCguy",        "entry": "$1.42",      "pnl":   22, "time": "13d" },
+    { "chain": "sol",  "ticker": "$JUP",   "caller": "@deepseektetra",  "entry": "$0.78",      "pnl":   54, "time": "15d" },
+    { "chain": "sui",  "ticker": "$SUI",   "caller": "@N30_cryptoo",    "entry": "$1.12",      "pnl":   31, "time": "18d" },
+    { "chain": "base", "ticker": "$AERO",  "caller": "@Chainriffs",     "entry": "$0.94",      "pnl":   18, "time": "22d" }
+  ]
+}
