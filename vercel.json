@@ -2,15 +2,18 @@
   "rewrites": [
     {
       "source": "/",
-      "destination": "/leaderboard.html"
-    },
-    {
-      "source": "/leaderboard",
-      "destination": "/leaderboard.html"
+      "destination": "/hall-of-fame.html"
     },
     {
       "source": "/hall-of-fame",
       "destination": "/hall-of-fame.html"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/leaderboard",
+      "destination": "/hall-of-fame",
+      "permanent": true
     }
   ],
   "cleanUrls": true,

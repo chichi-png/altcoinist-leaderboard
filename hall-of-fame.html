@@ -86,6 +86,17 @@
     margin-bottom: 14px;
   }
   .eyebrow::before { content: ''; width: 18px; height: 1px; background: var(--brand); }
+  .preview-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-55);
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    padding: 3px 9px;
+    margin-left: 4px;
+  }
 
   .section-divider {
     display: flex;
@@ -752,16 +763,15 @@
   <nav class="nav">
     <div class="nav-brand">altcoinist<span class="dot">.</span> the hall of fame</div>
     <div class="nav-links" style="display:flex; gap:24px; align-items:center;">
-      <a class="nav-link" href="/leaderboard">the leaderboard</a>
       <div class="nav-link" id="nav-about">about the circle</div>
     </div>
   </nav>
 
   <!-- HERO -->
   <section class="hero">
-    <div class="eyebrow">// the inner circle</div>
+    <div class="eyebrow">// the inner circle <span class="preview-tag">preview</span></div>
     <h1>The top of the cohort.<br/><span class="accent">Earned by the work.</span></h1>
-    <p>Elite members of the Inner Circle. Ranked by rep score, not referrals.</p>
+    <p>Elite members of the Inner Circle. Ranked by rep score, not referrals.<br/><span style="color: var(--text-30); font-size: 13px;">Preview — rankings go live when the scoring system ships.</span></p>
     <div class="hero-stats">
       <div>
         <div class="label">verified A+</div>
@@ -943,7 +953,7 @@
   </section>
 
   <footer class="brand-footer">
-    <div>// altcoinist · the hall of fame</div>
+    <div>// altcoinist · the hall of fame · preview</div>
     <div>2026</div>
   </footer>
 </div>
