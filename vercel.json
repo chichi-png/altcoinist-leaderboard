@@ -9,8 +9,8 @@
       "destination": "/leaderboard.html"
     },
     {
-      "source": "/hall",
-      "destination": "/hall.html"
+      "source": "/hall-of-fame",
+      "destination": "/hall-of-fame.html"
     }
   ],
   "cleanUrls": true,
