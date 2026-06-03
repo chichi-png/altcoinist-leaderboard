@@ -181,6 +181,26 @@
   @media (max-width: 900px) { .wall { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 620px) { .wall { grid-template-columns: 1fr; } }
 
+  /* Way into the rest of the cohort — ghost-button register */
+  .wall-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 28px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-55);
+    text-decoration: none;
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    padding: 10px 18px;
+    transition: all 200ms;
+  }
+  .wall-more:hover { color: var(--brand); border-color: var(--brand-30); }
+  .wall-more span { color: var(--text-30); }
+
   .athlete {
     position: relative;
     background: var(--card-bg);
@@ -216,6 +236,20 @@
   .athlete.tier-aplus:hover {
     box-shadow: var(--glow-strong);
   }
+
+  /* Rank marker — disambiguates the cohort, especially the A+ trio */
+  .ath-rank {
+    position: absolute;
+    top: 16px; right: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--text-30);
+    z-index: 2;
+  }
+  .athlete.tier-aplus .ath-rank { color: var(--brand-60); }
+  .athlete.rank-1 .ath-rank { color: var(--brand); font-size: 16px; }
 
   .ath-head {
     display: flex;
@@ -319,15 +353,28 @@
   }
   .ath-tier-meta .brand { color: var(--brand-60); }
 
-  /* Receipts — one calm line at the bottom of the card */
-  .ath-receipts {
+  /* Receipts — the proof. Two stats, legible, at the bottom of the card */
+  .ath-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     padding-top: 14px;
     border-top: 1px solid var(--border);
+  }
+  .ath-stat { text-align: center; }
+  .ath-stat + .ath-stat { border-left: 1px solid var(--border); }
+  .ath-stat .v {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.08em;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .ath-stat .l {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
     color: var(--text-30);
-    text-align: center;
+    margin-top: 4px;
   }
 
   /* === FOUR ROOMS === */
@@ -771,7 +818,7 @@
   <section class="hero">
     <div class="eyebrow">// the inner circle <span class="preview-tag">preview</span></div>
     <h1>The top of the cohort.<br/><span class="accent">Earned by the work.</span></h1>
-    <p>Elite members of the Inner Circle. Ranked by rep score, not referrals.<br/><span style="color: var(--text-30); font-size: 13px;">Preview — rankings go live when the scoring system ships.</span></p>
+    <p>Elite members of the Inner Circle. Ranked by rep score, not referrals.<br/><span style="color: var(--text-30); font-size: 13px;">Preview. Rankings go live when the scoring system ships.</span></p>
     <div class="hero-stats">
       <div>
         <div class="label">verified A+</div>
@@ -794,6 +841,7 @@
     <h2 class="section-heading">Nine names. One standard.</h2>
     <p class="section-sub">Sorted by rep score.</p>
     <div class="wall" id="wall"></div>
+    <a class="wall-more" href="/cohort">View the full cohort <span id="wall-more-count"></span> &rarr;</a>
   </section>
 
   <!-- 02 / Inside the Circle (rooms) -->
@@ -985,10 +1033,11 @@
     return { 'A+': 'aplus', 'A': 'a', 'B': 'b', 'C': 'c', 'D': 'd' }[tier] || 'b';
   }
 
-  function athleteCard(a) {
+  function athleteCard(a, rank) {
     const tc = tierClass(a.repTier);
     return `
-      <a class="athlete tier-${tc}" href="#">
+      <a class="athlete tier-${tc} rank-${rank}" href="/c/${a.handle.replace('@', '')}">
+        <div class="ath-rank">#${rank}</div>
         <div class="ath-head">
           ${avatarMarkup(a)}
           <div class="ath-meta">
@@ -1000,7 +1049,10 @@
           <div class="ath-tier-letter ${tc}">${a.repTier}</div>
           <div class="ath-tier-meta">current <span class="brand">${a.repScore}</span> · peak ${a.repPeak}</div>
         </div>
-        <div class="ath-receipts">${a.vol} vol · ${a.followers} flw</div>
+        <div class="ath-stats">
+          <div class="ath-stat"><div class="v">${a.vol}</div><div class="l">volume</div></div>
+          <div class="ath-stat"><div class="v">${a.followers}</div><div class="l">followers</div></div>
+        </div>
       </a>`;
   }
 
@@ -1052,7 +1104,9 @@
       // === INITIAL RENDER ===
       // Wall = top 9 by repScore
       const top9 = [...athletes].sort((a, b) => b.repScore - a.repScore).slice(0, 9);
-      document.getElementById('wall').innerHTML = top9.map(athleteCard).join('');
+      document.getElementById('wall').innerHTML = top9.map((a, i) => athleteCard(a, i + 1)).join('');
+      const moreCount = document.getElementById('wall-more-count');
+      if (moreCount) moreCount.textContent = '(' + athletes.length + ')';
 
       // Chain list (default = all)
       function renderChainList(chain) {
@@ -1072,8 +1126,9 @@
       }).slice(0, 8);
       document.getElementById('reach-list').innerHTML = byReach.map(a => miniRow(a, { show: 'followers' })).join('');
 
-      // Calls list
-      document.getElementById('calls-list').innerHTML = calls.map(callRow).join('');
+      // Calls list — public feed is winners only (the flex surface). Full record lives on each profile.
+      const winningCalls = calls.filter(c => c.pnl >= 0);
+      document.getElementById('calls-list').innerHTML = winningCalls.map(callRow).join('');
 
       // === INTERACTIONS ===
       // Room cards open sub-panels

@@ -7,6 +7,14 @@
     {
       "source": "/hall-of-fame",
       "destination": "/hall-of-fame.html"
+    },
+    {
+      "source": "/cohort",
+      "destination": "/cohort.html"
+    },
+    {
+      "source": "/c/:handle",
+      "destination": "/profile.html"
     }
   ],
   "redirects": [
