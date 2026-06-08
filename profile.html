@@ -72,9 +72,9 @@
 
   function shareText(a, rank) {
     if (a.repTier === 'A+') {
-      return `Verified A+ in the Altcoinist Inner Circle. Rep score ${a.repScore}, ranked #${rank}. Earned by the work.`;
+      return `Verified A+ in the Altcoinist Inner Circle. Rep ${a.repScore}, ranked #${rank}. Reputation is the only flex.`;
     }
-    return `Ranked #${rank} in the Altcoinist Inner Circle. Tier ${a.repTier}, rep score ${a.repScore}.`;
+    return `Ranked #${rank} in the Altcoinist Inner Circle. Tier ${a.repTier}, rep ${a.repScore}.`;
   }
 
   function renderProfile(a, rank, calls) {
@@ -101,7 +101,7 @@
         <div>
           <div class="p-eyebrow">${verified ? 'verified caller' : 'inner circle member'}</div>
           <div class="p-handle">${a.handle}</div>
-          <div class="p-sub">${chainLabel[a.chain]} caller &middot; ranked <span class="brand">#${rank}</span> of the cohort</div>
+          <div class="p-sub">${chainLabel[a.chain]} caller &middot; ranked <span class="brand">#${rank}</span> in the circle</div>
         </div>
       </section>
 
